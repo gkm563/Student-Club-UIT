@@ -124,13 +124,40 @@ $events = $stmtEv->fetchAll();
             <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
+        <!-- Events Search & Sorting Controls -->
+        <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-secondary"></i></span>
+                        <input type="text" id="eventSearchInput" class="form-control border-start-0" placeholder="Search events by title, venue, or description...">
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <select id="eventStatusFilter" class="form-select">
+                        <option value="all">All Event Statuses</option>
+                        <option value="upcoming">Upcoming Only</option>
+                        <option value="ongoing">Ongoing Only</option>
+                        <option value="completed">Completed Only</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <select id="eventSortOrder" class="form-select">
+                        <option value="date-desc">Newest First</option>
+                        <option value="date-asc">Oldest First</option>
+                        <option value="title-asc">Title: A &rarr; Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <!-- Events List Table -->
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">Published Club Events (<?= count($events) ?>)</h6>
+                <h6 class="fw-bold mb-0">Published Club Events (<span id="eventCountBadge"><?= count($events) ?></span>)</h6>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0" id="eventsTable">
                     <thead class="table-light">
                         <tr>
                             <th>Event Details</th>
@@ -150,7 +177,7 @@ $events = $stmtEv->fetchAll();
                             </tr>
                         <?php else: ?>
                             <?php foreach ($events as $ev): ?>
-                                <tr>
+                                <tr data-title="<?= e($ev['title']) ?>" data-venue="<?= e($ev['venue']) ?>" data-status="<?= e($ev['status']) ?>" data-date="<?= e($ev['event_date']) ?>">
                                     <td>
                                         <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3">
                                             <img src="<?= htmlspecialchars($ev['banner']) ?>" class="rounded-3 border" style="width: 54px; height: 38px; object-fit: cover;">
@@ -252,5 +279,60 @@ $events = $stmtEv->fetchAll();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('eventSearchInput');
+    const statusFilter = document.getElementById('eventStatusFilter');
+    const sortOrder = document.getElementById('eventSortOrder');
+    const tableBody = document.querySelector('#eventsTable tbody');
+    const countBadge = document.getElementById('eventCountBadge');
+    
+    if (!tableBody) return;
+    const rows = Array.from(tableBody.querySelectorAll('tr[data-title]'));
+
+    function filterAndSort() {
+        const query = (searchInput.value || '').toLowerCase().trim();
+        const selectedStatus = statusFilter.value;
+        const selectedSort = sortOrder.value;
+
+        let visibleRows = rows.filter(row => {
+            const title = (row.dataset.title || '').toLowerCase();
+            const venue = (row.dataset.venue || '').toLowerCase();
+            const status = (row.dataset.status || '').toLowerCase();
+
+            const matchesQuery = !query || title.includes(query) || venue.includes(query);
+            const matchesStatus = (selectedStatus === 'all') || (status === selectedStatus);
+
+            return matchesQuery && matchesStatus;
+        });
+
+        // Sort visible rows
+        visibleRows.sort((a, b) => {
+            if (selectedSort === 'date-desc') {
+                return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+            } else if (selectedSort === 'date-asc') {
+                return (a.dataset.date || '').localeCompare(b.dataset.date || '');
+            } else if (selectedSort === 'title-asc') {
+                return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+            }
+            return 0;
+        });
+
+        // Re-append sorted rows
+        tableBody.innerHTML = '';
+        if (visibleRows.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">No events matching your search or filter.</td></tr>`;
+        } else {
+            visibleRows.forEach(row => tableBody.appendChild(row));
+        }
+
+        if (countBadge) countBadge.textContent = visibleRows.length;
+    }
+
+    searchInput?.addEventListener('input', filterAndSort);
+    statusFilter?.addEventListener('change', filterAndSort);
+    sortOrder?.addEventListener('change', filterAndSort);
+});
+</script>
 </body>
 </html>

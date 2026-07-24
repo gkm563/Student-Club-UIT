@@ -191,13 +191,39 @@ $registeredClubs = $clubsStmt->fetchAll();
             <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
+        <!-- Clubs Search & Sorting Controls -->
+        <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-secondary"></i></span>
+                        <input type="text" id="clubSearchInput" class="form-control border-start-0" placeholder="Search clubs by name, short code, category, or email...">
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3">
+                    <select id="clubStatusFilter" class="form-select">
+                        <option value="all">All Club Statuses</option>
+                        <option value="active">Active Only</option>
+                        <option value="inactive">Inactive Only</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-lg-2">
+                    <select id="clubSortOrder" class="form-select">
+                        <option value="name-asc">Name: A &rarr; Z</option>
+                        <option value="name-desc">Name: Z &rarr; A</option>
+                        <option value="category-asc">Category</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <!-- Clubs List Table -->
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">Registered Campus Clubs (<?= count($registeredClubs) ?>)</h6>
+                <h6 class="fw-bold mb-0">Registered Campus Clubs (<span id="clubCountBadge"><?= count($registeredClubs) ?></span>)</h6>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
+                <table class="table table-hover align-middle mb-0" id="clubsTable">
                     <thead class="table-light">
                         <tr>
                             <th>Club Name</th>
@@ -217,7 +243,7 @@ $registeredClubs = $clubsStmt->fetchAll();
                             </tr>
                         <?php else: ?>
                             <?php foreach ($registeredClubs as $c): ?>
-                                <tr>
+                                <tr data-name="<?= e($c['name']) ?>" data-short="<?= e($c['short_name']) ?>" data-category="<?= e($c['category_name']) ?>" data-email="<?= e($c['admin_email'] ?? '') ?>" data-status="<?= e($c['status']) ?>">
                                     <td>
                                         <div class="d-flex align-items-center gap-3">
                                             <img src="<?= htmlspecialchars($c['logo']) ?>" class="rounded-3 border" style="width: 40px; height: 40px; object-fit: contain;">
@@ -347,5 +373,62 @@ $registeredClubs = $clubsStmt->fetchAll();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('clubSearchInput');
+    const statusFilter = document.getElementById('clubStatusFilter');
+    const sortOrder = document.getElementById('clubSortOrder');
+    const tableBody = document.querySelector('#clubsTable tbody');
+    const countBadge = document.getElementById('clubCountBadge');
+    
+    if (!tableBody) return;
+    const rows = Array.from(tableBody.querySelectorAll('tr[data-name]'));
+
+    function filterAndSortClubs() {
+        const query = (searchInput.value || '').toLowerCase().trim();
+        const selectedStatus = statusFilter.value;
+        const selectedSort = sortOrder.value;
+
+        let visibleRows = rows.filter(row => {
+            const name = (row.dataset.name || '').toLowerCase();
+            const shortName = (row.dataset.short || '').toLowerCase();
+            const category = (row.dataset.category || '').toLowerCase();
+            const email = (row.dataset.email || '').toLowerCase();
+            const status = (row.dataset.status || '').toLowerCase();
+
+            const matchesQuery = !query || name.includes(query) || shortName.includes(query) || category.includes(query) || email.includes(query);
+            const matchesStatus = (selectedStatus === 'all') || (status === selectedStatus);
+
+            return matchesQuery && matchesStatus;
+        });
+
+        // Sort visible rows
+        visibleRows.sort((a, b) => {
+            if (selectedSort === 'name-asc') {
+                return (a.dataset.name || '').localeCompare(b.dataset.name || '');
+            } else if (selectedSort === 'name-desc') {
+                return (b.dataset.name || '').localeCompare(a.dataset.name || '');
+            } else if (selectedSort === 'category-asc') {
+                return (a.dataset.category || '').localeCompare(b.dataset.category || '');
+            }
+            return 0;
+        });
+
+        // Re-append sorted rows
+        tableBody.innerHTML = '';
+        if (visibleRows.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">No campus clubs matching your search.</td></tr>`;
+        } else {
+            visibleRows.forEach(row => tableBody.appendChild(row));
+        }
+
+        if (countBadge) countBadge.textContent = visibleRows.length;
+    }
+
+    searchInput?.addEventListener('input', filterAndSortClubs);
+    statusFilter?.addEventListener('change', filterAndSortClubs);
+    sortOrder?.addEventListener('change', filterAndSortClubs);
+});
+</script>
 </body>
 </html>
