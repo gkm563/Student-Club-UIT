@@ -1,176 +1,133 @@
 <?php
+session_start();
 require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../../includes/functions.php';
-require_once __DIR__ . '/../../includes/auth.php';
 
-require_super_admin();
+// Auth Check for Super Admin (Dean Sir)
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
+    header('Location: /admin/login.php');
+    exit;
+}
 
 $db = Database::getConnection();
-$success = '';
+$message = '';
 $error = '';
 
-// Create Club Admin Account
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create_user'])) {
-    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "CSRF validation error.";
+// Fetch Super Admin User Details
+$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$user = $stmt->fetch();
+
+// Handle Dean Profile Update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_profile') {
+    $fullName = trim($_POST['full_name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $newPassword = trim($_POST['new_password'] ?? '');
+
+    if (empty($fullName) || empty($email)) {
+        $error = 'Full Name and Email are required.';
     } else {
-        $email     = trim($_POST['email'] ?? '');
-        $full_name = trim($_POST['full_name'] ?? '');
-        $password  = $_POST['password'] ?? '';
-        $club_id   = $_POST['club_id'] ?? '';
-
-        if (empty($email) || empty($full_name) || empty($password)) {
-            $error = "Name, email, and password are required.";
-        } else {
-            try {
-                $userId = generate_uuid();
-                $hash   = password_hash($password, PASSWORD_BCRYPT);
-                $stmtIns = $db->prepare("INSERT INTO users (id, email, password_hash, full_name, role, status) VALUES (?, ?, ?, ?, 'club_admin', 'active')");
-                $stmtIns->execute([$userId, $email, $hash, $full_name]);
-
-                if (!empty($club_id)) {
-                    $stmtBind = $db->prepare("INSERT INTO club_admins (club_id, user_id) VALUES (?, ?)");
-                    $stmtBind->execute([$club_id, $userId]);
-                }
-
-                $success = "Club Admin account for '$full_name' created successfully!";
-                log_audit($db, get_current_user_id(), get_current_user_name(), 'USER_CREATE', 'user', $userId, "Created club admin: $email");
-            } catch (Exception $e) {
-                $error = "Failed to create user: " . $e->getMessage();
+        try {
+            if (!empty($newPassword)) {
+                $passHash = password_hash($newPassword, PASSWORD_DEFAULT);
+                $uStmt = $db->prepare("UPDATE users SET full_name = ?, email = ?, password_hash = ? WHERE id = ?");
+                $uStmt->execute([$fullName, $email, $passHash, $_SESSION['user_id']]);
+            } else {
+                $uStmt = $db->prepare("UPDATE users SET full_name = ?, email = ? WHERE id = ?");
+                $uStmt->execute([$fullName, $email, $_SESSION['user_id']]);
             }
+
+            $_SESSION['full_name'] = $fullName;
+            $_SESSION['email'] = $email;
+            $message = 'Dean profile and credentials updated successfully!';
+            
+            // Refresh user
+            $stmt->execute([$_SESSION['user_id']]);
+            $user = $stmt->fetch();
+        } catch (Exception $e) {
+            $error = 'Error updating profile: ' . $e->getMessage();
         }
     }
 }
-
-// Fetch users with their assigned club names
-$users = $db->query("
-    SELECT u.*, c.name AS assigned_club_name
-    FROM users u
-    LEFT JOIN club_admins ca ON u.id = ca.user_id
-    LEFT JOIN clubs c ON ca.club_id = c.id
-    ORDER BY u.created_at DESC
-")->fetchAll();
-
-$clubs = $db->query("SELECT id, name FROM clubs WHERE deleted_at IS NULL ORDER BY name ASC")->fetchAll();
-
-$pageTitle = "User Accounts | Super Admin";
-require_once __DIR__ . '/../../includes/header.php';
-require_once __DIR__ . '/../../includes/navbar.php';
 ?>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean Profile & Credentials | ClubHub UIT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        body { background: #f8fafc; }
+        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
+        .admin-nav-link { color: rgba(255,255,255,0.7); padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; }
+        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
+    </style>
+</head>
+<body>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar Navigation -->
-        <div class="col-md-3 col-lg-2 px-0 admin-sidebar p-3">
-            <div class="px-2 mb-3">
-                <span class="small text-danger text-uppercase fw-bold"><i class="bi bi-shield-lock me-1"></i> Super Admin</span>
-                <h6 class="fw-bold text-body mb-0 mt-1">Governance Portal</h6>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="admin-sidebar p-3 flex-shrink-0 d-none d-md-block">
+        <div class="d-flex align-items-center gap-3 mb-4 p-2">
+            <img src="/assets/United Logo.webp" style="height: 38px;">
+            <div>
+                <span class="fw-bold d-block lh-1">ClubHub</span>
+                <span class="small text-white-50" style="font-size: 0.65rem;">DEAN PORTAL</span>
             </div>
-            <nav class="d-flex flex-column">
-                <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> System Analytics</a>
-                <a href="/admin/super/clubs.php" class="admin-nav-link"><i class="bi bi-diagram-3"></i> Manage Clubs</a>
-                <a href="/admin/super/users.php" class="admin-nav-link active"><i class="bi bi-people"></i> Manage Accounts</a>
-                <a href="/admin/super/audit-logs.php" class="admin-nav-link"><i class="bi bi-journal-text"></i> Security Audit Logs</a>
-                <hr class="my-2 border-secondary-subtle">
-                <a href="/admin/logout.php" class="admin-nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
-            </nav>
         </div>
 
-        <!-- Main Content -->
-        <div class="col-md-9 col-lg-10 p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold mb-0">System User Accounts</h2>
-                <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#createUserModal">
-                    <i class="bi bi-person-plus-fill me-1"></i> Create Club Admin
-                </button>
-            </div>
+        <nav class="d-flex flex-column gap-2">
+            <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Overview</a>
+            <a href="/admin/super/clubs.php" class="admin-nav-link"><i class="bi bi-trophy"></i> Manage Clubs</a>
+            <a href="/admin/super/users.php" class="admin-nav-link active"><i class="bi bi-shield-lock"></i> Dean Profile</a>
+            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </nav>
+    </div>
 
-            <?php if (!empty($success)): ?>
-                <div class="alert alert-success rounded-3 small mb-3"><i class="bi bi-check-circle-fill me-1"></i> <?= e($success) ?></div>
-            <?php endif; ?>
-            <?php if (!empty($error)): ?>
-                <div class="alert alert-danger rounded-3 small mb-3"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= e($error) ?></div>
-            <?php endif; ?>
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4 p-md-5">
+        <div class="mb-4">
+            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">SUPER ADMIN</span>
+            <h2 class="fw-bold mb-1">Dean Sir Profile & Credentials</h2>
+            <p class="text-secondary small mb-0">Update Dean of Student Affairs credentials and administration details.</p>
+        </div>
 
-            <div class="card p-4 ccms-card">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle small mb-0">
-                        <thead>
-                            <tr>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Assigned Scope</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($users as $u): ?>
-                                <tr>
-                                    <td class="fw-semibold"><?= e($u['full_name']) ?></td>
-                                    <td><code><?= e($u['email']) ?></code></td>
-                                    <td>
-                                        <?php if ($u['role'] === 'super_admin'): ?>
-                                            <span class="badge bg-danger text-white">Super Admin</span>
-                                        <?php else: ?>
-                                            <span class="badge bg-primary-subtle text-primary border rounded-pill">Club Admin</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= e($u['assigned_club_name'] ?: ($u['role'] === 'super_admin' ? 'Global Campus Scope' : 'Unassigned')) ?></td>
-                                    <td><span class="badge bg-success-subtle text-success rounded-pill">Active</span></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card p-4 border-0 shadow-sm rounded-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-person-gear text-primary me-2"></i> Update Dean Account</h5>
+                    <form action="/admin/super/users.php" method="POST">
+                        <input type="hidden" name="action" value="update_profile">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Faculty / Administrator Name</label>
+                            <input type="text" name="full_name" class="form-control rounded-3" value="<?= htmlspecialchars($user['full_name']) ?>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Email Address</label>
+                            <input type="email" name="email" class="form-control rounded-3" value="<?= htmlspecialchars($user['email']) ?>" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold">New Password (leave blank to keep current)</label>
+                            <input type="password" name="new_password" class="form-control rounded-3" placeholder="Enter new password">
+                        </div>
+                        <button type="submit" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-sm">Save Profile Changes</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Create User Modal -->
-<div class="modal fade" id="createUserModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0">
-            <div class="modal-header border-bottom">
-                <h5 class="modal-title fw-bold">Create Club Admin Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="/admin/super/users.php" method="POST">
-                <input type="hidden" name="action_create_user" value="1">
-                <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
-                
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Full Name</label>
-                        <input type="text" name="full_name" class="form-control" placeholder="e.g. Aarav Sharma" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="e.g. geeksforgeeks@uit.edu" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Temporary Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Assign to Club</label>
-                        <select name="club_id" class="form-select">
-                            <option value="">-- Unassigned --</option>
-                            <?php foreach ($clubs as $c): ?>
-                                <option value="<?= e($c['id']) ?>"><?= e($c['name']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="modal-footer border-top">
-                    <button type="button" class="btn btn-sm btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4 fw-bold">Create Account</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

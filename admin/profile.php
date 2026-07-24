@@ -1,197 +1,348 @@
 <?php
+session_start();
 require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../includes/functions.php';
-require_once __DIR__ . '/../includes/auth.php';
 
-require_club_admin();
-
-$db = Database::getConnection();
-$clubId = get_assigned_club_id();
-
-if (!$clubId) {
-    $club = $db->query("SELECT * FROM clubs ORDER BY created_at ASC LIMIT 1")->fetch();
-    $clubId = $club['id'] ?? null;
-} else {
-    $stmt = $db->prepare("SELECT * FROM clubs WHERE id = ?");
-    $stmt->execute([$clubId]);
-    $club = $stmt->fetch();
+// Auth Check for Club Admin
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'club_admin') {
+    header('Location: /admin/login.php');
+    exit;
 }
 
-$success = '';
+$db = Database::getConnection();
+$message = '';
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "CSRF token validation failed.";
-    } else {
-        $tagline     = trim($_POST['tagline'] ?? '');
-        $description = trim($_POST['description'] ?? '');
-        $mission     = trim($_POST['mission'] ?? '');
-        $vision      = trim($_POST['vision'] ?? '');
-        $objectives  = trim($_POST['objectives'] ?? '');
-        
-        $recruitment_open        = isset($_POST['recruitment_open']) ? 1 : 0;
-        $recruitment_link        = trim($_POST['recruitment_link'] ?? '');
-        $recruitment_deadline    = !empty($_POST['recruitment_deadline']) ? $_POST['recruitment_deadline'] : null;
-        $recruitment_eligibility = trim($_POST['recruitment_eligibility'] ?? '');
+// Fetch assigned club for this user
+$stmt = $db->prepare("
+    SELECT c.* 
+    FROM clubs c
+    JOIN club_admins ca ON ca.club_id = c.id
+    WHERE ca.user_id = ?
+    LIMIT 1
+");
+$stmt->execute([$_SESSION['user_id']]);
+$club = $stmt->fetch();
 
-        $email    = trim($_POST['email'] ?? '');
-        $phone    = trim($_POST['phone'] ?? '');
-        $office   = trim($_POST['office_location'] ?? '');
-        $website  = trim($_POST['website'] ?? '');
-        $github   = trim($_POST['github'] ?? '');
-        $linkedin = trim($_POST['linkedin'] ?? '');
-        $instagram= trim($_POST['instagram'] ?? '');
+if (!$club) {
+    echo "No club assigned to your account. Please contact Dean Sir (admin@uit.edu).";
+    exit;
+}
 
+// 1. Handle Club General Details Update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_club') {
+    $tagline = trim($_POST['tagline'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $mission = trim($_POST['mission'] ?? '');
+    $vision = trim($_POST['vision'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $officeLocation = trim($_POST['office_location'] ?? '');
+    $meetingTime = trim($_POST['meeting_time'] ?? '');
+    $meetingLocation = trim($_POST['meeting_location'] ?? '');
+    $instagram = trim($_POST['instagram'] ?? '');
+    $linkedin = trim($_POST['linkedin'] ?? '');
+    $github = trim($_POST['github'] ?? '');
+    $website = trim($_POST['website'] ?? '');
+    $recruitmentOpen = isset($_POST['recruitment_open']) ? 1 : 0;
+
+    try {
+        $uStmt = $db->prepare("
+            UPDATE clubs SET 
+                tagline = ?, description = ?, mission = ?, vision = ?,
+                email = ?, phone = ?, office_location = ?, meeting_time = ?, meeting_location = ?,
+                instagram = ?, linkedin = ?, github = ?, website = ?, recruitment_open = ?
+            WHERE id = ?
+        ");
+        $uStmt->execute([
+            $tagline, $description, $mission, $vision,
+            $email, $phone, $officeLocation, $meetingTime, $meetingLocation,
+            $instagram, $linkedin, $github, $website, $recruitmentOpen,
+            $club['id']
+        ]);
+
+        $message = 'Club details updated successfully!';
+        // Refresh club data
+        $stmt->execute([$_SESSION['user_id']]);
+        $club = $stmt->fetch();
+    } catch (Exception $e) {
+        $error = 'Error updating club: ' . $e->getMessage();
+    }
+}
+
+// 2. Handle Annual Roster Leadership Member Add
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_leader') {
+    $name = trim($_POST['leader_name'] ?? '');
+    $roleTitle = trim($_POST['role_title'] ?? '');
+    $category = $_POST['category'] ?? 'core_member';
+    $termYear = trim($_POST['term_year'] ?? '2025-2026');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $avatar = trim($_POST['avatar'] ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');
+
+    if (!empty($name) && !empty($roleTitle)) {
         try {
-            $stmtUpd = $db->prepare("
-                UPDATE clubs SET
-                    tagline = ?, description = ?, mission = ?, vision = ?, objectives = ?,
-                    recruitment_open = ?, recruitment_link = ?, recruitment_deadline = ?, recruitment_eligibility = ?,
-                    email = ?, phone = ?, office_location = ?, website = ?, github = ?, linkedin = ?, instagram = ?
-                WHERE id = ?
+            $leadId = 'ldr_' . bin2hex(random_bytes(4));
+            $lStmt = $db->prepare("
+                INSERT INTO leadership (id, club_id, name, role_title, category, term_year, email, phone, avatar)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            $stmtUpd->execute([
-                $tagline, $description, $mission, $vision, $objectives,
-                $recruitment_open, $recruitment_link, $recruitment_deadline, $recruitment_eligibility,
-                $email, $phone, $office, $website, $github, $linkedin, $instagram,
-                $clubId
-            ]);
-            $success = "Club profile details updated successfully!";
-            // Refresh
-            $stmt->execute([$clubId]);
-            $club = $stmt->fetch();
+            $lStmt->execute([$leadId, $club['id'], $name, $roleTitle, $category, $termYear, $email, $phone, $avatar]);
+            $message = "Leadership member '$name' ($roleTitle) added successfully!";
         } catch (Exception $e) {
-            $error = "Failed to update profile: " . $e->getMessage();
+            $error = 'Error adding leadership member: ' . $e->getMessage();
         }
     }
 }
 
-$pageTitle = "Edit Club Profile | CCMS";
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/navbar.php';
-?>
+// 3. Handle Annual Roster Leadership Delete
+if (isset($_GET['delete_leader'])) {
+    $leadId = $_GET['delete_leader'];
+    $dStmt = $db->prepare("DELETE FROM leadership WHERE id = ? AND club_id = ?");
+    $dStmt->execute([$leadId, $club['id']]);
+    header('Location: /admin/profile.php?msg=Leader+removed');
+    exit;
+}
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar Navigation -->
-        <div class="col-md-3 col-lg-2 px-0 admin-sidebar p-3">
-            <div class="px-2 mb-3">
-                <span class="small text-muted text-uppercase fw-bold">Club Management</span>
-                <h6 class="fw-bold text-primary mb-0 mt-1"><?= e($club['short_name'] ?? 'Club Admin') ?></h6>
+// Fetch current annual leadership roster
+$leadStmt = $db->prepare("SELECT * FROM leadership WHERE club_id = ? ORDER BY order_index ASC, id ASC");
+$leadStmt->execute([$club['id']]);
+$roster = $leadStmt->fetchAll();
+?>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Leadership & Setup | ClubHub UIT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        body { background: #f8fafc; }
+        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
+        .admin-nav-link { color: rgba(255,255,255,0.7); padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; }
+        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="admin-sidebar p-3 flex-shrink-0 d-none d-md-block">
+        <div class="d-flex align-items-center gap-3 mb-4 p-2">
+            <img src="/assets/United Logo.webp" style="height: 38px;">
+            <div>
+                <span class="fw-bold d-block lh-1">ClubHub</span>
+                <span class="small text-white-50" style="font-size: 0.65rem;">CLUB ADMIN PORTAL</span>
             </div>
-            <nav class="d-flex flex-column">
-                <a href="/admin/dashboard.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
-                <a href="/admin/profile.php" class="admin-nav-link active"><i class="bi bi-pencil-square"></i> Edit Profile</a>
-                <a href="/admin/events.php" class="admin-nav-link"><i class="bi bi-calendar-event"></i> Manage Events</a>
-                <a href="/admin/activities.php" class="admin-nav-link"><i class="bi bi-newspaper"></i> Activity Posts</a>
-                <a href="/admin/members.php" class="admin-nav-link"><i class="bi bi-people"></i> Roster & Officers</a>
-                <hr class="my-2 border-secondary-subtle">
-                <a href="/admin/logout.php" class="admin-nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
-            </nav>
         </div>
 
-        <!-- Main Content -->
-        <div class="col-md-9 col-lg-10 p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold mb-0">Edit Club Profile</h2>
-                <a href="/club-detail.php?slug=<?= e($club['slug']) ?>" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill">View Live Page</a>
+        <nav class="d-flex flex-column gap-2">
+            <a href="/admin/dashboard.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a href="/admin/profile.php" class="admin-nav-link active"><i class="bi bi-gear"></i> Club & Roster Setup</a>
+            <a href="/admin/events.php" class="admin-nav-link"><i class="bi bi-calendar-event"></i> Manage Events</a>
+            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4 p-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">CLUB MANAGEMENT</span>
+                <h2 class="fw-bold mb-1"><?= htmlspecialchars($club['name']) ?> Setup</h2>
+                <p class="text-secondary small mb-0">Update club details, mission, contact links, and annual leadership team (President & Core Members).</p>
+            </div>
+            <a href="/club-detail.html?id=<?= $club['id'] ?>" target="_blank" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                <i class="bi bi-eye me-1"></i> Preview Live Club Page
+            </a>
+        </div>
+
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <div class="row g-4">
+            <!-- Left: Club Details Form -->
+            <div class="col-lg-7">
+                <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+                    <h5 class="fw-bold mb-3"><i class="bi bi-info-circle text-primary me-2"></i> General Club Details</h5>
+                    <form action="/admin/profile.php" method="POST">
+                        <input type="hidden" name="action" value="update_club">
+                        
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Tagline</label>
+                            <input type="text" name="tagline" class="form-control rounded-3" value="<?= htmlspecialchars($club['tagline'] ?? '') ?>" placeholder="e.g. Coding & Tech Innovation Club">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Description</label>
+                            <textarea name="description" class="form-control rounded-3" rows="3"><?= htmlspecialchars($club['description'] ?? '') ?></textarea>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Mission Statement</label>
+                                <textarea name="mission" class="form-control rounded-3" rows="3"><?= htmlspecialchars($club['mission'] ?? '') ?></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Vision Statement</label>
+                                <textarea name="vision" class="form-control rounded-3" rows="3"><?= htmlspecialchars($club['vision'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Contact Email</label>
+                                <input type="email" name="email" class="form-control rounded-3" value="<?= htmlspecialchars($club['email'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Contact Phone</label>
+                                <input type="text" name="phone" class="form-control rounded-3" value="<?= htmlspecialchars($club['phone'] ?? '') ?>">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Meeting Time</label>
+                                <input type="text" name="meeting_time" class="form-control rounded-3" value="<?= htmlspecialchars($club['meeting_time'] ?? '') ?>" placeholder="e.g. Wednesdays 04:00 PM">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Meeting Location</label>
+                                <input type="text" name="meeting_location" class="form-control rounded-3" value="<?= htmlspecialchars($club['meeting_location'] ?? '') ?>" placeholder="e.g. Seminar Hall, UIT">
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">Instagram URL</label>
+                                <input type="url" name="instagram" class="form-control rounded-3" value="<?= htmlspecialchars($club['instagram'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">LinkedIn URL</label>
+                                <input type="url" name="linkedin" class="form-control rounded-3" value="<?= htmlspecialchars($club['linkedin'] ?? '') ?>">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">GitHub URL</label>
+                                <input type="url" name="github" class="form-control rounded-3" value="<?= htmlspecialchars($club['github'] ?? '') ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" name="recruitment_open" id="recruitmentOpen" <?= ($club['recruitment_open']) ? 'checked' : '' ?>>
+                            <label class="form-check-label fw-semibold text-dark" for="recruitmentOpen">Recruitment Currently Open</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-sm">Save Club Details</button>
+                    </form>
+                </div>
             </div>
 
-            <?php if (!empty($success)): ?>
-                <div class="alert alert-success rounded-3 small mb-3"><i class="bi bi-check-circle-fill me-1"></i> <?= e($success) ?></div>
-            <?php endif; ?>
-            <?php if (!empty($error)): ?>
-                <div class="alert alert-danger rounded-3 small mb-3"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= e($error) ?></div>
-            <?php endif; ?>
+            <!-- Right: Annual Leadership Roster Management -->
+            <div class="col-lg-5">
+                <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold mb-0"><i class="bi bi-people text-primary me-2"></i> Annual Leadership Roster</h5>
+                        <button class="btn btn-sm btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#addLeaderModal">
+                            <i class="bi bi-plus-lg me-1"></i> Add Member
+                        </button>
+                    </div>
+                    <p class="text-secondary small mb-3">Manage annual core team members (President, Vice President, Secretaries). Update every year as leadership changes.</p>
 
-            <form action="/admin/profile.php" method="POST" class="card p-4 ccms-card">
-                <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
-
-                <h5 class="fw-bold mb-3 text-primary"><i class="bi bi-info-circle me-1"></i> Basic Details</h5>
-                <div class="row g-3 mb-4">
-                    <div class="col-md-12">
-                        <label class="form-label small fw-semibold">Tagline / Pitch</label>
-                        <input type="text" name="tagline" class="form-control" value="<?= e($club['tagline']) ?>" required>
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label small fw-semibold">Club Description</label>
-                        <textarea name="description" class="form-control" rows="4" required><?= e($club['description']) ?></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Mission Statement</label>
-                        <textarea name="mission" class="form-control" rows="3"><?= e($club['mission']) ?></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Vision Statement</label>
-                        <textarea name="vision" class="form-control" rows="3"><?= e($club['vision']) ?></textarea>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Key Objectives</label>
-                        <textarea name="objectives" class="form-control" rows="3"><?= e($club['objectives']) ?></textarea>
+                    <div class="d-flex flex-column gap-3">
+                        <?php if (empty($roster)): ?>
+                            <div class="text-center py-4 text-muted bg-light rounded-4">
+                                <i class="bi bi-person-x fs-2 d-block mb-1"></i>
+                                No leaders added yet for this academic term. Click "Add Member" to set up your team.
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($roster as $r): ?>
+                                <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-3 border">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img src="<?= htmlspecialchars($r['avatar']) ?>" class="rounded-circle border" style="width: 44px; height: 44px; object-fit: cover;">
+                                        <div>
+                                            <h6 class="fw-bold mb-0 text-dark"><?= htmlspecialchars($r['name']) ?></h6>
+                                            <span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-0-5 small"><?= htmlspecialchars($r['role_title']) ?></span>
+                                            <span class="small text-muted d-block" style="font-size: 0.72rem;"><?= htmlspecialchars($r['term_year']) ?></span>
+                                        </div>
+                                    </div>
+                                    <a href="/admin/profile.php?delete_leader=<?= $r['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Remove this leader from roster?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                <hr class="my-4">
-
-                <h5 class="fw-bold mb-3 text-primary"><i class="bi bi-person-plus me-1"></i> Recruitment Settings</h5>
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <div class="form-check form-switch mt-4">
-                            <input class="form-check-input" type="checkbox" name="recruitment_open" id="recOpenSwitch" <?= $club['recruitment_open'] ? 'checked' : '' ?>>
-                            <label class="form-check-label fw-bold" for="recOpenSwitch">Recruitment Open</label>
+<!-- Modal: Add Annual Leadership Roster Member -->
+<div class="modal fade" id="addLeaderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold modal-title"><i class="bi bi-person-plus text-primary me-2"></i> Add Core Team Leader</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/admin/profile.php" method="POST">
+                <input type="hidden" name="action" value="add_leader">
+                <div class="modal-body space-y-3">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Member Name *</label>
+                        <input type="text" name="leader_name" class="form-control rounded-3" placeholder="e.g. Riya Sharma" required>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Role Title *</label>
+                            <input type="text" name="role_title" class="form-control rounded-3" placeholder="e.g. President" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Academic Term Year</label>
+                            <input type="text" name="term_year" class="form-control rounded-3" value="2025-2026">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Application Form Link (Google Form / Portal)</label>
-                        <input type="url" name="recruitment_link" class="form-control" value="<?= e($club['recruitment_link']) ?>" placeholder="https://forms.gle/...">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Role Category</label>
+                        <select name="category" class="form-select rounded-3">
+                            <option value="president">President</option>
+                            <option value="vice_president">Vice President</option>
+                            <option value="secretary">Secretary</option>
+                            <option value="treasurer">Treasurer</option>
+                            <option value="faculty_coordinator">Faculty Coordinator</option>
+                            <option value="core_member">Core Team Member</option>
+                        </select>
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Deadline</label>
-                        <input type="date" name="recruitment_deadline" class="form-control" value="<?= e($club['recruitment_deadline']) ?>">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Email</label>
+                            <input type="email" name="email" class="form-control rounded-3" placeholder="email@uit.edu">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Phone</label>
+                            <input type="text" name="phone" class="form-control rounded-3" placeholder="+91 98765...">
+                        </div>
                     </div>
-                </div>
-
-                <hr class="my-4">
-
-                <h5 class="fw-bold mb-3 text-primary"><i class="bi bi-link-45deg me-1"></i> Contact & Social Handles</h5>
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Club Email</label>
-                        <input type="email" name="email" class="form-control" value="<?= e($club['email']) ?>">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Contact Phone</label>
-                        <input type="text" name="phone" class="form-control" value="<?= e($club['phone']) ?>">
-                    </div>
-                    <div class="col-md-4">
-                        <label class="form-label small fw-semibold">Office Location</label>
-                        <input type="text" name="office_location" class="form-control" value="<?= e($club['office_location']) ?>">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label small fw-semibold">Website</label>
-                        <input type="url" name="website" class="form-control" value="<?= e($club['website']) ?>">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label small fw-semibold">GitHub</label>
-                        <input type="url" name="github" class="form-control" value="<?= e($club['github']) ?>">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label small fw-semibold">LinkedIn</label>
-                        <input type="url" name="linkedin" class="form-control" value="<?= e($club['linkedin']) ?>">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label small fw-semibold">Instagram</label>
-                        <input type="url" name="instagram" class="form-control" value="<?= e($club['instagram']) ?>">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Photo Avatar URL</label>
+                        <input type="url" name="avatar" class="form-control rounded-3" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
                     </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold align-self-start">
-                    <i class="bi bi-save me-1"></i> Save Profile Changes
-                </button>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Add to Roster</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

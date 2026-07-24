@@ -1,205 +1,280 @@
 <?php
+session_start();
 require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../../includes/functions.php';
-require_once __DIR__ . '/../../includes/auth.php';
 
-require_super_admin();
+// Auth Check for Super Admin (Dean Sir)
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
+    header('Location: /admin/login.php');
+    exit;
+}
 
 $db = Database::getConnection();
-$success = '';
+$message = '';
 $error = '';
 
-// Onboard New Club
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_onboard_club'])) {
-    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "CSRF token error.";
-    } else {
-        $name        = trim($_POST['name'] ?? '');
-        $short_name  = trim($_POST['short_name'] ?? '');
-        $category_id = (int)($_POST['category_id'] ?? 0);
-        $tagline     = trim($_POST['tagline'] ?? '');
-        $description = trim($_POST['description'] ?? '');
-        $founded_year= (int)($_POST['founded_year'] ?? 2026);
+// Handle Create New Club & Credentials
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_club') {
+    $name = trim($_POST['name'] ?? '');
+    $shortName = trim($_POST['short_name'] ?? '');
+    $categoryId = intval($_POST['category_id'] ?? 1);
+    $tagline = trim($_POST['tagline'] ?? '');
+    $description = trim($_POST['description'] ?? '');
+    $adminEmail = trim($_POST['admin_email'] ?? '');
+    $adminPassword = trim($_POST['admin_password'] ?? '');
+    $adminName = trim($_POST['admin_name'] ?? ($name . ' Admin'));
 
-        if (empty($name) || empty($short_name) || $category_id <= 0) {
-            $error = "Club name, short name, and category are required.";
-        } else {
-            try {
-                $clubId = generate_uuid();
-                $slug   = slugify($name);
-                $stmtIns = $db->prepare("INSERT INTO clubs (id, name, short_name, slug, category_id, tagline, description, founded_year, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')");
-                $stmtIns->execute([$clubId, $name, $short_name, $slug, $category_id, $tagline, $description, $founded_year]);
-                $success = "Club '$name' onboarded successfully!";
-                log_audit($db, get_current_user_id(), get_current_user_name(), 'CLUB_ONBOARD', 'club', $clubId, "Onboarded club: $name");
-            } catch (Exception $e) {
-                $error = "Failed to onboard club: " . $e->getMessage();
-            }
+    if (empty($name) || empty($shortName) || empty($adminEmail) || empty($adminPassword)) {
+        $error = 'Please fill in all required fields (Club Name, Short Code, Admin Email & Password).';
+    } else {
+        try {
+            $clubId = 'clb_' . bin2hex(random_bytes(4));
+            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $shortName)) . '-' . rand(100, 999);
+            
+            // 1. Insert Club
+            $stmt = $db->prepare("
+                INSERT INTO clubs (id, name, short_name, slug, category_id, tagline, description, logo, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, '/assets/United Logo.webp', 'active')
+            ");
+            $stmt->execute([$clubId, $name, $shortName, $slug, $categoryId, $tagline, $description]);
+
+            // 2. Create User Account for Club Leadership
+            $userId = 'usr_' . bin2hex(random_bytes(4));
+            $passHash = password_hash($adminPassword, PASSWORD_DEFAULT);
+
+            $uStmt = $db->prepare("
+                INSERT INTO users (id, email, password_hash, full_name, role, status)
+                VALUES (?, ?, ?, ?, 'club_admin', 'active')
+            ");
+            $uStmt->execute([$userId, $adminEmail, $passHash, $adminName]);
+
+            // 3. Link Club to Admin
+            $aStmt = $db->prepare("INSERT INTO club_admins (club_id, user_id) VALUES (?, ?)");
+            $aStmt->execute([$clubId, $userId]);
+
+            $message = "Club '$name' created successfully! Admin login credentials set for $adminEmail.";
+        } catch (Exception $e) {
+            $error = 'Error creating club: ' . $e->getMessage();
         }
     }
 }
 
-// Soft Delete / Restore
-if (isset($_GET['toggle_delete'])) {
-    $cId = $_GET['toggle_delete'];
-    $stmtC = $db->prepare("SELECT deleted_at FROM clubs WHERE id = ?");
-    $stmtC->execute([$cId]);
-    $curr = $stmtC->fetchColumn();
-
-    if ($curr) {
-        $db->prepare("UPDATE clubs SET deleted_at = NULL WHERE id = ?")->execute([$cId]);
-        $success = "Club restored.";
-    } else {
-        $db->prepare("UPDATE clubs SET deleted_at = NOW() WHERE id = ?")->execute([$cId]);
-        $success = "Club soft-deleted (hidden from public directory).";
-    }
+// Handle Status Toggle or Delete
+if (isset($_GET['toggle_status']) && isset($_GET['club_id'])) {
+    $clubId = $_GET['club_id'];
+    $currentStatus = $_GET['toggle_status'];
+    $newStatus = ($currentStatus === 'active') ? 'inactive' : 'active';
+    
+    $stmt = $db->prepare("UPDATE clubs SET status = ? WHERE id = ?");
+    $stmt->execute([$newStatus, $clubId]);
+    header('Location: /admin/super/clubs.php?msg=Status+updated');
+    exit;
 }
 
-// Fetch all clubs
-$categories = $db->query("SELECT * FROM categories ORDER BY name ASC")->fetchAll();
-$clubs = $db->query("
-    SELECT c.*, cat.name AS category_name
+if (isset($_GET['delete_club'])) {
+    $clubId = $_GET['delete_club'];
+    $stmt = $db->prepare("DELETE FROM clubs WHERE id = ?");
+    $stmt->execute([$clubId]);
+    header('Location: /admin/super/clubs.php?msg=Club+deleted');
+    exit;
+}
+
+// Fetch all categories
+$catStmt = $db->query("SELECT * FROM categories ORDER BY name ASC");
+$categories = $catStmt->fetchAll();
+
+// Fetch all registered clubs with admin emails
+$clubsStmt = $db->query("
+    SELECT c.*, cat.name as category_name, u.email as admin_email, u.full_name as admin_name
     FROM clubs c
     JOIN categories cat ON c.category_id = cat.id
+    LEFT JOIN club_admins ca ON ca.club_id = c.id
+    LEFT JOIN users u ON ca.user_id = u.id
     ORDER BY c.created_at DESC
-")->fetchAll();
-
-$pageTitle = "Manage Clubs | Super Admin";
-require_once __DIR__ . '/../../includes/header.php';
-require_once __DIR__ . '/../../includes/navbar.php';
+");
+$registeredClubs = $clubsStmt->fetchAll();
 ?>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dean Portal - Club Management | ClubHub UIT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        body { background: #f8fafc; }
+        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
+        .admin-nav-link { color: rgba(255,255,255,0.7); padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; }
+        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
+    </style>
+</head>
+<body>
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar Navigation -->
-        <div class="col-md-3 col-lg-2 px-0 admin-sidebar p-3">
-            <div class="px-2 mb-3">
-                <span class="small text-danger text-uppercase fw-bold"><i class="bi bi-shield-lock me-1"></i> Super Admin</span>
-                <h6 class="fw-bold text-body mb-0 mt-1">Governance Portal</h6>
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div class="admin-sidebar p-3 flex-shrink-0 d-none d-md-block">
+        <div class="d-flex align-items-center gap-3 mb-4 p-2">
+            <img src="/assets/United Logo.webp" style="height: 38px;">
+            <div>
+                <span class="fw-bold d-block lh-1">ClubHub</span>
+                <span class="small text-white-50" style="font-size: 0.65rem;">DEAN PORTAL</span>
             </div>
-            <nav class="d-flex flex-column">
-                <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> System Analytics</a>
-                <a href="/admin/super/clubs.php" class="admin-nav-link active"><i class="bi bi-diagram-3"></i> Manage Clubs</a>
-                <a href="/admin/super/users.php" class="admin-nav-link"><i class="bi bi-people"></i> Manage Accounts</a>
-                <a href="/admin/super/audit-logs.php" class="admin-nav-link"><i class="bi bi-journal-text"></i> Security Audit Logs</a>
-                <hr class="my-2 border-secondary-subtle">
-                <a href="/admin/logout.php" class="admin-nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
-            </nav>
         </div>
 
-        <!-- Main Content -->
-        <div class="col-md-9 col-lg-10 p-4">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold mb-0">Club Governance & Onboarding</h2>
-                <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#onboardModal">
-                    <i class="bi bi-plus-lg me-1"></i> Onboard New Club
-                </button>
+        <nav class="d-flex flex-column gap-2">
+            <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Overview</a>
+            <a href="/admin/super/clubs.php" class="admin-nav-link active"><i class="bi bi-trophy"></i> Manage Clubs</a>
+            <a href="/admin/super/users.php" class="admin-nav-link"><i class="bi bi-shield-lock"></i> Dean Profile</a>
+            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4 p-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">SUPER ADMIN / DEAN PORTAL</span>
+                <h2 class="fw-bold mb-1">Club Management</h2>
+                <p class="text-secondary small mb-0">Create new clubs, issue leadership credentials, and manage campus organizations.</p>
             </div>
+            <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createClubModal">
+                <i class="bi bi-plus-lg me-1"></i> Add New Club
+            </button>
+        </div>
 
-            <?php if (!empty($success)): ?>
-                <div class="alert alert-success rounded-3 small mb-3"><i class="bi bi-check-circle-fill me-1"></i> <?= e($success) ?></div>
-            <?php endif; ?>
-            <?php if (!empty($error)): ?>
-                <div class="alert alert-danger rounded-3 small mb-3"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= e($error) ?></div>
-            <?php endif; ?>
+        <?php if (!empty($message)): ?>
+            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($message) ?></div>
+        <?php endif; ?>
 
-            <div class="card p-4 ccms-card">
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle small mb-0">
-                        <thead>
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <!-- Clubs List Table -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0">All Registered Campus Clubs (<?= count($registeredClubs) ?>)</h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Club Name</th>
+                            <th>Category</th>
+                            <th>Admin Credentials Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($registeredClubs)): ?>
                             <tr>
-                                <th>Club Name</th>
-                                <th>Category</th>
-                                <th>Founded</th>
-                                <th>Status</th>
-                                <th>Visibility</th>
-                                <th>Actions</th>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                    No clubs created yet. Click "Add New Club" to register a club and generate leadership credentials.
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($clubs as $c): ?>
-                                <tr class="<?= $c['deleted_at'] ? 'table-secondary opacity-75' : '' ?>">
-                                    <td class="fw-semibold">
-                                        <a href="/club-detail.php?slug=<?= e($c['slug']) ?>" target="_blank" class="text-decoration-none text-body">
-                                            <?= e($c['name']) ?>
-                                        </a>
-                                        <small class="d-block text-muted"><?= e($c['tagline']) ?></small>
-                                    </td>
-                                    <td><span class="badge bg-primary-subtle text-primary border rounded-pill"><?= e($c['category_name']) ?></span></td>
-                                    <td><?= e($c['founded_year']) ?></td>
-                                    <td><?= get_status_badge($c['status']) ?></td>
+                        <?php else: ?>
+                            <?php foreach ($registeredClubs as $c): ?>
+                                <tr>
                                     <td>
-                                        <?php if ($c['deleted_at']): ?>
-                                            <span class="badge bg-danger text-white">Hidden / Soft-Deleted</span>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="<?= htmlspecialchars($c['logo']) ?>" class="rounded-3 border" style="width: 40px; height: 40px; object-fit: contain;">
+                                            <div>
+                                                <h6 class="fw-bold mb-0 text-dark"><?= htmlspecialchars($c['name']) ?></h6>
+                                                <span class="small text-muted"><?= htmlspecialchars($c['short_name']) ?></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1"><?= htmlspecialchars($c['category_name']) ?></span></td>
+                                    <td>
+                                        <span class="fw-semibold text-dark"><i class="bi bi-envelope me-1"></i> <?= htmlspecialchars($c['admin_email'] ?? 'Not Assigned') ?></span>
+                                    </td>
+                                    <td>
+                                        <?php if ($c['status'] === 'active'): ?>
+                                            <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1">Active</span>
                                         <?php else: ?>
-                                            <span class="badge bg-success text-white">Live Public</span>
+                                            <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1">Inactive</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="/admin/super/clubs.php?toggle_delete=<?= e($c['id']) ?>" class="btn btn-sm <?= $c['deleted_at'] ? 'btn-outline-success' : 'btn-outline-warning' ?> rounded-pill px-3 py-1">
-                                            <?= $c['deleted_at'] ? 'Restore' : 'Soft Delete' ?>
+                                        <a href="/admin/super/clubs.php?toggle_status=<?= $c['status'] ?>&club_id=<?= $c['id'] ?>" class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Toggle Status">
+                                            <i class="bi bi-power"></i>
+                                        </a>
+                                        <a href="/admin/super/clubs.php?delete_club=<?= $c['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Are you sure you want to delete this club?');" title="Delete">
+                                            <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Onboard Club Modal -->
-<div class="modal fade" id="onboardModal" tabindex="-1">
+<!-- Modal: Create New Club & Assign Credentials -->
+<div class="modal fade" id="createClubModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0">
-            <div class="modal-header border-bottom">
-                <h5 class="modal-title fw-bold">Onboard New Campus Club</h5>
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold modal-title"><i class="bi bi-plus-circle text-primary me-2"></i> Add New Club & Issue Credentials</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="/admin/super/clubs.php" method="POST">
-                <input type="hidden" name="action_onboard_club" value="1">
-                <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
-                
-                <div class="modal-body">
+                <input type="hidden" name="action" value="create_club">
+                <div class="modal-body space-y-3">
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Full Club Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="e.g. UIT Artificial Intelligence Society" required>
+                        <label class="form-label small fw-semibold">Club Name *</label>
+                        <input type="text" name="name" class="form-control rounded-3" placeholder="e.g. CodeCrafters" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Short Name / Abbreviation</label>
-                        <input type="text" name="short_name" class="form-control" placeholder="e.g. AI Society" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Category</label>
-                        <select name="category_id" class="form-select" required>
-                            <option value="">-- Select Domain --</option>
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?= e($cat['id']) ?>"><?= e($cat['name']) ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Short Code *</label>
+                            <input type="text" name="short_name" class="form-control rounded-3" placeholder="e.g. CODE" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Category *</label>
+                            <select name="category_id" class="form-select rounded-3" required>
+                                <?php foreach ($categories as $cat): ?>
+                                    <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Tagline</label>
-                        <input type="text" name="tagline" class="form-control" placeholder="One-line mission pitch...">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Founded Year</label>
-                        <input type="number" name="founded_year" class="form-control" value="2026">
+                        <input type="text" name="tagline" class="form-control rounded-3" placeholder="e.g. Coding & Development Club">
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Description</label>
-                        <textarea name="description" class="form-control" rows="3" placeholder="Detailed organization intro..."></textarea>
+                        <textarea name="description" class="form-control rounded-3" rows="3" placeholder="Brief club summary..."></textarea>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h6 class="fw-bold text-primary mb-3"><i class="bi bi-key me-1"></i> Leadership Credentials (Issued by Dean Sir)</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Club Admin Email *</label>
+                        <input type="email" name="admin_email" class="form-control rounded-3" placeholder="e.g. codecrafters@uit.edu" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Initial Password *</label>
+                        <input type="password" name="admin_password" class="form-control rounded-3" placeholder="Set initial password for team" required>
                     </div>
                 </div>
-
-                <div class="modal-footer border-top">
-                    <button type="button" class="btn btn-sm btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4 fw-bold">Create & Onboard</button>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Create Club & Credentials</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../includes/footer.php'; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
