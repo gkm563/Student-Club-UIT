@@ -1,15 +1,13 @@
 <?php
-session_start();
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
 
-// Auth Check
-if (!isset($_SESSION['user_id'])) {
-    header('Location: /admin/login.php');
-    exit;
-}
+require_login();
 
 // Redirect Super Admin (Dean Sir) to Super Dashboard
-if ($_SESSION['role'] === 'super_admin') {
+$userRole = get_current_user_role();
+if ($userRole === 'super_admin') {
     header('Location: /admin/super/index.php');
     exit;
 }
@@ -25,11 +23,30 @@ $stmt = $db->prepare("
     WHERE ca.user_id = ?
     LIMIT 1
 ");
-$stmt->execute([$_SESSION['user_id']]);
+$stmt->execute([get_current_user_id()]);
 $club = $stmt->fetch();
 
 if (!$club) {
-    echo "No club assigned to your account. Please contact Dean Sir (admin@uit.edu).";
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>No Assigned Club | ClubHub UIT</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    </head>
+    <body class="bg-light d-flex align-items-center justify-content-center min-vh-100">
+        <div class="card p-5 border-0 shadow-lg rounded-4 text-center max-w-md">
+            <i class="bi bi-shield-exclamation fs-1 text-warning mb-3"></i>
+            <h4 class="fw-bold mb-2">No Club Assigned Yet</h4>
+            <p class="text-secondary small mb-4">Your account is active, but Dean Sir has not assigned a club to your leadership profile yet.</p>
+            <p class="small text-muted mb-4">Please contact <strong>Dean of Student Affairs</strong> (admin@uit.edu) to issue your club access.</p>
+            <a href="/admin/logout.php" class="btn btn-outline-danger rounded-pill px-4 fw-bold">Sign Out</a>
+        </div>
+    </body>
+    </html>
+    <?php
     exit;
 }
 

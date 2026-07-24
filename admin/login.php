@@ -7,7 +7,8 @@ $error = $_GET['error'] ?? '';
 $success = '';
 
 if (is_logged_in()) {
-    if (get_current_user_role() === 'super_admin') {
+    $role = get_current_user_role();
+    if ($role === 'super_admin') {
         header("Location: /admin/super/index.php");
     } else {
         header("Location: /admin/dashboard.php");
@@ -36,7 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $_SESSION['user_id']   = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
+                $_SESSION['full_name'] = $user['full_name'];
+                $_SESSION['email']     = $user['email'];
                 $_SESSION['user_role'] = $user['role'];
+                $_SESSION['role']      = $user['role'];
 
                 // If club admin, fetch assigned club ID
                 if ($user['role'] === 'club_admin') {
@@ -60,21 +64,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = "Admin Portal Login | CCMS";
+$pageTitle = "Admin Portal Login | ClubHub UIT";
 require_once __DIR__ . '/../includes/header.php';
 require_once __DIR__ . '/../includes/navbar.php';
 ?>
 
 <div class="container py-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center py-4">
         <div class="col-md-5 col-lg-4">
-            <div class="card p-4 ccms-card shadow-lg">
+            <div class="card p-4 border-0 shadow-lg rounded-4">
                 <div class="text-center mb-4">
-                    <div class="bg-primary-subtle text-primary rounded-circle mx-auto p-3 mb-2" style="width: 60px; height: 60px;">
+                    <div class="bg-primary-subtle text-primary rounded-circle mx-auto p-3 mb-2 d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
                         <i class="bi bi-shield-lock-fill fs-2"></i>
                     </div>
-                    <h4 class="fw-bold mb-1">Admin Portal Login</h4>
-                    <p class="text-secondary small mb-0">Sign in as Club Admin or Super Admin</p>
+                    <h4 class="fw-bold mb-1 text-dark">Admin Portal Login</h4>
+                    <p class="text-secondary small mb-0">Sign in as Dean Sir or Club Leadership</p>
                 </div>
 
                 <?php if (!empty($error)): ?>
@@ -87,28 +91,28 @@ require_once __DIR__ . '/../includes/navbar.php';
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Email Address</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-transparent"><i class="bi bi-envelope"></i></span>
-                            <input type="email" name="email" class="form-control" placeholder="admin@uit.edu" required autofocus>
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-secondary"></i></span>
+                            <input type="email" name="email" class="form-control border-start-0" placeholder="admin@uit.edu" required autofocus>
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="form-label small fw-semibold">Password</label>
                         <div class="input-group">
-                            <span class="input-group-text bg-transparent"><i class="bi bi-lock"></i></span>
-                            <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                            <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-secondary"></i></span>
+                            <input type="password" name="password" class="form-control border-start-0" placeholder="••••••••" required>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary rounded-pill w-100 fw-bold py-2 shadow-sm">
+                    <button type="submit" class="btn btn-primary rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
                     </button>
                 </form>
 
                 <div class="mt-4 p-3 bg-body-tertiary rounded-3 border text-start small">
-                    <strong class="d-block mb-1 text-primary"><i class="bi bi-info-circle me-1"></i> Demo Credentials:</strong>
-                    <div class="mb-1"><strong>Super Admin:</strong> <code>admin@uit.edu</code> / <code>AdminPassword123!</code></div>
-                    <div><strong>Club Admin:</strong> <code>geeksforgeeks@uit.edu</code> / <code>ClubPassword123!</code></div>
+                    <strong class="d-block mb-1 text-primary"><i class="bi bi-info-circle me-1"></i> Default Super Admin Credentials:</strong>
+                    <div><strong>Email:</strong> <code>admin@uit.edu</code></div>
+                    <div><strong>Password:</strong> <code>AdminPassword123!</code></div>
                 </div>
             </div>
         </div>
