@@ -1,6 +1,7 @@
 /**
  * Dynamic Club Directory & Club Detail Renderer (ClubHub UIT)
- * Connects public frontend HTML directly to PHP REST APIs
+ * Connects public frontend HTML directly to PHP REST APIs with dynamic category filtering,
+ * URL parameter synchronization, active filter badges, and real counts.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,12 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const clubsGrid = document.getElementById('clubsGrid');
     const categoryFilterList = document.getElementById('categoryFilterList');
     const clubSearchInput = document.getElementById('clubSearchInput');
-    const sortSelect = document.querySelector('select.form-select');
+    const sortSelect = document.getElementById('sortSelect') || document.querySelector('select.form-select');
+    const activeFilterBadge = document.getElementById('activeFilterBadge');
 
     if (clubsGrid) {
-        let currentCategory = 'all';
-        let currentSearch = '';
+        // Read URL parameter on load
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentCategory = urlParams.get('category') || 'all';
+        let currentSearch = urlParams.get('search') || '';
         let currentSort = 'popularity';
+
+        if (clubSearchInput && currentSearch) {
+            clubSearchInput.value = currentSearch;
+        }
 
         function loadClubs() {
             clubsGrid.innerHTML = `
@@ -28,23 +36,27 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(apiUrl)
                 .then(res => res.json())
                 .then(response => {
-                    if (response.status !== 'success' || !response.data || response.data.length === 0) {
-                        clubsGrid.innerHTML = `
-                            <div class="col-12 text-center py-5">
-                                <div class="p-5 bg-white rounded-4 shadow-sm border max-w-md mx-auto">
-                                    <i class="bi bi-inbox fs-1 text-primary d-block mb-3"></i>
-                                    <h5 class="fw-bold mb-2">No Clubs Found</h5>
-                                    <p class="text-secondary small mb-4">There are currently no active clubs matching your search criteria.</p>
-                                    <a href="/admin/login.php" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
-                                        <i class="bi bi-shield-lock me-1"></i> Dean Admin Login
-                                    </a>
-                                </div>
-                            </div>
-                        `;
+                    if (response.status !== 'success') {
+                        renderEmptyState('Failed to fetch clubs from server.');
                         return;
                     }
 
-                    clubsGrid.innerHTML = response.data.map(club => `
+                    // Render Dynamic Category Pills with Real Counts
+                    if (categoryFilterList && response.categories) {
+                        renderCategoryPills(response.categories, response.total);
+                    }
+
+                    // Render Active Filter Badge
+                    renderActiveFilterBadge(response.categories, response.data ? response.data.length : 0);
+
+                    // Render Clubs Grid
+                    const clubs = response.data || [];
+                    if (clubs.length === 0) {
+                        renderEmptyState();
+                        return;
+                    }
+
+                    clubsGrid.innerHTML = clubs.map(club => `
                         <div class="col-md-4">
                             <a href="/club-detail.html?id=${club.id}" class="text-decoration-none text-dark">
                                 <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
@@ -70,25 +82,123 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(err => {
                     console.error('Error fetching clubs:', err);
+                    renderEmptyState('Connection error. Could not connect to database.');
                 });
         }
 
-        // Category Filter Pill Clicks
+        // Render Dynamic Category Pills
+        function renderCategoryPills(categories, totalClubs) {
+            let pillsHtml = `
+                <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center ${currentCategory === 'all' ? 'active btn-primary text-white' : 'btn-light text-secondary'}" data-category="all">
+                    <span>All Categories</span>
+                    <span class="badge ${currentCategory === 'all' ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2">${totalClubs}</span>
+                </button>
+            `;
+
+            categories.forEach(cat => {
+                const isActive = (currentCategory === cat.slug);
+                pillsHtml += `
+                    <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center ${isActive ? 'active btn-primary text-white' : 'btn-light text-secondary'}" data-category="${escapeHtml(cat.slug)}">
+                        <span>${escapeHtml(cat.name)}</span>
+                        <span class="badge ${isActive ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2">${cat.club_count || 0}</span>
+                    </button>
+                `;
+            });
+
+            categoryFilterList.innerHTML = pillsHtml;
+        }
+
+        // Render Active Filter Indicator Bar
+        function renderActiveFilterBadge(categories, count) {
+            if (!activeFilterBadge) return;
+
+            if (currentCategory === 'all' && !currentSearch) {
+                activeFilterBadge.innerHTML = '';
+                return;
+            }
+
+            let catName = 'All Categories';
+            if (currentCategory !== 'all' && categories) {
+                const found = categories.find(c => c.slug === currentCategory);
+                if (found) catName = found.name;
+            }
+
+            activeFilterBadge.innerHTML = `
+                <div class="alert alert-primary border-0 rounded-4 shadow-sm py-2-5 px-4 d-flex align-items-center justify-content-between mb-4">
+                    <div class="d-flex align-items-center gap-2 small">
+                        <i class="bi bi-funnel-fill text-primary"></i>
+                        <span class="fw-bold text-dark">Filtered by:</span>
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1 fs-6">${escapeHtml(catName)}</span>
+                        ${currentSearch ? `<span class="badge bg-dark text-white rounded-pill px-3 py-1 fs-6">"${escapeHtml(currentSearch)}"</span>` : ''}
+                        <span class="text-muted ms-1">(${count} ${count === 1 ? 'club' : 'clubs'} found)</span>
+                    </div>
+                    <button id="clearCategoryFilterBtn" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold">
+                        Clear Filter <i class="bi bi-x-lg ms-1"></i>
+                    </button>
+                </div>
+            `;
+
+            const clearBtn = document.getElementById('clearCategoryFilterBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    setCategoryFilter('all');
+                });
+            }
+        }
+
+        function setCategoryFilter(catSlug) {
+            currentCategory = catSlug;
+            updateUrlParam('category', catSlug === 'all' ? null : catSlug);
+            loadClubs();
+        }
+
+        function updateUrlParam(key, value) {
+            const url = new URL(window.location);
+            if (value) {
+                url.searchParams.set(key, value);
+            } else {
+                url.searchParams.delete(key);
+            }
+            window.history.pushState(null, '', url.toString());
+        }
+
+        function renderEmptyState(customMsg = '') {
+            clubsGrid.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <div class="p-5 bg-white rounded-4 shadow-sm border max-w-md mx-auto">
+                        <i class="bi bi-inbox fs-1 text-primary d-block mb-3"></i>
+                        <h5 class="fw-bold mb-2">No Clubs Found</h5>
+                        <p class="text-secondary small mb-4">${customMsg || 'There are currently no active clubs matching your search or category criteria.'}</p>
+                        ${currentCategory !== 'all' || currentSearch ? `
+                            <button id="resetSearchFilterBtn" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white mb-2">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
+                            </button>
+                            <br>
+                        ` : ''}
+                        <a href="/admin/login.php" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold mt-2">
+                            <i class="bi bi-shield-lock me-1"></i> Dean Admin Login
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            const resetBtn = document.getElementById('resetSearchFilterBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    currentSearch = '';
+                    if (clubSearchInput) clubSearchInput.value = '';
+                    setCategoryFilter('all');
+                });
+            }
+        }
+
+        // Category Filter Pill Clicks (Event Delegation)
         if (categoryFilterList) {
             categoryFilterList.addEventListener('click', (e) => {
                 const btn = e.target.closest('button[data-category]');
                 if (!btn) return;
-                
-                categoryFilterList.querySelectorAll('button').forEach(b => {
-                    b.classList.remove('active', 'btn-primary');
-                    b.classList.add('btn-light', 'text-secondary');
-                });
-
-                btn.classList.add('active', 'btn-primary');
-                btn.classList.remove('btn-light', 'text-secondary');
-
-                currentCategory = btn.getAttribute('data-category');
-                loadClubs();
+                const catSlug = btn.getAttribute('data-category');
+                setCategoryFilter(catSlug);
             });
         }
 
@@ -98,11 +208,29 @@ document.addEventListener('DOMContentLoaded', () => {
             clubSearchInput.addEventListener('input', (e) => {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
-                    currentSearch = e.target.value;
+                    currentSearch = e.target.value.trim();
+                    updateUrlParam('search', currentSearch || null);
                     loadClubs();
                 }, 300);
             });
         }
+
+        // Sort Dropdown Listener
+        if (sortSelect) {
+            sortSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                loadClubs();
+            });
+        }
+
+        // Handle Browser Back / Forward Buttons
+        window.addEventListener('popstate', () => {
+            const params = new URLSearchParams(window.location.search);
+            currentCategory = params.get('category') || 'all';
+            currentSearch = params.get('search') || '';
+            if (clubSearchInput) clubSearchInput.value = currentSearch;
+            loadClubs();
+        });
 
         // Initial Load
         loadClubs();
@@ -121,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="bi bi-exclamation-triangle fs-1 d-block mb-3 text-warning"></i>
                         <h4 class="fw-bold mb-2">No Club Specified</h4>
                         <p class="small text-secondary mb-4">Please select a valid club from the directory.</p>
-                        <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">Browse All Clubs</a>
+                        <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Browse All Clubs</a>
                     </div>
                 </div>
             `;
@@ -138,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i class="bi bi-x-circle fs-1 d-block mb-3 text-danger"></i>
                                 <h4 class="fw-bold mb-2">Club Not Found</h4>
                                 <p class="small text-secondary mb-4">The requested club could not be found or has been removed.</p>
-                                <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">Return to Directory</a>
+                                <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Return to Directory</a>
                             </div>
                         </div>
                     `;
@@ -157,13 +285,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="col-lg-8 d-flex align-items-center gap-4">
                                     <img src="${escapeHtml(club.logo)}" class="rounded-4 border border-white-10 bg-white p-2 shadow-lg flex-shrink-0" style="width: 100px; height: 100px; object-fit: contain;">
                                     <div>
-                                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small">${escapeHtml(club.category_name)}</span>
+                                        <a href="/clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
+                                            <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
+                                        </a>
                                         <h1 class="hero-headline mb-2" style="font-size: 2.8rem;">${escapeHtml(club.name)}</h1>
                                         <p class="hero-subtitle mb-0">${escapeHtml(club.tagline || '')}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
-                                    <a href="/contact.html" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-lg">
+                                    <a href="/contact.html" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-lg text-white">
                                         Join Club &rarr;
                                     </a>
                                 </div>
