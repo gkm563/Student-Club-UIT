@@ -14,17 +14,16 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         <div class="collapse navbar-collapse" id="navbarClubhub">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= $currentUri === '/' || $currentUri === '/index.html' || $currentUri === '/index.php' ? 'active' : '' ?>" href="/index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'club') ? 'active' : '' ?>" href="/clubs.html">Clubs</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'event') ? 'active' : '' ?>" href="/events.html">Events</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'galler') ? 'active' : '' ?>" href="/gallery.html">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'about') ? 'active' : '' ?>" href="/about.html">About Us</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'contact') ? 'active' : '' ?>" href="/contact.html">Contact</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/index.html' || $currentUri === '/') ? 'active' : '' ?>" href="/index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/clubs.html') ? 'active' : '' ?>" href="/clubs.html">Clubs</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/events.html') ? 'active' : '' ?>" href="/events.html">Events</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/gallery.html') ? 'active' : '' ?>" href="/gallery.html">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/about.html') ? 'active' : '' ?>" href="/about.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= ($currentUri === '/contact.html') ? 'active' : '' ?>" href="/contact.html">Contact</a></li>
             </ul>
 
             <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
-                <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-sun"></i></button>
             </div>
         </div>
     </div>
