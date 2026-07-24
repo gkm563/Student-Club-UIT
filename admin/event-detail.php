@@ -122,9 +122,9 @@ if (!empty($event['event_date'])) {
                 <p class="text-secondary small mb-0">Modify event schedule, location, banner poster, and agenda.</p>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <a href="/admin/events.php?duplicate=<?= $event['id'] ?>" class="btn btn-outline-info rounded-pill px-4 py-2 fw-bold">
-                    <i class="bi bi-copy me-1"></i> Duplicate Event
-                </a>
+                <button type="submit" form="editEventForm" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
+                    <i class="bi bi-floppy me-1"></i> Save Changes
+                </button>
                 <a href="/admin/events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
                     <i class="bi bi-trash me-1"></i> Delete Event
                 </a>
@@ -164,7 +164,7 @@ if (!empty($event['event_date'])) {
                 <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information Editor</h5>
                     
-                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data">
+                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data" id="editEventForm">
                         <input type="hidden" name="action_update" value="1">
                         
                         <div class="mb-3">
