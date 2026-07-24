@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us & FAQ | ClubHub</title>
-    <meta name="description" content="Get in touch with the student activity center or send a message to club administrators at UIT.">
+    <title>Contact Us & Support | ClubHub UIT</title>
+    <meta name="description" content="Get in touch with the student activity center, submit inquiries, or reach out to club leads at United Institute of Technology.">
     
+    <!-- OpenGraph SEO Tags -->
+    <meta property="og:title" content="Contact Us & Support | ClubHub UIT">
+    <meta property="og:description" content="We'd love to hear from you! Send us a message or find answers to quick questions.">
+    <meta property="og:type" content="website">
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -15,12 +20,15 @@
 </head>
 <body>
 
-<!-- Top Navbar -->
+<!-- Top Dark Header Navbar -->
 <nav class="navbar navbar-expand-lg navbar-clubhub sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
             <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img">
-            <span class="brand-logo-text">ClubHub</span>
+            <div>
+                <span class="brand-logo-text d-block lh-1">ClubHub</span>
+                <span class="text-white-50 font-monospace" style="font-size: 0.62rem; letter-spacing: 1px;">UNITED INSTITUTE OF TECHNOLOGY</span>
+            </div>
         </a>
 
         <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClubhub">
@@ -39,105 +47,312 @@
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-sun"></i></button>
+                <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
+                <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-moon"></i></button>
                 <a href="/admin/login.php" class="btn btn-primary rounded-pill px-4 py-1-5 fw-semibold shadow-sm text-white text-decoration-none">
-                    Login
+                    <i class="bi bi-person-fill me-1"></i> Login
                 </a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Hero Header -->
-<section class="bg-dark text-white py-5 position-relative" style="background: linear-gradient(135deg, #0b0f19 0%, #111827 100%);">
-    <div class="container py-3 text-center max-w-2xl mx-auto">
-        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-3 fw-semibold">Support & FAQ</span>
-        <h1 class="fw-bold display-5 mb-3 text-white">Get in Touch</h1>
-        <p class="text-white-50 lead fs-6">Have questions about club recruitment, event sponsorships, or new club proposals?</p>
+<!-- Dark Hero Section -->
+<section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.88) 0%, rgba(11, 15, 25, 0.98) 100%), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1400&auto=format&fit=crop') center/cover;">
+    <div class="container py-4">
+        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-3 fw-semibold small">CONTACT US</span>
+        <h1 class="hero-headline mb-3">
+            We'd Love to<br>
+            <span class="hero-headline-highlight">Hear</span> From You!
+        </h1>
+        <p class="hero-subtitle mb-4">
+            Have a question, suggestion, or want to collaborate with us? We are here to help and connect with you.
+        </p>
+
+        <div class="row g-4 max-w-2xl">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-3 bg-white-5 p-3 rounded-3 border border-white-10">
+                    <div class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-clock fs-5"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-white small">Quick Response</h6>
+                        <span class="small text-white-50" style="font-size: 0.72rem;">We reply within 24 hours</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-3 bg-white-5 p-3 rounded-3 border border-white-10">
+                    <div class="bg-info-subtle text-info rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-people fs-5"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-white small">Friendly Support</h6>
+                        <span class="small text-white-50" style="font-size: 0.72rem;">Always ready to help</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-3 bg-white-5 p-3 rounded-3 border border-white-10">
+                    <div class="bg-success-subtle text-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-shield-check fs-5"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-white small">100% Reliable</h6>
+                        <span class="small text-white-50" style="font-size: 0.72rem;">Your message is safe with us</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- Contact Form & Details Section -->
-<section class="py-5">
-    <div class="container">
+<!-- Main Form & Contact Channels Section -->
+<section class="py-5 bg-body-tertiary">
+    <div class="container py-4">
         <div class="row g-5">
-            <!-- Left: Contact Form -->
+            <!-- Left Column: Send Us a Message Card -->
             <div class="col-lg-7">
-                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4">
-                    <h4 class="fw-bold mb-3">Send Us a Message</h4>
-                    <form onsubmit="event.preventDefault(); alert('Thank you for contacting ClubHub! Our team will get back to you shortly.');">
+                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 h-100">
+                    <h4 class="fw-bold mb-1">Send Us a Message</h4>
+                    <p class="text-secondary small mb-4">Fill out the form below and we will get back to you as soon as possible.</p>
+
+                    <form onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent successfully.');">
                         <div class="row g-3 mb-3">
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Your Full Name</label>
-                                <input type="text" class="form-control rounded-3" placeholder="e.g. Aarav Sharma" required>
+                                <label class="form-label small fw-semibold">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-secondary"></i></span>
+                                    <input type="text" class="form-control border-start-0" placeholder="Full Name" required>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Your Email Address</label>
-                                <input type="email" class="form-control rounded-3" placeholder="name@uit.edu" required>
+                                <label class="form-label small fw-semibold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-secondary"></i></span>
+                                    <input type="email" class="form-control border-start-0" placeholder="Email Address" required>
+                                </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small fw-semibold">Select Inquiry Topic</label>
-                            <select class="form-select rounded-3">
-                                <option selected>General Student Inquiry</option>
-                                <option>Club Recruitment Question</option>
-                                <option>New Club Proposal</option>
-                                <option>Event Sponsorship</option>
-                            </select>
+                            <label class="form-label small fw-semibold">Subject</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="bi bi-tag text-secondary"></i></span>
+                                <input type="text" class="form-control border-start-0" placeholder="Subject" required>
+                            </div>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label small fw-semibold">Your Message</label>
-                            <textarea class="form-control rounded-3" rows="4" placeholder="How can we help you?" required></textarea>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 align-items-start pt-2"><i class="bi bi-pencil text-secondary"></i></span>
+                                <textarea class="form-control border-start-0" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow">
-                            Send Message <i class="bi bi-send ms-2"></i>
-                        </button>
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+                            <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow text-white">
+                                <i class="bi bi-send-fill me-2"></i> Send Message
+                            </button>
+                            <span class="small text-muted" style="font-size: 0.78rem;"><i class="bi bi-lock me-1"></i> Your information is secure and will not be shared.</span>
+                        </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Right: Campus Details & FAQ -->
+            <!-- Right Column: Get in Touch Channels -->
             <div class="col-lg-5">
-                <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
-                    <h5 class="fw-bold mb-3"><i class="bi bi-building text-primary me-2"></i> Campus Activity Office</h5>
-                    <p class="text-secondary small mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> Student Activity Center (SAC), Block B</p>
-                    <p class="text-secondary small mb-2"><i class="bi bi-envelope-fill text-primary me-2"></i> clubs@uit.edu</p>
-                    <p class="text-secondary small mb-0"><i class="bi bi-telephone-fill text-primary me-2"></i> +91 (0522) 2345678</p>
-                </div>
+                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 h-100">
+                    <h4 class="fw-bold mb-1">Get in Touch</h4>
+                    <p class="text-secondary small mb-4">Reach out to us through any of these channels.</p>
 
-                <div class="card p-4 border-0 shadow-sm rounded-4">
-                    <h5 class="fw-bold mb-3">Frequently Asked Questions</h5>
-                    <div class="accordion accordion-flush" id="faqAccordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed fw-semibold small" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                    How do I join a club?
-                                </button>
-                            </h2>
-                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">
-                                    Browse the Clubs directory, click "Explore Club", and submit the recruitment form linked on the club's profile during open recruitment drives.
+                    <div class="d-flex flex-column gap-3">
+                        <a href="https://maps.google.com" target="_blank" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-body-tertiary text-dark text-decoration-none border hover-bg-light">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-geo-alt fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0 small">Our Location</h6>
+                                    <span class="small text-secondary" style="font-size: 0.78rem;">United Institute of Technology, Naini, Prayagraj, UP - 211010</span>
                                 </div>
                             </div>
-                        </div>
+                            <i class="bi bi-chevron-right text-muted ms-2"></i>
+                        </a>
 
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed fw-semibold small" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                    Can I form a new student club?
-                                </button>
-                            </h2>
-                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body text-secondary small">
-                                    Yes! Submit a new club proposal signed by at least 15 founding student members and a faculty advisor to the SAC office.
+                        <a href="tel:+919876543210" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-body-tertiary text-dark text-decoration-none border hover-bg-light">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-info-subtle text-info rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-telephone fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0 small">Phone Number</h6>
+                                    <span class="small text-secondary" style="font-size: 0.78rem;">+91 98765 43210 &bull; Mon - Fri, 9 AM - 6 PM</span>
                                 </div>
                             </div>
+                            <i class="bi bi-chevron-right text-muted ms-2"></i>
+                        </a>
+
+                        <a href="mailto:hello@clubhub.uit.edu.in" class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-body-tertiary text-dark text-decoration-none border hover-bg-light">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-warning-subtle text-warning rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-envelope fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0 small">Email Address</h6>
+                                    <span class="small text-secondary" style="font-size: 0.78rem;">hello@clubhub.uit.edu.in &bull; Replies in 24h</span>
+                                </div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted ms-2"></i>
+                        </a>
+
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded-3 bg-body-tertiary text-dark border">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-success-subtle text-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                    <i class="bi bi-clock fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0 small">Office Hours</h6>
+                                    <span class="small text-secondary" style="font-size: 0.78rem;">Monday - Saturday &bull; 09:00 AM - 06:00 PM</span>
+                                </div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted ms-2"></i>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- "Want to Join Our Team?" Banner -->
+<section class="container my-4">
+    <div class="card p-4 border-0 rounded-4 shadow-sm" style="background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.2) !important;">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
+                    <i class="bi bi-people-fill fs-4"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1 text-dark">Want to Join Our Team?</h5>
+                    <p class="text-secondary small mb-0">We're always looking for passionate students to volunteer and grow with us.</p>
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold text-decoration-none flex-shrink-0" onclick="alert('Student Volunteer Drive Application opening soon!');">
+                Explore Opportunities &rarr;
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Map & Connect Split Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <!-- Left Side: Interactive Map Visual Card -->
+            <div class="col-lg-7">
+                <div class="card border-0 rounded-4 shadow-sm overflow-hidden position-relative" style="height: 320px; background: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=800&auto=format&fit=crop') center/cover;">
+                    <div class="position-absolute top-0 start-0 m-3 p-3 bg-white rounded-4 shadow max-w-xs">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <img src="/assets/United Logo.webp" alt="UIT Logo" style="height: 28px;">
+                            <h6 class="fw-bold mb-0 small">United Institute of Technology</h6>
+                        </div>
+                        <p class="text-secondary small mb-2" style="font-size: 0.75rem;">Naini, Prayagraj, Uttar Pradesh - 211010</p>
+                        <a href="https://maps.google.com" target="_blank" class="text-decoration-none small text-primary fw-semibold" style="font-size: 0.75rem;">View on Google Maps &rarr;</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Connect With Us & Newsletter -->
+            <div class="col-lg-5">
+                <div class="card p-4 border-0 shadow-sm rounded-4 h-100">
+                    <h6 class="fw-bold mb-2">Connect With Us</h6>
+                    <p class="text-secondary small mb-3">Follow us on social media to stay updated with our latest events and activities.</p>
+
+                    <div class="d-flex gap-3 mb-4">
+                        <a href="#" class="btn btn-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="btn btn-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;"><i class="bi bi-linkedin fs-5"></i></a>
+                        <a href="#" class="btn btn-danger rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;"><i class="bi bi-youtube fs-5"></i></a>
+                        <a href="#" class="btn btn-info text-white rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;"><i class="bi bi-twitter-x fs-5"></i></a>
+                    </div>
+
+                    <div class="p-3 bg-body-tertiary rounded-4 border text-center">
+                        <i class="bi bi-envelope-open-heart fs-2 text-primary mb-2"></i>
+                        <h6 class="fw-bold mb-1">Stay updated with our newsletter!</h6>
+                        <p class="text-secondary small mb-3" style="font-size: 0.78rem;">Subscribe to get the latest updates and event notifications.</p>
+                        <button class="btn btn-primary btn-sm rounded-pill px-4 py-2 fw-bold text-white w-100 shadow-sm" onclick="alert('Subscribed to newsletter!');">
+                            Subscribe Now &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Looking for Quick Help? (4-Grid FAQ Cards) -->
+<section class="py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="text-center max-w-2xl mx-auto mb-4">
+            <h4 class="fw-bold mb-1">Looking for Quick Help?</h4>
+            <p class="text-secondary small mb-0">Find answers to commonly asked questions.</p>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-3">
+                <a href="/clubs.html" class="card p-3 border-0 shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-bg-light">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1 small">How can I join a club?</h6>
+                    <p class="text-secondary small mb-0" style="font-size: 0.75rem;">Check out our Clubs page and apply to join.</p>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="/events.html" class="card p-3 border-0 shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-bg-light">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="bg-info-subtle text-info rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1 small">How do I register for an event?</h6>
+                    <p class="text-secondary small mb-0" style="font-size: 0.75rem;">Visit the Events page and register for your favorite events.</p>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="#" class="card p-3 border-0 shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-bg-light" onclick="alert('Collaboration desk open! Email us at hello@clubhub.uit.edu.in');">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="bg-warning-subtle text-warning rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1 small">Want to collaborate?</h6>
+                    <p class="text-secondary small mb-0" style="font-size: 0.75rem;">We'd love to partner with you. Let's connect!</p>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="#" class="card p-3 border-0 shadow-sm rounded-4 text-decoration-none text-dark h-100 hover-bg-light" onclick="alert('FAQ Desk: Feel free to email us directly at hello@clubhub.uit.edu.in');">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="bg-success-subtle text-success rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 38px; height: 38px;">
+                            <i class="bi bi-question-circle"></i>
+                        </div>
+                        <i class="bi bi-chevron-right text-muted"></i>
+                    </div>
+                    <h6 class="fw-bold mb-1 small">Have other questions?</h6>
+                    <p class="text-secondary small mb-0" style="font-size: 0.75rem;">Check our FAQ page or contact us directly.</p>
+                </a>
             </div>
         </div>
     </div>
@@ -150,11 +365,20 @@
             <div class="col-lg-4">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img-footer">
-                    <span class="brand-logo-text fs-5">ClubHub</span>
+                    <div>
+                        <span class="brand-logo-text fs-5 d-block lh-1">ClubHub</span>
+                        <span class="text-white-50 font-monospace" style="font-size: 0.62rem;">UNITED INSTITUTE OF TECHNOLOGY</span>
+                    </div>
                 </div>
                 <p class="small text-white-50 max-w-sm mb-3">
-                    Uniting students, clubs, and communities to create unforgettable experiences together at United Group of Institutions.
+                    Uniting students, clubs, and communities to create unforgettable experiences together.
                 </p>
+                <div class="d-flex gap-3 text-white-50 fs-5">
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-youtube"></i></a>
+                    <a href="#"><i class="bi bi-github"></i></a>
+                </div>
             </div>
 
             <div class="col-6 col-lg-2">
@@ -164,23 +388,33 @@
                     <li><a href="/clubs.html">Clubs</a></li>
                     <li><a href="/events.html">Events</a></li>
                     <li><a href="/activities.html">Activities</a></li>
+                    <li><a href="/gallery.html">Gallery</a></li>
                 </ul>
             </div>
 
             <div class="col-6 col-lg-2">
-                <div class="footer-title">Useful Links</div>
+                <div class="footer-title">Resources</div>
                 <ul class="list-unstyled space-y-2">
-                    <li><a href="/about.html">About Us</a></li>
-                    <li><a href="/contact.html">Contact Us</a></li>
+                    <li><a href="/contact.html">FAQ</a></li>
+                    <li><a href="/contact.html">Help Center</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
                 </ul>
             </div>
 
             <div class="col-lg-4">
                 <div class="footer-title">Contact Us</div>
-                <ul class="list-unstyled space-y-2 text-white-50">
-                    <li><i class="bi bi-geo-alt me-2 text-primary"></i> 123 College Road, University City</li>
-                    <li><i class="bi bi-envelope me-2 text-primary"></i> hello@clubhub.edu</li>
+                <ul class="list-unstyled space-y-2 text-white-50 small mb-3">
+                    <li><i class="bi bi-geo-alt me-2 text-primary"></i> Naini, Prayagraj, Uttar Pradesh - 211010</li>
+                    <li><i class="bi bi-envelope me-2 text-primary"></i> hello@clubhub.uit.edu.in</li>
+                    <li><i class="bi bi-telephone me-2 text-primary"></i> +91 98765 43210</li>
                 </ul>
+
+                <div class="footer-title mb-2">Newsletter</div>
+                <form class="d-flex gap-2" onsubmit="event.preventDefault(); alert('Subscribed to ClubHub newsletter!');">
+                    <input type="email" class="form-control form-control-sm rounded-pill px-3 bg-dark text-white border-white-10" placeholder="Enter your email" required style="background: rgba(0,0,0,0.5) !important;">
+                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-3"><i class="bi bi-send"></i></button>
+                </form>
             </div>
         </div>
 
@@ -188,6 +422,9 @@
 
         <div class="d-flex justify-content-between align-items-center text-white-50 small">
             <div>&copy; 2026 ClubHub. All rights reserved.</div>
+            <button id="backToTopBtn" class="btn btn-sm btn-outline-light rounded-circle p-2" title="Back to Top">
+                <i class="bi bi-arrow-up"></i>
+            </button>
         </div>
     </div>
 </footer>
