@@ -199,12 +199,7 @@ if (!empty($event['event_date'])) {
                         <div class="mb-3">
                             <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload New Banner Poster (From PC)</label>
                             <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
-                            <span class="form-text text-muted small">Upload PNG, JPG, or WEBP poster file from your computer.</span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small fw-semibold">Or Image URL</label>
-                            <input type="url" name="banner" class="form-control rounded-3" value="<?= htmlspecialchars($event['banner']) ?>">
+                            <span class="form-text text-muted small">Upload PNG, JPG, or WEBP poster file from your computer to replace current poster.</span>
                         </div>
 
                         <div class="mb-3">

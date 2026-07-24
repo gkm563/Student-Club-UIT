@@ -156,13 +156,9 @@ $galleryItems = $galStmt->fetchAll();
                 <input type="hidden" name="action_add_photo" value="1">
                 <div class="modal-body space-y-3">
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Image File (From PC)</label>
-                        <input type="file" name="photo_file" class="form-control rounded-3" accept="image/*">
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Image File (From PC) *</label>
+                        <input type="file" name="photo_file" class="form-control rounded-3" accept="image/*" required>
                         <span class="form-text text-muted small">Select a PNG, JPG, or WEBP photo from your computer.</span>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Or Image URL</label>
-                        <input type="url" name="media_url" class="form-control rounded-3" placeholder="https://images.unsplash.com/photo-...">
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Photo Caption / Event Name</label>

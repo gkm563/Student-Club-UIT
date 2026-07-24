@@ -340,13 +340,9 @@ $events = $stmtEv->fetchAll();
                         <input type="text" name="venue" class="form-control rounded-3" placeholder="e.g. Auditorium Hall A, UIT" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Banner Image (From PC)</label>
-                        <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Banner Image (From PC) *</label>
+                        <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*" required>
                         <span class="form-text text-muted small">Select a PNG, JPG, or WEBP poster from your computer.</span>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Or Image URL</label>
-                        <input type="url" name="banner" class="form-control rounded-3" value="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop">
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Registration Link</label>

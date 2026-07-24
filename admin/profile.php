@@ -330,10 +330,6 @@ $roster = $leadStmt->fetchAll();
                         <input type="file" name="avatar_file" class="form-control rounded-3" accept="image/*">
                         <span class="form-text text-muted small">Select member profile photo from your computer.</span>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Or Photo URL</label>
-                        <input type="url" name="avatar" class="form-control rounded-3" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
-                    </div>
                 </div>
                 <div class="modal-footer border-0 pt-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
