@@ -121,9 +121,14 @@ if (!empty($event['event_date'])) {
                 <h2 class="fw-bold mb-1">Edit Event Details</h2>
                 <p class="text-secondary small mb-0">Modify event schedule, location, banner poster, and agenda.</p>
             </div>
-            <a href="/admin/events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
-                <i class="bi bi-trash me-1"></i> Delete Event
-            </a>
+            <div class="d-flex align-items-center gap-2">
+                <a href="/admin/events.php?duplicate=<?= $event['id'] ?>" class="btn btn-outline-info rounded-pill px-4 py-2 fw-bold">
+                    <i class="bi bi-copy me-1"></i> Duplicate Event
+                </a>
+                <a href="/admin/events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
+                    <i class="bi bi-trash me-1"></i> Delete Event
+                </a>
+            </div>
         </div>
 
         <?php if (!empty($success)): ?>
