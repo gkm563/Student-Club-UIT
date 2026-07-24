@@ -58,7 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
     $event_date  = $_POST['event_date'] ?? '';
     $reg_link    = trim($_POST['registration_link'] ?? '/contact.html');
     $status      = $_POST['status'] ?? 'upcoming';
-    $banner      = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    $bannerUrl   = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+
+    // Process uploaded image file if provided
+    $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $event['banner'] ?? $bannerUrl);
+    $banner = !empty($uploadedBanner) ? $uploadedBanner : (!empty($bannerUrl) ? $bannerUrl : $event['banner']);
 
     if (empty($title) || empty($venue) || empty($event_date)) {
         $error = "Title, venue, and date are required.";
@@ -155,7 +159,7 @@ if (!empty($event['event_date'])) {
                 <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information Editor</h5>
                     
-                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST">
+                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="action_update" value="1">
                         
                         <div class="mb-3">
@@ -185,7 +189,13 @@ if (!empty($event['event_date'])) {
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small fw-semibold">Banner Poster Image URL</label>
+                            <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload New Banner Poster (From PC)</label>
+                            <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
+                            <span class="form-text text-muted small">Upload PNG, JPG, or WEBP poster file from your computer.</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Or Image URL</label>
                             <input type="url" name="banner" class="form-control rounded-3" value="<?= htmlspecialchars($event['banner']) ?>">
                         </div>
 

@@ -5,15 +5,18 @@
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-// Serve static assets from public/assets
+// Serve static assets from public/assets and uploads from public/uploads
 $staticFile = __DIR__ . '/public' . $uri;
-if ($uri !== '/' && file_exists($staticFile) && !is_dir($staticFile) && str_contains($uri, '/assets/')) {
+if ($uri !== '/' && file_exists($staticFile) && !is_dir($staticFile) && (str_contains($uri, '/assets/') || str_contains($uri, '/uploads/'))) {
     $ext = pathinfo($staticFile, PATHINFO_EXTENSION);
     $mimes = [
         'css' => 'text/css',
         'js' => 'application/javascript',
         'png' => 'image/png',
         'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'webp' => 'image/webp',
+        'gif' => 'image/gif',
         'svg' => 'image/svg+xml',
         'html' => 'text/html'
     ];

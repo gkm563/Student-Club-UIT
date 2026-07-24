@@ -46,6 +46,39 @@ if (!function_exists('log_audit')) {
     }
 }
 
+if (!function_exists('upload_image_file')) {
+    /**
+     * Handles image file uploads safely to public/uploads/$subFolder
+     */
+    function upload_image_file(?array $fileArray, string $subFolder = 'events', string $fallbackUrl = ''): string {
+        if (!$fileArray || !isset($fileArray['error']) || $fileArray['error'] !== UPLOAD_ERR_OK) {
+            return $fallbackUrl;
+        }
+
+        $allowedExts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $fileName = $fileArray['name'];
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowedExts)) {
+            return $fallbackUrl;
+        }
+
+        $uploadDir = __DIR__ . '/../public/uploads/' . $subFolder . '/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $newFilename = 'img_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $targetFilePath = $uploadDir . $newFilename;
+
+        if (move_uploaded_file($fileArray['tmp_name'], $targetFilePath)) {
+            return '/uploads/' . $subFolder . '/' . $newFilename;
+        }
+
+        return $fallbackUrl;
+    }
+}
+
 if (!function_exists('time_ago')) {
     function time_ago(string $datetime): string {
         $timestamp = strtotime($datetime);

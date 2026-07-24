@@ -39,13 +39,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_add_photo'])) 
     $mediaUrl = trim($_POST['media_url'] ?? '');
     $caption  = trim($_POST['caption'] ?? '');
 
-    if (empty($mediaUrl)) {
-        $error = "Please provide an image URL or photo asset link.";
+    // Process file upload if provided
+    $uploadedPhoto = upload_image_file($_FILES['photo_file'] ?? null, 'gallery', $mediaUrl);
+    $finalUrl = $uploadedPhoto ?: $mediaUrl;
+
+    if (empty($finalUrl)) {
+        $error = "Please upload an image file or provide an image URL.";
     } else {
         try {
             $galId = 'gal_' . bin2hex(random_bytes(4));
             $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, media_url, caption) VALUES (?, ?, ?, ?)");
-            $gStmt->execute([$galId, $club['id'], $mediaUrl, $caption]);
+            $gStmt->execute([$galId, $club['id'], $finalUrl, $caption]);
             $success = "Photo added to club gallery successfully!";
         } catch (Exception $e) {
             $error = "Failed to add photo: " . $e->getMessage();
@@ -148,12 +152,17 @@ $galleryItems = $galStmt->fetchAll();
                 <h5 class="fw-bold modal-title"><i class="bi bi-image text-primary me-2"></i> Add Gallery Photo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="/admin/gallery.php" method="POST">
+            <form action="/admin/gallery.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action_add_photo" value="1">
                 <div class="modal-body space-y-3">
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Photo Image URL *</label>
-                        <input type="url" name="media_url" class="form-control rounded-3" placeholder="https://images.unsplash.com/photo-..." required>
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Image File (From PC)</label>
+                        <input type="file" name="photo_file" class="form-control rounded-3" accept="image/*">
+                        <span class="form-text text-muted small">Select a PNG, JPG, or WEBP photo from your computer.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Or Image URL</label>
+                        <input type="url" name="media_url" class="form-control rounded-3" placeholder="https://images.unsplash.com/photo-...">
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Photo Caption / Event Name</label>

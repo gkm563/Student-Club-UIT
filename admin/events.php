@@ -42,7 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
     $event_date  = $_POST['event_date'] ?? '';
     $reg_link    = trim($_POST['registration_link'] ?? '/contact.html');
     $status      = $_POST['status'] ?? 'upcoming';
-    $banner      = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    $bannerUrl   = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+
+    // Process file upload if provided
+    $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $bannerUrl);
+    $banner = $uploadedBanner ?: $bannerUrl;
 
     if (empty($title) || empty($venue) || empty($event_date)) {
         $error = "Title, venue, and date are required.";
@@ -195,7 +199,7 @@ $events = $stmtEv->fetchAll();
                 <h5 class="fw-bold modal-title"><i class="bi bi-calendar-plus text-primary me-2"></i> Create New Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="/admin/events.php" method="POST">
+            <form action="/admin/events.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action_create" value="1">
                 <div class="modal-body space-y-3">
                     <div class="mb-3">
@@ -221,7 +225,12 @@ $events = $stmtEv->fetchAll();
                         <input type="text" name="venue" class="form-control rounded-3" placeholder="e.g. Auditorium Hall A, UIT" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Banner Image URL</label>
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Banner Image (From PC)</label>
+                        <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
+                        <span class="form-text text-muted small">Select a PNG, JPG, or WEBP poster from your computer.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Or Image URL</label>
                         <input type="url" name="banner" class="form-control rounded-3" value="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop">
                     </div>
                     <div class="mb-3">
