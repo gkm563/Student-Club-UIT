@@ -148,13 +148,13 @@ $events = $stmtEv->fetchAll();
                             <?php foreach ($events as $ev): ?>
                                 <tr>
                                     <td>
-                                        <div class="d-flex align-items-center gap-3">
+                                        <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3">
                                             <img src="<?= htmlspecialchars($ev['banner']) ?>" class="rounded-3 border" style="width: 54px; height: 38px; object-fit: cover;">
                                             <div>
-                                                <h6 class="fw-bold mb-0 text-dark"><?= htmlspecialchars($ev['title']) ?></h6>
+                                                <h6 class="fw-bold mb-0 text-dark hover-primary"><?= htmlspecialchars($ev['title']) ?></h6>
                                                 <span class="small text-muted"><?= htmlspecialchars(substr($ev['description'] ?? '', 0, 50)) ?>...</span>
                                             </div>
-                                        </div>
+                                        </a>
                                     </td>
                                     <td><span class="text-dark fw-medium"><i class="bi bi-geo-alt me-1 text-danger"></i> <?= htmlspecialchars($ev['venue']) ?></span></td>
                                     <td><span class="small text-muted"><i class="bi bi-clock me-1"></i> <?= date('d M Y, h:i A', strtotime($ev['event_date'])) ?></span></td>
@@ -168,9 +168,14 @@ $events = $stmtEv->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a href="/admin/events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-sm btn-outline-danger rounded-circle" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" title="Edit Event">
+                                                <i class="bi bi-pencil-square me-1"></i> Edit
+                                            </a>
+                                            <a href="/admin/events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-sm btn-outline-danger rounded-circle p-1" title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
