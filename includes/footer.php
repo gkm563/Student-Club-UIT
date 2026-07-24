@@ -2,9 +2,9 @@
     <div class="container">
         <div class="row g-4 mb-4">
             <div class="col-lg-4">
-                <div class="d-flex align-items-center gap-2 mb-3">
-                    <i class="bi bi-diagram-3-fill fs-2 text-primary"></i>
-                    <span class="fs-4 fw-bold text-primary">CCMS UIT</span>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img-footer">
+                    <span class="fs-4 fw-bold text-primary">ClubHub UIT</span>
                 </div>
                 <p class="text-secondary small mb-3">
                     The official centralized digital hub for club discovery, student activities, event management, and extracurricular engagement at University Institute of Technology.
@@ -48,8 +48,8 @@
         <hr class="border-secondary-subtle my-4">
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-secondary">
-            <p class="mb-0">&copy; <?= date('Y') ?> College Club Management System (CCMS). University Institute of Technology. All rights reserved.</p>
-            <p class="mb-0 mt-2 mt-md-0">Version 1.0 (Build 2026.1)</p>
+            <p class="mb-0">&copy; <?= date('Y') ?> ClubHub. University Institute of Technology. All rights reserved.</p>
+            <p class="mb-0 mt-2 mt-md-0">Version 4.0 (Build 2026.1)</p>
         </div>
     </div>
 </footer>

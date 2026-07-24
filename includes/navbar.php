@@ -3,9 +3,9 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
 <nav class="navbar navbar-expand-lg navbar-ccms sticky-top">
     <div class="container">
-        <a class="navbar-brand navbar-brand-ccms d-flex align-items-center gap-2" href="/index.php">
-            <i class="bi bi-diagram-3-fill fs-3 text-primary"></i>
-            <span>CCMS <span class="badge bg-primary-subtle text-primary border rounded-pill fs-6 px-2 py-1 ms-1">UIT</span></span>
+        <a class="navbar-brand navbar-brand-ccms d-flex align-items-center gap-2" href="/index.html">
+            <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img">
+            <span>ClubHub <span class="badge bg-primary-subtle text-primary border rounded-pill fs-6 px-2 py-1 ms-1">UIT</span></span>
         </a>
         
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
@@ -15,7 +15,7 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold">
                 <li class="nav-item">
-                    <a class="nav-link <?= $currentUri === '/' || $currentUri === '/index.php' ? 'active text-primary' : '' ?>" href="/index.php">Home</a>
+                    <a class="nav-link <?= $currentUri === '/' || $currentUri === '/index.html' || $currentUri === '/index.php' ? 'active text-primary' : '' ?>" href="/index.html">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?= str_contains($currentUri, 'clubs') ? 'active text-primary' : '' ?>" href="/clubs.php">All Clubs</a>

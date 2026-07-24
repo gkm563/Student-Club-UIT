@@ -1,5 +1,5 @@
 /* ==========================================================================
-   ClubHub - Master Stylesheet (Pixel-Perfect UI matching Design Spec)
+   ClubHub - Master Stylesheet (Pixel-Perfect UI matching Design Spec V4.0)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
@@ -56,11 +56,40 @@ body {
     overflow-x: hidden;
 }
 
+/* Official United Logo Brand Styling */
+.brand-logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+    border-radius: 6px;
+}
+
+.brand-logo-img:hover {
+    transform: scale(1.05);
+}
+
+.brand-logo-img-footer {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 4px;
+}
+
 /* ClubHub Navbar */
 .navbar-clubhub {
     background-color: var(--bg-dark-header);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     padding: 14px 0;
+}
+
+.navbar-ccms {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .brand-logo-text {
@@ -187,7 +216,6 @@ body {
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* Curved Wave Transition */
 .hero-wave-divider {
     position: absolute;
     bottom: -1px;
@@ -204,7 +232,6 @@ body {
     height: 60px;
 }
 
-/* Category Card */
 .category-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -239,7 +266,6 @@ body {
     font-size: 0.85rem;
 }
 
-/* Featured Club Card */
 .featured-club-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -301,7 +327,6 @@ body {
     font-weight: 600;
 }
 
-/* Latest Activity List Item */
 .activity-item {
     display: flex;
     align-items: center;
@@ -321,7 +346,6 @@ body {
     object-fit: cover;
 }
 
-/* Event List Item */
 .event-item {
     display: flex;
     align-items: center;
@@ -360,7 +384,6 @@ body {
     text-uppercase: uppercase;
 }
 
-/* Community Numbers Banner */
 .community-banner {
     background: var(--brand-gradient);
     border-radius: var(--radius-lg);
@@ -392,7 +415,6 @@ body {
     opacity: 0.85;
 }
 
-/* Why Join Checkmarks */
 .why-join-item {
     display: flex;
     align-items: center;
@@ -407,7 +429,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* Leadership Avatar */
 .leader-avatar {
     width: 80px;
     height: 80px;
@@ -418,7 +439,6 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-/* Gallery Grid */
 .gallery-grid-img {
     width: 100%;
     height: 75px;
@@ -431,7 +451,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Testimonial Quote Card */
 .testimonial-card-clubhub {
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
@@ -448,7 +467,6 @@ body {
     object-fit: cover;
 }
 
-/* Bottom Call to Action Banner */
 .cta-banner-clubhub {
     background: var(--brand-gradient);
     border-radius: var(--radius-lg);
@@ -460,15 +478,6 @@ body {
     box-shadow: 0 16px 32px -8px rgba(99, 102, 241, 0.4);
 }
 
-@media (max-width: 768px) {
-    .cta-banner-clubhub {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-/* Footer */
 .footer-clubhub {
     background-color: var(--bg-dark-header);
     color: rgba(255, 255, 255, 0.7);
