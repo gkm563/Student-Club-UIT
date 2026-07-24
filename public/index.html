@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarClubhub">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link nav-link-clubhub active" href="/index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/clubs.php">Clubs</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/club-detail.html">Clubs</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/events.php">Events</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/activities.php">Activities</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/gallery.php">Gallery</a></li>
@@ -135,7 +135,7 @@
 
         <div class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-9 justify-content-center">
             <div class="col">
-                <a href="/clubs.php?category=technical" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-primary-subtle text-primary mx-auto">
                         <i class="bi bi-code-slash"></i>
                     </div>
@@ -143,7 +143,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=cultural" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-danger-subtle text-danger mx-auto">
                         <i class="bi bi-people"></i>
                     </div>
@@ -151,7 +151,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=sports" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-success-subtle text-success mx-auto">
                         <i class="bi bi-trophy"></i>
                     </div>
@@ -159,7 +159,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=music" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-warning-subtle text-warning mx-auto">
                         <i class="bi bi-music-note-beamed"></i>
                     </div>
@@ -167,7 +167,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=dance" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-info-subtle text-info mx-auto">
                         <i class="bi bi-activity"></i>
                     </div>
@@ -175,7 +175,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=drama" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-danger-subtle text-danger mx-auto">
                         <i class="bi bi-masks"></i>
                     </div>
@@ -183,7 +183,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=photography" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-primary-subtle text-primary mx-auto">
                         <i class="bi bi-camera"></i>
                     </div>
@@ -191,7 +191,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php?category=social-service" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-success-subtle text-success mx-auto">
                         <i class="bi bi-heart"></i>
                     </div>
@@ -199,7 +199,7 @@
                 </a>
             </div>
             <div class="col">
-                <a href="/clubs.php" class="category-card">
+                <a href="/club-detail.html" class="category-card">
                     <div class="category-icon-box bg-secondary-subtle text-secondary mx-auto">
                         <i class="bi bi-three-dots"></i>
                     </div>
@@ -218,88 +218,98 @@
                 <h4 class="fw-bold mb-1">⭐ Featured Clubs</h4>
                 <p class="text-secondary small mb-0">Popular clubs you might love</p>
             </div>
-            <a href="/clubs.php" class="text-decoration-none small fw-semibold text-primary">View All Clubs &rarr;</a>
+            <a href="/club-detail.html" class="text-decoration-none small fw-semibold text-primary">View All Clubs &rarr;</a>
         </div>
 
         <div class="row g-4">
             <!-- 1. CodeCrush -->
             <div class="col-md-4 col-lg">
-                <div class="featured-club-card">
-                    <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop');">
-                        <div class="featured-club-badge-icon">
-                            <i class="bi bi-code-slash"></i>
+                <a href="/club-detail.html" class="text-decoration-none text-body">
+                    <div class="featured-club-card">
+                        <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop');">
+                            <div class="featured-club-badge-icon">
+                                <i class="bi bi-code-slash"></i>
+                            </div>
+                        </div>
+                        <div class="featured-club-body">
+                            <h6 class="featured-club-title">CodeCrush</h6>
+                            <div class="featured-club-subtitle">Coding & Development Club</div>
+                            <span class="featured-club-tag bg-primary-subtle text-primary">Technical</span>
                         </div>
                     </div>
-                    <div class="featured-club-body">
-                        <h6 class="featured-club-title">CodeCrush</h6>
-                        <div class="featured-club-subtitle">Coding & Development Club</div>
-                        <span class="featured-club-tag bg-primary-subtle text-primary">Technical</span>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- 2. Nritya -->
             <div class="col-md-4 col-lg">
-                <div class="featured-club-card">
-                    <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600&auto=format&fit=crop');">
-                        <div class="featured-club-badge-icon">
-                            <i class="bi bi-activity"></i>
+                <a href="/club-detail.html" class="text-decoration-none text-body">
+                    <div class="featured-club-card">
+                        <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=600&auto=format&fit=crop');">
+                            <div class="featured-club-badge-icon">
+                                <i class="bi bi-activity"></i>
+                            </div>
+                        </div>
+                        <div class="featured-club-body">
+                            <h6 class="featured-club-title">Nritya</h6>
+                            <div class="featured-club-subtitle">Dance Club</div>
+                            <span class="featured-club-tag bg-warning-subtle text-warning">Cultural</span>
                         </div>
                     </div>
-                    <div class="featured-club-body">
-                        <h6 class="featured-club-title">Nritya</h6>
-                        <div class="featured-club-subtitle">Dance Club</div>
-                        <span class="featured-club-tag bg-warning-subtle text-warning">Cultural</span>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- 3. Pheonix -->
             <div class="col-md-4 col-lg">
-                <div class="featured-club-card">
-                    <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop');">
-                        <div class="featured-club-badge-icon">
-                            <i class="bi bi-camera"></i>
+                <a href="/club-detail.html" class="text-decoration-none text-body">
+                    <div class="featured-club-card">
+                        <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop');">
+                            <div class="featured-club-badge-icon">
+                                <i class="bi bi-camera"></i>
+                            </div>
+                        </div>
+                        <div class="featured-club-body">
+                            <h6 class="featured-club-title">Pheonix</h6>
+                            <div class="featured-club-subtitle">Photography Club</div>
+                            <span class="featured-club-tag bg-primary-subtle text-primary">Photography</span>
                         </div>
                     </div>
-                    <div class="featured-club-body">
-                        <h6 class="featured-club-title">Pheonix</h6>
-                        <div class="featured-club-subtitle">Photography Club</div>
-                        <span class="featured-club-tag bg-primary-subtle text-primary">Photography</span>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- 4. Aaroh -->
             <div class="col-md-4 col-lg">
-                <div class="featured-club-card">
-                    <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop');">
-                        <div class="featured-club-badge-icon">
-                            <i class="bi bi-music-note-beamed"></i>
+                <a href="/club-detail.html" class="text-decoration-none text-body">
+                    <div class="featured-club-card">
+                        <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop');">
+                            <div class="featured-club-badge-icon">
+                                <i class="bi bi-music-note-beamed"></i>
+                            </div>
+                        </div>
+                        <div class="featured-club-body">
+                            <h6 class="featured-club-title">Aaroh</h6>
+                            <div class="featured-club-subtitle">Music Club</div>
+                            <span class="featured-club-tag bg-info-subtle text-info">Music</span>
                         </div>
                     </div>
-                    <div class="featured-club-body">
-                        <h6 class="featured-club-title">Aaroh</h6>
-                        <div class="featured-club-subtitle">Music Club</div>
-                        <span class="featured-club-tag bg-info-subtle text-info">Music</span>
-                    </div>
-                </div>
+                </a>
             </div>
 
             <!-- 5. Scintilla -->
             <div class="col-md-4 col-lg">
-                <div class="featured-club-card">
-                    <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600&auto=format&fit=crop');">
-                        <div class="featured-club-badge-icon">
-                            <i class="bi bi-feather"></i>
+                <a href="/club-detail.html" class="text-decoration-none text-body">
+                    <div class="featured-club-card">
+                        <div class="featured-club-image" style="background-image: url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600&auto=format&fit=crop');">
+                            <div class="featured-club-badge-icon">
+                                <i class="bi bi-feather"></i>
+                            </div>
+                        </div>
+                        <div class="featured-club-body">
+                            <h6 class="featured-club-title">Scintilla</h6>
+                            <div class="featured-club-subtitle">Literary Club</div>
+                            <span class="featured-club-tag bg-warning-subtle text-warning">Creative</span>
                         </div>
                     </div>
-                    <div class="featured-club-body">
-                        <h6 class="featured-club-title">Scintilla</h6>
-                        <div class="featured-club-subtitle">Literary Club</div>
-                        <span class="featured-club-tag bg-warning-subtle text-warning">Creative</span>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -483,7 +493,7 @@
                     <div class="why-join-item"><i class="bi bi-check-circle-fill why-join-icon"></i> Enhance your resume</div>
                     <div class="why-join-item"><i class="bi bi-check-circle-fill why-join-icon"></i> Create unforgettable memories</div>
 
-                    <a href="/clubs.php" class="btn btn-primary btn-sm rounded-pill px-3 py-2 fw-semibold w-auto mt-3 align-self-start text-decoration-none">
+                    <a href="/club-detail.html" class="btn btn-primary btn-sm rounded-pill px-3 py-2 fw-semibold w-auto mt-3 align-self-start text-decoration-none">
                         Explore Clubs
                     </a>
                 </div>
@@ -604,7 +614,7 @@
             <h4 class="fw-bold mb-1 text-white">Ready to Find Your Community?</h4>
             <p class="mb-0 text-white-80 small">Join a club today and start your amazing journey with us.</p>
         </div>
-        <a href="/clubs.php" class="btn btn-light rounded-pill px-4 py-2 fw-semibold text-primary text-decoration-none shadow">
+        <a href="/club-detail.html" class="btn btn-light rounded-pill px-4 py-2 fw-semibold text-primary text-decoration-none shadow">
             Browse All Clubs &rarr;
         </a>
     </div>
@@ -635,7 +645,7 @@
                 <div class="footer-title">Quick Links</div>
                 <ul class="list-unstyled space-y-2">
                     <li><a href="/index.html">Home</a></li>
-                    <li><a href="/clubs.php">Clubs</a></li>
+                    <li><a href="/club-detail.html">Clubs</a></li>
                     <li><a href="/events.php">Events</a></li>
                     <li><a href="/activities.php">Activities</a></li>
                     <li><a href="/gallery.php">Gallery</a></li>
