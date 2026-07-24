@@ -1,7 +1,7 @@
 /**
  * Dynamic Club Directory & Club Detail Renderer (ClubHub UIT)
  * Connects public frontend HTML directly to PHP REST APIs with dynamic category filtering,
- * URL parameter synchronization, active filter badges, and real counts.
+ * URL parameter synchronization, active filter badges, tenure-wise annual roster, and event showcase.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,9 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <p class="text-secondary small mb-4 flex-grow-1">${escapeHtml(club.tagline || club.description || '')}</p>
 
                                     <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                        <span><i class="bi bi-people me-1"></i> ${club.member_count || 0} Members</span>
+                                        <span><i class="bi bi-people me-1"></i> ${club.member_count || 0} Core Leaders</span>
                                         <span class="${club.recruitment_open ? 'text-success' : 'text-secondary'}">
-                                            <i class="bi bi-record-fill me-1"></i> ${club.recruitment_open ? 'Open for All' : 'By Invitation'}
+                                            <i class="bi bi-record-fill me-1"></i> ${club.recruitment_open ? 'Recruitment Open' : 'By Invitation'}
                                         </span>
                                     </div>
                                 </div>
@@ -276,19 +276,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 const club = response.data;
                 document.title = `${club.name} | ClubHub UIT`;
 
+                // Group Leadership Roster by Tenure / Term Year
+                const tenureMap = {};
+                if (club.leadership && club.leadership.length > 0) {
+                    club.leadership.forEach(leader => {
+                        const term = leader.term_year || 'Current Term';
+                        if (!tenureMap[term]) tenureMap[term] = [];
+                        tenureMap[term].push(leader);
+                    });
+                }
+
                 // Render Club Details Layout
                 detailContainer.innerHTML = `
                     <!-- Hero Cover Banner -->
-                    <section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.85) 0%, rgba(11, 15, 25, 0.98) 100%), url('${escapeHtml(club.cover_image)}') center/cover;">
+                    <section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.88) 0%, rgba(11, 15, 25, 0.98) 100%), url('${escapeHtml(club.cover_image)}') center/cover;">
                         <div class="container py-4">
                             <div class="row align-items-center g-4">
                                 <div class="col-lg-8 d-flex align-items-center gap-4">
-                                    <img src="${escapeHtml(club.logo)}" class="rounded-4 border border-white-10 bg-white p-2 shadow-lg flex-shrink-0" style="width: 100px; height: 100px; object-fit: contain;">
+                                    <img src="${escapeHtml(club.logo)}" class="rounded-4 border border-white-10 bg-white p-2 shadow-lg flex-shrink-0" style="width: 100px; height: 100px; object-fit: cover;">
                                     <div>
                                         <a href="/clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
                                             <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                         </a>
-                                        <h1 class="hero-headline mb-2" style="font-size: 2.8rem;">${escapeHtml(club.name)}</h1>
+                                        <h1 class="hero-headline mb-2" style="font-size: 2.5rem;">${escapeHtml(club.name)}</h1>
                                         <p class="hero-subtitle mb-0">${escapeHtml(club.tagline || '')}</p>
                                     </div>
                                 </div>
@@ -301,15 +311,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </section>
 
-                    <!-- Main Section -->
+                    <!-- Main Content Section -->
                     <section class="py-5 bg-body-tertiary">
                         <div class="container">
                             <div class="row g-5">
-                                <!-- Left Column: About, Mission, Leadership -->
+                                <!-- Left Column: About, Mission, Leadership Tenures, Events -->
                                 <div class="col-lg-8">
                                     <!-- Overview Card -->
                                     <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
-                                        <h4 class="fw-bold mb-3">About ${escapeHtml(club.name)}</h4>
+                                        <h4 class="fw-bold mb-3 text-dark">About ${escapeHtml(club.name)}</h4>
                                         <p class="text-secondary leading-relaxed">${escapeHtml(club.description || 'No description available yet.')}</p>
 
                                         <div class="row g-4 mt-3">
@@ -328,56 +338,94 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </div>
                                     </div>
 
-                                    <!-- Annual Leadership Roster Card -->
+                                    <!-- Leadership Roster Grouped by Academic Tenure / Term Year -->
                                     <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
                                         <div class="d-flex justify-content-between align-items-center mb-4">
                                             <div>
-                                                <h4 class="fw-bold mb-0">Annual Core Leadership</h4>
-                                                <span class="small text-muted">Current Academic Term Roster</span>
+                                                <h4 class="fw-bold mb-0 text-dark"><i class="bi bi-award text-primary me-2"></i> Annual Core Leadership & Tenure History</h4>
+                                                <span class="small text-muted">Founding members, faculty advisors, and annual team leads</span>
                                             </div>
                                         </div>
 
-                                        <div class="row g-4">
-                                            ${(!club.leadership || club.leadership.length === 0) ? `
-                                                <div class="col-12 text-center py-4 text-muted">
-                                                    <i class="bi bi-people fs-2 d-block mb-1"></i>
-                                                    Core leadership roster updating soon.
+                                        ${Object.keys(tenureMap).length === 0 ? `
+                                            <div class="text-center py-4 text-muted bg-light rounded-3">
+                                                <i class="bi bi-people fs-2 d-block mb-1"></i>
+                                                Core leadership roster updating soon.
+                                            </div>
+                                        ` : Object.keys(tenureMap).map(term => `
+                                            <div class="mb-4">
+                                                <div class="d-flex align-items-center gap-2 mb-3">
+                                                    <span class="badge bg-primary rounded-pill px-3 py-1 fw-bold fs-6">${escapeHtml(term)} Academic Term</span>
+                                                    <hr class="flex-grow-1 my-0">
                                                 </div>
-                                            ` : club.leadership.map(leader => `
-                                                <div class="col-6 col-md-4 text-center">
-                                                    <div class="p-3 bg-body-tertiary rounded-4 border h-100">
-                                                        <img src="${escapeHtml(leader.avatar)}" class="rounded-circle mb-3 border shadow-sm" style="width: 72px; height: 72px; object-fit: cover;">
-                                                        <h6 class="fw-bold mb-1 text-dark">${escapeHtml(leader.name)}</h6>
-                                                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small">${escapeHtml(leader.role_title)}</span>
-                                                        <span class="small text-muted d-block mt-2" style="font-size: 0.72rem;">${escapeHtml(leader.term_year || '')}</span>
+                                                <div class="row g-4">
+                                                    ${tenureMap[term].map(leader => `
+                                                        <div class="col-6 col-md-4 text-center">
+                                                            <div class="p-3 bg-body-tertiary rounded-4 border h-100 ccms-card">
+                                                                <img src="${escapeHtml(leader.avatar)}" class="rounded-circle mb-3 border shadow-sm" style="width: 72px; height: 72px; object-fit: cover;">
+                                                                <h6 class="fw-bold mb-1 text-dark">${escapeHtml(leader.name)}</h6>
+                                                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small">${escapeHtml(leader.role_title)}</span>
+                                                            </div>
+                                                        </div>
+                                                    `).join('')}
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+
+                                    <!-- Club Events Showcase -->
+                                    <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
+                                        <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-calendar-event text-primary me-2"></i> Organized Events & Activities (${club.events ? club.events.length : 0})</h4>
+                                        ${(!club.events || club.events.length === 0) ? `
+                                            <div class="text-center py-4 text-muted bg-light rounded-3">
+                                                <i class="bi bi-calendar-x fs-2 d-block mb-1"></i>
+                                                No events scheduled yet.
+                                            </div>
+                                        ` : `
+                                            <div class="row g-3">
+                                                ${club.events.map(ev => `
+                                                    <div class="col-md-6">
+                                                        <div class="p-3 bg-body-tertiary rounded-4 border h-100">
+                                                            <img src="${escapeHtml(ev.banner)}" class="img-fluid rounded-3 mb-2" style="height: 110px; width: 100%; object-fit: cover;">
+                                                            <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-0-5 small mb-1">${escapeHtml(ev.status)}</span>
+                                                            <h6 class="fw-bold mb-1 text-dark">${escapeHtml(ev.title)}</h6>
+                                                            <p class="small text-muted mb-0">${escapeHtml(ev.description || '')}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            `).join('')}
-                                        </div>
+                                                `).join('')}
+                                            </div>
+                                        `}
                                     </div>
                                 </div>
 
-                                <!-- Right Sidebar Column: Contact & Quick Info -->
+                                <!-- Right Sidebar Column: Quick Info & Socials -->
                                 <div class="col-lg-4">
-                                    <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
-                                        <h5 class="fw-bold mb-3">Club Info & Contacts</h5>
+                                    <div class="card p-4 border-0 shadow-sm rounded-4 mb-4 sticky-lg-top" style="top: 100px;">
+                                        <h5 class="fw-bold mb-3 text-dark">Club Details & Office</h5>
                                         <ul class="list-unstyled space-y-3 text-secondary small mb-4">
-                                            <li class="d-flex gap-3 align-items-center mb-2">
-                                                <i class="bi bi-geo-alt fs-5 text-primary"></i>
+                                            <li class="d-flex gap-3 align-items-center mb-3">
+                                                <i class="bi bi-building fs-4 text-primary"></i>
+                                                <div>
+                                                    <strong class="d-block text-dark">Office Location</strong>
+                                                    <span>${escapeHtml(club.office_location || 'Student Activity Center, UIT')}</span>
+                                                </div>
+                                            </li>
+                                            <li class="d-flex gap-3 align-items-center mb-3">
+                                                <i class="bi bi-geo-alt fs-4 text-primary"></i>
                                                 <div>
                                                     <strong class="d-block text-dark">Meeting Location</strong>
                                                     <span>${escapeHtml(club.meeting_location || 'Seminar Hall, UIT')}</span>
                                                 </div>
                                             </li>
-                                            <li class="d-flex gap-3 align-items-center mb-2">
-                                                <i class="bi bi-clock fs-5 text-primary"></i>
+                                            <li class="d-flex gap-3 align-items-center mb-3">
+                                                <i class="bi bi-clock fs-4 text-primary"></i>
                                                 <div>
                                                     <strong class="d-block text-dark">Meeting Time</strong>
                                                     <span>${escapeHtml(club.meeting_time || 'Wednesdays 04:00 PM')}</span>
                                                 </div>
                                             </li>
-                                            <li class="d-flex gap-3 align-items-center mb-2">
-                                                <i class="bi bi-envelope fs-5 text-primary"></i>
+                                            <li class="d-flex gap-3 align-items-center mb-3">
+                                                <i class="bi bi-envelope fs-4 text-primary"></i>
                                                 <div>
                                                     <strong class="d-block text-dark">Contact Email</strong>
                                                     <span>${escapeHtml(club.email || 'club@uit.edu.in')}</span>
@@ -385,11 +433,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                             </li>
                                         </ul>
 
-                                        <h6 class="fw-bold mb-3">Follow Us</h6>
-                                        <div class="d-flex gap-2">
-                                            ${club.instagram ? `<a href="${escapeHtml(club.instagram)}" target="_blank" class="btn btn-outline-primary rounded-circle"><i class="bi bi-instagram"></i></a>` : ''}
-                                            ${club.linkedin ? `<a href="${escapeHtml(club.linkedin)}" target="_blank" class="btn btn-outline-primary rounded-circle"><i class="bi bi-linkedin"></i></a>` : ''}
-                                            ${club.github ? `<a href="${escapeHtml(club.github)}" target="_blank" class="btn btn-outline-primary rounded-circle"><i class="bi bi-github"></i></a>` : ''}
+                                        <h6 class="fw-bold mb-3 text-dark">Official Links</h6>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            ${club.website ? `<a href="${escapeHtml(club.website)}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-globe me-1"></i> Website</a>` : ''}
+                                            ${club.instagram ? `<a href="${escapeHtml(club.instagram)}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-instagram me-1"></i> Instagram</a>` : ''}
+                                            ${club.linkedin ? `<a href="${escapeHtml(club.linkedin)}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-linkedin me-1"></i> LinkedIn</a>` : ''}
+                                            ${club.github ? `<a href="${escapeHtml(club.github)}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill"><i class="bi bi-github me-1"></i> GitHub</a>` : ''}
                                         </div>
                                     </div>
                                 </div>
