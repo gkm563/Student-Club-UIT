@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Events & Workshops | ClubHub UIT</title>
-    <meta name="description" content="Discover exciting campus events, hackathons, coding competitions, music concerts, and workshops at University Institute of Technology.">
+    <title>Campus Events & Workshops | ClubHub UIT</title>
+    <meta name="description" content="Discover exciting campus events, hackathons, coding competitions, workshops, and fests hosted by student clubs at United Institute of Technology.">
     
     <!-- OpenGraph SEO Tags -->
-    <meta property="og:title" content="Explore Events & Workshops | ClubHub UIT">
+    <meta property="og:title" content="Campus Events & Workshops | ClubHub UIT">
     <meta property="og:description" content="Join upcoming events, hackathons, and workshops organized by student clubs at UIT.">
     <meta property="og:type" content="website">
 
@@ -17,6 +17,114 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Custom Design System -->
     <link rel="stylesheet" href="/assets/css/style.css">
+
+    <style>
+        /* Floating Glassmorphism & Neon Glow Styles for Events Page */
+        .hero-events-glass {
+            position: relative;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 27, 75, 0.95) 100%);
+            overflow: hidden;
+        }
+
+        .glow-orb-1 {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: orbFloat 8s ease-in-out infinite alternate;
+        }
+
+        .glow-orb-2 {
+            position: absolute;
+            bottom: -150px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: orbFloat 10s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
+        }
+
+        .ccms-floating-card {
+            background: #ffffff;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(226, 232, 240, 0.8) !important;
+        }
+
+        .ccms-floating-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25) !important;
+            border-color: rgba(99, 102, 241, 0.4) !important;
+        }
+
+        .card-banner-zoom {
+            transition: transform 0.5s ease;
+        }
+
+        .ccms-floating-card:hover .card-banner-zoom {
+            transform: scale(1.05);
+        }
+
+        .backdrop-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .btn-glow {
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .club-pill-btn {
+            background: rgba(241, 245, 249, 1);
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            transition: all 0.25s ease;
+        }
+
+        .club-pill-btn:hover, .club-pill-btn.active {
+            background: #6366f1 !important;
+            color: #ffffff !important;
+            border-color: #6366f1 !important;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .event-status-tab {
+            color: #64748b;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .event-status-tab:hover, .event-status-tab.active {
+            color: #6366f1;
+            border-bottom-color: #6366f1;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 
@@ -49,40 +157,71 @@
     </div>
 </nav>
 
-<!-- Dark Hero Section -->
-<section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.9) 0%, rgba(11, 15, 25, 0.98) 100%), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1400&auto=format&fit=crop') center/cover;">
-    <div class="container py-4">
+<!-- Glowing Floating Hero Section -->
+<section class="hero-events-glass py-5">
+    <div class="glow-orb-1"></div>
+    <div class="glow-orb-2"></div>
+
+    <div class="container py-4 position-relative z-1">
         <div class="row align-items-center g-5">
             <!-- Left Column: Title & Search -->
             <div class="col-lg-7">
-                <span class="text-primary-emphasis fw-bold text-uppercase small mb-2 d-block" style="color: #818cf8 !important; letter-spacing: 1.5px;">EVENTS & WORKSHOPS</span>
-                <h1 class="hero-headline mb-3">
-                    Explore. Engage.<br>
-                    Experience <span class="hero-headline-highlight">Together.</span>
+                <span class="badge bg-indigo-subtle text-indigo border border-indigo-subtle rounded-pill px-3 py-1-5 fw-bold mb-3 small" style="background: rgba(99, 102, 241, 0.2); color: #c7d2fe; border-color: rgba(99, 102, 241, 0.4) !important;">
+                    <i class="bi bi-stars me-1 text-warning"></i> UIT CAMPUS EVENTS HUB
+                </span>
+                <h1 class="hero-headline text-white mb-3 fw-extrabold display-5">
+                    Discover.<br>
+                    Innovate. <span class="hero-headline-highlight" style="background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Experience.</span>
                 </h1>
-                <p class="hero-subtitle mb-4">
-                    Discover events, workshops, competitions, and meetups organized dynamically by student clubs at UIT.
+                <p class="hero-subtitle text-white-70 mb-4 fs-6">
+                    Join upcoming hackathons, tech study jams, cultural fests, and workshops organized by student clubs across United Institute of Technology.
                 </p>
 
                 <!-- Search Bar -->
-                <div class="hero-search-bar mb-4">
-                    <input type="text" class="hero-search-input" placeholder="Search events by name, club or keyword..." autocomplete="off">
-                    <button class="hero-search-btn" title="Search">
-                        <i class="bi bi-search"></i>
-                    </button>
+                <div class="hero-search-bar mb-3 shadow-lg rounded-pill p-1 border border-white-20" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px);">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-0 text-white-50 ps-3"><i class="bi bi-search fs-5"></i></span>
+                        <input type="text" class="form-control hero-search-input bg-transparent border-0 text-white placeholder-white-50 shadow-none px-2" placeholder="Search events by title, venue, or keyword..." autocomplete="off">
+                    </div>
                 </div>
             </div>
 
-            <!-- Right Column: Glass Stats Card -->
+            <!-- Right Column: Glass Showcase Card -->
             <div class="col-lg-5">
-                <div class="card text-white border border-white-10 rounded-4 p-4 shadow-lg" style="background: rgba(17, 24, 39, 0.75) !important; backdrop-filter: blur(16px);">
-                    <h5 class="fw-bold mb-2"><i class="bi bi-calendar-check text-primary me-2"></i> Campus Events Hub</h5>
-                    <p class="small text-white-70 mb-3">Explore hackathons, coding contests, cultural fests, and technical workshops hosted by UIT student clubs.</p>
-                    <div class="d-flex gap-3 text-white-50 small">
-                        <div><i class="bi bi-geo-alt text-primary me-1"></i> UIT Campus Auditorium</div>
-                        <div><i class="bi bi-award text-success me-1"></i> Open to All Students</div>
+                <div class="card text-white border border-white-20 rounded-4 p-4 shadow-2xl backdrop-blur" style="background: rgba(255, 255, 255, 0.08) !important;">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="fw-bold mb-0 text-white"><i class="bi bi-calendar2-week text-primary me-2"></i> Campus Calendar</h5>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small">Live Updates</span>
+                    </div>
+                    <p class="small text-white-70 mb-3">Filter events by organizing club below to see dedicated workshops, hackathons, and past achievements.</p>
+                    <div class="d-flex flex-column gap-2 text-white-70 small">
+                        <div><i class="bi bi-check-circle-fill text-primary me-2"></i> Verified Student Club Events</div>
+                        <div><i class="bi bi-check-circle-fill text-success me-2"></i> Free Certificates & Badges</div>
+                        <div><i class="bi bi-check-circle-fill text-warning me-2"></i> Open for All UIT Students</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Bar Section: Club Filter Pills & Status Tabs -->
+<section class="py-4 bg-white border-bottom shadow-sm sticky-top" style="top: 65px; z-index: 990;">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <!-- Filter by Specific Club Pills -->
+            <div class="d-flex align-items-center gap-2 overflow-x-auto py-1" id="clubFilterPills">
+                <button class="btn btn-sm rounded-pill px-3 py-1-5 fw-semibold club-pill-btn active" data-club-id="all">
+                    <i class="bi bi-collection-fill me-1"></i> All Clubs
+                </button>
+            </div>
+
+            <!-- Status Tabs -->
+            <div class="d-flex align-items-center gap-1 border-start ps-md-3">
+                <button class="btn btn-sm event-status-tab active" data-status-tab="all">All Events</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">Upcoming</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">Live Now</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="past">Completed</button>
             </div>
         </div>
     </div>
@@ -92,11 +231,13 @@
 <section class="py-5 bg-body-tertiary">
     <div class="container">
         <div class="row g-5">
-            <!-- Left Main Column: Dynamic Events List -->
+            <!-- Left Main Column: Dynamic Floating Events List -->
             <div class="col-lg-8" id="upcoming">
-                <div class="mb-4">
-                    <h4 class="fw-bold mb-1">Upcoming Events</h4>
-                    <p class="text-secondary small mb-0">Join upcoming events organized by campus clubs.</p>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1 text-dark">Upcoming & Scheduled Events</h4>
+                        <p class="text-secondary small mb-0">Join upcoming hackathons, study jams, and competitions.</p>
+                    </div>
                 </div>
 
                 <!-- Dynamic Upcoming Events Container -->
@@ -109,20 +250,38 @@
 
                 <!-- Past Events Container -->
                 <div class="mt-5">
-                    <h4 class="fw-bold mb-3">Past Events</h4>
+                    <div class="border-top pt-4 mb-4">
+                        <h4 class="fw-bold mb-1 text-dark">Past Events & Workshops</h4>
+                        <p class="text-secondary small mb-0">Browse completed sessions and campus events.</p>
+                    </div>
                     <div id="pastEventsList"></div>
                 </div>
             </div>
 
             <!-- Right Sidebar Column: Contact & Notice -->
             <div class="col-lg-4">
-                <!-- Join / Inquire Card -->
-                <div class="card p-4 border-0 text-white rounded-4 shadow-sm" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
-                    <h6 class="fw-bold mb-1">Have a Question about Events?</h6>
-                    <p class="small text-white-80 mb-3">Get in touch with student club organizers or Dean of Student Affairs for participation details.</p>
-                    <a href="/contact.html" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-primary align-self-start text-decoration-none shadow-sm">
-                        Contact Organizers &rarr;
-                    </a>
+                <div class="sticky-top" style="top: 140px;">
+                    <!-- Join / Inquire Card -->
+                    <div class="card p-4 border-0 text-white rounded-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                        <div class="bg-white bg-opacity-20 rounded-circle p-3 d-inline-flex mb-3" style="width: 50px; height: 50px;">
+                            <i class="bi bi-chat-dots-fill fs-4 text-white"></i>
+                        </div>
+                        <h5 class="fw-bold mb-1">Questions About Events?</h5>
+                        <p class="small text-white-80 mb-4">Get in touch with student club organizers or the Dean of Student Affairs for registration and venue details.</p>
+                        <a href="/contact.html" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-primary align-self-start text-decoration-none shadow-sm btn-glow">
+                            Contact Organizers &rarr;
+                        </a>
+                    </div>
+
+                    <!-- Club Directory Banner -->
+                    <div class="card p-4 border-0 bg-white rounded-4 shadow-sm text-center">
+                        <i class="bi bi-diagram-3 fs-1 text-primary mb-2"></i>
+                        <h6 class="fw-bold mb-1">Want to View Club Rosters?</h6>
+                        <p class="small text-secondary mb-3">Explore all registered technical, cultural, and sports clubs at UIT.</p>
+                        <a href="/clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 small fw-bold">
+                            View All Clubs Directory
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
