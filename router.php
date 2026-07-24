@@ -36,6 +36,12 @@ if (preg_match('#^/clubs/([a-zA-Z0-9\-]+)/?$#', $uri, $m)) {
     exit;
 }
 
+// Dedicated Club Lead Login Route
+if ($uri === '/club-login' || $uri === '/club-login.php') {
+    require __DIR__ . '/club-login.php';
+    exit;
+}
+
 // Admin routes
 if (str_starts_with($uri, '/admin/')) {
     $target = __DIR__ . $uri;
