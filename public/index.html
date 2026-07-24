@@ -221,56 +221,24 @@
 <section class="py-5 bg-white">
     <div class="container">
         <div class="row g-5">
-            <!-- Left: Latest Activities -->
+            <!-- Left: Latest Activities (Recent Past Events from real DB) -->
             <div class="col-lg-6">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
                         <h5 class="fw-bold mb-0">Latest Activities</h5>
-                        <p class="text-secondary small mb-0">See what's happening in clubs</p>
+                        <p class="text-secondary small mb-0">Recent events from campus clubs</p>
                     </div>
-                    <a href="/activities.html" class="text-decoration-none small fw-semibold text-primary">View All &rarr;</a>
+                    <a href="/events.html" class="text-decoration-none small fw-semibold text-primary">View All &rarr;</a>
                 </div>
-
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=200&auto=format&fit=crop" class="activity-thumb" alt="Web Dev Workshop">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Web Development Workshop</h6>
-                            <span class="small text-muted">CodeCrush</span>
-                        </div>
-                        <span class="small text-muted">2h ago</span>
-                    </div>
-
-                    <div class="activity-item">
-                        <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=200&auto=format&fit=crop" class="activity-thumb" alt="Street Dance Showcase">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Street Dance Showcase</h6>
-                            <span class="small text-muted">Nritya</span>
-                        </div>
-                        <span class="small text-muted">5h ago</span>
-                    </div>
-
-                    <div class="activity-item">
-                        <img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=200&auto=format&fit=crop" class="activity-thumb" alt="Photography Walk">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Photography Walk</h6>
-                            <span class="small text-muted">Pheonix</span>
-                        </div>
-                        <span class="small text-muted">1d ago</span>
-                    </div>
-
-                    <div class="activity-item">
-                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=200&auto=format&fit=crop" class="activity-thumb" alt="Music Jamming Session">
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Music Jamming Session</h6>
-                            <span class="small text-muted">Aaroh</span>
-                        </div>
-                        <span class="small text-muted">2d ago</span>
+                <div class="activity-list" id="homeActivityList">
+                    <div class="text-center py-4 text-muted">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        <span class="ms-2 small">Loading activities...</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Upcoming Events -->
+            <!-- Right: Upcoming Events (from real DB) -->
             <div class="col-lg-6">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div>
@@ -279,60 +247,17 @@
                     </div>
                     <a href="/events.html" class="text-decoration-none small fw-semibold text-primary">View All &rarr;</a>
                 </div>
-
-                <div class="event-list">
-                    <div class="event-item">
-                        <div class="event-date-badge">
-                            <span class="event-date-num">24</span>
-                            <span class="event-date-month">MAY</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Tech Talk: Future of AI</h6>
-                            <span class="small text-muted">Organized by CodeCrush</span>
-                        </div>
-                        <span class="small text-muted">10:00 AM</span>
-                    </div>
-
-                    <div class="event-item">
-                        <div class="event-date-badge">
-                            <span class="event-date-num">28</span>
-                            <span class="event-date-month">MAY</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Annual Cultural Fest</h6>
-                            <span class="small text-muted">Organized by Cultural Committee</span>
-                        </div>
-                        <span class="small text-muted">09:00 AM</span>
-                    </div>
-
-                    <div class="event-item">
-                        <div class="event-date-badge">
-                            <span class="event-date-num">02</span>
-                            <span class="event-date-month">JUN</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Intra College Sports Meet</h6>
-                            <span class="small text-muted">Organized by Sports Club</span>
-                        </div>
-                        <span class="small text-muted">08:00 AM</span>
-                    </div>
-
-                    <div class="event-item">
-                        <div class="event-date-badge">
-                            <span class="event-date-num">06</span>
-                            <span class="event-date-month">JUN</span>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold mb-0 text-dark small">Open Mic Night</h6>
-                            <span class="small text-muted">Organized by Literary Club</span>
-                        </div>
-                        <span class="small text-muted">06:00 PM</span>
+                <div class="event-list" id="homeUpcomingList">
+                    <div class="text-center py-4 text-muted">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        <span class="ms-2 small">Loading events...</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Community Numbers Blue Banner -->
 <section class="container">
