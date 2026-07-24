@@ -1,6 +1,7 @@
 <?php
 /**
- * Authentication & Session Management for CCMS V1.0
+ * Authentication & Session Management for ClubHub UIT
+ * Enforces strict role-based access control for Dean Sir and Club Leads.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -27,7 +28,7 @@ function is_logged_in(): bool {
 }
 
 function get_current_user_role(): string {
-    return $_SESSION['user_role'] ?? 'guest';
+    return $_SESSION['user_role'] ?? $_SESSION['role'] ?? 'guest';
 }
 
 function get_current_user_id(): ?string {
@@ -35,7 +36,7 @@ function get_current_user_id(): ?string {
 }
 
 function get_current_user_name(): string {
-    return $_SESSION['user_name'] ?? 'Guest';
+    return $_SESSION['full_name'] ?? $_SESSION['user_name'] ?? 'Guest';
 }
 
 function get_assigned_club_id(): ?string {
@@ -50,18 +51,18 @@ function require_login(string $redirectUrl = '/admin/login.php'): void {
 }
 
 function require_super_admin(): void {
-    require_login();
+    require_login('/admin/dean-login.php');
     if (get_current_user_role() !== 'super_admin') {
-        header("Location: /admin/dashboard.php?error=" . urlencode("Access Denied: Super Admin privileges required."));
+        header("Location: /admin/dean-login.php?error=" . urlencode("Access Denied: Dean Sir Super Admin privileges required."));
         exit;
     }
 }
 
 function require_club_admin(): void {
-    require_login();
+    require_login('/admin/club-login.php');
     $role = get_current_user_role();
     if ($role !== 'club_admin' && $role !== 'super_admin') {
-        header("Location: /admin/login.php?error=" . urlencode("Access Denied: Club Admin privileges required."));
+        header("Location: /admin/club-login.php?error=" . urlencode("Access Denied: Club Leadership privileges required."));
         exit;
     }
 }
