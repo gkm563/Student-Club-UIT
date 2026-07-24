@@ -1,274 +1,464 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
 
-$slug = $_GET['slug'] ?? '';
+$slug = $_GET['slug'] ?? 'geeksforgeeks';
 $db = Database::getConnection();
 
 $stmt = $db->prepare("
     SELECT c.*, cat.name AS category_name, cat.icon AS category_icon
     FROM clubs c
     JOIN categories cat ON c.category_id = cat.id
-    WHERE c.slug = ? AND c.deleted_at IS NULL
+    WHERE (c.slug = ? OR c.short_name = ?) AND c.deleted_at IS NULL
 ");
-$stmt->execute([$slug]);
+$stmt->execute([$slug, $slug]);
 $club = $stmt->fetch();
 
+// Fallback to first club if not found
 if (!$club) {
-    header("Location: /clubs.php");
-    exit;
+    $club = $db->query("
+        SELECT c.*, cat.name AS category_name, cat.icon AS category_icon
+        FROM clubs c
+        JOIN categories cat ON c.category_id = cat.id
+        WHERE c.deleted_at IS NULL
+        LIMIT 1
+    ")->fetch();
 }
 
-$pageTitle = $club['name'] . " | CCMS";
-require_once __DIR__ . '/../includes/header.php';
-require_once __DIR__ . '/../includes/navbar.php';
-
-// Fetch Leadership Roster
-$stmtLead = $db->prepare("SELECT * FROM leadership WHERE club_id = ? ORDER BY order_index ASC");
-$stmtLead->execute([$club['id']]);
-$leadership = $stmtLead->fetchAll();
-
-// Fetch Events
-$stmtEvents = $db->prepare("SELECT * FROM events WHERE club_id = ? ORDER BY event_date DESC");
-$stmtEvents->execute([$club['id']]);
-$events = $stmtEvents->fetchAll();
-
-// Fetch Activities
-$stmtAct = $db->prepare("SELECT * FROM activities WHERE club_id = ? AND status = 'published' ORDER BY created_at DESC");
-$stmtAct->execute([$club['id']]);
-$activities = $stmtAct->fetchAll();
-
-// Fetch Achievements
-$stmtAch = $db->prepare("SELECT * FROM achievements WHERE club_id = ? ORDER BY achievement_date DESC");
-$stmtAch->execute([$club['id']]);
-$achievements = $stmtAch->fetchAll();
+$pageTitle = $club['name'] . " | ClubHub";
 ?>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= e($pageTitle) ?></title>
+    <meta name="description" content="<?= e($club['tagline']) ?>">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Design System -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
 
-<!-- Club Hero Banner -->
-<div class="position-relative bg-dark text-white py-5" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%), url('/<?= e($club['cover_image']) ?>') center/cover;">
-    <div class="container py-4">
-        <div class="d-flex flex-column flex-md-row align-items-center gap-4 text-center text-md-start">
-            <img src="/<?= e($club['logo']) ?>" alt="<?= e($club['name']) ?>" class="rounded-4 bg-white p-2 shadow-lg" style="width: 120px; height: 120px; object-fit: cover;">
-            <div>
-                <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start mb-2">
-                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1">
-                        <i class="bi <?= e($club['category_icon']) ?> me-1"></i> <?= e($club['category_name']) ?>
-                    </span>
-                    <?= get_status_badge($club['status']) ?>
-                    <?php if ($club['recruitment_open']): ?>
-                        <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1"><i class="bi bi-person-plus-fill me-1"></i> Recruiting</span>
-                    <?php endif; ?>
-                </div>
-                <h1 class="fw-bold mb-1 display-6"><?= e($club['name']) ?></h1>
-                <p class="lead text-light-50 mb-2 small" style="max-width: 650px;"><?= e($club['tagline']) ?></p>
-                <div class="d-flex flex-wrap gap-3 small text-light-50 justify-content-center justify-content-md-start">
-                    <span><i class="bi bi-building me-1"></i> Est. <?= e($club['founded_year']) ?></span>
-                    <span><i class="bi bi-geo-alt me-1"></i> <?= e($club['office_location'] ?: 'SAC Office') ?></span>
-                    <span><i class="bi bi-clock me-1"></i> <?= e($club['meeting_time'] ?: 'Weekly Meets') ?></span>
-                </div>
+<!-- Top Dark Header Navbar -->
+<nav class="navbar navbar-expand-lg navbar-clubhub sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="/index.html">
+            <div class="bg-primary text-white rounded-3 p-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                <i class="bi bi-diagram-3-fill fs-5"></i>
             </div>
-            
-            <?php if ($club['recruitment_open'] && !empty($club['recruitment_link'])): ?>
-                <div class="ms-md-auto text-center">
-                    <a href="<?= e($club['recruitment_link']) ?>" target="_blank" class="btn btn-warning btn-lg rounded-pill px-4 fw-bold shadow">
-                        <i class="bi bi-send-fill me-2"></i> Join Club Now
-                    </a>
-                    <?php if (!empty($club['recruitment_deadline'])): ?>
-                        <div class="small text-warning-subtle mt-1">Deadline: <?= e(date('M j, Y', strtotime($club['recruitment_deadline']))) ?></div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-</div>
+            <div>
+                <span class="brand-logo-text d-block lh-1">ClubHub</span>
+                <span class="text-white-50 font-monospace" style="font-size: 0.62rem; letter-spacing: 1px;">UNITED INSTITUTE OF TECHNOLOGY</span>
+            </div>
+        </a>
 
-<div class="container py-5">
-    <div class="row g-4">
-        <!-- Main Content Column -->
-        <div class="col-lg-8">
-            <!-- Navigation Tabs -->
-            <ul class="nav nav-pills mb-4 gap-2 border-bottom pb-3" id="clubTab" role="tablist">
-                <li class="nav-item">
-                    <button class="nav-link active rounded-pill px-3" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview">Overview & Mission</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link rounded-pill px-3" id="events-tab" data-bs-toggle="tab" data-bs-target="#events">Events (<?= count($events) ?>)</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link rounded-pill px-3" id="activities-tab" data-bs-toggle="tab" data-bs-target="#activities">Activity Feed (<?= count($activities) ?>)</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link rounded-pill px-3" id="achievements-tab" data-bs-toggle="tab" data-bs-target="#achievements">Achievements</button>
-                </li>
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClubhub">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarClubhub">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub active" href="/clubs.php">Clubs</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/events.php">Events</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/activities.php">Activities</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/gallery.php">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/about.php">About Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="/contact.php">Contact</a></li>
             </ul>
 
-            <div class="tab-content" id="clubTabContent">
-                <!-- Overview Tab -->
-                <div class="tab-pane fade show active" id="overview">
-                    <div class="card p-4 mb-4 ccms-card">
-                        <h4 class="fw-bold mb-3"><i class="bi bi-info-circle text-primary me-2"></i> About <?= e($club['short_name']) ?></h4>
-                        <p class="text-secondary"><?= nl2br(e($club['description'])) ?></p>
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
+                <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-sun"></i></button>
+                <a href="/admin/login.php" class="btn btn-primary rounded-circle p-1 shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                    <i class="bi bi-person-fill text-white fs-5"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Dark Hero Section for Club -->
+<section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.88) 0%, rgba(11, 15, 25, 0.98) 100%), url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop') center/cover;">
+    <div class="container">
+        <!-- Breadcrumb & Top Socials Row -->
+        <div class="d-flex justify-content-between align-items-center mb-4 text-white-50 small">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/clubs.php" class="text-white-50 text-decoration-none">Clubs</a></li>
+                    <li class="breadcrumb-item active text-white" aria-current="page"><?= e($club['name']) ?></li>
+                </ol>
+            </nav>
+
+            <div class="d-flex gap-3 text-white-50 fs-5">
+                <?php if (!empty($club['website'])): ?><a href="<?= e($club['website']) ?>" target="_blank" class="text-white-50"><i class="bi bi-globe"></i></a><?php endif; ?>
+                <?php if (!empty($club['instagram'])): ?><a href="<?= e($club['instagram']) ?>" target="_blank" class="text-white-50"><i class="bi bi-instagram"></i></a><?php endif; ?>
+                <?php if (!empty($club['linkedin'])): ?><a href="<?= e($club['linkedin']) ?>" target="_blank" class="text-white-50"><i class="bi bi-linkedin"></i></a><?php endif; ?>
+                <?php if (!empty($club['github'])): ?><a href="<?= e($club['github']) ?>" target="_blank" class="text-white-50"><i class="bi bi-github"></i></a><?php endif; ?>
+            </div>
+        </div>
+
+        <div class="row g-4 align-items-center">
+            <!-- Left Info Block -->
+            <div class="col-lg-7">
+                <div class="d-flex flex-column flex-sm-row gap-4 align-items-sm-start">
+                    <!-- Square Logo Badge -->
+                    <div class="bg-dark border border-white-10 rounded-4 p-3 d-flex flex-column align-items-center justify-content-center text-center shadow-lg flex-shrink-0" style="width: 120px; height: 120px; background: linear-gradient(135deg, #111827, #0b0f19);">
+                        <i class="bi bi-code-slash fs-1 text-primary mb-1"></i>
+                        <span class="fw-bold text-white small lh-1"><?= e($club['short_name']) ?></span>
                     </div>
 
-                    <?php if (!empty($club['mission']) || !empty($club['vision']) || !empty($club['objectives'])): ?>
-                        <div class="row g-3 mb-4">
-                            <?php if (!empty($club['mission'])): ?>
-                                <div class="col-md-4">
-                                    <div class="card p-3 h-100 ccms-card bg-primary-subtle border-0">
-                                        <h6 class="fw-bold text-primary mb-2"><i class="bi bi-bullseye me-1"></i> Mission</h6>
-                                        <p class="small text-secondary mb-0"><?= e($club['mission']) ?></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!empty($club['vision'])): ?>
-                                <div class="col-md-4">
-                                    <div class="card p-3 h-100 ccms-card bg-info-subtle border-0">
-                                        <h6 class="fw-bold text-info mb-2"><i class="bi bi-eye me-1"></i> Vision</h6>
-                                        <p class="small text-secondary mb-0"><?= e($club['vision']) ?></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
-                            <?php if (!empty($club['objectives'])): ?>
-                                <div class="col-md-4">
-                                    <div class="card p-3 h-100 ccms-card bg-success-subtle border-0">
-                                        <h6 class="fw-bold text-success mb-2"><i class="bi bi-flag me-1"></i> Objectives</h6>
-                                        <p class="small text-secondary mb-0"><?= e($club['objectives']) ?></p>
-                                    </div>
-                                </div>
-                            <?php endif; ?>
+                    <div>
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <h1 class="fw-bold text-white mb-0 display-6"><?= e($club['name']) ?></h1>
+                            <i class="bi bi-patch-check-fill text-primary fs-4" title="Verified College Chapter"></i>
                         </div>
-                    <?php endif; ?>
+                        <h6 class="text-primary-emphasis fw-semibold mb-3" style="color: #818cf8 !important;"><?= e($club['tagline']) ?></h6>
 
-                    <!-- Leadership Roster -->
-                    <div class="card p-4 ccms-card mb-4">
-                        <h5 class="fw-bold mb-3"><i class="bi bi-people text-primary me-2"></i> Club Leadership & Committee</h5>
-                        <div class="row g-3">
-                            <?php if (empty($leadership)): ?>
-                                <p class="text-muted small mb-0">Leadership roster not updated yet.</p>
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary-subtle text-white border border-white-10 rounded-pill px-3 py-1 small">Technical</span>
+                            <span class="badge bg-secondary-subtle text-white border border-white-10 rounded-pill px-3 py-1 small">Innovation</span>
+                            <span class="badge bg-secondary-subtle text-white border border-white-10 rounded-pill px-3 py-1 small">Problem Solving</span>
+                        </div>
+
+                        <p class="text-white-50 small mb-4 max-w-xl">
+                            <?= e($club['description']) ?>
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <?php if ($club['recruitment_open'] && !empty($club['recruitment_link'])): ?>
+                                <a href="<?= e($club['recruitment_link']) ?>" target="_blank" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                    <i class="bi bi-person-plus-fill me-1"></i> Join Club
+                                </a>
                             <?php else: ?>
-                                <?php foreach ($leadership as $lead): ?>
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-center gap-3 p-3 bg-body-tertiary rounded-3 border">
-                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-5" style="width: 48px; height: 48px;">
-                                                <?= e(substr($lead['name'], 0, 1)) ?>
-                                            </div>
-                                            <div>
-                                                <h6 class="fw-bold mb-0"><?= e($lead['name']) ?></h6>
-                                                <span class="badge bg-primary-subtle text-primary border rounded-pill small"><?= e($lead['role_title']) ?></span>
-                                                <?php if (!empty($lead['email'])): ?>
-                                                    <div class="small text-muted mt-1"><i class="bi bi-envelope me-1"></i> <?= e($lead['email']) ?></div>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
+                                <a href="/contact.php" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                                    <i class="bi bi-person-plus-fill me-1"></i> Apply to Join
+                                </a>
                             <?php endif; ?>
+                            <a href="/contact.php" class="btn btn-outline-light rounded-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-chat-dots me-1"></i> Contact Club
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Events Tab -->
-                <div class="tab-pane fade" id="events">
-                    <div class="d-flex flex-column gap-3">
-                        <?php if (empty($events)): ?>
-                            <div class="p-4 text-center text-muted card border-dashed">No events logged for this club yet.</div>
-                        <?php else: ?>
-                            <?php foreach ($events as $ev): ?>
-                                <div class="card p-3 ccms-card">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span class="badge bg-primary-subtle text-primary rounded-pill small"><?= e(date('M j, Y - g:i A', strtotime($ev['event_date']))) ?></span>
-                                        <?= get_status_badge($ev['status']) ?>
-                                    </div>
-                                    <h5 class="fw-bold mb-1"><?= e($ev['title']) ?></h5>
-                                    <p class="text-secondary small mb-2"><i class="bi bi-geo-alt me-1"></i> <?= e($ev['venue']) ?></p>
-                                    <p class="small text-muted mb-3"><?= e($ev['description']) ?></p>
-                                    <?php if (!empty($ev['registration_link'])): ?>
-                                        <a href="<?= e($ev['registration_link']) ?>" target="_blank" class="btn btn-sm btn-primary rounded-pill align-self-start">
-                                            Register for Event <i class="bi bi-box-arrow-up-right ms-1"></i>
-                                        </a>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+            <!-- Right Glass Details Table -->
+            <div class="col-lg-5">
+                <div class="card bg-dark text-white border border-white-10 rounded-4 p-4 shadow-lg" style="background: rgba(17, 24, 39, 0.75) !important; backdrop-filter: blur(16px);">
+                    <div class="d-flex flex-column gap-3 small">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-calendar-event me-2 text-primary"></i> Established</span>
+                            <span class="fw-semibold"><?= e($club['founded_year']) ?></span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-person-badge me-2 text-primary"></i> Faculty Advisor</span>
+                            <span class="fw-semibold">Dr. Ankit Sharma</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-person me-2 text-primary"></i> President</span>
+                            <span class="fw-semibold">Riya Sharma</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-people me-2 text-primary"></i> Members</span>
+                            <span class="fw-semibold">120+ Active</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-clock me-2 text-primary"></i> Meetings</span>
+                            <span class="fw-semibold"><?= e($club['meeting_time'] ?: 'Every Saturday, 4 PM') ?></span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-white-50"><i class="bi bi-geo-alt me-2 text-primary"></i> Location</span>
+                            <span class="fw-semibold"><?= e($club['office_location'] ?: 'CSE Block, Room 305') ?></span>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                <!-- Activities Tab -->
-                <div class="tab-pane fade" id="activities">
-                    <div class="d-flex flex-column gap-3">
-                        <?php if (empty($activities)): ?>
-                            <div class="p-4 text-center text-muted card border-dashed">No activity updates published.</div>
-                        <?php else: ?>
-                            <?php foreach ($activities as $act): ?>
-                                <div class="card p-3 ccms-card">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span class="badge bg-secondary-subtle text-secondary rounded-pill small"><?= e($act['tag']) ?></span>
-                                        <span class="small text-muted"><?= time_ago($act['created_at']) ?></span>
-                                    </div>
-                                    <h5 class="fw-bold mb-2"><?= e($act['title']) ?></h5>
-                                    <p class="text-secondary small mb-0"><?= nl2br(e($act['content'])) ?></p>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+<!-- Sub-Nav Sticky Bar -->
+<div class="bg-white border-bottom sticky-top shadow-sm" style="top: 61px; z-index: 1020;">
+    <div class="container">
+        <ul class="nav nav-tabs border-0 flex-nowrap overflow-x-auto text-nowrap" id="clubSubNav">
+            <li class="nav-item"><a class="nav-link active text-primary fw-semibold py-3 border-0 border-bottom border-3 border-primary" href="#overview">Overview</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#activities">Activities</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#events">Events</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#gallery">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#team">Team</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#achievements">Achievements</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="#members">Members</a></li>
+            <li class="nav-item"><a class="nav-link text-secondary fw-semibold py-3 border-0" href="/contact.php">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Body Content -->
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Left Main Area -->
+        <div class="col-lg-8">
+            <!-- About Card -->
+            <div id="overview" class="card p-4 border-0 shadow-sm rounded-4 mb-5">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="bg-primary-subtle text-primary rounded-circle p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                        <i class="bi bi-people-fill fs-5"></i>
+                    </div>
+                    <h5 class="fw-bold mb-0">About <?= e($club['name']) ?></h5>
+                </div>
+                <p class="text-secondary small mb-4">
+                    We aim to create a strong coding and engineering culture on campus by organizing workshops, hackathons, coding contests, and real-world development projects. Our mission is to empower students to turn ideas into impact through code.
+                </p>
+
+                <!-- Mission / Vision / Objectives 3-Grid -->
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-body-tertiary rounded-3 border h-100">
+                            <h6 class="fw-bold text-primary mb-2"><i class="bi bi-bullseye me-1"></i> Mission</h6>
+                            <p class="small text-secondary mb-0">To empower students with technical skills and creativity to build innovative solutions.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-body-tertiary rounded-3 border h-100">
+                            <h6 class="fw-bold text-primary mb-2"><i class="bi bi-eye me-1"></i> Vision</h6>
+                            <p class="small text-secondary mb-0">To be the most active and impactful coding community in the region.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-body-tertiary rounded-3 border h-100">
+                            <h6 class="fw-bold text-primary mb-2"><i class="bi bi-star me-1"></i> Objectives</h6>
+                            <ul class="list-unstyled small text-secondary mb-0 space-y-1">
+                                <li>&bull; Enhance coding skills</li>
+                                <li>&bull; Promote teamwork</li>
+                                <li>&bull; Build real-world projects</li>
+                                <li>&bull; Encourage open source</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Achievements Tab -->
-                <div class="tab-pane fade" id="achievements">
-                    <div class="d-flex flex-column gap-3">
-                        <?php if (empty($achievements)): ?>
-                            <div class="p-4 text-center text-muted card border-dashed">No achievements uploaded yet.</div>
-                        <?php else: ?>
-                            <?php foreach ($achievements as $ach): ?>
-                                <div class="card p-3 ccms-card border-start border-4 border-warning">
-                                    <div class="d-flex align-items-center gap-3">
-                                        <div class="bg-warning-subtle text-warning p-3 rounded-circle">
-                                            <i class="bi bi-trophy-fill fs-3"></i>
-                                        </div>
-                                        <div>
-                                            <span class="small text-muted"><?= e(date('F Y', strtotime($ach['achievement_date']))) ?></span>
-                                            <h5 class="fw-bold mb-1"><?= e($ach['title']) ?></h5>
-                                            <p class="text-secondary small mb-0"><?= e($ach['description']) ?></p>
-                                        </div>
-                                    </div>
+            <!-- Recent Activities -->
+            <div id="activities" class="mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold mb-0">Recent Activities</h5>
+                    <a href="/activities.php" class="text-decoration-none small text-primary fw-semibold">View All</a>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="card p-3 border-0 shadow-sm rounded-4">
+                        <div class="d-flex gap-3 align-items-center">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=200&auto=format&fit=crop" class="rounded-3" style="width: 80px; height: 60px; object-fit: cover;" alt="Workshop">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="fw-bold mb-0 small text-dark">Web Development Workshop</h6>
+                                    <span class="small text-muted"><i class="bi bi-calendar me-1"></i> 12 May, 2024</span>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                                <p class="small text-secondary mb-1">Hands-on session on modern web technologies and best practices.</p>
+                                <span class="badge bg-primary-subtle text-primary rounded-pill small">Workshop</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-3 border-0 shadow-sm rounded-4">
+                        <div class="d-flex gap-3 align-items-center">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=200&auto=format&fit=crop" class="rounded-3" style="width: 80px; height: 60px; object-fit: cover;" alt="CodeRush">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="fw-bold mb-0 small text-dark">CodeRush 4.0</h6>
+                                    <span class="small text-muted"><i class="bi bi-calendar me-1"></i> 28 Apr, 2024</span>
+                                </div>
+                                <p class="small text-secondary mb-1">Intra-college coding contest with exciting problems and cash prizes.</p>
+                                <span class="badge bg-purple-subtle text-primary rounded-pill small">Competition</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-3 border-0 shadow-sm rounded-4">
+                        <div class="d-flex gap-3 align-items-center">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=200&auto=format&fit=crop" class="rounded-3" style="width: 80px; height: 60px; object-fit: cover;" alt="Open Source">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="fw-bold mb-0 small text-dark">Open Source Contribution Drive</h6>
+                                    <span class="small text-muted"><i class="bi bi-calendar me-1"></i> 20 Apr, 2024</span>
+                                </div>
+                                <p class="small text-secondary mb-1">Contributing to open source and learning collaboration on GitHub.</p>
+                                <span class="badge bg-success-subtle text-success rounded-pill small">Open Source</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-3 border-0 shadow-sm rounded-4">
+                        <div class="d-flex gap-3 align-items-center">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=200&auto=format&fit=crop" class="rounded-3" style="width: 80px; height: 60px; object-fit: cover;" alt="DSA">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="fw-bold mb-0 small text-dark">DSA Masterclass</h6>
+                                    <span class="small text-muted"><i class="bi bi-calendar me-1"></i> 10 Apr, 2024</span>
+                                </div>
+                                <p class="small text-secondary mb-1">Deep dive into Data Structures & Algorithms with problem solving.</p>
+                                <span class="badge bg-info-subtle text-info rounded-pill small">Session</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sidebar Column -->
+        <!-- Right Sidebar Area -->
         <div class="col-lg-4">
-            <!-- Contact & Social Links -->
-            <div class="card p-4 ccms-card mb-4">
-                <h5 class="fw-bold mb-3"><i class="bi bi-envelope-paper text-primary me-2"></i> Club Contact Info</h5>
-                <ul class="list-unstyled mb-4 space-y-2 text-secondary small">
-                    <li class="mb-2"><i class="bi bi-envelope-fill text-primary me-2"></i> <?= e($club['email'] ?: 'N/A') ?></li>
-                    <li class="mb-2"><i class="bi bi-telephone-fill text-primary me-2"></i> <?= e($club['phone'] ?: 'N/A') ?></li>
-                    <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i> <?= e($club['office_location'] ?: 'SAC Office') ?></li>
-                    <li class="mb-2"><i class="bi bi-clock-fill text-primary me-2"></i> <?= e($club['meeting_time'] ?: 'Weekly Meets') ?></li>
-                </ul>
-
-                <h6 class="fw-bold mb-2">Connect with Us</h6>
-                <div class="d-flex flex-wrap gap-2">
-                    <?php if (!empty($club['website'])): ?>
-                        <a href="<?= e($club['website']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-globe me-1"></i> Website</a>
-                    <?php endif; ?>
-                    <?php if (!empty($club['github'])): ?>
-                        <a href="<?= e($club['github']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-github me-1"></i> GitHub</a>
-                    <?php endif; ?>
-                    <?php if (!empty($club['linkedin'])): ?>
-                        <a href="<?= e($club['linkedin']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-linkedin me-1"></i> LinkedIn</a>
-                    <?php endif; ?>
-                    <?php if (!empty($club['instagram'])): ?>
-                        <a href="<?= e($club['instagram']) ?>" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill"><i class="bi bi-instagram me-1"></i> Instagram</a>
-                    <?php endif; ?>
+            <!-- Club Impact Card -->
+            <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
+                <div class="d-flex align-items-center gap-2 mb-3 text-primary">
+                    <i class="bi bi-graph-up-arrow fs-5"></i>
+                    <h6 class="fw-bold mb-0 text-dark">Club Impact</h6>
                 </div>
+
+                <div class="row g-3 text-center">
+                    <div class="col-6">
+                        <div class="p-3 bg-body-tertiary rounded-3 border">
+                            <h3 class="fw-bold text-primary mb-0">50+</h3>
+                            <span class="small text-muted">Projects Built</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-body-tertiary rounded-3 border">
+                            <h3 class="fw-bold text-primary mb-0">25+</h3>
+                            <span class="small text-muted">Workshops</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-body-tertiary rounded-3 border">
+                            <h3 class="fw-bold text-primary mb-0">15+</h3>
+                            <span class="small text-muted">Hackathons</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-body-tertiary rounded-3 border">
+                            <h3 class="fw-bold text-primary mb-0">120+</h3>
+                            <span class="small text-muted">Active Members</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Want to be a part of us? Banner -->
+            <div class="card p-4 border-0 text-white rounded-4 shadow-sm mb-4" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                <h6 class="fw-bold mb-1">Want to be a part of us?</h6>
+                <p class="small text-white-80 mb-3">Join CodeCrunch and start your journey with amazing people.</p>
+                <a href="/contact.php" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-primary align-self-start text-decoration-none shadow-sm">
+                    Apply Now &rarr;
+                </a>
+            </div>
+
+            <!-- Upcoming Events Sidebar -->
+            <div id="events" class="card p-4 border-0 shadow-sm rounded-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0">Upcoming Events</h6>
+                    <a href="/events.php" class="text-decoration-none small text-primary fw-semibold">View All</a>
+                </div>
+
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex gap-3 align-items-center pb-2 border-bottom">
+                        <div class="event-date-badge flex-shrink-0">
+                            <span class="event-date-num">25</span>
+                            <span class="event-date-month">MAY</span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0 small text-dark">HackVerse 2024</h6>
+                            <span class="small text-muted d-block">24-Hour Hackathon</span>
+                            <span class="small text-muted"><i class="bi bi-geo-alt me-1"></i> Seminar Hall, UIT</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center pb-2 border-bottom">
+                        <div class="event-date-badge flex-shrink-0">
+                            <span class="event-date-num">08</span>
+                            <span class="event-date-month">JUN</span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0 small text-dark">Python Bootcamp</h6>
+                            <span class="small text-muted d-block">2-Day Workshop</span>
+                            <span class="small text-muted"><i class="bi bi-geo-alt me-1"></i> CSE Lab 2</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 align-items-center pb-2 border-bottom">
+                        <div class="event-date-badge flex-shrink-0">
+                            <span class="event-date-num">20</span>
+                            <span class="event-date-month">JUN</span>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0 small text-dark">Code Talk</h6>
+                            <span class="small text-muted d-block">Expert Talk Session</span>
+                            <span class="small text-muted"><i class="bi bi-geo-alt me-1"></i> Seminar Hall, UIT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Highlights -->
+    <div id="gallery" class="my-5 pt-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0">Gallery Highlights</h5>
+            <a href="/gallery.php" class="text-decoration-none small text-primary fw-semibold">View All</a>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-6 col-md-3">
+                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded-4 shadow-sm" style="height: 160px; width: 100%; object-fit: cover;" alt="Gallery 1">
+            </div>
+            <div class="col-6 col-md-3">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded-4 shadow-sm" style="height: 160px; width: 100%; object-fit: cover;" alt="Gallery 2">
+            </div>
+            <div class="col-6 col-md-3">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded-4 shadow-sm" style="height: 160px; width: 100%; object-fit: cover;" alt="Gallery 3">
+            </div>
+            <div class="col-6 col-md-3">
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded-4 shadow-sm" style="height: 160px; width: 100%; object-fit: cover;" alt="Gallery 4">
             </div>
         </div>
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<!-- Bottom Dark Footer Bar -->
+<footer class="bg-dark text-white py-4 border-top border-white-10" style="background-color: #0b0f19 !important;">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 text-white-50 small">
+                <span>Follow us on</span>
+                <a href="#" class="text-white-50"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="text-white-50"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-white-50"><i class="bi bi-github"></i></a>
+                <a href="#" class="text-white-50"><i class="bi bi-youtube"></i></a>
+                <a href="#" class="text-white-50"><i class="bi bi-globe"></i></a>
+            </div>
+
+            <div class="text-center text-white-50 small font-monospace">
+                <i class="bi bi-quote text-primary fs-5 me-1"></i> Great code begins with great collaboration. Let's build the future together! <i class="bi bi-quote text-primary fs-5 ms-1"></i>
+            </div>
+
+            <div>
+                <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="navigator.clipboard.writeText(window.location.href); alert('Club link copied!');">
+                    Share Club <i class="bi bi-share me-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JS Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
