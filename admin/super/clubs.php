@@ -126,40 +126,26 @@ $registeredClubs = $clubsStmt->fetchAll();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
-        body { background: #f8fafc; }
-        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
+                body { background: #f1f5f9; }
         .admin-nav-link {
-            color: rgba(255,255,255,0.65);
-            padding: 11px 16px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            margin-bottom: 2px;
+            color: rgba(255,255,255,0.65); padding: 10px 14px; border-radius: 10px;
+            display: flex; align-items: center; gap: 11px; text-decoration: none;
+            font-weight: 500; font-size: 0.82rem; transition: all 0.2s ease; margin-bottom: 1px;
         }
-        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(3px); }
-        .admin-nav-link.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .admin-nav-link i { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
+        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(2px); }
+        .admin-nav-link.active { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .sidebar-section-label { color: rgba(255,255,255,0.35); font-size: 0.6rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; padding: 0 14px; margin: 14px 0 6px; }
         .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
+        .super-sidebar::-webkit-scrollbar { width: 4px; }
+        .super-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="d-flex">
+<div class="d-flex" style="min-height:100vh;">
     <!-- Sidebar -->
-    <div class="admin-sidebar p-3 flex-shrink-0 d-none d-md-block">
-        <div class="d-flex align-items-center gap-3 mb-4 p-2">
-            <img src="/assets/United Logo.webp" style="height: 38px;">
-            <div>
-                <span class="fw-bold d-block lh-1">ClubHub</span>
-                <span class="small text-white-50" style="font-size: 0.65rem;">DEAN PORTAL</span>
-            </div>
-        </div>
+    <?php require_once __DIR__ . '/../../includes/super_sidebar.php'; ?>
 
         <nav class="d-flex flex-column gap-2">
             <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Overview</a>
