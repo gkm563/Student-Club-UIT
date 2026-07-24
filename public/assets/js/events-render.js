@@ -96,8 +96,8 @@ function renderEmptyState(container, title, subtitle = '') {
                 <i class="bi bi-calendar-x fs-1 text-primary d-block mb-3"></i>
                 <h5 class="fw-bold mb-2">${escapeHtml(title)}</h5>
                 <p class="text-secondary small mb-4">${escapeHtml(subtitle)}</p>
-                <a href="/admin/login.php" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
-                    <i class="bi bi-shield-lock me-1"></i> Admin Portal Login
+                <a href="/clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                    <i class="bi bi-collection me-1"></i> Explore Student Clubs
                 </a>
             </div>
         </div>

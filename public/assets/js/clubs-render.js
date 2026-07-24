@@ -175,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </button>
                             <br>
                         ` : ''}
-                        <a href="/admin/login.php" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold mt-2">
-                            <i class="bi bi-shield-lock me-1"></i> Dean Admin Login
+                        <a href="/contact.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold mt-2">
+                            <i class="bi bi-envelope me-1"></i> Contact Student Affairs
                         </a>
                     </div>
                 </div>
