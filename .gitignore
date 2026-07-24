@@ -1,0 +1,6 @@
+# Git Ignore for CCMS
+prd_content.txt
+database/ccms.sqlite
+.env
+.DS_Store
+Thumbs.db

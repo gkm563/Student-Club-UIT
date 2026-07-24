@@ -1,0 +1,196 @@
+<?php
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
+
+require_club_admin();
+
+$db = Database::getConnection();
+$clubId = get_assigned_club_id();
+
+if (!$clubId) {
+    $club = $db->query("SELECT * FROM clubs ORDER BY created_at ASC LIMIT 1")->fetch();
+    $clubId = $club['id'] ?? null;
+} else {
+    $stmt = $db->prepare("SELECT * FROM clubs WHERE id = ?");
+    $stmt->execute([$clubId]);
+    $club = $stmt->fetch();
+}
+
+$success = '';
+$error = '';
+
+// Handle Create Event
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $error = "Security token invalid.";
+    } else {
+        $title       = trim($_POST['title'] ?? '');
+        $description = trim($_POST['description'] ?? '');
+        $venue       = trim($_POST['venue'] ?? '');
+        $event_date  = $_POST['event_date'] ?? '';
+        $reg_link    = trim($_POST['registration_link'] ?? '');
+        $status      = $_POST['status'] ?? 'upcoming';
+
+        if (empty($title) || empty($venue) || empty($event_date)) {
+            $error = "Title, venue, and date are required.";
+        } else {
+            try {
+                $eventId = generate_uuid();
+                $slug = slugify($title);
+                $stmtIns = $db->prepare("INSERT INTO events (id, club_id, title, slug, description, venue, event_date, registration_link, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmtIns->execute([$eventId, $clubId, $title, $slug, $description, $venue, $event_date, $reg_link, $status]);
+                $success = "New event created successfully!";
+                log_audit($db, get_current_user_id(), get_current_user_name(), 'EVENT_CREATE', 'event', $eventId, "Created event: $title");
+            } catch (Exception $e) {
+                $error = "Failed to create event: " . $e->getMessage();
+            }
+        }
+    }
+}
+
+// Handle Delete Event
+if (isset($_GET['delete'])) {
+    $delId = $_GET['delete'];
+    $stmtDel = $db->prepare("DELETE FROM events WHERE id = ? AND club_id = ?");
+    $stmtDel->execute([$delId, $clubId]);
+    $success = "Event deleted.";
+}
+
+// Fetch Events
+$stmtEv = $db->prepare("SELECT * FROM events WHERE club_id = ? ORDER BY event_date DESC");
+$stmtEv->execute([$clubId]);
+$events = $stmtEv->fetchAll();
+
+$pageTitle = "Manage Events | CCMS Admin";
+require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/navbar.php';
+?>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar Navigation -->
+        <div class="col-md-3 col-lg-2 px-0 admin-sidebar p-3">
+            <div class="px-2 mb-3">
+                <span class="small text-muted text-uppercase fw-bold">Club Management</span>
+                <h6 class="fw-bold text-primary mb-0 mt-1"><?= e($club['short_name'] ?? 'Club Admin') ?></h6>
+            </div>
+            <nav class="d-flex flex-column">
+                <a href="/admin/dashboard.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                <a href="/admin/profile.php" class="admin-nav-link"><i class="bi bi-pencil-square"></i> Edit Profile</a>
+                <a href="/admin/events.php" class="admin-nav-link active"><i class="bi bi-calendar-event"></i> Manage Events</a>
+                <a href="/admin/activities.php" class="admin-nav-link"><i class="bi bi-newspaper"></i> Activity Posts</a>
+                <a href="/admin/members.php" class="admin-nav-link"><i class="bi bi-people"></i> Roster & Officers</a>
+                <hr class="my-2 border-secondary-subtle">
+                <a href="/admin/logout.php" class="admin-nav-link text-danger"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold mb-0">Manage Events</h2>
+                <button class="btn btn-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                    <i class="bi bi-plus-lg me-1"></i> Add New Event
+                </button>
+            </div>
+
+            <?php if (!empty($success)): ?>
+                <div class="alert alert-success rounded-3 small mb-3"><i class="bi bi-check-circle-fill me-1"></i> <?= e($success) ?></div>
+            <?php endif; ?>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger rounded-3 small mb-3"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= e($error) ?></div>
+            <?php endif; ?>
+
+            <div class="card p-4 ccms-card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle small mb-0">
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Date & Time</th>
+                                <th>Venue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($events)): ?>
+                                <tr><td colspan="5" class="text-center text-muted py-4">No events logged yet. Click "Add New Event" to publish one!</td></tr>
+                            <?php else: ?>
+                                <?php foreach ($events as $ev): ?>
+                                    <tr>
+                                        <td class="fw-semibold"><?= e($ev['title']) ?></td>
+                                        <td><?= e(date('M j, Y - g:i A', strtotime($ev['event_date']))) ?></td>
+                                        <td><?= e($ev['venue']) ?></td>
+                                        <td><?= get_status_badge($ev['status']) ?></td>
+                                        <td>
+                                            <a href="/admin/events.php?delete=<?= e($ev['id']) ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-sm btn-outline-danger rounded-circle px-2 py-1" title="Delete">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Event Modal -->
+<div class="modal fade" id="createEventModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom">
+                <h5 class="modal-title fw-bold">Create New Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/admin/events.php" method="POST">
+                <input type="hidden" name="action_create" value="1">
+                <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
+                
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Event Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="e.g. CodeBlitz Hackathon 2026" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Date & Time</label>
+                        <input type="datetime-local" name="event_date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Venue / Location</label>
+                        <input type="text" name="venue" class="form-control" placeholder="e.g. Auditorium Hall A" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Registration Link (Optional)</label>
+                        <input type="url" name="registration_link" class="form-control" placeholder="https://...">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="upcoming" selected>Upcoming</option>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Description</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Event details and agenda..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-sm btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-sm btn-primary rounded-pill px-4 fw-bold">Publish Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php require_once __DIR__ . '/../includes/footer.php'; ?>
