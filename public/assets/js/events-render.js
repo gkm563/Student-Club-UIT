@@ -192,41 +192,44 @@ function renderFloatingEventCard(event, isPast = false) {
     return `
         <div class="card p-3 p-md-4 border-0 shadow-lg rounded-4 ccms-floating-card mb-4">
             <div class="row g-4 align-items-center">
-                <div class="col-md-4 position-relative">
-                    <img src="${escapeHtml(event.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop')}" class="img-fluid rounded-4 card-banner-zoom" style="height: 150px; width: 100%; object-fit: cover;" alt="${escapeHtml(event.title)}">
+                <div class="col-md-3 position-relative">
+                    <img src="${escapeHtml(event.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop')}" class="img-fluid rounded-4 card-banner-zoom" style="height: 175px; width: 100%; object-fit: cover;" alt="${escapeHtml(event.title)}">
                     
                     <!-- Club Badge Floating Overlay -->
-                    <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-75 text-white border border-white-20 rounded-pill px-3 py-1 position-absolute bottom-0 start-0 ms-3 mb-3 text-decoration-none shadow-sm backdrop-blur" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
+                    <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-75 text-white border border-white-20 rounded-pill px-3 py-1-5 position-absolute bottom-0 start-0 ms-3 mb-3 text-decoration-none shadow-sm backdrop-blur" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
                         <i class="bi bi-shield-fill text-primary me-1"></i> ${escapeHtml(event.club_short_name || event.club_name)}
                     </a>
                 </div>
 
-                <div class="col-md-8">
-                    <div class="d-flex align-items-center gap-3 mb-2">
-                        <div class="event-date-badge flex-shrink-0">
-                            <span class="event-date-num">${day}</span>
-                            <span class="event-date-month">${month}</span>
-                        </div>
-                        <div>
-                            ${statusBadge}
-                            <h5 class="fw-bold mb-0 text-dark mt-1 hover-primary">${escapeHtml(event.title)}</h5>
+                <div class="col-md-9">
+                    <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="event-date-badge flex-shrink-0">
+                                <span class="event-date-num">${day}</span>
+                                <span class="event-date-month">${month}</span>
+                            </div>
+                            <div>
+                                ${statusBadge}
+                                <h4 class="fw-bold mb-0 text-dark mt-1 hover-primary">${escapeHtml(event.title)}</h4>
+                            </div>
                         </div>
                     </div>
 
-                    <p class="text-secondary small mb-3 line-clamp-2">${escapeHtml(event.description || 'Join us for an exciting campus event organized by student leaders.')}</p>
+                    <p class="text-secondary mb-3">${escapeHtml(event.description || 'Join us for an exciting campus event organized by student leaders.')}</p>
 
                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pt-3 border-top">
-                        <div class="small text-muted space-x-3">
-                            <span><i class="bi bi-geo-alt text-danger me-1"></i> <strong>${escapeHtml(event.venue)}</strong></span>
-                            <span class="ms-3"><i class="bi bi-clock text-primary me-1"></i> ${timeStr}</span>
+                        <div class="small text-muted space-x-3 d-flex align-items-center gap-3">
+                            <span><i class="bi bi-geo-alt-fill text-danger me-1"></i> <strong>${escapeHtml(event.venue)}</strong></span>
+                            <span><i class="bi bi-clock-fill text-primary me-1"></i> <strong>${timeStr}</strong></span>
+                            <span><i class="bi bi-building text-secondary me-1"></i> ${escapeHtml(event.club_name)}</span>
                         </div>
 
                         ${!isPast ? `
-                            <a href="${escapeHtml(event.registration_link || '/contact.html')}" class="btn btn-primary btn-sm rounded-pill px-4 py-2 fw-bold text-white text-decoration-none shadow-sm btn-glow">
+                            <a href="${escapeHtml(event.registration_link || '/contact.html')}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white text-decoration-none shadow-sm btn-glow">
                                 Register Now &rarr;
                             </a>
                         ` : `
-                            <span class="badge bg-light text-muted border rounded-pill px-3 py-1.5"><i class="bi bi-check-circle me-1"></i> Event Ended</span>
+                            <span class="badge bg-light text-muted border rounded-pill px-3 py-2"><i class="bi bi-check-circle me-1"></i> Event Ended</span>
                         `}
                     </div>
                 </div>
