@@ -26,9 +26,6 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
                 <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-sun"></i></button>
-                <a href="/admin/login.php" class="btn btn-primary rounded-pill px-4 py-1-5 fw-semibold shadow-sm text-white text-decoration-none">
-                    Login
-                </a>
             </div>
         </div>
     </div>
