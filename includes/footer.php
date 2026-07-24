@@ -24,7 +24,6 @@
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="/clubs.html">Clubs</a></li>
                     <li><a href="/events.html">Events</a></li>
-                    <li><a href="/activities.html">Activities</a></li>
                     <li><a href="/gallery.html">Gallery</a></li>
                 </ul>
             </div>

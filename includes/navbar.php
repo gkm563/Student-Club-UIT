@@ -17,7 +17,6 @@ $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= $currentUri === '/' || $currentUri === '/index.html' || $currentUri === '/index.php' ? 'active' : '' ?>" href="/index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'club') ? 'active' : '' ?>" href="/clubs.html">Clubs</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'event') ? 'active' : '' ?>" href="/events.html">Events</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'activit') ? 'active' : '' ?>" href="/activities.html">Activities</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'galler') ? 'active' : '' ?>" href="/gallery.html">Gallery</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'about') ? 'active' : '' ?>" href="/about.html">About Us</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'contact') ? 'active' : '' ?>" href="/contact.html">Contact</a></li>
