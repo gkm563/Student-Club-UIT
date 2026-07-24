@@ -69,7 +69,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_recruitment'])
     <style>
         body { background: #f8fafc; }
         .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
-        .admin-nav-link { color: rgba(255,255,255,0.7); padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 500; }
+        .admin-nav-link {
+            color: rgba(255,255,255,0.65);
+            padding: 11px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            margin-bottom: 2px;
+        }
+        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
+        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(3px); }
+        .admin-nav-link.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
         .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
     </style>
 </head>
