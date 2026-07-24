@@ -77,7 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $termYear = trim($_POST['term_year'] ?? '2025-2026');
     $email = trim($_POST['email'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
-    $avatar = trim($_POST['avatar'] ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');
+    $avatarUrl = trim($_POST['avatar'] ?? 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop');
+
+    // Process uploaded avatar image file from PC
+    $uploadedAvatar = upload_image_file($_FILES['avatar_file'] ?? null, 'roster', $avatarUrl);
+    $avatar = !empty($uploadedAvatar) ? $uploadedAvatar : $avatarUrl;
 
     if (!empty($name) && !empty($roleTitle)) {
         try {
@@ -276,7 +280,7 @@ $roster = $leadStmt->fetchAll();
                 <h5 class="fw-bold modal-title"><i class="bi bi-person-plus text-primary me-2"></i> Add Core Team Leader</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="/admin/profile.php" method="POST">
+            <form action="/admin/profile.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="add_leader">
                 <div class="modal-body space-y-3">
                     <div class="mb-3">
@@ -315,7 +319,12 @@ $roster = $leadStmt->fetchAll();
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Photo Avatar URL</label>
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Leader Photo (From PC)</label>
+                        <input type="file" name="avatar_file" class="form-control rounded-3" accept="image/*">
+                        <span class="form-text text-muted small">Select member profile photo from your computer.</span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Or Photo URL</label>
                         <input type="url" name="avatar" class="form-control rounded-3" value="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop">
                     </div>
                 </div>
