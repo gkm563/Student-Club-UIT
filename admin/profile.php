@@ -142,6 +142,7 @@ $roster = $leadStmt->fetchAll();
             <a href="/admin/profile.php" class="admin-nav-link active"><i class="bi bi-gear"></i> Club & Roster Setup</a>
             <a href="/admin/events.php" class="admin-nav-link"><i class="bi bi-calendar-event"></i> Manage Events</a>
             <a href="/admin/gallery.php" class="admin-nav-link"><i class="bi bi-images"></i> Photo Gallery</a>
+            <a href="/admin/recruitment.php" class="admin-nav-link"><i class="bi bi-person-plus"></i> Recruitment Drive</a>
             <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
     </div>
