@@ -160,10 +160,18 @@ $events = $stmtEv->fetchAll();
                 <table class="table table-hover align-middle mb-0" id="eventsTable">
                     <thead class="table-light">
                         <tr>
-                            <th>Event Details</th>
-                            <th>Venue / Location</th>
-                            <th>Date & Time</th>
-                            <th>Status</th>
+                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="title">
+                                Event Details <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                            </th>
+                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="venue">
+                                Venue / Location <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                            </th>
+                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="date">
+                                Date & Time <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                            </th>
+                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="status">
+                                Status <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                            </th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -286,9 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const sortOrder = document.getElementById('eventSortOrder');
     const tableBody = document.querySelector('#eventsTable tbody');
     const countBadge = document.getElementById('eventCountBadge');
+    const headers = document.querySelectorAll('.sortable-header');
     
     if (!tableBody) return;
     const rows = Array.from(tableBody.querySelectorAll('tr[data-title]'));
+    let currentColumnSort = { key: 'date', dir: 'desc' };
 
     function filterAndSort() {
         const query = (searchInput.value || '').toLowerCase().trim();
@@ -308,14 +318,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Sort visible rows
         visibleRows.sort((a, b) => {
-            if (selectedSort === 'date-desc') {
-                return (b.dataset.date || '').localeCompare(a.dataset.date || '');
-            } else if (selectedSort === 'date-asc') {
-                return (a.dataset.date || '').localeCompare(b.dataset.date || '');
-            } else if (selectedSort === 'title-asc') {
-                return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+            let valA = a.dataset[currentColumnSort.key] || '';
+            let valB = b.dataset[currentColumnSort.key] || '';
+
+            if (currentColumnSort.key === 'date') {
+                return currentColumnSort.dir === 'desc' 
+                    ? valB.localeCompare(valA) 
+                    : valA.localeCompare(valB);
+            } else {
+                return currentColumnSort.dir === 'asc' 
+                    ? valA.localeCompare(valB) 
+                    : valB.localeCompare(valA);
             }
-            return 0;
         });
 
         // Re-append sorted rows
@@ -329,9 +343,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countBadge) countBadge.textContent = visibleRows.length;
     }
 
+    // Column header click listeners
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const key = header.dataset.sortKey;
+            if (currentColumnSort.key === key) {
+                currentColumnSort.dir = currentColumnSort.dir === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentColumnSort.key = key;
+                currentColumnSort.dir = 'asc';
+            }
+
+            // Update icons
+            headers.forEach(h => {
+                const icon = h.querySelector('i');
+                if (icon) icon.className = 'bi bi-arrow-down-up text-muted ms-1 small';
+            });
+            const activeIcon = header.querySelector('i');
+            if (activeIcon) {
+                activeIcon.className = currentColumnSort.dir === 'asc' ? 'bi bi-sort-alpha-down text-primary ms-1 fw-bold' : 'bi bi-sort-alpha-down-alt text-primary ms-1 fw-bold';
+            }
+
+            filterAndSort();
+        });
+    });
+
     searchInput?.addEventListener('input', filterAndSort);
     statusFilter?.addEventListener('change', filterAndSort);
-    sortOrder?.addEventListener('change', filterAndSort);
+    sortOrder?.addEventListener('change', (e) => {
+        if (e.target.value === 'date-desc') { currentColumnSort = { key: 'date', dir: 'desc' }; }
+        else if (e.target.value === 'date-asc') { currentColumnSort = { key: 'date', dir: 'asc' }; }
+        else if (e.target.value === 'title-asc') { currentColumnSort = { key: 'title', dir: 'asc' }; }
+        filterAndSort();
+    });
 });
 </script>
 </body>
