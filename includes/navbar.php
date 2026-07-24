@@ -1,59 +1,34 @@
 <?php
 $currentUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 ?>
-<nav class="navbar navbar-expand-lg navbar-ccms sticky-top">
+<nav class="navbar navbar-expand-lg navbar-clubhub sticky-top">
     <div class="container">
-        <a class="navbar-brand navbar-brand-ccms d-flex align-items-center gap-2" href="/index.html">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
             <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img">
-            <span>ClubHub <span class="badge bg-primary-subtle text-primary border rounded-pill fs-6 px-2 py-1 ms-1">UIT</span></span>
+            <span class="brand-logo-text">ClubHub</span>
         </a>
-        
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClubhub">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 fw-semibold">
-                <li class="nav-item">
-                    <a class="nav-link <?= $currentUri === '/' || $currentUri === '/index.html' || $currentUri === '/index.php' ? 'active text-primary' : '' ?>" href="/index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'clubs') ? 'active text-primary' : '' ?>" href="/clubs.php">All Clubs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'events') ? 'active text-primary' : '' ?>" href="/events.php">Events</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'activities') ? 'active text-primary' : '' ?>" href="/activities.php">Activities</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'gallery') ? 'active text-primary' : '' ?>" href="/gallery.php">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'leadership') ? 'active text-primary' : '' ?>" href="/leadership.php">Leadership</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'about') ? 'active text-primary' : '' ?>" href="/about.php">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= str_contains($currentUri, 'contact') ? 'active text-primary' : '' ?>" href="/contact.php">Contact</a>
-                </li>
+        <div class="collapse navbar-collapse" id="navbarClubhub">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= $currentUri === '/' || $currentUri === '/index.html' || $currentUri === '/index.php' ? 'active' : '' ?>" href="/index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'club') ? 'active' : '' ?>" href="/clubs.html">Clubs</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'event') ? 'active' : '' ?>" href="/events.html">Events</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'activit') ? 'active' : '' ?>" href="/activities.html">Activities</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'galler') ? 'active' : '' ?>" href="/gallery.html">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'about') ? 'active' : '' ?>" href="/about.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub <?= str_contains($currentUri, 'contact') ? 'active' : '' ?>" href="/contact.html">Contact</a></li>
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <button id="themeToggleBtn" class="btn btn-sm btn-outline-secondary rounded-circle px-2 py-1" title="Toggle Light/Dark Theme">
-                    <i class="bi bi-moon-stars-fill"></i>
-                </button>
-
-                <?php if (is_logged_in()): ?>
-                    <a href="/admin/dashboard.php" class="btn btn-primary btn-sm rounded-pill px-3 py-2 fw-bold">
-                        <i class="bi bi-speedometer2 me-1"></i> Dashboard
-                    </a>
-                <?php else: ?>
-                    <a href="/admin/login.php" class="btn btn-outline-primary btn-sm rounded-pill px-3 py-2 fw-semibold">
-                        <i class="bi bi-person-lock me-1"></i> Admin Portal
-                    </a>
-                <?php endif; ?>
+                <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
+                <button id="themeToggleBtn" class="btn btn-link text-white-50 p-0 fs-5" title="Toggle Theme"><i class="bi bi-sun"></i></button>
+                <a href="/admin/login.php" class="btn btn-primary rounded-pill px-4 py-1-5 fw-semibold shadow-sm text-white text-decoration-none">
+                    Login
+                </a>
             </div>
         </div>
     </div>
