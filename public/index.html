@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Clubs Portal | University Institute of Technology</title>
+    <title>Student Clubs Directory | University Institute of Technology</title>
     <meta name="description" content="Official digital home for all student clubs at UIT. Discover technical chapters, cultural societies, sports clubs, leadership opportunities, and upcoming campus events.">
     
     <!-- Bootstrap 5 CSS -->
@@ -32,7 +32,7 @@
                 <li class="nav-item"><a class="nav-link active text-primary" href="#home">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#about">About & Mission</a></li>
                 <li class="nav-item"><a class="nav-link" href="#leadership">Dignitaries & Mentors</a></li>
-                <li class="nav-item"><a class="nav-link" href="#clubs">Campus Clubs</a></li>
+                <li class="nav-item"><a class="nav-link" href="#directory">Clubs Directory</a></li>
                 <li class="nav-item"><a class="nav-link" href="#events">Upcoming Events</a></li>
                 <li class="nav-item"><a class="nav-link" href="/contact.php">Contact</a></li>
             </ul>
@@ -52,7 +52,6 @@
 <!-- 1. Hero Section -->
 <section id="home" class="hero-ccms text-center py-5 position-relative">
     <div class="container position-relative z-1 py-4">
-        <!-- Floating Glass Chips -->
         <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-4">
             <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 fw-semibold">
                 <i class="bi bi-stars me-1 text-warning"></i> Official Campus Portal
@@ -67,7 +66,7 @@
 
         <h1 class="hero-title mb-4">
             Welcome to the Official <br>
-            <span class="hero-highlight">Student Clubs Network</span>
+            <span class="hero-highlight">Student Clubs Directory</span>
         </h1>
         <p class="lead text-secondary max-w-2xl mx-auto mb-5 fs-5">
             Discover vibrant campus communities, participate in national hackathons, perform in cultural festivals, and build lifelong leadership skills at UIT.
@@ -77,25 +76,12 @@
         <div class="hero-search-box position-relative mb-4 mx-auto">
             <div class="d-flex align-items-center">
                 <i class="bi bi-search fs-4 text-primary me-3"></i>
-                <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search clubs by name or interest (e.g. GeeksforGeeks, Robotics, Music)..." autocomplete="off">
-                <a href="#clubs" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold d-none d-md-block shadow-sm">
-                    Explore Clubs <i class="bi bi-arrow-down ms-1"></i>
+                <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search clubs by name or domain (e.g. GeeksforGeeks, Robotics, Music)..." autocomplete="off">
+                <a href="#directory" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold d-none d-md-block shadow-sm">
+                    Explore Directory <i class="bi bi-arrow-down ms-1"></i>
                 </a>
             </div>
             <div id="searchResultsDropdown" class="search-results-dropdown"></div>
-        </div>
-
-        <!-- Glass Chips Categories Row -->
-        <div class="d-flex flex-wrap align-items-center justify-content-center gap-3">
-            <a href="#technical" class="category-pill active">
-                <i class="bi bi-code-slash fs-5"></i> Technical & Coding Clubs
-            </a>
-            <a href="#cultural" class="category-pill">
-                <i class="bi bi-palette fs-5"></i> Cultural & Arts Clubs
-            </a>
-            <a href="#sports-other" class="category-pill">
-                <i class="bi bi-trophy fs-5"></i> Sports & Special Interest
-            </a>
         </div>
     </div>
 </section>
@@ -112,7 +98,7 @@
         <div class="row g-4">
             <!-- Mission Card -->
             <div class="col-md-4">
-                <div class="card p-4 h-100 ccms-card ccms-card-glow text-center">
+                <div class="card p-4 h-100 ccms-card text-center">
                     <div class="bg-primary-subtle text-primary rounded-circle mx-auto p-3 mb-3" style="width: 68px; height: 68px;">
                         <i class="bi bi-bullseye fs-2"></i>
                     </div>
@@ -125,7 +111,7 @@
 
             <!-- Vision Card -->
             <div class="col-md-4">
-                <div class="card p-4 h-100 ccms-card ccms-card-glow text-center">
+                <div class="card p-4 h-100 ccms-card text-center">
                     <div class="bg-info-subtle text-info rounded-circle mx-auto p-3 mb-3" style="width: 68px; height: 68px;">
                         <i class="bi bi-eye fs-2"></i>
                     </div>
@@ -138,7 +124,7 @@
 
             <!-- Core Values Card -->
             <div class="col-md-4">
-                <div class="card p-4 h-100 ccms-card ccms-card-glow text-center">
+                <div class="card p-4 h-100 ccms-card text-center">
                     <div class="bg-success-subtle text-success rounded-circle mx-auto p-3 mb-3" style="width: 68px; height: 68px;">
                         <i class="bi bi-shield-check fs-2"></i>
                     </div>
@@ -158,15 +144,15 @@
         <div class="text-center max-w-2xl mx-auto mb-5">
             <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-2 fw-semibold">Mentorship & Governance</span>
             <h2 class="fw-bold display-6 mb-2">Campus Leadership & Dignitaries</h2>
-            <p class="text-secondary">Guided by esteemed faculty mentors and led by dedicated student presidents.</p>
+            <p class="text-secondary">Guided by esteemed faculty mentors and led by dedicated student council officers.</p>
         </div>
 
         <div class="row g-4">
             <!-- Faculty Head -->
             <div class="col-md-6 col-lg-3">
-                <div class="card p-4 text-center ccms-card ccms-card-glow h-100">
-                    <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px;">
-                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 100px; height: 100px;">
+                <div class="card p-4 text-center ccms-card h-100">
+                    <div class="position-relative mx-auto mb-3" style="width: 90px; height: 90px;">
+                        <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 90px; height: 90px;">
                             SKG
                         </div>
                     </div>
@@ -181,9 +167,9 @@
 
             <!-- Student President -->
             <div class="col-md-6 col-lg-3">
-                <div class="card p-4 text-center ccms-card ccms-card-glow h-100">
-                    <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px;">
-                        <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 100px; height: 100px;">
+                <div class="card p-4 text-center ccms-card h-100">
+                    <div class="position-relative mx-auto mb-3" style="width: 90px; height: 90px;">
+                        <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 90px; height: 90px;">
                             AS
                         </div>
                     </div>
@@ -198,9 +184,9 @@
 
             <!-- Vice President -->
             <div class="col-md-6 col-lg-3">
-                <div class="card p-4 text-center ccms-card ccms-card-glow h-100">
-                    <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px;">
-                        <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 100px; height: 100px;">
+                <div class="card p-4 text-center ccms-card h-100">
+                    <div class="position-relative mx-auto mb-3" style="width: 90px; height: 90px;">
+                        <div class="bg-warning text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 90px; height: 90px;">
                             AS
                         </div>
                     </div>
@@ -215,9 +201,9 @@
 
             <!-- Secretary -->
             <div class="col-md-6 col-lg-3">
-                <div class="card p-4 text-center ccms-card ccms-card-glow h-100">
-                    <div class="position-relative mx-auto mb-3" style="width: 100px; height: 100px;">
-                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 100px; height: 100px;">
+                <div class="card p-4 text-center ccms-card h-100">
+                    <div class="position-relative mx-auto mb-3" style="width: 90px; height: 90px;">
+                        <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2 shadow" style="width: 90px; height: 90px;">
                             RV
                         </div>
                     </div>
@@ -233,208 +219,142 @@
     </div>
 </section>
 
-<!-- 4. Campus Clubs Section Categorized into 3 Main Parts -->
-<section id="clubs" class="py-5 bg-body-tertiary">
+<!-- 4. OUR COLLEGE CLUBS DIRECTORY (3 BIG CONTAINER BOXES) -->
+<section id="directory" class="py-5 bg-body-tertiary">
     <div class="container py-4">
         <div class="text-center max-w-2xl mx-auto mb-5">
-            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-2 fw-semibold">Club Directory</span>
+            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2 mb-2 fw-semibold">Master Directory</span>
             <h2 class="fw-bold display-6 mb-2">Our College Clubs Directory</h2>
-            <p class="text-secondary">Categorized into Technical, Cultural, and Special Interest domains. Click on any club to view full profile and activities.</p>
+            <p class="text-secondary">Organized into 3 primary domain containers. Click on any club to view full profile, events, and recruitment links.</p>
         </div>
 
-        <!-- PART 1: Technical & Coding Clubs -->
-        <div id="technical" class="mb-5">
-            <div class="d-flex align-items-center gap-3 mb-4 pb-2 border-bottom">
-                <div class="bg-primary text-white p-2 rounded-3 fs-4"><i class="bi bi-code-slash"></i></div>
-                <div>
-                    <h3 class="fw-bold mb-0">Part 1: Technical & Coding Clubs</h3>
-                    <p class="text-secondary small mb-0">Algorithms, software engineering, AI, robotics, and hardware hackathons.</p>
+        <!-- ==================== BIG BOX 1: TECHNICAL & CODING CLUBS CONTAINER ==================== -->
+        <div class="domain-big-box domain-big-box-tech">
+            <div class="domain-box-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-primary text-white p-3 rounded-4 fs-3"><i class="bi bi-code-slash"></i></div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-primary">Box 1: Technical & Coding Domain</h3>
+                        <p class="text-secondary small mb-0">Algorithms, competitive programming, AI, robotics, hardware & cloud development.</p>
+                    </div>
                 </div>
+                <span class="badge bg-primary text-white rounded-pill px-3 py-2 fs-6">4 Active Chapters</span>
             </div>
 
-            <div class="row g-4">
-                <!-- Club 1: GeeksforGeeks Chapter -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-dark text-white fw-bold fs-4">
-                                GFG
+            <div class="domain-box-body">
+                <div class="row g-4">
+                    <!-- Technical Club 1: GeeksforGeeks Chapter -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-dark text-white fw-bold fs-5">
+                                    GFG
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill small"><i class="bi bi-code-slash me-1"></i> Coding</span>
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1"><i class="bi bi-person-plus-fill me-1"></i> Recruiting</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/club-detail.php?slug=geeksforgeeks" class="text-decoration-none text-body">
-                                    GeeksforGeeks Student Chapter
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Empowering coders, algorithms enthusiasts, and tech leaders on campus through DSA bootcamps and placement prep.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2022</span>
-                                <a href="/club-detail.php?slug=geeksforgeeks" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Club 2: Robotics & AI Society -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-primary text-white fw-bold fs-4">
-                                RAI
-                            </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-info-subtle text-info border rounded-pill small"><i class="bi bi-cpu me-1"></i> Robotics & AI</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/club-detail.php?slug=robotics-ai" class="text-decoration-none text-body">
-                                    Robotics & AI Society
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Building autonomous bots, ESP32 hardware, computer vision algorithms, and drone technology.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2021</span>
-                                <a href="/club-detail.php?slug=robotics-ai" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary-subtle text-primary border rounded-pill small">Coding</span>
+                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-2 py-1 small"><i class="bi bi-person-plus-fill me-1"></i>Recruiting</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/club-detail.php?slug=geeksforgeeks" class="text-decoration-none text-body">
+                                        GeeksforGeeks Chapter
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Empowering coders, algorithms enthusiasts, and tech leaders through DSA bootcamps.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2022</span>
+                                    <a href="/club-detail.php?slug=geeksforgeeks" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Club 3: WebDev & OpenSource Guild -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-success text-white fw-bold fs-4">
-                                WEB
+                    <!-- Technical Club 2: Robotics & AI Society -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-primary text-white fw-bold fs-5">
+                                    RAI
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill small"><i class="bi bi-globe me-1"></i> Web Development</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    WebDev & OpenSource Guild
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Mastering React, Node.js, Cloud architecture, and contributing to global open-source GitHub projects.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2023</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-info-subtle text-info border rounded-pill small">Robotics</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/club-detail.php?slug=robotics-ai" class="text-decoration-none text-body">
+                                        Robotics & AI Society
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Building autonomous bots, ESP32 hardware, computer vision algorithms, and drones.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2021</span>
+                                    <a href="/club-detail.php?slug=robotics-ai" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- PART 2: Cultural & Performing Arts Clubs -->
-        <div id="cultural" class="mb-5">
-            <div class="d-flex align-items-center gap-3 mb-4 pb-2 border-bottom">
-                <div class="bg-warning text-white p-2 rounded-3 fs-4"><i class="bi bi-palette"></i></div>
-                <div>
-                    <h3 class="fw-bold mb-0">Part 2: Cultural & Performing Arts Clubs</h3>
-                    <p class="text-secondary small mb-0">Music, dance, street theatre, fine arts, and annual campus cultural festivals.</p>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <!-- Club 1: Kala-Kriti Cultural Club -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-warning text-white fw-bold fs-4">
-                                KKL
+                    <!-- Technical Club 3: WebDev & OpenSource Guild -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-success text-white fw-bold fs-5">
+                                    WEB
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-warning-subtle text-warning border rounded-pill small"><i class="bi bi-palette me-1"></i> Cultural</span>
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1"><i class="bi bi-person-plus-fill me-1"></i> Recruiting</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/club-detail.php?slug=kala-kriti" class="text-decoration-none text-body">
-                                    Kala-Kriti Cultural Club
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Celebrating art, drama, rhythm, street plays, and organizing annual youth cultural festivals.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2019</span>
-                                <a href="/club-detail.php?slug=kala-kriti" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary-subtle text-primary border rounded-pill small">Web Dev</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        WebDev & OpenSource
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Mastering React, Node.js, Cloud architecture, and global GitHub contributions.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2023</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Club 2: Symphony Music Society -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-danger text-white fw-bold fs-4">
-                                MUS
+                    <!-- Technical Club 4: AI & Data Science Club -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-purple text-white bg-primary fw-bold fs-5">
+                                    ADS
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-danger-subtle text-danger border rounded-pill small"><i class="bi bi-music-note-beamed me-1"></i> Music</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    Symphony Music Society
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Classical, rock, fusion bands, vocal harmony jams, and acoustic open-mic nights.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2020</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Club 3: Footloose Dance Troupe -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-info text-white fw-bold fs-4">
-                                DNC
-                            </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-info-subtle text-info border rounded-pill small"><i class="bi bi-activity me-1"></i> Dance</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    Footloose Dance Troupe
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Hip-hop, western fusion, classical kathak, and inter-collegiate dance league winners.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2021</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-info-subtle text-info border rounded-pill small">Data Science</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        AI & Data Science Club
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Machine learning models, Python data pipelines, neural networks, and Kaggle leagues.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2024</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -442,99 +362,209 @@
             </div>
         </div>
 
-        <!-- PART 3: Sports, Entrepreneurship & Social Service Clubs -->
-        <div id="sports-other">
-            <div class="d-flex align-items-center gap-3 mb-4 pb-2 border-bottom">
-                <div class="bg-success text-white p-2 rounded-3 fs-4"><i class="bi bi-trophy"></i></div>
-                <div>
-                    <h3 class="fw-bold mb-0">Part 3: Sports & Special Interest Clubs</h3>
-                    <p class="text-secondary small mb-0">Intramural athletics, E-Cell startups, NSS community outreach, and social welfare.</p>
+        <!-- ==================== BIG BOX 2: CULTURAL & PERFORMING ARTS CONTAINER ==================== -->
+        <div class="domain-big-box domain-big-box-cultural">
+            <div class="domain-box-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-warning text-white p-3 rounded-4 fs-3"><i class="bi bi-palette"></i></div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-warning">Box 2: Cultural & Performing Arts Domain</h3>
+                        <p class="text-secondary small mb-0">Music bands, classical dance, street theatre, fine arts, and annual campus youth fests.</p>
+                    </div>
                 </div>
+                <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fs-6">3 Active Chapters</span>
             </div>
 
-            <div class="row g-4">
-                <!-- Club 1: E-Cell Startup Incubator -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-purple text-white bg-primary fw-bold fs-4">
-                                ECL
+            <div class="domain-box-body">
+                <div class="row g-4">
+                    <!-- Cultural Club 1: Kala-Kriti Cultural Club -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-warning text-white fw-bold fs-5">
+                                    KKL
+                                </div>
+                            </div>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-warning-subtle text-warning border rounded-pill small">Cultural</span>
+                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-2 py-1 small"><i class="bi bi-person-plus-fill me-1"></i>Recruiting</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/club-detail.php?slug=kala-kriti" class="text-decoration-none text-body">
+                                        Kala-Kriti Cultural Club
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Celebrating art, street plays, classical music nights, and organizing annual youth fests.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2019</span>
+                                    <a href="/club-detail.php?slug=kala-kriti" class="btn btn-sm btn-outline-warning rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill small"><i class="bi bi-rocket-takeoff me-1"></i> Entrepreneurship</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
+                    </div>
+
+                    <!-- Cultural Club 2: Symphony Music Society -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-danger text-white fw-bold fs-5">
+                                    MUS
+                                </div>
                             </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    E-Cell Entrepreneurship Hub
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Pitching startup ideas, angel investor meets, product design, and business incubators.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2022</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-danger-subtle text-danger border rounded-pill small">Music</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        Symphony Music Society
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Rock bands, acoustic jams, classical Indian vocals, and inter-college music leagues.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2020</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-warning rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Club 3: Footloose Dance Troupe -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-info text-white fw-bold fs-5">
+                                    DNC
+                                </div>
+                            </div>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-info-subtle text-info border rounded-pill small">Dance</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        Footloose Dance Troupe
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Hip-hop, western fusion, kathak, and winning performances across national youth fests.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2021</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-warning rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Club 2: Sports & Athletics Club -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-success text-white fw-bold fs-4">
-                                SPT
+        <!-- ==================== BIG BOX 3: SPORTS, ENTREPRENEURSHIP & SOCIAL WELFARE ==================== -->
+        <div class="domain-big-box domain-big-box-sports">
+            <div class="domain-box-header">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-success text-white p-3 rounded-4 fs-3"><i class="bi bi-trophy"></i></div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-success">Box 3: Sports, Entrepreneurship & Social Service</h3>
+                        <p class="text-secondary small mb-0">Intramural athletics, E-Cell startup incubators, NSS community welfare & photojournalism.</p>
+                    </div>
+                </div>
+                <span class="badge bg-success text-white rounded-pill px-3 py-2 fs-6">3 Active Chapters</span>
+            </div>
+
+            <div class="domain-box-body">
+                <div class="row g-4">
+                    <!-- Sports/Other Club 1: E-Cell Startup Hub -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-primary text-white fw-bold fs-5">
+                                    ECL
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-success-subtle text-success border rounded-pill small"><i class="bi bi-trophy me-1"></i> Sports</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
-                            </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    UIT Sports & Athletics Association
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Cricket, football, badminton, chess leagues, and annual inter-collegiate sports tournaments.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2018</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-primary-subtle text-primary border rounded-pill small">Startup</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        E-Cell Entrepreneurship Hub
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Pitching startup business models, angel investor meets, and product incubators.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2022</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-success rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Club 3: NSS Social Service Chapter -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 ccms-card ccms-card-glow">
-                        <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
-                            <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-danger text-white fw-bold fs-4">
-                                NSS
+                    <!-- Sports/Other Club 2: Sports & Athletics Association -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-event.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-success text-white fw-bold fs-5">
+                                    SPT
+                                </div>
+                            </div>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-success-subtle text-success border rounded-pill small">Sports</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        Sports & Athletics Association
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Cricket, football, badminton, chess leagues, and annual inter-collegiate tournaments.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2018</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-success rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body pt-5">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-danger-subtle text-danger border rounded-pill small"><i class="bi bi-heart-fill me-1"></i> Social Service</span>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1"><i class="bi bi-check-circle-fill me-1"></i> Active</span>
+                    </div>
+
+                    <!-- Sports/Other Club 3: NSS Community Welfare -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 ccms-card">
+                            <div class="club-card-banner" style="background-image: url('/assets/images/default-cover.jpg');">
+                                <div class="club-card-logo-overlay d-flex align-items-center justify-content-center bg-danger text-white fw-bold fs-5">
+                                    NSS
+                                </div>
                             </div>
-                            <h5 class="fw-bold card-title mb-1">
-                                <a href="/clubs.php" class="text-decoration-none text-body">
-                                    NSS Community & Social Welfare
-                                </a>
-                            </h5>
-                            <p class="text-secondary small mb-3">Blood donation drives, environmental literacy, tree plantation, and rural school mentoring.</p>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <span class="small text-muted"><i class="bi bi-building me-1"></i> Est. 2017</span>
-                                <a href="/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-semibold">
-                                    Explore Club <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
+                            <div class="card-body pt-5">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-danger-subtle text-danger border rounded-pill small">Social Service</span>
+                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-1 small">Active</span>
+                                </div>
+                                <h6 class="fw-bold card-title mb-1">
+                                    <a href="/clubs.php" class="text-decoration-none text-body">
+                                        NSS Community & Social Welfare
+                                    </a>
+                                </h6>
+                                <p class="text-secondary small mb-3">Blood donation drives, environmental literacy, tree plantation, and school mentoring.</p>
+                                <div class="d-flex justify-content-between align-items-center pt-2 border-top mt-auto">
+                                    <span class="small text-muted">Est. 2017</span>
+                                    <a href="/clubs.php" class="btn btn-sm btn-outline-success rounded-pill fw-semibold">
+                                        Explore <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -634,12 +664,11 @@
             </div>
 
             <div class="col-6 col-lg-2 ms-auto">
-                <h6 class="fw-bold mb-3">Sections</h6>
+                <h6 class="fw-bold mb-3">Directory Boxes</h6>
                 <ul class="list-unstyled text-secondary small space-y-2">
-                    <li><a href="#about" class="text-decoration-none text-reset">About & Mission</a></li>
-                    <li><a href="#leadership" class="text-decoration-none text-reset">Mentors & Leaders</a></li>
-                    <li><a href="#technical" class="text-decoration-none text-reset">Technical Clubs</a></li>
-                    <li><a href="#cultural" class="text-decoration-none text-reset">Cultural Clubs</a></li>
+                    <li><a href="#directory" class="text-decoration-none text-reset">Technical Box 1</a></li>
+                    <li><a href="#directory" class="text-decoration-none text-reset">Cultural Box 2</a></li>
+                    <li><a href="#directory" class="text-decoration-none text-reset">Sports & Social Box 3</a></li>
                 </ul>
             </div>
 
@@ -664,7 +693,7 @@
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-secondary">
             <p class="mb-0">&copy; 2026 College Club Management System (CCMS). University Institute of Technology. All rights reserved.</p>
-            <p class="mb-0 mt-2 mt-md-0">Official Standalone HTML Portal &bull; V2.0</p>
+            <p class="mb-0 mt-2 mt-md-0">3 Big Box Directory Edition &bull; V3.0</p>
         </div>
     </div>
 </footer>
