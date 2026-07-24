@@ -175,9 +175,12 @@ if (!empty($event['event_date'])) {
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Status *</label>
                                 <select name="status" class="form-select rounded-3">
-                                    <option value="upcoming" <?= $event['status'] === 'upcoming' ? 'selected' : '' ?>>Upcoming</option>
+                                    <option value="upcoming" <?= $event['status'] === 'upcoming' ? 'selected' : '' ?>>Upcoming (Published)</option>
+                                    <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing (Live Now)</option>
                                     <option value="completed" <?= $event['status'] === 'completed' ? 'selected' : '' ?>>Completed</option>
-                                    <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing</option>
+                                    <option value="draft" <?= ($event['status'] === 'draft' || $event['status'] === 'drafted') ? 'selected' : '' ?>>Drafted (Private)</option>
+                                    <option value="hidden" <?= ($event['status'] === 'hidden' || $event['status'] === 'private') ? 'selected' : '' ?>>Hidden (Private)</option>
+                                    <option value="archived" <?= $event['status'] === 'archived' ? 'selected' : '' ?>>Archived</option>
                                     <option value="cancelled" <?= $event['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
                                 </select>
                             </div>

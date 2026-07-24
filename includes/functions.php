@@ -109,6 +109,14 @@ if (!function_exists('get_status_badge')) {
                 return '<span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill"><i class="bi bi-lightning-fill me-1"></i>Ongoing</span>';
             case 'completed':
                 return '<span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill"><i class="bi bi-check2-all me-1"></i>Completed</span>';
+            case 'draft':
+            case 'drafted':
+                return '<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill"><i class="bi bi-file-earmark-lock me-1"></i>Drafted</span>';
+            case 'hidden':
+            case 'private':
+                return '<span class="badge bg-dark-subtle text-dark border px-3 py-1 rounded-pill"><i class="bi bi-eye-slash me-1"></i>Hidden (Private)</span>';
+            case 'archived':
+                return '<span class="badge bg-light text-secondary border px-3 py-1 rounded-pill"><i class="bi bi-archive me-1"></i>Archived</span>';
             default:
                 return '<span class="badge bg-light text-dark border px-3 py-1 rounded-pill">' . e(ucfirst($status)) . '</span>';
         }

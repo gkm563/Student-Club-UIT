@@ -67,6 +67,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
     }
 }
 
+// Handle Quick Status Change (Hide, Archive, Draft, Publish)
+if (isset($_GET['set_status']) && isset($_GET['id'])) {
+    $evtId = $_GET['id'];
+    $newStatus = $_GET['set_status'];
+    $allowedStatuses = ['upcoming', 'ongoing', 'completed', 'cancelled', 'draft', 'hidden', 'archived'];
+    if (in_array($newStatus, $allowedStatuses)) {
+        $stmtStatus = $db->prepare("UPDATE events SET status = ? WHERE id = ? AND club_id = ?");
+        $stmtStatus->execute([$newStatus, $evtId, $club['id']]);
+        header('Location: /admin/events.php?msg=Status+updated');
+        exit;
+    }
+}
+
+// Handle Duplicate Event
+if (isset($_GET['duplicate']) && !empty($_GET['duplicate'])) {
+    $dupId = $_GET['duplicate'];
+    $origStmt = $db->prepare("SELECT * FROM events WHERE id = ? AND club_id = ?");
+    $origStmt->execute([$dupId, $club['id']]);
+    $orig = $origStmt->fetch();
+
+    if ($orig) {
+        $newId = 'evt_' . bin2hex(random_bytes(4));
+        $newTitle = $orig['title'] . ' (Copy)';
+        $newSlug = slugify($newTitle) . '-' . rand(100, 999);
+        $insDup = $db->prepare("
+            INSERT INTO events (id, club_id, title, slug, banner, description, venue, event_date, registration_link, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft')
+        ");
+        $insDup->execute([$newId, $club['id'], $newTitle, $newSlug, $orig['banner'], $orig['description'], $orig['venue'], $orig['event_date'], $orig['registration_link']]);
+        header('Location: /admin/events.php?msg=Event+duplicated+as+draft');
+        exit;
+    }
+}
+
 // Handle Delete Event
 if (isset($_GET['delete'])) {
     $delId = $_GET['delete'];
@@ -139,6 +173,9 @@ $events = $stmtEv->fetchAll();
                         <option value="upcoming">Upcoming Only</option>
                         <option value="ongoing">Ongoing Only</option>
                         <option value="completed">Completed Only</option>
+                        <option value="draft">Drafted Only</option>
+                        <option value="hidden">Hidden / Private Only</option>
+                        <option value="archived">Archived Only</option>
                     </select>
                 </div>
                 <div class="col-md-3 col-lg-2">
@@ -207,13 +244,57 @@ $events = $stmtEv->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" title="Edit Event">
-                                                <i class="bi bi-pencil-square me-1"></i> Edit
-                                            </a>
-                                            <a href="/admin/events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-sm btn-outline-danger rounded-circle p-1" title="Delete">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-light border rounded-pill px-3 py-1 dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown">
+                                                Actions
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end rounded-3 shadow border-0 small">
+                                                <li>
+                                                    <a class="dropdown-item py-1-5" href="/admin/event-detail.php?id=<?= $ev['id'] ?>">
+                                                        <i class="bi bi-pencil-square text-primary me-2"></i> Edit Details
+                                                    </a>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <?php if ($ev['status'] !== 'upcoming'): ?>
+                                                    <li>
+                                                        <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=upcoming&id=<?= $ev['id'] ?>">
+                                                            <i class="bi bi-rocket-takeoff text-success me-2"></i> Publish / Make Upcoming
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <?php if ($ev['status'] !== 'hidden'): ?>
+                                                    <li>
+                                                        <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=hidden&id=<?= $ev['id'] ?>">
+                                                            <i class="bi bi-eye-slash text-dark me-2"></i> Hide / Make Private
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <?php if ($ev['status'] !== 'draft'): ?>
+                                                    <li>
+                                                        <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=draft&id=<?= $ev['id'] ?>">
+                                                            <i class="bi bi-file-earmark-lock text-secondary me-2"></i> Save as Draft
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <?php if ($ev['status'] !== 'archived'): ?>
+                                                    <li>
+                                                        <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=archived&id=<?= $ev['id'] ?>">
+                                                            <i class="bi bi-archive text-warning me-2"></i> Archive Event
+                                                        </a>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <a class="dropdown-item py-1-5" href="/admin/events.php?duplicate=<?= $ev['id'] ?>">
+                                                        <i class="bi bi-copy text-info me-2"></i> Duplicate Event
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item py-1-5 text-danger" href="/admin/events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Permanently delete this event?');">
+                                                        <i class="bi bi-trash me-2"></i> Delete Event
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
