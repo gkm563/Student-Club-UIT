@@ -73,7 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_leader') {
     $name = trim($_POST['leader_name'] ?? '');
     $roleTitle = trim($_POST['role_title'] ?? '');
-    $category = $_POST['category'] ?? 'core_member';
+    $categorySelect = $_POST['category'] ?? 'core_member';
+    $customCategory = trim($_POST['custom_category'] ?? '');
+    
+    // If 'other' was selected, use the manual custom category name
+    $category = ($categorySelect === 'other' && !empty($customCategory)) ? slugify($customCategory) : $categorySelect;
+    
     $termYear = trim($_POST['term_year'] ?? '2025-2026');
     $email = trim($_POST['email'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
@@ -299,14 +304,16 @@ $roster = $leadStmt->fetchAll();
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Role Category</label>
-                        <select name="category" class="form-select rounded-3">
-                            <option value="president">President</option>
+                        <select name="category" id="roleCategorySelect" class="form-select rounded-3">
+                            <option value="president">President / Lead</option>
                             <option value="vice_president">Vice President</option>
                             <option value="secretary">Secretary</option>
                             <option value="treasurer">Treasurer</option>
                             <option value="faculty_coordinator">Faculty Coordinator</option>
                             <option value="core_member">Core Team Member</option>
+                            <option value="other">Other (Specify Custom Role Category)</option>
                         </select>
+                        <input type="text" name="custom_category" id="customCategoryInput" class="form-control rounded-3 mt-2 d-none" placeholder="Enter custom role category (e.g. PR & Media Lead)...">
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
@@ -338,5 +345,22 @@ $roster = $leadStmt->fetchAll();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const roleSelect = document.getElementById('roleCategorySelect');
+    const customInput = document.getElementById('customCategoryInput');
+    
+    if (roleSelect && customInput) {
+        roleSelect.addEventListener('change', () => {
+            if (roleSelect.value === 'other') {
+                customInput.classList.remove('d-none');
+                customInput.focus();
+            } else {
+                customInput.classList.add('d-none');
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
