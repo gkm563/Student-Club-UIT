@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
 $db = Database::getConnection();
 $message = '';
 $error = '';
+$newCredentials = null;
 
 // Handle Create New Club & Credentials
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_club') {
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $description = trim($_POST['description'] ?? '');
     $adminEmail = trim($_POST['admin_email'] ?? '');
     $adminPassword = trim($_POST['admin_password'] ?? '');
-    $adminName = trim($_POST['admin_name'] ?? ($name . ' Admin'));
+    $adminName = trim($_POST['admin_name'] ?? ($name . ' President / Lead'));
 
     if (empty($name) || empty($shortName) || empty($adminEmail) || empty($adminPassword)) {
         $error = 'Please fill in all required fields (Club Name, Short Code, Admin Email & Password).';
@@ -51,9 +52,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $aStmt = $db->prepare("INSERT INTO club_admins (club_id, user_id) VALUES (?, ?)");
             $aStmt->execute([$clubId, $userId]);
 
-            $message = "Club '$name' created successfully! Admin login credentials set for $adminEmail.";
+            $newCredentials = [
+                'club_name' => $name,
+                'email' => $adminEmail,
+                'password' => $adminPassword
+            ];
+            $message = "Club '$name' created successfully! Credentials issued to team.";
         } catch (Exception $e) {
             $error = 'Error creating club: ' . $e->getMessage();
+        }
+    }
+}
+
+// Handle Password Reset for a Club Admin by Dean Sir
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'reset_password') {
+    $userId = $_POST['user_id'] ?? '';
+    $newPass = trim($_POST['new_password'] ?? '');
+
+    if (!empty($userId) && !empty($newPass)) {
+        try {
+            $passHash = password_hash($newPass, PASSWORD_DEFAULT);
+            $rStmt = $db->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
+            $rStmt->execute([$passHash, $userId]);
+            $message = "Password updated successfully for club leadership account.";
+        } catch (Exception $e) {
+            $error = "Error resetting password: " . $e->getMessage();
         }
     }
 }
@@ -82,9 +105,9 @@ if (isset($_GET['delete_club'])) {
 $catStmt = $db->query("SELECT * FROM categories ORDER BY name ASC");
 $categories = $catStmt->fetchAll();
 
-// Fetch all registered clubs with admin emails
+// Fetch all registered clubs with admin details
 $clubsStmt = $db->query("
-    SELECT c.*, cat.name as category_name, u.email as admin_email, u.full_name as admin_name
+    SELECT c.*, cat.name as category_name, u.id as user_id, u.email as admin_email, u.full_name as admin_name
     FROM clubs c
     JOIN categories cat ON c.category_id = cat.id
     LEFT JOIN club_admins ca ON ca.club_id = c.id
@@ -138,12 +161,29 @@ $registeredClubs = $clubsStmt->fetchAll();
                 <h2 class="fw-bold mb-1">Club Management</h2>
                 <p class="text-secondary small mb-0">Create new clubs, issue leadership credentials, and manage campus organizations.</p>
             </div>
-            <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#createClubModal">
+            <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#createClubModal">
                 <i class="bi bi-plus-lg me-1"></i> Add New Club
             </button>
         </div>
 
-        <?php if (!empty($message)): ?>
+        <?php if ($newCredentials): ?>
+            <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-success-subtle border-success">
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <i class="bi bi-key-fill fs-2 text-success"></i>
+                    <div>
+                        <h5 class="fw-bold mb-0 text-success">Credentials Issued for <?= htmlspecialchars($newCredentials['club_name']) ?>!</h5>
+                        <p class="small text-secondary mb-0">Share these login credentials with the Club President / Core Team.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-3 rounded-3 border mt-2 font-monospace small">
+                    <div><strong>Login URL:</strong> <a href="/admin/login.php" target="_blank">http://localhost:8000/admin/login.php</a></div>
+                    <div><strong>Admin Email:</strong> <code><?= htmlspecialchars($newCredentials['email']) ?></code></div>
+                    <div><strong>Initial Password:</strong> <code><?= htmlspecialchars($newCredentials['password']) ?></code></div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($message) && !$newCredentials): ?>
             <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($message) ?></div>
         <?php endif; ?>
 
@@ -154,7 +194,7 @@ $registeredClubs = $clubsStmt->fetchAll();
         <!-- Clubs List Table -->
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">All Registered Campus Clubs (<?= count($registeredClubs) ?>)</h6>
+                <h6 class="fw-bold mb-0">Registered Campus Clubs (<?= count($registeredClubs) ?>)</h6>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
@@ -162,7 +202,7 @@ $registeredClubs = $clubsStmt->fetchAll();
                         <tr>
                             <th>Club Name</th>
                             <th>Category</th>
-                            <th>Admin Credentials Email</th>
+                            <th>Admin Email</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -199,6 +239,9 @@ $registeredClubs = $clubsStmt->fetchAll();
                                         <?php endif; ?>
                                     </td>
                                     <td>
+                                        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#resetPassModal<?= $c['id'] ?>" title="Reset Password">
+                                            <i class="bi bi-key"></i> Pass
+                                        </button>
                                         <a href="/admin/super/clubs.php?toggle_status=<?= $c['status'] ?>&club_id=<?= $c['id'] ?>" class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Toggle Status">
                                             <i class="bi bi-power"></i>
                                         </a>
@@ -207,6 +250,30 @@ $registeredClubs = $clubsStmt->fetchAll();
                                         </a>
                                     </td>
                                 </tr>
+
+                                <!-- Reset Password Modal for Club -->
+                                <div class="modal fade" id="resetPassModal<?= $c['id'] ?>" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm">
+                                        <div class="modal-content rounded-4 border-0 shadow">
+                                            <div class="modal-header border-0 pb-0">
+                                                <h6 class="fw-bold modal-title">Reset Password</h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <form action="/admin/super/clubs.php" method="POST">
+                                                <input type="hidden" name="action" value="reset_password">
+                                                <input type="hidden" name="user_id" value="<?= $c['user_id'] ?>">
+                                                <div class="modal-body">
+                                                    <p class="small text-muted mb-2">Set a new password for <strong><?= htmlspecialchars($c['name']) ?></strong> (<?= htmlspecialchars($c['admin_email']) ?>):</p>
+                                                    <input type="password" name="new_password" class="form-control rounded-3" placeholder="Enter new password" required>
+                                                </div>
+                                                <div class="modal-footer border-0 pt-0">
+                                                    <button type="button" class="btn btn-light btn-sm rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary btn-sm rounded-pill fw-bold text-white">Save Password</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </tbody>
@@ -250,13 +317,17 @@ $registeredClubs = $clubsStmt->fetchAll();
                         <input type="text" name="tagline" class="form-control rounded-3" placeholder="e.g. Coding & Development Club">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Description</label>
+                        <label class="form-label small fw-semibold">Initial Description</label>
                         <textarea name="description" class="form-control rounded-3" rows="3" placeholder="Brief club summary..."></textarea>
                     </div>
 
                     <hr class="my-4">
 
                     <h6 class="fw-bold text-primary mb-3"><i class="bi bi-key me-1"></i> Leadership Credentials (Issued by Dean Sir)</h6>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Club President / Lead Name</label>
+                        <input type="text" name="admin_name" class="form-control rounded-3" placeholder="e.g. Rahul Verma">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Club Admin Email *</label>
                         <input type="email" name="admin_email" class="form-control rounded-3" placeholder="e.g. codecrafters@uit.edu" required>
@@ -268,7 +339,7 @@ $registeredClubs = $clubsStmt->fetchAll();
                 </div>
                 <div class="modal-footer border-0 pt-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Create Club & Credentials</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold text-white">Create Club & Credentials</button>
                 </div>
             </form>
         </div>
