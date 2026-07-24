@@ -96,24 +96,8 @@ $events = $stmtEv->fetchAll();
 <body>
 
 <div class="d-flex">
-    <!-- Sidebar -->
-    <div class="admin-sidebar p-3 flex-shrink-0 d-none d-md-block">
-        <div class="d-flex align-items-center gap-3 mb-4 p-2">
-            <img src="/assets/United Logo.webp" style="height: 38px;">
-            <div>
-                <span class="fw-bold d-block lh-1">ClubHub</span>
-                <span class="small text-white-50" style="font-size: 0.65rem;">CLUB PORTAL</span>
-            </div>
-        </div>
-
-        <nav class="d-flex flex-column gap-2">
-            <a href="/admin/dashboard.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
-            <a href="/admin/profile.php" class="admin-nav-link"><i class="bi bi-gear"></i> Club & Roster Setup</a>
-            <a href="/admin/events.php" class="admin-nav-link active"><i class="bi bi-calendar-event"></i> Manage Events</a>
-            <a href="/admin/gallery.php" class="admin-nav-link"><i class="bi bi-images"></i> Photo Gallery</a>
-            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
-        </nav>
-    </div>
+    <!-- Master Sidebar -->
+    <?php require_once __DIR__ . '/../includes/admin_sidebar.php'; ?>
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-4 p-md-5">
