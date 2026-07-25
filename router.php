@@ -32,10 +32,17 @@ if ($uri === '/' || $uri === '/index.html') {
     exit;
 }
 
-// Clean URL routing: /clubs/geeksforgeeks
+// Club detail routes: /clubs/gdgoc-uit, /club-detail.php, /club-detail.html
 if (preg_match('#^/clubs/([a-zA-Z0-9\-]+)/?$#', $uri, $m)) {
     $_GET['slug'] = $m[1];
-    require __DIR__ . '/public/club-detail.php';
+    header("Content-Type: text/html; charset=UTF-8");
+    readfile(__DIR__ . '/public/club-detail.html');
+    exit;
+}
+
+if ($uri === '/club-detail' || $uri === '/club-detail.php' || $uri === '/club-detail.html') {
+    header("Content-Type: text/html; charset=UTF-8");
+    readfile(__DIR__ . '/public/club-detail.html');
     exit;
 }
 

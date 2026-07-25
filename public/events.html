@@ -15,14 +15,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom Design System -->
+    <!-- Custom Vibrant Design System -->
     <link rel="stylesheet" href="/assets/css/style.css">
 
     <style>
-        /* Floating Glassmorphism & Neon Glow Styles for Events Page */
         .hero-events-glass {
             position: relative;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 27, 75, 0.95) 100%);
+            background: var(--hero-gradient);
             overflow: hidden;
         }
 
@@ -32,7 +31,7 @@
             left: -100px;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
             border-radius: 50%;
             filter: blur(50px);
             animation: orbFloat 8s ease-in-out infinite alternate;
@@ -44,7 +43,7 @@
             right: -100px;
             width: 450px;
             height: 450px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+            background: radial-gradient(circle, rgba(225, 29, 72, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
             border-radius: 50%;
             filter: blur(60px);
             animation: orbFloat 10s ease-in-out infinite alternate-reverse;
@@ -58,13 +57,13 @@
         .ccms-floating-card {
             background: #ffffff;
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            border: 1px solid rgba(226, 232, 240, 0.8) !important;
+            border: 2px solid var(--border-color) !important;
         }
 
         .ccms-floating-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.25) !important;
-            border-color: rgba(99, 102, 241, 0.4) !important;
+            box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.25) !important;
+            border-color: var(--vibrant-purple) !important;
         }
 
         .card-banner-zoom {
@@ -76,36 +75,36 @@
         }
 
         .backdrop-blur {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
         }
 
         .btn-glow {
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
             transition: all 0.3s ease;
         }
 
         .btn-glow:hover {
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.55);
             transform: translateY(-2px);
         }
 
         .club-pill-btn {
             background: rgba(241, 245, 249, 1);
-            color: #475569;
-            border: 1px solid #e2e8f0;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
             transition: all 0.25s ease;
         }
 
         .club-pill-btn:hover, .club-pill-btn.active {
-            background: #6366f1 !important;
+            background: var(--vibrant-blue) !important;
             color: #ffffff !important;
-            border-color: #6366f1 !important;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            border-color: var(--vibrant-blue) !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         .event-status-tab {
-            color: #64748b;
+            color: var(--text-secondary);
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.25s ease;
@@ -114,21 +113,14 @@
         }
 
         .event-status-tab:hover, .event-status-tab.active {
-            color: #6366f1;
-            border-bottom-color: #6366f1;
-        }
-
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            color: var(--vibrant-purple);
+            border-bottom-color: var(--vibrant-purple);
         }
     </style>
 </head>
 <body>
 
-<!-- Top Dark Header Navbar -->
+<!-- Vibrant Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-clubhub sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
@@ -151,13 +143,15 @@
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
+                <a href="/clubs.html" class="btn btn-sm btn-light rounded-pill px-3 py-2 fw-bold text-primary shadow-sm">
+                    <i class="bi bi-compass me-1"></i> Explore Clubs
+                </a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Glowing Floating Hero Section -->
+<!-- Vibrant Hero Section -->
 <section class="hero-events-glass py-5">
     <div class="glow-orb-1"></div>
     <div class="glow-orb-2"></div>
@@ -166,21 +160,21 @@
         <div class="row align-items-center g-5">
             <!-- Left Column: Title & Search -->
             <div class="col-lg-7">
-                <span class="badge bg-indigo-subtle text-indigo border border-indigo-subtle rounded-pill px-3 py-1-5 fw-bold mb-3 small" style="background: rgba(99, 102, 241, 0.2); color: #c7d2fe; border-color: rgba(99, 102, 241, 0.4) !important;">
-                    <i class="bi bi-stars me-1 text-warning"></i> UIT CAMPUS EVENTS HUB
+                <span class="badge rounded-pill px-3 py-2 fw-bold mb-3 small" style="background: rgba(255, 255, 255, 0.2); color: #ffffff; border: 1px solid rgba(255,255,255,0.3);">
+                    <i class="bi bi-stars me-1" style="color: #ff80bf;"></i> UIT CAMPUS EVENTS HUB
                 </span>
                 <h1 class="hero-headline text-white mb-3 fw-extrabold display-5">
                     Discover.<br>
-                    Innovate. <span class="hero-headline-highlight" style="background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Experience.</span>
+                    Innovate. <span class="hero-headline-highlight">Experience.</span>
                 </h1>
-                <p class="hero-subtitle text-white-70 mb-4 fs-6">
+                <p class="hero-subtitle text-white-80 mb-4 fs-6">
                     Join upcoming hackathons, tech study jams, cultural fests, and workshops organized by student clubs across United Institute of Technology.
                 </p>
 
                 <!-- Search Bar -->
-                <div class="hero-search-bar mb-3 shadow-lg rounded-pill p-1 border border-white-20" style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(16px);">
+                <div class="hero-search-bar mb-3 shadow-lg rounded-pill p-1 border border-white-20" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(16px);">
                     <div class="input-group">
-                        <span class="input-group-text bg-transparent border-0 text-white-50 ps-3"><i class="bi bi-search fs-5"></i></span>
+                        <span class="input-group-text bg-transparent border-0 text-white-80 ps-3"><i class="bi bi-search fs-5"></i></span>
                         <input type="text" class="form-control hero-search-input bg-transparent border-0 text-white placeholder-white-50 shadow-none px-2" placeholder="Search events by title, venue, or keyword..." autocomplete="off">
                     </div>
                 </div>
@@ -188,16 +182,16 @@
 
             <!-- Right Column: Glass Showcase Card -->
             <div class="col-lg-5">
-                <div class="card text-white border border-white-20 rounded-4 p-4 shadow-2xl backdrop-blur" style="background: rgba(255, 255, 255, 0.08) !important;">
+                <div class="card text-white border border-white-20 rounded-4 p-4 shadow-2xl backdrop-blur" style="background: rgba(255, 255, 255, 0.15) !important;">
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="fw-bold mb-0 text-white"><i class="bi bi-calendar2-week text-primary me-2"></i> Campus Calendar</h5>
-                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small">Live Updates</span>
+                        <h5 class="fw-bold mb-0 text-white"><i class="bi bi-calendar2-week me-2"></i> Campus Calendar</h5>
+                        <span class="badge bg-light text-primary border rounded-pill px-3 py-1 small fw-bold">Live Updates</span>
                     </div>
-                    <p class="small text-white-70 mb-3">Filter events by organizing club below to see dedicated workshops, hackathons, and past achievements.</p>
-                    <div class="d-flex flex-column gap-2 text-white-70 small">
-                        <div><i class="bi bi-check-circle-fill text-primary me-2"></i> Verified Student Club Events</div>
-                        <div><i class="bi bi-check-circle-fill text-success me-2"></i> Free Certificates & Badges</div>
-                        <div><i class="bi bi-check-circle-fill text-warning me-2"></i> Open for All UIT Students</div>
+                    <p class="small text-white-80 mb-3">Filter events by organizing club below to see dedicated workshops, hackathons, and past achievements.</p>
+                    <div class="d-flex flex-column gap-2 text-white-80 small">
+                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Verified Student Club Events</div>
+                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Free Certificates & Swags</div>
+                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Open for All UIT Students</div>
                     </div>
                 </div>
             </div>
@@ -261,24 +255,24 @@
     </div>
 </section>
 
-<!-- Footer -->
+<!-- Vibrant Footer -->
 <footer class="footer-clubhub">
     <div class="container">
         <div class="row g-4 mb-4">
             <div class="col-lg-4">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img-footer">
-                    <span class="brand-logo-text fs-5">ClubHub</span>
+                    <span class="brand-logo-text fs-4">ClubHub</span>
                 </div>
-                <p class="small text-white-50 max-w-sm mb-3">
-                    Uniting students, clubs, and communities to create unforgettable experiences together at United Group of Institutions.
+                <p class="small text-white-80 max-w-sm mb-3">
+                    Uniting students, clubs, and communities to create unforgettable vibrant experiences together at United Group of Institutions.
                 </p>
-                <div class="d-flex gap-3 text-white-50 fs-5">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
+                <div class="d-flex gap-2">
+                    <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-youtube"></i></a>
                 </div>
             </div>
 
@@ -287,7 +281,7 @@
                 <ul class="list-unstyled space-y-2">
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="/clubs.html">Clubs</a></li>
-                    <li><a href="/events.html" class="text-white">Events</a></li>
+                    <li><a href="/events.html">Events</a></li>
                     <li><a href="/gallery.html">Gallery</a></li>
                 </ul>
             </div>
@@ -305,20 +299,20 @@
 
             <div class="col-lg-4">
                 <div class="footer-title">Contact Us</div>
-                <ul class="list-unstyled space-y-2 text-white-50">
-                    <li><i class="bi bi-geo-alt me-2 text-primary"></i> 123 College Road, University City</li>
+                <ul class="list-unstyled space-y-2 text-white-80">
+                    <li><i class="bi bi-geo-alt me-2 text-danger"></i> 123 College Road, University City</li>
                     <li><i class="bi bi-envelope me-2 text-primary"></i> hello@clubhub.edu</li>
-                    <li><i class="bi bi-telephone me-2 text-primary"></i> +91 98765 43210</li>
+                    <li><i class="bi bi-telephone me-2 text-success"></i> +91 98765 43210</li>
                 </ul>
             </div>
         </div>
 
-        <hr class="border-white-10 my-4">
+        <hr class="border-white-10 my-4" style="border-color: rgba(255,255,255,0.2) !important;">
 
-        <div class="d-flex justify-content-between align-items-center text-white-50 small">
+        <div class="d-flex justify-content-between align-items-center text-white-80 small">
             <div>&copy; 2026 ClubHub. All rights reserved.</div>
-            <button id="backToTopBtn" class="btn btn-sm btn-outline-light rounded-circle p-2" title="Back to Top">
-                <i class="bi bi-arrow-up"></i>
+            <button id="backToTopBtn" class="btn btn-sm btn-light rounded-circle p-2 shadow-sm" title="Back to Top">
+                <i class="bi bi-arrow-up text-primary"></i>
             </button>
         </div>
     </div>

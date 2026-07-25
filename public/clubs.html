@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Clubs Directory | ClubHub - United Institute of Technology</title>
-    <meta name="description" content="Explore 50+ active student clubs at United Institute of Technology across coding, AI, dramatics, sports, music, photography, and social impact.">
+    <meta name="description" content="Explore active student clubs at United Institute of Technology across coding, AI, dramatics, sports, music, photography, and social impact.">
     
     <!-- OpenGraph SEO Tags -->
     <meta property="og:title" content="All Clubs Directory | ClubHub UIT">
-    <meta property="og:description" content="Connect, learn, grow and be a part of something bigger with 50+ student clubs at UIT.">
+    <meta property="og:description" content="Connect, learn, grow and be a part of something bigger with student clubs at UIT.">
     <meta property="og:type" content="website">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom Design System -->
+    <!-- Custom Vibrant Design System -->
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
-<!-- Top Dark Header Navbar -->
+<!-- Vibrant Top Navbar -->
 <nav class="navbar navbar-expand-lg navbar-clubhub sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-3" href="/index.html">
@@ -43,41 +43,43 @@
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-link text-white-50 p-0 fs-5" title="Search"><i class="bi bi-search"></i></button>
+                <a href="/clubs.html" class="btn btn-sm btn-light rounded-pill px-3 py-2 fw-bold text-primary shadow-sm">
+                    <i class="bi bi-compass me-1"></i> Explore Clubs
+                </a>
             </div>
         </div>
     </div>
 </nav>
 
-<!-- Dark Hero Header Section -->
-<section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.9) 0%, rgba(11, 15, 25, 0.98) 100%), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1400&auto=format&fit=crop') center/cover;">
+<!-- Vibrant Hero Header Section -->
+<section class="hero-clubhub py-5">
     <div class="container py-4">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="/index.html" class="text-white-50 text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="/index.html" class="text-white-80 text-decoration-none">Home</a></li>
                 <li class="breadcrumb-item active text-white" aria-current="page">Clubs</li>
             </ol>
         </nav>
 
         <div class="row align-items-center justify-content-between g-4">
             <div class="col-lg-7">
-                <h1 class="hero-headline mb-3">All Clubs</h1>
+                <h1 class="hero-headline mb-3">All Campus Clubs</h1>
                 <p class="hero-subtitle mb-0">
-                    Explore 50+ active clubs at UIT. Connect, learn, grow and be a part of something bigger.
+                    Explore active student clubs across technical, cultural, sports, and social domains at UIT. Connect, learn, grow and be a part of something bigger.
                 </p>
             </div>
 
             <!-- Right Glass Stat Box -->
             <div class="col-lg-4 text-lg-end">
-                <div class="card border border-white-10 text-white rounded-4 p-3 d-inline-flex align-items-center gap-3 text-start shadow-lg" style="background: rgba(255, 255, 255, 0.08) !important; backdrop-filter: blur(12px);">
+                <div class="card border border-white-20 text-white rounded-4 p-3 d-inline-flex align-items-center gap-3 text-start shadow-lg" style="background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(14px);">
                     <div class="bg-primary-subtle text-primary rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
                         <i class="bi bi-star-fill fs-4"></i>
                     </div>
                     <div>
-                        <h3 class="fw-bold mb-0 text-white">50+</h3>
-                        <span class="small text-white-50">Active Clubs</span>
-                        <div class="small text-white-50" style="font-size: 0.72rem;">Different domains. One community.</div>
+                        <h3 class="fw-bold mb-0 text-white">8+</h3>
+                        <span class="small text-white-80">Active Campus Clubs</span>
+                        <div class="small text-white-80" style="font-size: 0.72rem;">Different domains. One vibrant community.</div>
                     </div>
                 </div>
             </div>
@@ -93,8 +95,8 @@
             <div class="col-lg-3">
                 <div class="card p-4 border-0 shadow-sm rounded-4 sticky-top" style="top: 90px; z-index: 10;">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="fw-bold mb-0">Filter Clubs</h6>
-                        <button id="clearFiltersBtn" class="btn btn-link text-decoration-none p-0 small text-primary">Clear All</button>
+                        <h6 class="fw-bold mb-0 text-dark">Filter Clubs</h6>
+                        <button id="clearFiltersBtn" class="btn btn-link text-decoration-none p-0 small text-primary fw-bold">Clear All</button>
                     </div>
 
                     <!-- Search Input -->
@@ -111,35 +113,7 @@
                         <div class="d-flex flex-column gap-1" id="categoryFilterList">
                             <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center active btn-primary" data-category="all">
                                 <span>All Categories</span>
-                                <span class="badge bg-white text-primary rounded-circle">52</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="technical">
-                                <span>Technical</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">16</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="cultural">
-                                <span>Cultural</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">10</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="sports">
-                                <span>Sports</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">7</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="social">
-                                <span>Social Impact</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">6</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="entrepreneurship">
-                                <span>Entrepreneurship</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">5</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="creative">
-                                <span>Media & Creative</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">4</span>
-                            </button>
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center btn-light text-secondary" data-category="academic">
-                                <span>Academic</span>
-                                <span class="badge bg-secondary-subtle text-dark rounded-circle">4</span>
+                                <span class="badge bg-white text-primary rounded-circle">8</span>
                             </button>
                         </div>
                     </div>
@@ -148,380 +122,49 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold small text-uppercase text-secondary" style="letter-spacing: 0.8px;">Sort By</label>
                         <select class="form-select form-select-sm bg-light">
-                            <option value="popularity">Popularity</option>
-                            <option value="name">Name (A-Z)</option>
-                            <option value="members">Member Count</option>
+                            <option value="popularity">Most Active</option>
+                            <option value="name">Alphabetical (A-Z)</option>
+                            <option value="members">Leadership Count</option>
                         </select>
                     </div>
-
-                    <!-- Availability Checkboxes -->
-                    <div class="mb-4">
-                        <h6 class="fw-bold mb-2 small text-uppercase text-secondary" style="letter-spacing: 0.8px;">Availability</h6>
-                        <div class="d-flex flex-column gap-2 small text-secondary">
-                            <div class="form-check d-flex justify-content-between align-items-center pe-2">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="openCheck" checked>
-                                    <label class="form-check-label" for="openCheck">Open for All</label>
-                                </div>
-                                <span class="badge bg-secondary-subtle text-dark">28</span>
-                            </div>
-                            <div class="form-check d-flex justify-content-between align-items-center pe-2">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="invitationCheck">
-                                    <label class="form-check-label" for="invitationCheck">By Invitation</label>
-                                </div>
-                                <span class="badge bg-secondary-subtle text-dark">12</span>
-                            </div>
-                            <div class="form-check d-flex justify-content-between align-items-center pe-2">
-                                <div>
-                                    <input class="form-check-input" type="checkbox" id="membersCheck">
-                                    <label class="form-check-label" for="membersCheck">Members Only</label>
-                                </div>
-                                <span class="badge bg-secondary-subtle text-dark">12</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-outline-primary btn-sm rounded-pill w-100 py-2 fw-semibold">
-                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filters
-                    </button>
                 </div>
             </div>
 
-            <!-- Right Clubs Grid -->
+            <!-- Right Clubs Grid Main Content -->
             <div class="col-lg-9">
-                <!-- Active Filter Indicator Badge -->
+                <!-- Active Filter Indicator -->
                 <div id="activeFilterBadge"></div>
-                <!-- Top Count & Sort Bar -->
-                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4 p-3 bg-white rounded-4 shadow-sm">
-                    <span class="small text-secondary fw-semibold">Showing 1–12 of 52 clubs</span>
-                    
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="small text-secondary">Sort by:</span>
-                            <select class="form-select form-select-sm border-0 bg-light w-auto fw-semibold">
-                                <option>Popularity</option>
-                                <option>Name (A-Z)</option>
-                                <option>Member Count</option>
-                            </select>
-                        </div>
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-primary active"><i class="bi bi-grid-3x3-gap-fill"></i></button>
-                            <button class="btn btn-light"><i class="bi bi-list-task"></i></button>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- 12 Clubs 3-Column Grid -->
+                <!-- Clubs Grid -->
                 <div class="row g-4" id="clubsGrid">
-                    <!-- 1. CodeCrafters -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=codecrafters" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-                                
-                                <div class="bg-primary-subtle text-primary rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-code-slash fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">CodeCrafters</h5>
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small align-self-start mb-3">Technical</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">A coding community focused on DSA, development and tech innovation.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 248 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
+                    <div class="col-12 text-center py-5 text-muted">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 small">Loading active campus clubs...</p>
                     </div>
-
-                    <!-- 2. AI & ML Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=aiml" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-info-subtle text-info rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-robot fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">AI & ML Club</h5>
-                                <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-1 small align-self-start mb-3">Technical</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Exploring the world of Artificial Intelligence and Machine Learning through projects and research.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 198 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 3. CyberSec Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=cybersec" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-success-subtle text-success rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-shield-lock fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">CyberSec Club</h5>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1 small align-self-start mb-3">Technical</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Learn, practice and excel in cybersecurity and ethical hacking.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 152 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 4. Dramatics Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=dramatics" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-warning-subtle text-warning rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-masks fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Dramatics Club</h5>
-                                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1 small align-self-start mb-3">Cultural</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Where expressions come alive on stage. Join us to act, direct and perform.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 126 Members</span>
-                                    <span class="text-warning"><i class="bi bi-record-fill me-1"></i> By Invitation</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 5. Music Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=music" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-danger-subtle text-danger rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-music-note-beamed fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Music Club</h5>
-                                <span class="badge bg-danger-subtle text-danger border rounded-pill px-3 py-1 small align-self-start mb-3">Cultural</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">For the music lovers. Sing, play instruments and create beautiful memories.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 112 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 6. Art & Design Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=artdesign" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-primary-subtle text-primary rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-palette fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Art & Design Club</h5>
-                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small align-self-start mb-3">Media & Creative</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Unleash your creativity through designs, illustrations and visual arts.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 94 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 7. Sports Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=sports" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-success-subtle text-success rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-trophy fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Sports Club</h5>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1 small align-self-start mb-3">Sports</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Stay active, stay healthy. Join various sports teams and events.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 210 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 8. Social Impact Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=social" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-info-subtle text-info rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-heart fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Social Impact Club</h5>
-                                <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-1 small align-self-start mb-3">Social Impact</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Working for a better tomorrow through volunteering and community service.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 134 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 9. Entrepreneurship Cell -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=ecell" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-warning-subtle text-warning rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-lightbulb fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Entrepreneurship Cell</h5>
-                                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1 small align-self-start mb-3">Entrepreneurship</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Empowering innovators and future entrepreneurs to build startups and solutions.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 176 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 10. Photography Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=photography" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-danger-subtle text-danger rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-camera fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Photography Club</h5>
-                                <span class="badge bg-danger-subtle text-danger border rounded-pill px-3 py-1 small align-self-start mb-3">Media & Creative</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Capture moments, tell stories and explore the world through lenses.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 88 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 11. Literary Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=literary" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-info-subtle text-info rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-journal-text fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Literary Club</h5>
-                                <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-1 small align-self-start mb-3">Academic</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">A community of readers, writers and thinkers. Share ideas and inspire.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 75 Members</span>
-                                    <span class="text-warning"><i class="bi bi-record-fill me-1"></i> By Invitation</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 12. Finance Club -->
-                    <div class="col-md-4">
-                        <a href="/club-detail.html?club=finance" class="text-decoration-none text-dark">
-                            <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-
-                                <div class="bg-success-subtle text-success rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                    <i class="bi bi-graph-up-arrow fs-4"></i>
-                                </div>
-                                <h5 class="fw-bold mb-1">Finance Club</h5>
-                                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1 small align-self-start mb-3">Academic</span>
-                                <p class="text-secondary small mb-4 flex-grow-1">Learn about finance, investments and markets through discussions and workshops.</p>
-
-                                <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                    <span><i class="bi bi-people me-1"></i> 98 Members</span>
-                                    <span class="text-success"><i class="bi bi-record-fill me-1"></i> Open for All</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Pagination Bar -->
-                <div class="d-flex justify-content-center mt-5">
-                    <nav aria-label="Clubs Pagination">
-                        <ul class="pagination pagination-sm gap-2">
-                            <li class="page-item disabled"><a class="page-link rounded-circle" href="#"><i class="bi bi-chevron-left"></i></a></li>
-                            <li class="page-item active"><a class="page-link rounded-circle px-3" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link rounded-circle px-3" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link rounded-circle px-3" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link rounded-circle px-3" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link rounded-circle px-3" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link rounded-circle" href="#"><i class="bi bi-chevron-right"></i></a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- "Can't find the club you're looking for?" CTA Banner -->
-<section class="container my-5">
-    <div class="cta-banner-clubhub">
-        <div class="d-flex align-items-center gap-3">
-            <div class="bg-white text-primary rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 58px; height: 58px;">
-                <i class="bi bi-people-fill fs-3"></i>
-            </div>
-            <div>
-                <h4 class="fw-bold mb-1 text-white">Can't find the club you're looking for?</h4>
-                <p class="mb-0 text-white-80 small">Suggest a new club and bring your idea to life!</p>
-            </div>
-        </div>
-        <a href="/contact.html" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-primary text-decoration-none shadow">
-            Suggest a Club &rarr;
-        </a>
-    </div>
-</section>
-
-<!-- Footer -->
+<!-- Vibrant Footer -->
 <footer class="footer-clubhub">
     <div class="container">
         <div class="row g-4 mb-4">
             <div class="col-lg-4">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <img src="/assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img-footer">
-                    <span class="brand-logo-text fs-5">ClubHub</span>
+                    <span class="brand-logo-text fs-4">ClubHub</span>
                 </div>
-                <p class="small text-white-50 max-w-sm mb-3">
-                    Uniting students, clubs, and communities to create unforgettable experiences together at United Group of Institutions.
+                <p class="small text-white-80 max-w-sm mb-3">
+                    Uniting students, clubs, and communities to create unforgettable vibrant experiences together at United Group of Institutions.
                 </p>
-                <div class="d-flex gap-3 text-white-50 fs-5">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
+                <div class="d-flex gap-2">
+                    <a href="#" class="social-icon-btn"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="social-icon-btn"><i class="bi bi-youtube"></i></a>
                 </div>
             </div>
 
@@ -529,7 +172,7 @@
                 <div class="footer-title">Quick Links</div>
                 <ul class="list-unstyled space-y-2">
                     <li><a href="/index.html">Home</a></li>
-                    <li><a href="/clubs.html" class="text-white">Clubs</a></li>
+                    <li><a href="/clubs.html">Clubs</a></li>
                     <li><a href="/events.html">Events</a></li>
                     <li><a href="/gallery.html">Gallery</a></li>
                 </ul>
@@ -548,20 +191,20 @@
 
             <div class="col-lg-4">
                 <div class="footer-title">Contact Us</div>
-                <ul class="list-unstyled space-y-2 text-white-50">
-                    <li><i class="bi bi-geo-alt me-2 text-primary"></i> 123 College Road, University City</li>
+                <ul class="list-unstyled space-y-2 text-white-80">
+                    <li><i class="bi bi-geo-alt me-2 text-danger"></i> 123 College Road, University City</li>
                     <li><i class="bi bi-envelope me-2 text-primary"></i> hello@clubhub.edu</li>
-                    <li><i class="bi bi-telephone me-2 text-primary"></i> +91 98765 43210</li>
+                    <li><i class="bi bi-telephone me-2 text-success"></i> +91 98765 43210</li>
                 </ul>
             </div>
         </div>
 
-        <hr class="border-white-10 my-4">
+        <hr class="border-white-10 my-4" style="border-color: rgba(255,255,255,0.2) !important;">
 
-        <div class="d-flex justify-content-between align-items-center text-white-50 small">
+        <div class="d-flex justify-content-between align-items-center text-white-80 small">
             <div>&copy; 2026 ClubHub. All rights reserved.</div>
-            <button id="backToTopBtn" class="btn btn-sm btn-outline-light rounded-circle p-2" title="Back to Top">
-                <i class="bi bi-arrow-up"></i>
+            <button id="backToTopBtn" class="btn btn-sm btn-light rounded-circle p-2 shadow-sm" title="Back to Top">
+                <i class="bi bi-arrow-up text-primary"></i>
             </button>
         </div>
     </div>
@@ -570,7 +213,6 @@
 <!-- JS Dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/js/main.js"></script>
-<script src="/assets/js/search.js"></script>
 <script src="/assets/js/clubs-render.js"></script>
 </body>
 </html>
