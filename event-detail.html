@@ -170,13 +170,14 @@
             <div class="col-lg-4">
                 <div class="sticky-top" style="top: 90px; z-index: 900;" id="rsvpFormSection">
                     <div class="card border-0 shadow-xl rounded-4 overflow-hidden bg-white">
-                        <div class="p-4 text-white" style="background: linear-gradient(135deg, #1d4ed8, #0284c7) !important;">
-                            <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-2">Registration Ticket</span>
-                            <h4 class="fw-bold text-white mb-1">Confirm Your RSVP</h4>
-                            <p class="small text-white-80 mb-0">Fill out your details to secure your seat for this session.</p>
+                        <div class="p-4 text-white" id="ticketHeader" style="background: linear-gradient(135deg, #1d4ed8, #0284c7) !important;">
+                            <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-2" id="ticketHeaderBadge">Registration Ticket</span>
+                            <h4 class="fw-bold text-white mb-1" id="ticketHeaderTitle">Confirm Your RSVP</h4>
+                            <p class="small text-white-80 mb-0" id="ticketHeaderSub">Fill out your details to secure your seat for this session.</p>
                         </div>
 
                         <div class="card-body p-4">
+                            <!-- Active Registration Form (Shown for Upcoming / Ongoing Events) -->
                             <form id="eventRsvpForm">
                                 <div class="mb-3">
                                     <label for="rsvpName" class="form-label small fw-bold text-dark">Full Name *</label>
@@ -216,6 +217,18 @@
                                     <i class="bi bi-arrow-right-short fs-5"></i>
                                 </button>
                             </form>
+
+                            <!-- Concluded Notice (Shown for Past Events) -->
+                            <div id="concludedEventNotice" class="text-center py-3 d-none">
+                                <div class="rounded-circle bg-secondary-subtle text-secondary p-3 mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 58px; height: 58px;">
+                                    <i class="bi bi-check-circle-fill fs-3 text-secondary"></i>
+                                </div>
+                                <h5 class="fw-bold text-dark mb-2">Registration Closed</h5>
+                                <p class="small text-secondary mb-4" style="line-height: 1.6;">This campus event has concluded. Registrations are now closed. Check upcoming events to participate!</p>
+                                <a href="events.html" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white shadow-sm">
+                                    <i class="bi bi-calendar-event me-1"></i> View Upcoming Contests
+                                </a>
+                            </div>
 
                             <div id="rsvpSuccessAlert" class="alert alert-success rounded-3 mt-3 d-none mb-0 small">
                                 <i class="bi bi-check-circle-fill me-1 fs-6"></i>

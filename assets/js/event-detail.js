@@ -61,19 +61,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const detailRsvpCount = document.getElementById('detailRsvpCount');
         if (detailRsvpCount) detailRsvpCount.textContent = `${registeredCount}+ Coders RSVP'd`;
 
-        // Status Badge
+        // Status Badge & Past Event Toggle
         const isPast = (eventDate < new Date()) || (event.status === 'completed');
         const detailStatusBadge = document.getElementById('detailStatusBadge');
-        if (detailStatusBadge) {
-            if (isPast) {
+        const rsvpForm = document.getElementById('eventRsvpForm');
+        const concludedNotice = document.getElementById('concludedEventNotice');
+        const ticketHeader = document.getElementById('ticketHeader');
+        const ticketHeaderBadge = document.getElementById('ticketHeaderBadge');
+        const ticketHeaderTitle = document.getElementById('ticketHeaderTitle');
+        const ticketHeaderSub = document.getElementById('ticketHeaderSub');
+
+        if (isPast) {
+            if (detailStatusBadge) {
                 detailStatusBadge.className = 'badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1.5 fw-bold';
                 detailStatusBadge.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Completed Session`;
-            } else if (event.status === 'ongoing') {
-                detailStatusBadge.className = 'badge bg-warning-subtle text-warning border rounded-pill px-3 py-1.5 fw-bold';
-                detailStatusBadge.innerHTML = `<span class="pulse-dot-green me-1.5"></span> Live Workshop`;
+            }
+            if (rsvpForm) rsvpForm.classList.add('d-none');
+            if (concludedNotice) concludedNotice.classList.remove('d-none');
+
+            if (ticketHeader) ticketHeader.style.background = 'linear-gradient(135deg, #475569, #334155)';
+            if (ticketHeaderBadge) ticketHeaderBadge.textContent = 'Session Concluded';
+            if (ticketHeaderTitle) ticketHeaderTitle.textContent = 'Event Completed';
+            if (ticketHeaderSub) ticketHeaderSub.textContent = 'Registrations for this session have ended.';
+        } else {
+            if (rsvpForm) rsvpForm.classList.remove('d-none');
+            if (concludedNotice) concludedNotice.classList.add('d-none');
+
+            if (event.status === 'ongoing') {
+                if (detailStatusBadge) {
+                    detailStatusBadge.className = 'badge bg-warning-subtle text-warning border rounded-pill px-3 py-1.5 fw-bold';
+                    detailStatusBadge.innerHTML = `<span class="pulse-dot-green me-1.5"></span> Live Workshop`;
+                }
             } else {
-                detailStatusBadge.className = 'badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold';
-                detailStatusBadge.innerHTML = `<i class="bi bi-calendar-event me-1"></i> Upcoming Contest`;
+                if (detailStatusBadge) {
+                    detailStatusBadge.className = 'badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold';
+                    detailStatusBadge.innerHTML = `<i class="bi bi-calendar-event me-1"></i> Upcoming Contest`;
+                }
             }
         }
 
