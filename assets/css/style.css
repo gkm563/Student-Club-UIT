@@ -1277,8 +1277,75 @@ body {
 }
 
 /* Ultra-Attractive 3D Featured Club Card System */
+/* Executive Hero & Directory Premium CSS Enhancements */
+.hero-search-pill-container {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.hero-search-pill-container:focus-within {
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.18) !important;
+    border-color: #2563eb !important;
+    transform: translateY(-2px);
+}
+
+.hero-chip-pill {
+    transition: all 0.25s ease;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.hero-chip-pill:hover {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    color: #1d4ed8 !important;
+    border-color: rgba(29, 78, 216, 0.3) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.1);
+}
+
+.hero-stat-card-executive {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-stat-card-executive::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #1d4ed8, #0284c7, #38bdf8);
+}
+
+.hero-stat-card-executive:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08) !important;
+    border-color: rgba(29, 78, 216, 0.25);
+}
+
 .ccms-club-prestige-card {
     transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    position: relative;
+}
+
+.ccms-club-prestige-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1d4ed8 0%, #0284c7 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 10;
+}
+
+.ccms-club-prestige-card:hover::before {
+    opacity: 1;
 }
 
 .ccms-club-prestige-card:hover {
