@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Render Rich Executive Event Profile Card in 2-Column Grid
+/// Render Google / Meta Dev Conference Style Event Cards in 2-Column Grid
 function renderFloatingEventCard(event, isPast = false) {
     const eventDate = new Date(event.event_date);
     const day = String(eventDate.getDate()).padStart(2, '0');
@@ -257,11 +257,11 @@ function renderFloatingEventCard(event, isPast = false) {
     const year = eventDate.getFullYear();
     const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
 
-    let statusBadge = `<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 small fw-bold"><i class="bi bi-calendar-event me-1"></i> Upcoming</span>`;
+    let statusBadge = `<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1.5 small fw-bold"><i class="bi bi-calendar-event me-1"></i> Upcoming Contest</span>`;
     if (isPast || event.status === 'completed') {
-        statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill px-3 py-1 small fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Completed</span>`;
+        statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill px-3 py-1.5 small fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Completed Session</span>`;
     } else if (event.status === 'ongoing') {
-        statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1 small fw-bold"><span class="pulse-dot-green me-1.5"></span> Live Now</span>`;
+        statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1.5 small fw-bold"><span class="pulse-dot-green me-1.5"></span> Live Workshop</span>`;
     }
 
     const registeredCount = event.registered_count || 45;
@@ -269,24 +269,24 @@ function renderFloatingEventCard(event, isPast = false) {
 
     return `
         <div class="col-md-6 col-lg-6">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" style="background:#ffffff; border:1px solid #e2e8f0 !important;">
+            <div class="google-meta-card h-100 d-flex flex-column">
                 <!-- Cover Image Banner -->
-                <div class="position-relative" style="height: 180px;">
+                <div class="position-relative overflow-hidden" style="height: 195px;">
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
-                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.75) 100%);"></div>
+                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.85) 100%);"></div>
 
-                    <!-- Floating Date Badge -->
+                    <!-- Floating Frosted Date Badge -->
                     <div class="position-absolute top-0 start-0 m-3 z-2">
-                        <div class="bg-white rounded-3 p-2 shadow-sm text-center px-3" style="min-width: 58px;">
-                            <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.25rem;">${day}</span>
+                        <div class="google-date-badge text-center" style="min-width: 60px;">
+                            <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.3rem;">${day}</span>
                             <span class="small fw-bold text-dark text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
                         </div>
                     </div>
 
                     <!-- Club Badge Floating Overlay -->
                     <div class="position-absolute bottom-0 start-0 m-3 z-2">
-                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-80 text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm backdrop-blur" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
-                            <i class="bi bi-shield-fill text-primary me-1"></i> ${escapeHtml(event.club_short_name || event.club_name)}
+                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-80 text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
+                            <i class="bi bi-shield-fill text-info"></i> <span>${escapeHtml(event.club_short_name || event.club_name)}</span>
                         </a>
                     </div>
                 </div>
@@ -295,40 +295,40 @@ function renderFloatingEventCard(event, isPast = false) {
                 <div class="p-4 flex-grow-1 d-flex flex-column">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         ${statusBadge}
-                        <span class="small text-secondary fw-semibold" style="font-size: 0.78rem;">
-                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> RSVPs
+                        <span class="small text-secondary fw-semibold" style="font-size: 0.8rem;">
+                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> Coders RSVP'd
                         </span>
                     </div>
 
-                    <h4 class="fw-bold text-dark mb-2" style="font-size: 1.2rem; line-height: 1.35;">
+                    <h4 class="fw-bold text-dark mb-2" style="font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.3px;">
                         ${escapeHtml(event.title)}
                     </h4>
 
-                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.86rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                        ${escapeHtml(event.description || 'Join us for an exciting campus session organized by student chapter leads at UIT.')}
+                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        ${escapeHtml(event.description || 'Join us for an exciting campus tech session organized by student chapter leads at UIT.')}
                     </p>
 
                     ${event.outcomes_summary ? `
-                        <div class="rounded-3 p-2.5 mb-3 bg-light border border-light-subtle small text-dark" style="font-size: 0.78rem;">
-                            <i class="bi bi-award-fill text-warning me-1.5"></i>
-                            <strong>Highlights:</strong> ${escapeHtml(event.outcomes_summary)}
+                        <div class="rounded-3 p-2.5 mb-3 bg-light border border-light-subtle small text-dark d-flex align-items-center gap-2" style="font-size: 0.8rem;">
+                            <i class="bi bi-award-fill text-warning fs-5 flex-shrink-0"></i>
+                            <div><strong>Rewards:</strong> ${escapeHtml(event.outcomes_summary)}</div>
                         </div>
                     ` : ''}
 
                     <!-- Meta Bar & Footer Button -->
                     <div class="pt-3 border-top mt-auto">
-                        <div class="small text-muted mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2" style="font-size: 0.78rem;">
+                        <div class="small text-muted mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2" style="font-size: 0.8rem;">
                             <span class="text-dark fw-medium"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
                             <span class="text-secondary"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
                         </div>
 
                         ${!isPast && event.status !== 'completed' ? `
-                            <a href="${escapeHtml(event.registration_link || 'https://www.geeksforgeeks.org/')}" target="_blank" class="btn btn-primary rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm btn-glow d-flex align-items-center justify-content-center gap-1.5" style="font-size: 0.88rem;">
-                                <span>Register Now</span>
+                            <a href="${escapeHtml(event.registration_link || 'https://www.geeksforgeeks.org/')}" target="_blank" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
+                                <span>RSVP & Explore Session</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
                             </a>
                         ` : `
-                            <span class="badge bg-light text-muted border rounded-pill w-100 py-2 text-center d-block" style="font-size: 0.8rem;"><i class="bi bi-check-circle me-1"></i> Completed Session</span>
+                            <span class="badge bg-light text-muted border rounded-pill w-100 py-2.5 text-center d-block" style="font-size: 0.82rem;"><i class="bi bi-check-circle me-1"></i> Completed Session</span>
                         `}
                     </div>
                 </div>
@@ -340,10 +340,12 @@ function renderFloatingEventCard(event, isPast = false) {
 function renderEmptyState(container, title, subtitle = '') {
     container.innerHTML = `
         <div class="text-center py-5">
-            <div class="p-5 bg-white rounded-4 shadow-sm border max-w-md mx-auto">
-                <i class="bi bi-calendar-x fs-1 text-primary d-block mb-3"></i>
-                <h5 class="fw-bold mb-2">${escapeHtml(title)}</h5>
-                <p class="text-secondary small mb-4">${escapeHtml(subtitle)}</p>
+            <div class="mb-3">
+                <i class="bi bi-exclamation-circle text-primary display-4"></i>
+            </div>
+            <h5 class="fw-bold text-dark mb-1">${escapeHtml(title)}</h5>
+            ${subtitle ? `<p class="text-secondary small mb-0">${escapeHtml(subtitle)}</p>` : ''}
+            <div class="mt-4">
                 <a href="/clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
                     <i class="bi bi-collection me-1"></i> Explore Student Clubs
                 </a>

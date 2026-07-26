@@ -123,10 +123,11 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Full-Width Executive Events Search & Discovery Hero -->
-<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0b132b 0%, #1c2541 45%, #1e3a8a 80%, #1d4ed8 100%); color: #ffffff;">
-    <!-- Ambient Radial Glow Orbs -->
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="pointer-events: none; opacity: 0.25; background: radial-gradient(circle at 15% 25%, #38bdf8 0%, transparent 45%), radial-gradient(circle at 85% 75%, #60a5fa 0%, transparent 45%);"></div>
+<!-- Full-Width Executive Google/Meta Tech Events Hero -->
+<section class="py-5 google-meta-hero">
+    <!-- Ambient Radial Mesh Glow Orbs -->
+    <div class="google-mesh-orb-1"></div>
+    <div class="google-mesh-orb-2"></div>
 
     <div class="container py-4 position-relative" style="z-index: 2;">
         <!-- Top Breadcrumb & Live Ticker -->
@@ -140,31 +141,31 @@
 
             <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white backdrop-blur shadow-sm">
                 <span class="pulse-dot-green"></span>
-                <span class="small fw-bold">11 Real Events Database Connected</span>
+                <span class="small fw-bold text-white">Google & Meta Tech Chapter Hub</span>
             </div>
         </div>
 
         <div class="row justify-content-center text-center">
             <div class="col-lg-9">
                 <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white fw-bold small mb-3">
-                    <i class="bi bi-stars text-warning fs-6"></i>
+                    <i class="bi bi-cpu-fill text-warning fs-6"></i>
                     <span>Official Student Activity Centre (SAC) Events Hub</span>
                 </div>
 
-                <h1 class="fw-extrabold text-white mb-3 display-4" style="letter-spacing: -1.2px; line-height: 1.15;">
-                    Discover, Filter & Participate in <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Campus Fests & Contests.</span>
+                <h1 class="fw-extrabold text-white mb-3 display-4" style="letter-spacing: -1.4px; line-height: 1.15;">
+                    Discover, Filter & Experience <span style="background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 50%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Campus Tech Fests.</span>
                 </h1>
 
                 <p class="text-white-80 mb-4 fs-5" style="max-width: 720px; margin: 0 auto; line-height: 1.6;">
-                    Search upcoming hackathons, AI mentorship sessions, competitive coding challenges, and completed workshops across all student clubs at United Institute of Technology.
+                    Explore Google Developer Student Clubs, GeeksforGeeks SC, and Gemini AI bootcamps. Search hackathons, mentorship sessions, and DSA contests across UIT.
                 </p>
 
-                <!-- Full-Width Interactive Search Bar -->
-                <div class="card p-2 border border-white-20 rounded-pill shadow-xl mb-4 bg-white mx-auto" style="max-width: 680px;">
+                <!-- Google / Meta Glass Search Deck -->
+                <div class="google-search-deck mb-4 mx-auto" style="max-width: 680px;">
                     <div class="input-group align-items-center">
-                        <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2"><i class="bi bi-search fs-4"></i></span>
-                        <input type="text" id="eventsSearchInput" class="form-control hero-search-input bg-transparent border-0 text-dark fw-medium" placeholder="Search by event title, GFG, Gemini AI, GDG, Hackathon, or venue..." style="font-size: 1rem; outline: none; box-shadow: none;">
-                        <button id="eventsSearchBtn" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-1.5" style="font-size: 0.9rem;">
+                        <span class="input-group-text bg-transparent border-0 text-info ps-3 pe-2"><i class="bi bi-search fs-4 text-cyan"></i></span>
+                        <input type="text" id="eventsSearchInput" class="form-control hero-search-input bg-transparent border-0 text-white fw-medium placeholder-white-60" placeholder="Search by event title, GFG, Gemini AI, GDG, Hackathon, or venue..." style="font-size: 1rem; outline: none; box-shadow: none;">
+                        <button id="eventsSearchBtn" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-lg d-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
                             <span>Search Events</span>
                             <i class="bi bi-arrow-right-short fs-5"></i>
                         </button>
@@ -173,11 +174,11 @@
 
                 <!-- Popular Filter Chips -->
                 <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap text-white-80 small">
-                    <span class="fw-semibold text-white me-1" style="font-size: 0.8rem;"><i class="bi bi-fire text-warning me-1"></i> Quick Filters:</span>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="GeeksforGeeks" style="font-size: 0.78rem;">⚡ GFG SC UIT</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="Gemini" style="font-size: 0.78rem;">🤖 Gemini AI</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="GDG" style="font-size: 0.78rem;">☁️ GDGOC Cloud</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="Hackathon" style="font-size: 0.78rem;">🏆 Hackathons</button>
+                    <span class="fw-semibold text-white me-1" style="font-size: 0.8rem;"><i class="bi bi-fire text-warning me-1"></i> Trending:</span>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="GeeksforGeeks" style="font-size: 0.78rem;">⚡ GFG SC UIT</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="Gemini" style="font-size: 0.78rem;">🤖 Gemini AI</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="GDG" style="font-size: 0.78rem;">☁️ GDGOC Cloud</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="Hackathon" style="font-size: 0.78rem;">🏆 Hackathons</button>
                 </div>
             </div>
         </div>
