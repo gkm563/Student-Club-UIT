@@ -23,39 +23,72 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Executive Hero Header Section -->
+<!-- Premium Hero Header Section with Rich Components -->
 <section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0b132b 0%, #1c2541 45%, #1e3a8a 80%, #1d4ed8 100%); color: #ffffff;">
-    <div class="container py-4 position-relative" style="z-index: 2;">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="mb-3">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium">Home</a></li>
-                <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Campus Clubs Directory</li>
-            </ol>
-        </nav>
+    <!-- Ambient Light Orbs Overlay -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="pointer-events: none; opacity: 0.18; background: radial-gradient(circle at 15% 25%, #38bdf8 0%, transparent 45%), radial-gradient(circle at 85% 75%, #60a5fa 0%, transparent 45%);"></div>
+
+    <div class="container py-3 position-relative" style="z-index: 2;">
+        <!-- Breadcrumb & Top Avatar Stack Badge -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium">Home</a></li>
+                    <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Campus Clubs Directory</li>
+                </ol>
+            </nav>
+
+            <!-- Top SAC Badge & Avatar Stack -->
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white backdrop-blur shadow-sm">
+                <div class="d-flex align-items-center me-1">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=100&auto=format&fit=crop" class="rounded-circle border border-2 border-white" style="width: 22px; height: 22px; margin-right: -6px; object-fit: cover;" alt="Club">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=100&auto=format&fit=crop" class="rounded-circle border border-2 border-white" style="width: 22px; height: 22px; margin-right: -6px; object-fit: cover;" alt="Club">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=100&auto=format&fit=crop" class="rounded-circle border border-2 border-white" style="width: 22px; height: 22px; object-fit: cover;" alt="Club">
+                </div>
+                <span class="small fw-bold" style="font-size: 0.78rem;">11+ SAC Governed Student Societies</span>
+            </div>
+        </div>
 
         <div class="row align-items-center justify-content-between g-4">
+            <!-- Left Header Copy & Hero Search Deck -->
             <div class="col-lg-7">
-                <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white mb-3 backdrop-blur shadow-sm">
-                    <i class="bi bi-shield-check text-warning fs-6"></i>
-                    <span class="small fw-bold" style="letter-spacing: 0.4px;">Official Student Activity Centre (SAC) Chapters</span>
-                </div>
-                <h1 class="fw-extrabold text-white mb-3" style="font-size: 3rem; letter-spacing: -1px; line-height: 1.15;">
-                    Discover Campus <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Chapters & Organizations</span>
+                <h1 class="fw-extrabold text-white mb-3" style="font-size: 3.1rem; letter-spacing: -1px; line-height: 1.15;">
+                    Discover Campus <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Student Chapters & AI Hubs</span>
                 </h1>
-                <p class="text-white-80 mb-0" style="font-size: 1.1rem; max-width: 620px; font-weight: 400; line-height: 1.6;">
-                    Each student club at UIT is an official organization driving tech innovation, competitive programming, AI build workshops, cultural festivals, and athletic tournaments.
+                <p class="text-white-80 mb-4" style="font-size: 1.08rem; max-width: 630px; font-weight: 400; line-height: 1.6;">
+                    Explore official student-led communities at United Institute of Technology. From GFG competitive programming to Gemini Builders AI workshops, find your chapter and lead campus innovation.
                 </p>
+
+                <!-- Component 1: Hero Quick Search Input Bar -->
+                <div class="card p-2 border border-white-20 rounded-pill shadow-lg mb-3" style="background: rgba(255, 255, 255, 0.95); max-width: 580px;">
+                    <div class="input-group align-items-center">
+                        <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2"><i class="bi bi-search fs-5"></i></span>
+                        <input type="text" id="heroDirectorySearchInput" class="form-control bg-transparent border-0 text-dark fw-medium" placeholder="Search by GFG, GDG, AI, Coding, Drama, Sports..." style="font-size: 0.92rem; outline: none; box-shadow: none;">
+                        <button id="heroSearchTriggerBtn" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm d-flex align-items-center gap-1.5" style="font-size: 0.85rem;">
+                            <span>Search</span>
+                            <i class="bi bi-arrow-right-short fs-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Component 2: Trending Quick Search Chips -->
+                <div class="d-flex align-items-center gap-2 flex-wrap text-white-80 small">
+                    <span class="fw-semibold text-white me-1" style="font-size: 0.78rem;"><i class="bi bi-fire text-warning me-1"></i> Trending:</span>
+                    <button class="btn btn-xs rounded-pill px-2.5 py-1 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium hero-chip-btn" data-chip="GeeksforGeeks" style="font-size: 0.74rem;">⚡ GFG SC UIT</button>
+                    <button class="btn btn-xs rounded-pill px-2.5 py-1 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium hero-chip-btn" data-chip="Gemini Builders" style="font-size: 0.74rem;">🤖 Gemini Builders</button>
+                    <button class="btn btn-xs rounded-pill px-2.5 py-1 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium hero-chip-btn" data-chip="GDG" style="font-size: 0.74rem;">☁️ GDGOC UIT</button>
+                    <button class="btn btn-xs rounded-pill px-2.5 py-1 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium hero-chip-btn" data-chip="Coding" style="font-size: 0.74rem;">💻 Coding & DSA</button>
+                </div>
             </div>
 
-            <!-- Right Glass Stat Badges Deck -->
+            <!-- Right Component 3: 3D Glass Stats & Activity Deck -->
             <div class="col-lg-5">
                 <div class="row g-3">
                     <div class="col-6">
-                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                        <div class="card p-3.5 border border-white-20 text-white rounded-4 shadow-lg transition-all" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="rounded-circle p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="background: linear-gradient(135deg, #38bdf8, #0284c7); width: 46px; height: 46px;">
-                                    <i class="bi bi-award-fill fs-5 text-white"></i>
+                                    <i class="bi bi-trophy-fill fs-5 text-white"></i>
                                 </div>
                                 <div>
                                     <h4 class="fw-extrabold mb-0 text-white" id="heroDirectoryCount">11+</h4>
@@ -66,7 +99,7 @@
                     </div>
 
                     <div class="col-6">
-                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                        <div class="card p-3.5 border border-white-20 text-white rounded-4 shadow-lg transition-all" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="rounded-circle p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="background: linear-gradient(135deg, #34d399, #059669); width: 46px; height: 46px;">
                                     <i class="bi bi-people-fill fs-5 text-white"></i>
@@ -79,13 +112,19 @@
                         </div>
                     </div>
 
+                    <!-- Component 4: Live Pillar Highlights & Recruitment Bar -->
                     <div class="col-12">
-                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg d-flex flex-row align-items-center justify-content-between" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
-                            <div class="d-flex align-items-center gap-2">
-                                <span class="pulse-dot-green"></span>
-                                <span class="small fw-bold text-white">Recruitment Season 2026 Active</span>
+                        <div class="card p-3.5 border border-white-20 text-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="pulse-dot-green"></span>
+                                    <div>
+                                        <strong class="d-block text-white small" style="line-height: 1.2;">Recruitment Season 2026 Active</strong>
+                                        <span class="text-white-80" style="font-size: 0.72rem;">Apply for core leadership & member onboarding</span>
+                                    </div>
+                                </div>
+                                <a href="#clubsGrid" class="btn btn-sm btn-light rounded-pill px-3.5 py-1.5 fw-bold text-primary shadow-sm" style="font-size: 0.82rem;">Explore Chapters</a>
                             </div>
-                            <a href="#clubsGrid" class="btn btn-sm btn-light rounded-pill px-3.5 fw-bold text-primary shadow-sm">Explore All</a>
                         </div>
                     </div>
                 </div>

@@ -295,11 +295,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     currentSearch = e.target.value.trim();
+                    const heroInput = document.getElementById('heroDirectorySearchInput');
+                    if (heroInput) heroInput.value = currentSearch;
                     updateUrlParam('search', currentSearch || null);
                     loadClubs();
                 }, 300);
             });
         }
+
+        // Hero Directory Search Input & Trigger Btn
+        const heroDirectorySearchInput = document.getElementById('heroDirectorySearchInput');
+        const heroSearchTriggerBtn = document.getElementById('heroSearchTriggerBtn');
+
+        if (heroDirectorySearchInput) {
+            let heroDebounce;
+            heroDirectorySearchInput.addEventListener('input', (e) => {
+                clearTimeout(heroDebounce);
+                heroDebounce = setTimeout(() => {
+                    currentSearch = e.target.value.trim();
+                    if (clubSearchInput) clubSearchInput.value = currentSearch;
+                    updateUrlParam('search', currentSearch || null);
+                    loadClubs();
+                }, 300);
+            });
+
+            heroDirectorySearchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    currentSearch = heroDirectorySearchInput.value.trim();
+                    if (clubSearchInput) clubSearchInput.value = currentSearch;
+                    updateUrlParam('search', currentSearch || null);
+                    loadClubs();
+                }
+            });
+        }
+
+        if (heroSearchTriggerBtn) {
+            heroSearchTriggerBtn.addEventListener('click', () => {
+                if (heroDirectorySearchInput) {
+                    currentSearch = heroDirectorySearchInput.value.trim();
+                    if (clubSearchInput) clubSearchInput.value = currentSearch;
+                    updateUrlParam('search', currentSearch || null);
+                    loadClubs();
+                }
+            });
+        }
+
+        // Hero Trending Chips Event Listener
+        document.addEventListener('click', (e) => {
+            const chip = e.target.closest('.hero-chip-btn');
+            if (chip) {
+                const keyword = chip.getAttribute('data-chip');
+                if (keyword) {
+                    currentSearch = keyword;
+                    if (clubSearchInput) clubSearchInput.value = currentSearch;
+                    if (heroDirectorySearchInput) heroDirectorySearchInput.value = currentSearch;
+                    updateUrlParam('search', currentSearch);
+                    loadClubs();
+                }
+            }
+        });
 
         // Sort Dropdown Listener
         if (sortSelect) {
