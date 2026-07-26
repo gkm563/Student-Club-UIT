@@ -6,7 +6,7 @@ $adminName = $_SESSION['user_name'] ?? $_SESSION['full_name'] ?? 'Club Lead';
 $firstName = explode(' ', trim($adminName))[0];
 
 // $club is expected to be available from the including page
-$clubLogo    = $club['logo']       ?? '/assets/United Logo.webp';
+$clubLogo    = $club['logo']       ?? '../assets/United Logo.webp';
 $clubName    = $club['name']       ?? 'My Club';
 $clubShort   = $club['short_name'] ?? 'Club';
 $clubStatus  = $club['status']     ?? 'active';
@@ -16,7 +16,7 @@ $clubStatus  = $club['status']     ?? 'active';
     <!-- Top Brand Header -->
     <div class="p-4 border-bottom border-white-10">
         <div class="d-flex align-items-center gap-3 mb-3">
-            <img src="/assets/United Logo.webp" alt="ClubHub" style="height: 28px; opacity: 0.9;">
+            <img src="../assets/United Logo.webp" alt="ClubHub" style="height: 28px; opacity: 0.9;" onerror="this.src='assets/United Logo.webp'">
             <div>
                 <span class="fw-bold text-white d-block lh-1" style="font-size: 0.95rem; letter-spacing: 0.3px;">ClubHub</span>
                 <span class="text-white-50" style="font-size: 0.6rem; letter-spacing: 1.5px;">CLUB PORTAL</span>
@@ -27,7 +27,7 @@ $clubStatus  = $club['status']     ?? 'active';
         <div class="rounded-3 p-3 d-flex align-items-center gap-3" style="background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);">
             <img src="<?= htmlspecialchars($clubLogo) ?>" alt="<?= htmlspecialchars($clubName) ?>"
                  style="width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0;"
-                 onerror="this.src='/assets/United Logo.webp'">
+                 onerror="this.src='../assets/United Logo.webp'">
             <div class="overflow-hidden">
                 <div class="fw-bold text-white lh-sm text-truncate" style="font-size: 0.88rem;" title="<?= htmlspecialchars($clubName) ?>">
                     <?= htmlspecialchars($clubName) ?>
@@ -50,19 +50,19 @@ $clubStatus  = $club['status']     ?? 'active';
     <nav class="px-3 py-2 flex-grow-1">
         <p class="text-white-50 px-2 mb-2 mt-2" style="font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">MAIN MENU</p>
 
-        <a href="/admin/dashboard.php" class="admin-nav-link <?= ($currentAdminUri === '/admin/dashboard.php') ? 'active' : '' ?>">
+        <a href="dashboard.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'dashboard.php')) ? 'active' : '' ?>">
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
-        <a href="/admin/profile.php" class="admin-nav-link <?= ($currentAdminUri === '/admin/profile.php') ? 'active' : '' ?>">
+        <a href="profile.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'profile.php')) ? 'active' : '' ?>">
             <i class="bi bi-person-vcard"></i> Club Profile & Roster
         </a>
-        <a href="/admin/events.php" class="admin-nav-link <?= ($currentAdminUri === '/admin/events.php' || $currentAdminUri === '/admin/event-detail.php') ? 'active' : '' ?>">
+        <a href="events.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'events.php') || str_contains($currentAdminUri, 'event-detail.php')) ? 'active' : '' ?>">
             <i class="bi bi-calendar-event"></i> Manage Events
         </a>
-        <a href="/admin/gallery.php" class="admin-nav-link <?= ($currentAdminUri === '/admin/gallery.php') ? 'active' : '' ?>">
+        <a href="gallery.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'gallery.php')) ? 'active' : '' ?>">
             <i class="bi bi-images"></i> Photo Gallery
         </a>
-        <a href="/admin/recruitment.php" class="admin-nav-link <?= ($currentAdminUri === '/admin/recruitment.php') ? 'active' : '' ?>">
+        <a href="recruitment.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'recruitment.php')) ? 'active' : '' ?>">
             <i class="bi bi-person-plus"></i> Recruitment Drive
         </a>
 
@@ -70,10 +70,10 @@ $clubStatus  = $club['status']     ?? 'active';
 
         <p class="text-white-50 px-2 mb-2" style="font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;">QUICK LINKS</p>
 
-        <a href="/" target="_blank" class="admin-nav-link">
+        <a href="../index.html" target="_blank" class="admin-nav-link">
             <i class="bi bi-globe2"></i> View Public Site
         </a>
-        <a href="/admin/logout.php" class="admin-nav-link" style="color: #fca5a5 !important;">
+        <a href="logout.php" class="admin-nav-link" style="color: #fca5a5 !important;">
             <i class="bi bi-box-arrow-right"></i> Sign Out
         </a>
     </nav>

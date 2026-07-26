@@ -124,10 +124,10 @@ $firstName = explode(' ', trim($adminName))[0];
                 <p class="text-muted mb-0" style="font-size: 0.75rem;"><?= date('l, d F Y') ?></p>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <a href="/admin/events.php" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" style="font-size: 0.85rem;">
+                <a href="events.php" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" style="font-size: 0.85rem;">
                     <i class="bi bi-plus-lg me-1"></i> New Event
                 </a>
-                <a href="/" target="_blank" class="btn btn-outline-secondary rounded-pill px-3 py-2" style="font-size: 0.85rem;" title="View Public Site">
+                <a href="../index.html" target="_blank" class="btn btn-outline-secondary rounded-pill px-3 py-2" style="font-size: 0.85rem;" title="View Public Site">
                     <i class="bi bi-box-arrow-up-right me-1"></i> Live Site
                 </a>
             </div>
@@ -217,7 +217,7 @@ $firstName = explode(' ', trim($adminName))[0];
                                 <h6 class="fw-bold mb-0 text-dark">Recent Events</h6>
                                 <p class="text-muted mb-0 small">All events created by your club</p>
                             </div>
-                            <a href="/admin/events.php" class="btn btn-sm btn-primary rounded-pill px-3 py-1-5 fw-semibold">
+                            <a href="events.php" class="btn btn-sm btn-primary rounded-pill px-3 py-1-5 fw-semibold">
                                 <i class="bi bi-plus-lg me-1"></i> Add Event
                             </a>
                         </div>
@@ -227,7 +227,7 @@ $firstName = explode(' ', trim($adminName))[0];
                                     <i class="bi bi-calendar-x fs-1 d-block mb-2 text-primary opacity-50"></i>
                                     <p class="mb-2 fw-semibold">No events created yet</p>
                                     <p class="small mb-3">Publish your first workshop, hackathon, or competition!</p>
-                                    <a href="/admin/events.php" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">Create First Event</a>
+                                    <a href="events.php" class="btn btn-primary rounded-pill px-4 py-2 fw-bold">Create First Event</a>
                                 </div>
                             <?php else: ?>
                                 <div class="table-responsive">
@@ -257,7 +257,7 @@ $firstName = explode(' ', trim($adminName))[0];
                                                     <td class="py-3 small text-muted"><?= date('d M Y', strtotime($ev['event_date'])) ?></td>
                                                     <td class="py-3"><?= get_status_badge($ev['status']) ?></td>
                                                     <td class="py-3 text-end pe-4">
-                                                        <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold" style="font-size: 0.78rem;">
+                                                        <a href="event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold" style="font-size: 0.78rem;">
                                                             Edit
                                                         </a>
                                                     </td>
@@ -278,7 +278,7 @@ $firstName = explode(' ', trim($adminName))[0];
                     <div class="card border-0 rounded-4 shadow-sm">
                         <div class="card-header bg-white border-0 rounded-top-4 px-4 pt-4 pb-2 d-flex justify-content-between align-items-center">
                             <h6 class="fw-bold mb-0 text-dark">Upcoming Events</h6>
-                            <a href="/admin/events.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
+                            <a href="events.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
                         </div>
                         <div class="card-body px-4 pb-4 pt-2">
                             <?php if (empty($nextEvents)): ?>
@@ -315,25 +315,25 @@ $firstName = explode(' ', trim($adminName))[0];
                         <div class="card-body px-4 pb-4 pt-2">
                             <div class="row g-2 mt-1">
                                 <div class="col-6">
-                                    <a href="/admin/events.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none hover-shadow" style="font-size: 0.75rem;">
+                                    <a href="events.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none hover-shadow" style="font-size: 0.75rem;">
                                         <i class="bi bi-calendar-plus fs-5 text-primary"></i>
                                         <span class="fw-semibold text-dark">New Event</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/gallery.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
+                                    <a href="gallery.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
                                         <i class="bi bi-image fs-5 text-purple" style="color: #a855f7 !important;"></i>
                                         <span class="fw-semibold text-dark">Add Photo</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/profile.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
+                                    <a href="profile.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
                                         <i class="bi bi-people fs-5 text-success"></i>
                                         <span class="fw-semibold text-dark">Edit Roster</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/recruitment.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
+                                    <a href="recruitment.php" class="btn btn-light border rounded-3 w-100 py-3 d-flex flex-column align-items-center gap-1 text-decoration-none" style="font-size: 0.75rem;">
                                         <i class="bi bi-megaphone fs-5 text-warning"></i>
                                         <span class="fw-semibold text-dark">Recruitment</span>
                                     </a>

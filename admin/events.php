@@ -75,7 +75,7 @@ if (isset($_GET['set_status']) && isset($_GET['id'])) {
     if (in_array($newStatus, $allowedStatuses)) {
         $stmtStatus = $db->prepare("UPDATE events SET status = ? WHERE id = ? AND club_id = ?");
         $stmtStatus->execute([$newStatus, $evtId, $club['id']]);
-        header('Location: /admin/events.php?msg=Status+updated');
+        header('Location: events.php?msg=Status+updated');
         exit;
     }
 }
@@ -96,7 +96,7 @@ if (isset($_GET['duplicate']) && !empty($_GET['duplicate'])) {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft')
         ");
         $insDup->execute([$newId, $club['id'], $newTitle, $newSlug, $orig['banner'], $orig['description'], $orig['venue'], $orig['event_date'], $orig['registration_link']]);
-        header('Location: /admin/events.php?msg=Event+duplicated+as+draft');
+        header('Location: events.php?msg=Event+duplicated+as+draft');
         exit;
     }
 }
@@ -106,7 +106,7 @@ if (isset($_GET['delete'])) {
     $delId = $_GET['delete'];
     $stmtDel = $db->prepare("DELETE FROM events WHERE id = ? AND club_id = ?");
     $stmtDel->execute([$delId, $club['id']]);
-    header('Location: /admin/events.php?msg=Event+deleted');
+    header('Location: events.php?msg=Event+deleted');
     exit;
 }
 

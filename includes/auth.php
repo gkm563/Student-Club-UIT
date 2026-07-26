@@ -86,7 +86,7 @@ function get_assigned_club_id(): ?string {
     return $_SESSION['assigned_club_id'] ?? null;
 }
 
-function require_login(string $redirectUrl = '/admin/login.php'): void {
+function require_login(string $redirectUrl = 'club-login.php'): void {
     if (!is_logged_in()) {
         header("Location: $redirectUrl");
         exit;
@@ -94,18 +94,18 @@ function require_login(string $redirectUrl = '/admin/login.php'): void {
 }
 
 function require_super_admin(): void {
-    require_login('/admin/login.php');
+    require_login('login.php');
     if (get_current_user_role() !== 'super_admin') {
-        header("Location: /admin/login.php?error=" . urlencode("Access Denied: Dean Sir Super Admin privileges required."));
+        header("Location: login.php?error=" . urlencode("Access Denied: Dean Sir Super Admin privileges required."));
         exit;
     }
 }
 
 function require_club_admin(): void {
-    require_login('/club-login.php');
+    require_login('club-login.php');
     $role = get_current_user_role();
     if ($role !== 'club_admin' && $role !== 'super_admin') {
-        header("Location: /club-login.php?error=" . urlencode("Access Denied: Club Leadership privileges required."));
+        header("Location: club-login.php?error=" . urlencode("Access Denied: Club Leadership privileges required."));
         exit;
     }
 }

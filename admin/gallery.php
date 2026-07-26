@@ -62,7 +62,7 @@ if (isset($_GET['delete'])) {
     $delId = $_GET['delete'];
     $dStmt = $db->prepare("DELETE FROM gallery_items WHERE id = ? AND club_id = ?");
     $dStmt->execute([$delId, $club['id']]);
-    header('Location: /admin/gallery.php?msg=Photo+deleted');
+    header('Location: gallery.php?msg=Photo+deleted');
     exit;
 }
 
