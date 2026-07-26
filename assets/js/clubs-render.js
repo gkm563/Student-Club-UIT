@@ -58,29 +58,69 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    clubsGrid.innerHTML = clubs.map(club => `
-                        <div class="col-md-4">
-                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark">
-                                <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
-                                    <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
-                                    
-                                    <div class="bg-primary-subtle text-primary rounded-circle p-3 mb-3 d-inline-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
-                                        <i class="bi ${club.category_icon || 'bi-trophy'} fs-4"></i>
-                                    </div>
-                                    <h5 class="fw-bold mb-1">${escapeHtml(club.name)}</h5>
-                                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small align-self-start mb-3">${escapeHtml(club.category_name)}</span>
-                                    <p class="text-secondary small mb-4 flex-grow-1">${escapeHtml(club.tagline || club.description || '')}</p>
+                    clubsGrid.innerHTML = clubs.map(club => {
+                        const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop');
+                        const logoImg = club.logo ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-4 text-primary\'></i>'">` : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-4 text-primary"></i>`;
+                        const memberCount = club.member_count || 45;
+                        const recruitmentBadge = club.recruitment_open 
+                            ? `<span class="badge rounded-pill px-2-5 py-1 fw-bold text-nowrap" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.68rem;"><span class="pulse-dot-green me-1"></span>Recruiting</span>`
+                            : `<span class="badge rounded-pill px-2-5 py-1 fw-bold text-nowrap" style="background:#eff6ff; color:#2563eb; border:1px solid rgba(37,99,235,0.3); font-size:0.68rem;"><i class="bi bi-shield-check me-1"></i>Active</span>`;
 
-                                    <div class="d-flex align-items-center justify-content-between pt-3 border-top small text-muted">
-                                        <span><i class="bi bi-people me-1"></i> ${club.member_count || 0} Core Leaders</span>
-                                        <span class="${club.recruitment_open ? 'text-success' : 'text-secondary'}">
-                                            <i class="bi bi-record-fill me-1"></i> ${club.recruitment_open ? 'Recruitment Open' : 'By Invitation'}
-                                        </span>
+                        return `
+                            <div class="col-md-6 col-lg-4">
+                                <div class="featured-club-card-3d h-100 d-flex flex-column">
+                                    <!-- Banner Image & Floating Badges -->
+                                    <div class="featured-club-banner" style="height: 135px;">
+                                        <img src="${coverImg}" class="featured-club-banner-img" alt="${escapeHtml(club.name)}">
+                                        <div class="featured-club-overlay"></div>
+                                        
+                                        <!-- Floating Club Logo -->
+                                        <div class="featured-club-logo-float" style="width: 52px; height: 52px; bottom: -18px; left: 16px;">
+                                            ${logoImg}
+                                        </div>
+
+                                        <!-- Category Tag Badge -->
+                                        <div class="position-absolute top-0 end-0 m-3 d-flex gap-1.5 align-items-center">
+                                            <span class="badge bg-white text-dark rounded-pill px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.68rem;">
+                                                <i class="bi ${escapeHtml(club.category_icon || 'bi-grid')} me-1 text-primary"></i> ${escapeHtml(club.category_name)}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Content Body -->
+                                    <div class="featured-club-content flex-grow-1 d-flex flex-column pt-4 px-3.5 pb-3">
+                                        <div class="d-flex justify-content-between align-items-start mb-1">
+                                            <h5 class="featured-club-name text-truncate mb-0 fw-bold" style="font-size: 1.05rem; line-height: 1.3;">
+                                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">
+                                                    ${escapeHtml(club.name)}
+                                                </a>
+                                            </h5>
+                                        </div>
+
+                                        <p class="featured-club-desc small text-secondary mb-3" style="min-height: 2.7em; font-size: 0.84rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                            ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology.')}
+                                        </p>
+
+                                        <!-- Meta Info Pills -->
+                                        <div class="d-flex align-items-center justify-content-between pt-2.5 border-top border-light-subtle mt-auto">
+                                            <div class="d-flex align-items-center gap-2 text-muted small" style="font-size: 0.76rem;">
+                                                <span><i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${memberCount}+</strong> Members</span>
+                                            </div>
+                                            ${recruitmentBadge}
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer Action Bar -->
+                                    <div class="px-3.5 pb-3 pt-0">
+                                        <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn btn-sm btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-1.5">
+                                            <span>Explore Chapter</span>
+                                            <i class="bi bi-arrow-right-short fs-5"></i>
+                                        </a>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                    `).join('');
+                            </div>
+                        `;
+                    }).join('');
                 })
                 .catch(err => {
                     console.error('Error fetching clubs:', err);
