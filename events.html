@@ -123,91 +123,68 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Ultra-Attractive Executive Events Hero Section -->
+<!-- Full-Width Executive Events Search & Discovery Hero -->
 <section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0b132b 0%, #1c2541 45%, #1e3a8a 80%, #1d4ed8 100%); color: #ffffff;">
-    <!-- Ambient Radial Mesh Glow Orbs -->
+    <!-- Ambient Radial Glow Orbs -->
     <div class="position-absolute top-0 start-0 w-100 h-100" style="pointer-events: none; opacity: 0.25; background: radial-gradient(circle at 15% 25%, #38bdf8 0%, transparent 45%), radial-gradient(circle at 85% 75%, #60a5fa 0%, transparent 45%);"></div>
 
     <div class="container py-4 position-relative" style="z-index: 2;">
-        <!-- Top Breadcrumb & Live Badge -->
+        <!-- Top Breadcrumb & Live Ticker -->
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium"><i class="bi bi-house-door-fill me-1"></i> Home</a></li>
                     <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Campus Events Directory</li>
                 </ol>
             </nav>
 
             <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white backdrop-blur shadow-sm">
                 <span class="pulse-dot-green"></span>
-                <span class="small fw-bold">Live Campus Events • 11+ Sessions</span>
+                <span class="small fw-bold">11 Real Events Database Connected</span>
             </div>
         </div>
 
-        <div class="row align-items-center justify-content-between g-5">
-            <!-- Left Column: Copy & Search Pill -->
-            <div class="col-lg-7">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill bg-white-10 border border-white-20 text-white fw-bold small mb-3">
-                    <i class="bi bi-stars text-warning"></i>
-                    <span>Official Student Activity Centre Events</span>
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-9">
+                <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white fw-bold small mb-3">
+                    <i class="bi bi-stars text-warning fs-6"></i>
+                    <span>Official Student Activity Centre (SAC) Events Hub</span>
                 </div>
 
-                <h1 class="fw-extrabold text-white mb-3" style="font-size: 3.2rem; letter-spacing: -1.2px; line-height: 1.15;">
-                    Discover, Participate & <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Lead Campus Fests.</span>
+                <h1 class="fw-extrabold text-white mb-3 display-4" style="letter-spacing: -1.2px; line-height: 1.15;">
+                    Discover, Filter & Participate in <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Campus Fests & Contests.</span>
                 </h1>
 
-                <p class="text-white-80 mb-4" style="font-size: 1.1rem; max-width: 620px; line-height: 1.6;">
-                    Join upcoming hackathons, AI mentorship sessions, competitive coding contests, and tech study jams hosted by GFG SC, Gemini Builders, and GDG Cloud at UIT.
+                <p class="text-white-80 mb-4 fs-5" style="max-width: 720px; margin: 0 auto; line-height: 1.6;">
+                    Search upcoming hackathons, AI mentorship sessions, competitive coding challenges, and completed workshops across all student clubs at United Institute of Technology.
                 </p>
 
-                <!-- Search Pill Input Bar -->
-                <div class="card p-2 border border-white-20 rounded-pill shadow-lg mb-3" style="background: rgba(255, 255, 255, 0.95); max-width: 580px;">
+                <!-- Full-Width Interactive Search Bar -->
+                <div class="card p-2 border border-white-20 rounded-pill shadow-xl mb-4 bg-white mx-auto" style="max-width: 680px;">
                     <div class="input-group align-items-center">
-                        <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2"><i class="bi bi-search fs-5"></i></span>
-                        <input type="text" class="form-control hero-search-input bg-transparent border-0 text-dark fw-medium" placeholder="Search events by title, GFG, AI, venue..." style="font-size: 0.95rem; outline: none; box-shadow: none;">
-                        <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" style="font-size: 0.88rem;">
-                            Search
+                        <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2"><i class="bi bi-search fs-4"></i></span>
+                        <input type="text" id="eventsSearchInput" class="form-control hero-search-input bg-transparent border-0 text-dark fw-medium" placeholder="Search by event title, GFG, Gemini AI, GDG, Hackathon, or venue..." style="font-size: 1rem; outline: none; box-shadow: none;">
+                        <button id="eventsSearchBtn" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-flex align-items-center gap-1.5" style="font-size: 0.9rem;">
+                            <span>Search Events</span>
+                            <i class="bi bi-arrow-right-short fs-5"></i>
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Right Column: Featured Spotlight Card -->
-            <div class="col-lg-5">
-                <div class="card p-4 border border-white-20 text-white rounded-4 shadow-2xl" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
-                    <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom border-white-20">
-                        <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold">Featured Event</span>
-                        <span class="small text-white-80"><i class="bi bi-fire text-warning me-1"></i> May 03, 2026</span>
-                    </div>
-
-                    <h4 class="fw-bold text-white mb-2">SyntaxClash 2026</h4>
-                    <p class="small text-white-80 mb-3">90-Minute Live Coding Challenge organized by GeeksforGeeks Student Chapter UIT. Win Laptop Bags, GFG Swags & Certificates!</p>
-
-                    <div class="row g-2 mb-3 text-center">
-                        <div class="col-6">
-                            <div class="p-2.5 rounded-3 bg-white-10 border border-white-10">
-                                <h4 class="fw-bold text-white mb-0">210+</h4>
-                                <span class="small text-white-80" style="font-size: 0.72rem;">Coders Registered</span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-2.5 rounded-3 bg-white-10 border border-white-10">
-                                <h4 class="fw-bold text-white mb-0">₹40K+</h4>
-                                <span class="small text-white-80" style="font-size: 0.72rem;">Prizes & Goodies</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="https://www.geeksforgeeks.org/" target="_blank" class="btn btn-light w-100 rounded-pill py-2.5 fw-bold text-primary shadow-sm">
-                        Register for SyntaxClash &rarr;
-                    </a>
+                <!-- Popular Filter Chips -->
+                <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap text-white-80 small">
+                    <span class="fw-semibold text-white me-1" style="font-size: 0.8rem;"><i class="bi bi-fire text-warning me-1"></i> Quick Filters:</span>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="GeeksforGeeks" style="font-size: 0.78rem;">⚡ GFG SC UIT</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="Gemini" style="font-size: 0.78rem;">🤖 Gemini AI</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="GDG" style="font-size: 0.78rem;">☁️ GDGOC Cloud</button>
+                    <button class="btn btn-xs rounded-pill px-3 py-1.5 text-white border border-white-20 bg-white-10 hover-bg-white-20 fw-medium event-chip-btn" data-chip="Hackathon" style="font-size: 0.78rem;">🏆 Hackathons</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Filter Bar Section: Club Filter Pills & Status Tabs -->
+<!-- Filter Bar Section: Club Filter Pills & 3-Status Tabs -->
 <section class="py-3.5 bg-white border-bottom shadow-xs sticky-top" style="top: 65px; z-index: 990;">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
@@ -218,45 +195,59 @@
                 </button>
             </div>
 
-            <!-- Status Tabs -->
+            <!-- Status Tabs (Ongoing, Upcoming, Completed) -->
             <div class="d-flex align-items-center gap-1 border-start ps-md-3">
                 <button class="btn btn-sm event-status-tab active" data-status-tab="all">All Events</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">Upcoming</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="past">Completed</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">🔴 Live Now</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">📅 Upcoming</button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="past">🏆 Completed</button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Main Events 2-Column Grid Section -->
+<!-- Main Events Split 3-Part Section -->
 <section class="py-5" style="background: #f8fafc;">
     <div class="container">
-        <div class="row g-4">
-            <div class="col-12" id="upcoming">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <div>
-                        <h4 class="fw-bold mb-1 text-dark">Upcoming & Scheduled Sessions</h4>
-                        <p class="text-secondary small mb-0">Explore workshops, hackathons, and live coding contests.</p>
-                    </div>
+        <!-- Part 1: Live Now / Ongoing Events -->
+        <div id="ongoingEventsSection" class="mb-5 d-none">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="pulse-dot-green"></span>
+                    <h4 class="fw-bold mb-0 text-dark">Live Now & Ongoing Events</h4>
                 </div>
+                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1 fw-bold small" id="ongoingCountBadge">0 Live</span>
+            </div>
+            <div id="ongoingEventsList" class="row g-4"></div>
+        </div>
 
-                <!-- Dynamic 2-Column Grid Container for Upcoming Events -->
-                <div id="upcomingEventsList" class="row g-4">
-                    <div class="col-12 text-center py-5 text-muted">
-                        <div class="spinner-border text-primary" role="status"></div>
-                        <p class="mt-2 small">Loading events from database...</p>
-                    </div>
+        <!-- Part 2: Upcoming & Scheduled Events -->
+        <div id="upcomingEventsSection" class="mb-5">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-calendar-event-fill fs-5 text-primary"></i>
+                    <h4 class="fw-bold mb-0 text-dark">Upcoming & Scheduled Contests</h4>
                 </div>
-
-                <!-- Past Events Container -->
-                <div class="mt-5">
-                    <div class="border-top pt-5 mb-4">
-                        <h4 class="fw-bold mb-1 text-dark">Past Campus Sessions & Workshops</h4>
-                        <p class="text-secondary small mb-0">Browse completed events, guest keynotes, and campus achievements.</p>
-                    </div>
-                    <div id="pastEventsList" class="row g-4"></div>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small" id="upcomingCountBadge">1 Scheduled</span>
+            </div>
+            <div id="upcomingEventsList" class="row g-4">
+                <div class="col-12 text-center py-5 text-muted">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2 small">Loading events from database...</p>
                 </div>
             </div>
+        </div>
+
+        <!-- Part 3: Completed & Past Events -->
+        <div id="pastEventsSection">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+                    <h4 class="fw-bold mb-0 text-dark">Completed Campus Sessions & Workshops</h4>
+                </div>
+                <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1 fw-bold small" id="pastCountBadge">10 Completed</span>
+            </div>
+            <div id="pastEventsList" class="row g-4"></div>
         </div>
     </div>
 </section>
