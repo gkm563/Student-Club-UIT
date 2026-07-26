@@ -186,7 +186,7 @@ if (!empty($event['event_date'])) {
     <div class="flex-grow-1 p-4 p-md-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <a href="/admin/events.php" class="text-primary fw-bold text-decoration-none small d-inline-block mb-2">&larr; Back to Events List</a>
+                <a href="events.php" class="text-primary fw-bold text-decoration-none small d-inline-block mb-2">&larr; Back to Events List</a>
                 <h2 class="fw-bold mb-1">Edit Event Details</h2>
                 <p class="text-secondary small mb-0">Modify event schedule, location, banner poster, and agenda.</p>
             </div>
@@ -194,7 +194,7 @@ if (!empty($event['event_date'])) {
                 <button type="submit" form="editEventForm" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
                     <i class="bi bi-floppy me-1"></i> Save Changes
                 </button>
-                <a href="/admin/events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
+                <a href="events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
                     <i class="bi bi-trash me-1"></i> Delete Event
                 </a>
             </div>
@@ -233,7 +233,7 @@ if (!empty($event['event_date'])) {
                     <p class="text-secondary small mb-3">Upload recap photos from this event for students to view on event page.</p>
 
                     <!-- Upload Form -->
-                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data" class="mb-4">
+                    <form action="" method="POST" enctype="multipart/form-data" class="mb-4">
                         <input type="hidden" name="action_upload_event_photo" value="1">
                         <div class="mb-2">
                             <label class="form-label small fw-semibold">Select Photo (File Upload)</label>
@@ -258,7 +258,7 @@ if (!empty($event['event_date'])) {
                                 <div class="col-6">
                                     <div class="rounded-3 overflow-hidden border position-relative" style="height: 100px;">
                                         <img src="<?= htmlspecialchars($photo['media_url']) ?>" class="w-100 h-100 object-fit-cover">
-                                        <a href="/admin/event-detail.php?id=<?= urlencode($event['id']) ?>&delete_photo=<?= urlencode($photo['id']) ?>" onclick="return confirm('Delete this photo?');" class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 m-1 p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;" title="Delete Photo">
+                                        <a href="event-detail.php?id=<?= urlencode($event['id']) ?>&delete_photo=<?= urlencode($photo['id']) ?>" onclick="return confirm('Delete this photo?');" class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 m-1 p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;" title="Delete Photo">
                                             <i class="bi bi-x-lg"></i>
                                         </a>
                                     </div>
@@ -275,7 +275,7 @@ if (!empty($event['event_date'])) {
                 <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4">
                     <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information Editor</h5>
                     
-                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data" id="editEventForm">
+                    <form action="" method="POST" enctype="multipart/form-data" id="editEventForm">
                         <input type="hidden" name="action_update" value="1">
                         
                         <div class="row g-3 mb-3">
