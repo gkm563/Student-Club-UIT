@@ -149,7 +149,7 @@ $firstName = explode(' ', trim($adminName))[0];
                              onerror="this.src='/assets/United Logo.webp'">
                         <div>
                             <div class="fw-bold fs-6"><?= htmlspecialchars($club['short_name'] ?? $club['name']) ?></div>
-                            <span class="badge bg-white bg-opacity-20 rounded-pill px-2 py-1" style="font-size: 0.65rem; letter-spacing: 0.5px;"><?= htmlspecialchars($club['category_name'] ?? 'Club') ?></span>
+                            <span class="badge bg-white text-dark rounded-pill px-3 py-1 fw-bold shadow-sm" style="font-size: 0.7rem; letter-spacing: 0.5px;"><?= htmlspecialchars($club['category_name'] ?? 'Club') ?></span>
                         </div>
                     </div>
                 </div>
