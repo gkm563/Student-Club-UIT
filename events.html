@@ -123,47 +123,113 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Vibrant Hero Section -->
-<section class="hero-events-glass py-5">
-    <div class="glow-orb-1"></div>
-    <div class="glow-orb-2"></div>
+<!-- Clean & Vibrant Executive Events Hero Section (Identical to Homepage Structure) -->
+<section class="py-5 position-relative bg-white border-bottom">
+    <div class="container py-3">
+        <div class="row align-items-center justify-content-between g-5">
+            <!-- Left Column: Top Badge, Headline, Subtitle, Search Pill, and 3 Stat Cards Deck -->
+            <div class="col-lg-6">
+                <!-- Top Badge Pill -->
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-primary-subtle text-primary fw-bold small mb-3">
+                    <span>✨ Campus Events & Workshops 👋</span>
+                </div>
 
-    <div class="container py-4 position-relative z-1">
-        <div class="row align-items-center g-5">
-            <!-- Left Column: Title & Search -->
-            <div class="col-lg-7">
-                <span class="badge rounded-pill px-3 py-2 fw-bold mb-3 small" style="background: rgba(255, 255, 255, 0.2); color: #ffffff; border: 1px solid rgba(255,255,255,0.3);">
-                    <i class="bi bi-stars me-1" style="color: #ff80bf;"></i> UIT CAMPUS EVENTS HUB
-                </span>
-                <h1 class="hero-headline text-white mb-3 fw-extrabold display-5">
-                    Discover.<br>
-                    Innovate. <span class="hero-headline-highlight">Experience.</span>
+                <!-- Headline matching Homepage underline style -->
+                <h1 class="fw-extrabold text-dark mb-3 display-5" style="letter-spacing: -1.2px; line-height: 1.15;">
+                    Discover, Participate & Be Part of <span class="hero-headline-highlight">Campus Events.</span>
                 </h1>
-                <p class="hero-subtitle text-white-80 mb-4 fs-6">
-                    Join upcoming hackathons, tech study jams, cultural fests, and workshops organized by student clubs across United Institute of Technology.
+
+                <p class="text-secondary mb-4 fs-6 fw-medium" style="max-width: 540px;">
+                    Your one-stop vibrant platform to explore hackathons, AI mentorship sessions, competitive coding contests, and fests across the college.
                 </p>
 
-                <!-- Search Bar -->
-                <div class="hero-search-bar mb-3 shadow-lg rounded-pill p-1 border border-white-20" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(16px);">
-                    <div class="input-group">
-                        <span class="input-group-text bg-transparent border-0 text-white-80 ps-3"><i class="bi bi-search fs-5"></i></span>
-                        <input type="text" class="form-control hero-search-input bg-transparent border-0 text-white placeholder-white-50 shadow-none px-2" placeholder="Search events by title, venue, or keyword..." autocomplete="off">
+                <!-- Search Pill Input Bar -->
+                <div class="card p-1.5 border rounded-pill shadow-sm mb-4 bg-white hero-search-pill-container" style="border: 2px solid #cbd5e1 !important; max-width: 540px;">
+                    <div class="input-group align-items-center">
+                        <input type="text" class="form-control hero-search-input bg-transparent border-0 text-dark fw-medium ps-3" placeholder="Search for events, hackathons, or workshops..." style="font-size: 0.95rem; outline: none; box-shadow: none;">
+                        <button class="btn btn-primary rounded-circle p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                            <i class="bi bi-search fs-5 text-white"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 Stat Deck Cards Grid (Identical to Homepage Hero Stat Deck) -->
+                <div class="row g-3">
+                    <div class="col-4">
+                        <div class="card p-2.5 border border-white-20 rounded-4 shadow-sm bg-white text-start d-flex flex-row align-items-center gap-2.5">
+                            <div class="hero-stat-icon-box calendar-bg flex-shrink-0" style="width: 42px; height: 42px; background: linear-gradient(135deg, #0284c7, #38bdf8); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-calendar-event fs-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extrabold mb-0 text-dark" id="totalEventsCount">11+</h5>
+                                <span class="small text-secondary fw-bold" style="font-size: 0.68rem; line-height: 1;">LIVE EVENTS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card p-2.5 border border-white-20 rounded-4 shadow-sm bg-white text-start d-flex flex-row align-items-center gap-2.5">
+                            <div class="hero-stat-icon-box members-bg flex-shrink-0" style="width: 42px; height: 42px; background: linear-gradient(135deg, #7c3aed, #c084fc); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-people fs-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extrabold mb-0 text-dark">1.2K+</h5>
+                                <span class="small text-secondary fw-bold" style="font-size: 0.68rem; line-height: 1;">STUDENT RSVPS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="card p-2.5 border border-white-20 rounded-4 shadow-sm bg-white text-start d-flex flex-row align-items-center gap-2.5">
+                            <div class="hero-stat-icon-box trophy-bg flex-shrink-0" style="width: 42px; height: 42px; background: linear-gradient(135deg, #e11d48, #fb7185); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-trophy fs-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-extrabold mb-0 text-dark">100%</h5>
+                                <span class="small text-secondary fw-bold" style="font-size: 0.68rem; line-height: 1;">SAC VERIFIED</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Glass Showcase Card -->
-            <div class="col-lg-5">
-                <div class="card text-white border border-white-20 rounded-4 p-4 shadow-2xl backdrop-blur" style="background: rgba(255, 255, 255, 0.15) !important;">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h5 class="fw-bold mb-0 text-white"><i class="bi bi-calendar2-week me-2"></i> Campus Calendar</h5>
-                        <span class="badge bg-light text-primary border rounded-pill px-3 py-1 small fw-bold">Live Updates</span>
-                    </div>
-                    <p class="small text-white-80 mb-3">Filter events by organizing club below to see dedicated workshops, hackathons, and past achievements.</p>
-                    <div class="d-flex flex-column gap-2 text-white-80 small">
-                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Verified Student Club Events</div>
-                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Free Certificates & Swags</div>
-                        <div><i class="bi bi-check-circle-fill text-white me-2"></i> Open for All UIT Students</div>
+            <!-- Right Column: High-Res Hero Image Carousel (Identical to Homepage Carousel Container) -->
+            <div class="col-lg-6">
+                <div class="position-relative d-inline-block rounded-4 overflow-hidden shadow-lg border border-white-50 w-100">
+                    <div id="eventsHeroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3500">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 rounded-4 object-fit-cover" style="height: 380px;" alt="HACKQUEST 2025">
+                                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-60 backdrop-blur rounded-3 p-3 mb-2 mx-2">
+                                    <span class="badge bg-primary text-white rounded-pill px-3 py-1 fw-bold mb-1">⚡ Featured Hackathon</span>
+                                    <h5 class="fw-bold text-white mb-0">HACKQUEST '25 • Total Prize Pool ₹85,000</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 rounded-4 object-fit-cover" style="height: 380px;" alt="SyntaxClash 2026">
+                                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-60 backdrop-blur rounded-3 p-3 mb-2 mx-2">
+                                    <span class="badge bg-success text-white rounded-pill px-3 py-1 fw-bold mb-1">⚡ GFG SC UIT</span>
+                                    <h5 class="fw-bold text-white mb-0">SyntaxClash 2026 • 90-Min Live Coding Challenge</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 rounded-4 object-fit-cover" style="height: 380px;" alt="Gemini Builders AI">
+                                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-60 backdrop-blur rounded-3 p-3 mb-2 mx-2">
+                                    <span class="badge bg-purple text-white rounded-pill px-3 py-1 fw-bold mb-1" style="background:#7c3aed;">🤖 Gemini Builders</span>
+                                    <h5 class="fw-bold text-white mb-0">Gemini 1.5 Pro API Builder Bootcamp 2026</h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Left/Right Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#eventsHeroCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon rounded-circle bg-dark bg-opacity-50 p-3" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#eventsHeroCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon rounded-circle bg-dark bg-opacity-50 p-3" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -172,7 +238,7 @@
 </section>
 
 <!-- Filter Bar Section: Club Filter Pills & Status Tabs -->
-<section class="py-4 bg-white border-bottom shadow-sm sticky-top" style="top: 65px; z-index: 990;">
+<section class="py-3.5 bg-white border-bottom shadow-xs sticky-top" style="top: 65px; z-index: 990;">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
             <!-- Filter by Specific Club Pills -->
@@ -186,7 +252,6 @@
             <div class="d-flex align-items-center gap-1 border-start ps-md-3">
                 <button class="btn btn-sm event-status-tab active" data-status-tab="all">All Events</button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">Upcoming</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">Live Now</button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="past">Completed</button>
             </div>
         </div>
