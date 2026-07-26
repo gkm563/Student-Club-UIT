@@ -88,7 +88,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
                 <?php endif; ?>
 
-                <form action="/admin/login.php" method="POST" class="text-start">
+                <form action="" method="POST" class="text-start">
                     <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
 
                     <div class="mb-3">

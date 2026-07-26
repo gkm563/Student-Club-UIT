@@ -12,10 +12,10 @@ $success = '';
 if (is_logged_in()) {
     $role = get_current_user_role();
     if ($role === 'super_admin') {
-        header("Location: /admin/super/index.php");
+        header("Location: admin/super/index.php");
         exit;
     } else {
-        header("Location: /admin/dashboard.php");
+        header("Location: admin/dashboard.php");
         exit;
     }
 }
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($rateLimitError) {
         $error = $rateLimitError;
     } elseif (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "Security CSRF token invalid. Please try again.";
+        $error = "Security CSRF token invalid. Please refresh the page and try again.";
     } elseif (!verify_captcha_code($captchaInput)) {
         $error = "Incorrect CAPTCHA verification code. Please enter the code shown in the image.";
     } else {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 log_audit($db, $user['id'], $user['full_name'], 'CLUB_ADMIN_LOGIN', 'user', $user['id'], "Club admin logged in");
 
-                header("Location: /admin/dashboard.php");
+                header("Location: admin/dashboard.php");
                 exit;
             } else {
                 record_failed_login_attempt($email);
@@ -93,7 +93,7 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
                 <?php endif; ?>
 
-                <form action="/club-login.php" method="POST" class="text-start">
+                <form action="" method="POST" class="text-start">
                     <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
 
                     <div class="mb-3">
