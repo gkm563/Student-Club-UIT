@@ -36,13 +36,20 @@ $error = '';
 
 // Handle Create Event
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
-    $title       = trim($_POST['title'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-    $venue       = trim($_POST['venue'] ?? '');
-    $event_date  = $_POST['event_date'] ?? '';
-    $reg_link    = trim($_POST['registration_link'] ?? '/contact.html');
-    $status      = $_POST['status'] ?? 'upcoming';
-    $bannerUrl   = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    $title              = trim($_POST['title'] ?? '');
+    $tagline            = trim($_POST['tagline'] ?? '');
+    $event_type         = trim($_POST['event_type'] ?? 'Workshop');
+    $description        = trim($_POST['description'] ?? '');
+    $venue              = trim($_POST['venue'] ?? '');
+    $event_date         = $_POST['event_date'] ?? '';
+    $reg_link           = trim($_POST['registration_link'] ?? 'contact.html');
+    $status             = $_POST['status'] ?? 'upcoming';
+    $outcomes_summary   = trim($_POST['outcomes_summary'] ?? '');
+    $speaker_name       = trim($_POST['speaker_name'] ?? '');
+    $speaker_designation= trim($_POST['speaker_designation'] ?? '');
+    $agenda_timeline    = trim($_POST['agenda_timeline'] ?? '');
+    $target_audience    = trim($_POST['target_audience'] ?? 'All Departments & Years');
+    $bannerUrl          = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
 
     // Process file upload if provided
     $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $bannerUrl);
@@ -56,11 +63,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
             $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $title)) . '-' . rand(100, 999);
             
             $stmtIns = $db->prepare("
-                INSERT INTO events (id, club_id, title, slug, banner, description, venue, event_date, registration_link, status) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO events (
+                    id, club_id, title, tagline, slug, banner, description, venue, event_date, registration_link, status,
+                    event_type, outcomes_summary, speaker_name, speaker_designation, agenda_timeline, target_audience
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ");
-            $stmtIns->execute([$eventId, $club['id'], $title, $slug, $banner, $description, $venue, $event_date, $reg_link, $status]);
-            $success = "Event '$title' published successfully!";
+            $stmtIns->execute([
+                $eventId, $club['id'], $title, $tagline, $slug, $banner, $description, $venue, $event_date, $reg_link, $status,
+                $event_type, $outcomes_summary, $speaker_name, $speaker_designation, $agenda_timeline, $target_audience
+            ]);
+            $success = "Advanced Event '$title' created and published successfully!";
         } catch (Exception $e) {
             $error = "Failed to create event: " . $e->getMessage();
         }
@@ -322,56 +334,136 @@ $events = $stmtEv->fetchAll();
     </div>
 </div>
 
-<!-- Modal: Create Event -->
+<!-- Modal: Advanced Create Event -->
 <div class="modal fade" id="createEventModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold modal-title"><i class="bi bi-calendar-plus text-primary me-2"></i> Create New Event</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="/admin/events.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="action_create" value="1">
-                <div class="modal-body space-y-3">
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Event Title *</label>
-                        <input type="text" name="title" class="form-control rounded-3" placeholder="e.g. Google Cloud Study Jam 2026" required>
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 border-0 shadow-2xl overflow-hidden">
+            <div class="p-4 text-white" style="background: linear-gradient(135deg, #1e1b4b, #312e81, #1d4ed8) !important;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-1 small text-uppercase">ADVANCED CREATOR PORTAL</span>
+                        <h4 class="fw-bold text-white mb-0"><i class="bi bi-calendar-plus-fill me-2"></i> Publish New Campus Event</h4>
                     </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Date & Time *</label>
-                            <input type="datetime-local" name="event_date" class="form-control rounded-3" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-semibold">Status *</label>
-                            <select name="status" class="form-select rounded-3">
-                                <option value="upcoming" selected>Upcoming</option>
-                                <option value="completed">Completed</option>
-                                <option value="ongoing">Ongoing</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Venue / Location *</label>
-                        <input type="text" name="venue" class="form-control rounded-3" placeholder="e.g. Auditorium Hall A, UIT" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload Banner Image (From PC) *</label>
-                        <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*" required>
-                        <span class="form-text text-muted small">Select a PNG, JPG, or WEBP poster from your computer.</span>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Registration Link</label>
-                        <input type="text" name="registration_link" class="form-control rounded-3" value="/contact.html">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-semibold">Event Description</label>
-                        <textarea name="description" class="form-control rounded-3" rows="3" placeholder="Brief event summary and agenda..."></textarea>
-                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold text-white">Publish Event</button>
+            </div>
+
+            <form action="events.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action_create" value="1">
+                <div class="modal-body p-4 p-md-5 bg-light" style="max-height: 72vh; overflow-y: auto;">
+                    
+                    <!-- Section 1: Core Info -->
+                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-info-circle text-primary me-2"></i> 1. Core Event Info</h6>
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label small fw-bold text-dark">Event Title *</label>
+                                <input type="text" name="title" class="form-control rounded-3" placeholder="e.g. Build with AI (Virtual Conference)" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark">Event Category / Type *</label>
+                                <select name="event_type" class="form-select rounded-3">
+                                    <option value="Hands-on Workshop" selected>🛠️ Hands-on Workshop</option>
+                                    <option value="Competitive Hackathon">🏆 Competitive Hackathon</option>
+                                    <option value="Tech Talk / Webinar">🎙️ Tech Talk / Webinar</option>
+                                    <option value="Coding Contest">💻 Coding Contest</option>
+                                    <option value="Orientation Session">🚀 Orientation Session</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-dark">Event Subtitle / Tagline</label>
+                                <input type="text" name="tagline" class="form-control rounded-3" placeholder="e.g. Winning Strategies & Solution Challenge Briefing 2026">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Schedule & Location -->
+                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-clock-history text-primary me-2"></i> 2. Schedule, Status & Venue</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Date & Time *</label>
+                                <input type="datetime-local" name="event_date" class="form-control rounded-3" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Publication Status *</label>
+                                <select name="status" class="form-select rounded-3">
+                                    <option value="upcoming" selected>📅 Upcoming (Registration Open)</option>
+                                    <option value="ongoing">🔴 Live Now (Ongoing Session)</option>
+                                    <option value="completed">🏆 Completed (Past Session)</option>
+                                    <option value="draft">🔒 Draft (Private)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Venue / Hall Location *</label>
+                                <input type="text" name="venue" class="form-control rounded-3" placeholder="e.g. Induction Hall, 1st Floor, UIT / Virtual Bevy Stage" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Target Audience / Eligibility</label>
+                                <input type="text" name="target_audience" class="form-control rounded-3" placeholder="e.g. Open to CSE, IT & All Departments (1st-4th Year)" value="All UIT Departments & Years">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Cover Poster -->
+                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-image text-primary me-2"></i> 3. Cover Banner Poster</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Upload Poster (From PC) *</label>
+                                <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Or Image URL</label>
+                                <input type="url" name="banner" class="form-control rounded-3" placeholder="https://images.unsplash.com/photo-...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Rewards & Speaker Info -->
+                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-award text-primary me-2"></i> 4. Swags, Rewards & Keynote Speaker</h6>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-dark">Outcomes, Swags & Cash Prizes</label>
+                                <input type="text" name="outcomes_summary" class="form-control rounded-3" placeholder="e.g. ₹15,000 Cash Prize, GFG Trophy, Laptop Bags & SAC Verified Certificates">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Key Speaker / Mentor Name</label>
+                                <input type="text" name="speaker_name" class="form-control rounded-3" placeholder="e.g. Krishna Aute">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Speaker Designation / Achievement</label>
+                                <input type="text" name="speaker_designation" class="form-control rounded-3" placeholder="e.g. Global Solution Challenge Top 3 Winner">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Description & Phase Agenda -->
+                    <div class="card border-0 shadow-xs rounded-4 p-4 bg-white">
+                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-journal-text text-primary me-2"></i> 5. Detailed Writeup, Timeline & Registration</h6>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-dark">Full Event Description</label>
+                                <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Comprehensive writeup of topics, prerequisites, key takeaways, and session highlights..."></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-dark">Session Agenda Timeline</label>
+                                <textarea name="agenda_timeline" class="form-control rounded-3" rows="3" placeholder="Phase 1 (08:30 PM): Registration & Keynote&#10;Phase 2 (08:45 PM): Live Coding Challenge&#10;Phase 3 (10:15 PM): Evaluation & Certificate Ceremony"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-dark">External Registration / Contact Link</label>
+                                <input type="text" name="registration_link" class="form-control rounded-3" value="contact.html">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer bg-white border-top p-3.5 d-flex align-items-center justify-content-between">
+                    <button type="button" class="btn btn-light rounded-pill px-4 py-2 fw-semibold" data-bs-dismiss="modal">Discard</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-5 py-2.5 fw-bold text-white shadow-md" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none;">
+                        <span>Publish Advanced Event →</span>
+                    </button>
                 </div>
             </form>
         </div>

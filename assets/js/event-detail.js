@@ -130,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Rewards & Outcomes
         const detailOutcomes = document.getElementById('detailOutcomes');
         if (detailOutcomes) {
-            detailOutcomes.textContent = event.outcomes_summary || 'Participation Certificate, Swags & Mentorship';
+            let summaryText = escapeHtml(event.outcomes_summary || 'Participation Certificate, Swags & Mentorship');
+            if (event.speaker_name) {
+                summaryText += ` <br><span class="text-secondary small mt-1 d-inline-block"><i class="bi bi-mic-fill text-primary me-1"></i><strong>Key Speaker:</strong> ${escapeHtml(event.speaker_name)} ${event.speaker_designation ? `(${escapeHtml(event.speaker_designation)})` : ''}</span>`;
+            }
+            detailOutcomes.innerHTML = summaryText;
         }
 
         // Description

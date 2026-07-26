@@ -52,19 +52,25 @@ $error = '';
 
 // Handle Update Event
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
-    $title            = trim($_POST['title'] ?? '');
-    $description      = trim($_POST['description'] ?? '');
-    $venue            = trim($_POST['venue'] ?? '');
-    $event_date       = $_POST['event_date'] ?? '';
-    $reg_link         = trim($_POST['registration_link'] ?? 'contact.html');
-    $status           = $_POST['status'] ?? 'upcoming';
-    $bannerUrl        = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    $title              = trim($_POST['title'] ?? '');
+    $tagline            = trim($_POST['tagline'] ?? '');
+    $event_type         = trim($_POST['event_type'] ?? 'Workshop');
+    $description        = trim($_POST['description'] ?? '');
+    $venue              = trim($_POST['venue'] ?? '');
+    $event_date         = $_POST['event_date'] ?? '';
+    $reg_link           = trim($_POST['registration_link'] ?? 'contact.html');
+    $status             = $_POST['status'] ?? 'upcoming';
+    $bannerUrl          = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
     
-    // Post-Event Audit Fields
-    $registered_count = (int)($_POST['registered_count'] ?? 0);
-    $actual_attended  = (int)($_POST['actual_attended'] ?? 0);
-    $outcomes_summary = trim($_POST['outcomes_summary'] ?? '');
-    $budget_utilized  = (float)($_POST['budget_utilized'] ?? 0.0);
+    // Detailed Fields
+    $registered_count   = (int)($_POST['registered_count'] ?? 0);
+    $actual_attended    = (int)($_POST['actual_attended'] ?? 0);
+    $outcomes_summary   = trim($_POST['outcomes_summary'] ?? '');
+    $speaker_name       = trim($_POST['speaker_name'] ?? '');
+    $speaker_designation= trim($_POST['speaker_designation'] ?? '');
+    $agenda_timeline    = trim($_POST['agenda_timeline'] ?? '');
+    $target_audience    = trim($_POST['target_audience'] ?? 'All Departments & Years');
+    $budget_utilized    = (float)($_POST['budget_utilized'] ?? 0.0);
 
     // Process uploaded image file if provided
     $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $event['banner'] ?? $bannerUrl);
@@ -76,12 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
         try {
             $uStmt = $db->prepare("
                 UPDATE events SET 
-                    title = ?, description = ?, venue = ?, event_date = ?, registration_link = ?, status = ?, banner = ?,
-                    registered_count = ?, actual_attended = ?, outcomes_summary = ?, budget_utilized = ?
+                    title = ?, tagline = ?, event_type = ?, description = ?, venue = ?, event_date = ?, registration_link = ?, status = ?, banner = ?,
+                    registered_count = ?, actual_attended = ?, outcomes_summary = ?, speaker_name = ?, speaker_designation = ?, agenda_timeline = ?, target_audience = ?, budget_utilized = ?
                 WHERE id = ? AND club_id = ?
             ");
-            $uStmt->execute([$title, $description, $venue, $event_date, $reg_link, $status, $banner, $registered_count, $actual_attended, $outcomes_summary, $budget_utilized, $eventId, $club['id']]);
-            $success = "Event details and post-event documentation audit updated successfully!";
+            $uStmt->execute([
+                $title, $tagline, $event_type, $description, $venue, $event_date, $reg_link, $status, $banner,
+                $registered_count, $actual_attended, $outcomes_summary, $speaker_name, $speaker_designation, $agenda_timeline, $target_audience, $budget_utilized,
+                $eventId, $club['id']
+            ]);
+            $success = "Event details and advanced documentation updated successfully!";
             
             // Refresh event data
             $evtStmt->execute([$eventId, $club['id']]);
@@ -268,9 +278,25 @@ if (!empty($event['event_date'])) {
                     <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data" id="editEventForm">
                         <input type="hidden" name="action_update" value="1">
                         
-                        <div class="mb-3">
-                            <label class="form-label small fw-semibold">Event Title *</label>
-                            <input type="text" name="title" class="form-control rounded-3" value="<?= htmlspecialchars($event['title']) ?>" required>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-8">
+                                <label class="form-label small fw-semibold">Event Title *</label>
+                                <input type="text" name="title" class="form-control rounded-3" value="<?= htmlspecialchars($event['title']) ?>" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">Event Category / Type *</label>
+                                <select name="event_type" class="form-select rounded-3">
+                                    <option value="Hands-on Workshop" <?= ($event['event_type'] ?? '') === 'Hands-on Workshop' ? 'selected' : '' ?>>🛠️ Hands-on Workshop</option>
+                                    <option value="Competitive Hackathon" <?= ($event['event_type'] ?? '') === 'Competitive Hackathon' ? 'selected' : '' ?>>🏆 Competitive Hackathon</option>
+                                    <option value="Tech Talk / Webinar" <?= ($event['event_type'] ?? '') === 'Tech Talk / Webinar' ? 'selected' : '' ?>>🎙️ Tech Talk / Webinar</option>
+                                    <option value="Coding Contest" <?= ($event['event_type'] ?? '') === 'Coding Contest' ? 'selected' : '' ?>>💻 Coding Contest</option>
+                                    <option value="Orientation Session" <?= ($event['event_type'] ?? '') === 'Orientation Session' ? 'selected' : '' ?>>🚀 Orientation Session</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label small fw-semibold">Event Subtitle / Tagline</label>
+                                <input type="text" name="tagline" class="form-control rounded-3" value="<?= htmlspecialchars($event['tagline'] ?? '') ?>" placeholder="e.g. Winning Strategies & Solution Challenge Briefing 2026">
+                            </div>
                         </div>
 
                         <div class="row g-3 mb-3">
@@ -292,9 +318,15 @@ if (!empty($event['event_date'])) {
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label small fw-semibold">Venue / Location *</label>
-                            <input type="text" name="venue" class="form-control rounded-3" value="<?= htmlspecialchars($event['venue']) ?>" required>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Venue / Location *</label>
+                                <input type="text" name="venue" class="form-control rounded-3" value="<?= htmlspecialchars($event['venue']) ?>" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Target Audience / Eligibility</label>
+                                <input type="text" name="target_audience" class="form-control rounded-3" value="<?= htmlspecialchars($event['target_audience'] ?? 'All UIT Departments & Years') ?>">
+                            </div>
                         </div>
 
                         <div class="mb-3">
@@ -303,14 +335,30 @@ if (!empty($event['event_date'])) {
                             <span class="form-text text-muted small">Upload PNG, JPG, or WEBP poster file from your computer to replace current poster.</span>
                         </div>
 
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Key Speaker / Mentor Name</label>
+                                <input type="text" name="speaker_name" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_name'] ?? '') ?>" placeholder="e.g. Krishna Aute">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">Speaker Designation / Achievement</label>
+                                <input type="text" name="speaker_designation" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_designation'] ?? '') ?>" placeholder="e.g. Global Solution Challenge Top 3 Winner">
+                            </div>
+                        </div>
+
                         <div class="mb-3">
-                            <label class="form-label small fw-semibold">Registration Form Link</label>
+                            <label class="form-label small fw-semibold">Registration Form / Contact Link</label>
                             <input type="text" name="registration_link" class="form-control rounded-3" value="<?= htmlspecialchars($event['registration_link']) ?>">
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label small fw-semibold">Event Description & Agenda</label>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Full Event Description</label>
                             <textarea name="description" class="form-control rounded-3" rows="4"><?= htmlspecialchars($event['description']) ?></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold">Session Agenda Timeline</label>
+                            <textarea name="agenda_timeline" class="form-control rounded-3" rows="3" placeholder="Phase 1: Registration&#10;Phase 2: Live Hands-on Coding&#10;Phase 3: Certificate Distribution"><?= htmlspecialchars($event['agenda_timeline'] ?? '') ?></textarea>
                         </div>
 
                         <!-- Mandatory Post-Event Documentation & Audit Section -->
@@ -332,7 +380,7 @@ if (!empty($event['event_date'])) {
                                     <input type="number" step="0.01" name="budget_utilized" class="form-control rounded-3" value="<?= (float)($event['budget_utilized'] ?? 0.0) ?>" min="0">
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label small fw-semibold">Event Outcomes & Key Highlights Summary</label>
+                                    <label class="form-label small fw-semibold">Outcomes, Swags & Key Highlights Summary</label>
                                     <textarea name="outcomes_summary" class="form-control rounded-3" rows="3" placeholder="Log key achievements, guest speakers, winner details, and outcomes for college administration records..."><?= htmlspecialchars($event['outcomes_summary'] ?? '') ?></textarea>
                                 </div>
                             </div>
