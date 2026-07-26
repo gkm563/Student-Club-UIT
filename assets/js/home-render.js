@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const activityList = document.getElementById('homeActivityList');
     const upcomingList = document.getElementById('homeUpcomingList');
     const featuredGrid = document.getElementById('featuredClubsGrid');
-    const leadershipContainer = document.getElementById('homeLeadershipList');
+    const leadershipContainer = document.getElementById('homeLeadershipList') || document.getElementById('leadershipRosterContainer');
 
     const getApiUrl = (endpoint) => `api/${endpoint}`;
     const getPageUrl = (page) => `${page}`;
@@ -109,22 +109,29 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
-                    const topLeaders = response.data.slice(0, 3);
+                    const topLeaders = response.data.slice(0, 4);
                     const badges = [
-                        { bg: '#fff1f2', text: '#e11d48', border: '#e11d48' },
-                        { bg: '#eff6ff', text: '#2563eb', border: '#2563eb' },
-                        { bg: '#ecfdf5', text: '#059669', border: '#059669' }
+                        { bg: '#fff1f2', text: '#e11d48' },
+                        { bg: '#eff6ff', text: '#2563eb' },
+                        { bg: '#f5f3ff', text: '#7c3aed' },
+                        { bg: '#ecfdf5', text: '#059669' }
                     ];
 
                     leadershipContainer.innerHTML = topLeaders.map((ldr, idx) => {
                         const style = badges[idx % badges.length];
+                        const avatar = esc(ldr.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop');
                         return `
-                            <div class="col-4">
-                                <img src="${esc(ldr.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop')}" class="leader-avatar" style="border-color: ${style.border};" alt="${esc(ldr.name)}">
-                                <h6 class="fw-bold mb-0 small text-dark mt-1 text-truncate">${esc(ldr.name)}</h6>
-                                <span class="badge rounded-pill px-2 py-1 mt-1 text-truncate" style="font-size: 0.65rem; background: ${style.bg}; color: ${style.text}; border: 1px solid ${style.border};">
-                                    ${esc(ldr.role_title || ldr.club_short_name || 'Leader')}
-                                </span>
+                            <div class="col-12">
+                                <div class="leader-item-3d">
+                                    <img src="${avatar}" class="leader-avatar-3d" alt="${esc(ldr.name)}" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop'">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <h6 class="fw-bold mb-0 text-dark text-truncate" style="font-size: 0.9rem;">${esc(ldr.name)}</h6>
+                                        <span class="small text-muted text-truncate d-block" style="font-size: 0.75rem;">${esc(ldr.club_name || ldr.club_short_name || 'Official Chapter')}</span>
+                                    </div>
+                                    <span class="badge rounded-pill px-2-5 py-1 text-nowrap fw-bold" style="font-size: 0.68rem; background: ${style.bg}; color: ${style.text};">
+                                        ${esc(ldr.role_title || 'Leader')}
+                                    </span>
+                                </div>
                             </div>
                         `;
                     }).join('');
