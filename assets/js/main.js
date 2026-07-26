@@ -62,6 +62,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Hero Campus Carousel Desktop Mouse Drag Swipe Handler
+    const heroCarousel = document.getElementById('heroCampusCarousel');
+    if (heroCarousel) {
+        let startX = 0;
+        let endX = 0;
+        let isDragging = false;
+
+        heroCarousel.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX;
+        });
+
+        heroCarousel.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            endX = e.pageX;
+        });
+
+        heroCarousel.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 40) {
+                if (typeof bootstrap !== 'undefined') {
+                    const carouselInstance = bootstrap.Carousel.getOrCreateInstance(heroCarousel);
+                    if (diff > 0) {
+                        carouselInstance.next();
+                    } else {
+                        carouselInstance.prev();
+                    }
+                }
+            }
+        });
+    }
 });
 
 // Gallery Fullscreen Lightbox Modal Helper
