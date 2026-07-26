@@ -148,6 +148,99 @@
                     </div>
                 </div>
 
+                <!-- 📸 Event Photo Gallery & Event Recap (Shown for Completed Events) -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white d-none" id="completedGallerySection">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <h4 class="fw-bold text-dark mb-1"><i class="bi bi-images text-primary me-2"></i> Event Recap & Photo Gallery</h4>
+                            <p class="text-secondary small mb-0">High-resolution photos uploaded by chapter leads & coordinators.</p>
+                        </div>
+                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold">4 Official Photos</span>
+                    </div>
+
+                    <div class="row g-3" id="eventGalleryGrid">
+                        <div class="col-6 col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 1">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Keynote Presentation</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
+                                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 2">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Live Coding Session</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 3">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Team Collaboration</div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
+                                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 4">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Prize & Certificate Ceremony</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🏆 Event Winners & Leaderboard Spotlight (Shown for Completed Contests) -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white d-none" id="completedWinnersSection">
+                    <h4 class="fw-bold text-dark mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i> Official Leaderboard & Winners</h4>
+                    <p class="text-secondary small mb-4">Congratulations to the top performers of this session!</p>
+
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="p-3.5 rounded-4 text-center border border-warning bg-warning-subtle h-100 position-relative overflow-hidden">
+                                <span class="badge bg-warning text-white rounded-pill px-3 py-1 fw-bold mb-2">🥇 1st Rank</span>
+                                <h5 class="fw-extrabold text-dark mb-1">Aarav Sharma</h5>
+                                <span class="small text-secondary d-block fw-semibold mb-2">CSE 3rd Year • 980 Pts</span>
+                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹15,000 + Trophy</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3.5 rounded-4 text-center border border-secondary bg-light h-100">
+                                <span class="badge bg-secondary text-white rounded-pill px-3 py-1 fw-bold mb-2">🥈 2nd Rank</span>
+                                <h5 class="fw-extrabold text-dark mb-1">Priya Verma</h5>
+                                <span class="small text-secondary d-block fw-semibold mb-2">IT 2nd Year • 940 Pts</span>
+                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹10,000 + Goodies</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3.5 rounded-4 text-center border border-danger-subtle bg-danger-subtle h-100">
+                                <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold mb-2">🥉 3rd Rank</span>
+                                <h5 class="fw-extrabold text-dark mb-1">Rohan Gupta</h5>
+                                <span class="small text-secondary d-block fw-semibold mb-2">CSE 4th Year • 910 Pts</span>
+                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹5,000 + Swags</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ⏰ Session Schedule & Timeline Card -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-clock-history text-primary me-2"></i> Session Schedule & Timeline</h5>
+                    <div class="ps-3 border-start border-3 border-primary space-y-4">
+                        <div class="mb-3">
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold small mb-1">Phase 1 • 08:30 PM</span>
+                            <h6 class="fw-bold text-dark mb-1">Welcome Address & Registration Check-in</h6>
+                            <p class="small text-secondary mb-0">Overview of rules, problem statements, and mentor introductions.</p>
+                        </div>
+                        <div class="mb-3">
+                            <span class="badge bg-info-subtle text-info rounded-pill px-3 py-1 fw-bold small mb-1">Phase 2 • 08:45 PM</span>
+                            <h6 class="fw-bold text-dark mb-1">Live Hands-on Coding / Workshop Challenge</h6>
+                            <p class="small text-secondary mb-0">90 minutes of focused building and live solution submission.</p>
+                        </div>
+                        <div>
+                            <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 fw-bold small mb-1">Phase 3 • 10:15 PM</span>
+                            <h6 class="fw-bold text-dark mb-1">Evaluation & Certificate Distribution</h6>
+                            <p class="small text-secondary mb-0">Closing keynote, winner announcement, and certificate distribution.</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Organizing Chapter Info Card -->
                 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
                     <h5 class="fw-bold text-dark mb-3">Organized By</h5>

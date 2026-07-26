@@ -71,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const ticketHeaderTitle = document.getElementById('ticketHeaderTitle');
         const ticketHeaderSub = document.getElementById('ticketHeaderSub');
 
+        const completedGallerySection = document.getElementById('completedGallerySection');
+        const completedWinnersSection = document.getElementById('completedWinnersSection');
+
         if (isPast) {
             if (detailStatusBadge) {
                 detailStatusBadge.className = 'badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1.5 fw-bold';
@@ -79,6 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (rsvpForm) rsvpForm.classList.add('d-none');
             if (concludedNotice) concludedNotice.classList.remove('d-none');
 
+            if (completedGallerySection) completedGallerySection.classList.remove('d-none');
+            if (completedWinnersSection) completedWinnersSection.classList.remove('d-none');
+
             if (ticketHeader) ticketHeader.style.background = 'linear-gradient(135deg, #475569, #334155)';
             if (ticketHeaderBadge) ticketHeaderBadge.textContent = 'Session Concluded';
             if (ticketHeaderTitle) ticketHeaderTitle.textContent = 'Event Completed';
@@ -86,6 +92,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             if (rsvpForm) rsvpForm.classList.remove('d-none');
             if (concludedNotice) concludedNotice.classList.add('d-none');
+
+            if (completedGallerySection) completedGallerySection.classList.add('d-none');
+            if (completedWinnersSection) completedWinnersSection.classList.add('d-none');
 
             if (event.status === 'ongoing') {
                 if (detailStatusBadge) {
