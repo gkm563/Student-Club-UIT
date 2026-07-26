@@ -435,25 +435,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Render Club Details Layout
                 detailContainer.innerHTML = `
                     <!-- Hero Cover Banner -->
-                    <section class="hero-clubhub py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.98) 100%), url('${coverImg}') center/cover no-repeat; min-height: 280px;">
-                        <div class="container py-4 position-relative z-2">
-                            <div class="row align-items-center g-4">
+                    <section class="hero-club-banner position-relative overflow-hidden" style="min-height: 360px; background: #0f172a;">
+                        <!-- Cover Banner Image -->
+                        <img src="${coverImg}" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="${escapeHtml(club.name)}" onerror="this.src='https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop'">
+                        
+                        <!-- Subtle Gradient Overlay (Lighter top, dark gradient at bottom for text contrast) -->
+                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.85) 100%);"></div>
+
+                        <!-- Content Overlay -->
+                        <div class="container position-relative z-2 h-100 d-flex flex-column justify-content-end py-5" style="min-height: 360px;">
+                            <div class="row align-items-end g-4">
                                 <div class="col-lg-8 d-flex align-items-center gap-4">
                                     <div class="position-relative flex-shrink-0">
-                                        <img src="${logoImg}" class="rounded-4 border border-white-10 bg-white p-2 shadow-2xl" style="width: 110px; height: 110px; object-fit: cover;" alt="${escapeHtml(club.name)}" onerror="this.src='assets/United Logo.webp'">
+                                        <img src="${logoImg}" class="rounded-4 border border-white-20 bg-white p-2 shadow-2xl" style="width: 120px; height: 120px; object-fit: cover;" alt="${escapeHtml(club.name)}" onerror="this.src='assets/United Logo.webp'">
                                     </div>
                                     <div>
-                                        <a href="clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
+                                        <a href="clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary text-white rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none shadow-sm">
                                             <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                         </a>
-                                        <h1 class="hero-headline mb-2 text-white fw-bold" style="font-size: 2.5rem; letter-spacing: -0.5px;">${escapeHtml(club.name)}</h1>
-                                        <p class="hero-subtitle mb-0 text-white-50 fs-6 fw-normal">${escapeHtml(club.tagline || '')}</p>
+                                        <h1 class="hero-headline mb-2 text-white fw-bold" style="font-size: 2.75rem; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.6);">${escapeHtml(club.name)}</h1>
+                                        <p class="hero-subtitle mb-0 text-white fs-6 fw-medium" style="text-shadow: 0 1px 6px rgba(0,0,0,0.6);">${escapeHtml(club.tagline || '')}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
                                     ${club.recruitment_open 
-                                        ? `<a href="contact.html" class="btn rounded-pill px-5 py-3 fw-bold shadow-lg text-white" style="background:#10b981; border:none;"><span class="pulse-dot-green me-2"></span>Join Club &rarr;</a>`
-                                        : `<a href="contact.html" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg text-white"><i class="bi bi-person-plus me-2"></i>Join Club &rarr;</a>`
+                                        ? `<a href="contact.html" class="btn rounded-pill px-5 py-3 fw-bold shadow-xl text-white" style="background:#10b981; border:none;"><span class="pulse-dot-green me-2"></span>Join Club &rarr;</a>`
+                                        : `<a href="contact.html" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-xl text-white"><i class="bi bi-person-plus me-2"></i>Join Club &rarr;</a>`
                                     }
                                 </div>
                             </div>
