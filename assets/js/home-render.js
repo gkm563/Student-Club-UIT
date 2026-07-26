@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     featuredGrid.innerHTML = featured.map((club, idx) => {
                         const style = categoryStyles[idx % categoryStyles.length];
-                        const bannerImg = esc(club.banner || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
+                        const bannerImg = esc(club.cover_image || club.banner || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
                         const logoImg = esc(club.logo || 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=300&auto=format&fit=crop');
-                        const detailLink = getPageUrl(`club-detail.html?slug=${encodeURIComponent(club.slug || club.id)}`);
+                        const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(club.id)}`);
                         const memberCount = club.member_count || Math.floor(Math.abs(Math.sin(idx + 1) * 80) + 40);
 
                         return `
-                            <div class="col-lg-4 col-md-6">
+                            <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="featured-club-card-3d">
                                     <div class="featured-club-banner" style="background-image: url('${bannerImg}');">
                                         <div class="featured-club-status-badge">
@@ -80,12 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <span class="featured-category-pill" style="background:${style.tagBg}; color:${style.tagText};">
                                             ${esc(club.category_name || 'Official Campus Club')}
                                         </span>
-                                        <h5 class="featured-club-name">${esc(club.name)}</h5>
+                                        <h5 class="featured-club-name" title="${esc(club.name)}">${esc(club.name)}</h5>
                                         <p class="featured-club-desc">${esc(club.tagline || club.description || 'Official student organization at United Institute of Technology.')}</p>
                                         
                                         <div class="featured-club-footer">
                                             <div class="small fw-semibold text-muted">
-                                                <i class="bi bi-people-fill me-1 text-primary"></i>${memberCount}+ Active Members
+                                                <i class="bi bi-people-fill me-1 text-primary"></i>${memberCount}+ Members
                                             </div>
                                             <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};">
                                                 Explore <i class="bi bi-arrow-right-short fs-5"></i>
