@@ -452,8 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
                                     ${club.recruitment_open 
-                                        ? `<a href="contact.html" class="btn rounded-pill px-5 py-3 fw-bold shadow-lg text-white" style="background:#10b981; border:none;"><span class="pulse-dot-green me-2"></span>Apply for Membership &rarr;</a>`
-                                        : `<a href="contact.html" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg text-white"><i class="bi bi-envelope me-2"></i>Contact Club Lead &rarr;</a>`
+                                        ? `<a href="contact.html" class="btn rounded-pill px-5 py-3 fw-bold shadow-lg text-white" style="background:#10b981; border:none;"><span class="pulse-dot-green me-2"></span>Join Club &rarr;</a>`
+                                        : `<a href="contact.html" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg text-white"><i class="bi bi-person-plus me-2"></i>Join Club &rarr;</a>`
                                     }
                                 </div>
                             </div>
