@@ -404,6 +404,15 @@ body {
     text-align: left;
 }
 
+.hero-slide-link {
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.hero-slide-link:hover {
+    color: #60a5fa !important;
+    text-decoration: underline !important;
+}
+
 .hero-carousel-nav-btn {
     width: 44px;
     height: 44px;
