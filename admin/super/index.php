@@ -60,13 +60,34 @@ $catDist = $db->query("
     ORDER BY cnt DESC
 ")->fetchAll();
 
-// ── Top clubs by event count ───────────────────────────
-$topClubs = $db->query("
-    SELECT c.name, c.logo, COUNT(e.id) as event_count
+// ── Executive Intelligence Queries ─────────────────────
+$topPerformingClub = $db->query("
+    SELECT c.name, c.short_name, c.logo, COUNT(e.id) as total_events
     FROM clubs c
     LEFT JOIN events e ON e.club_id = c.id
-    GROUP BY c.id, c.name, c.logo
-    ORDER BY event_count DESC LIMIT 5
+    GROUP BY c.id, c.name, c.short_name, c.logo
+    ORDER BY total_events DESC LIMIT 1
+")->fetch();
+
+$largestClub = $db->query("
+    SELECT c.name, c.short_name, c.logo, COUNT(l.id) as member_count
+    FROM clubs c
+    LEFT JOIN leadership l ON l.club_id = c.id
+    GROUP BY c.id, c.name, c.short_name, c.logo
+    ORDER BY member_count DESC LIMIT 1
+")->fetch();
+
+$dormantClubs = $db->query("
+    SELECT c.name, c.short_name, c.logo, c.email
+    FROM clubs c
+    LEFT JOIN events e ON e.club_id = c.id
+    WHERE e.id IS NULL OR e.created_at < DATE_SUB(NOW(), INTERVAL 60 DAY)
+    GROUP BY c.id, c.name, c.short_name, c.logo, c.email
+    LIMIT 5
+")->fetchAll();
+
+$pendingProposals = $db->query("
+    SELECT * FROM club_proposals ORDER BY created_at DESC LIMIT 5
 ")->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -326,6 +347,104 @@ $topClubs = $db->query("
                         <div class="fw-bold" style="font-size:1.75rem;line-height:1;"><?= $totalGallery ?></div>
                         <div class="text-muted mt-1" style="font-size:0.78rem;">Gallery Images</div>
                     </div>
+                </div>
+            </div>
+
+            <!-- ── Executive Dean Intelligence & Audit Row ── -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100" style="border-left: 4px solid #3b82f6 !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle p-3 text-primary bg-primary-subtle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                <i class="bi bi-award-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-1 mb-1" style="font-size: 0.65rem;">Top Performing Club</span>
+                                <h6 class="fw-bold text-dark mb-0 text-truncate"><?= htmlspecialchars($topPerformingClub['name'] ?? 'GDGOC UIT') ?></h6>
+                                <p class="small text-muted mb-0" style="font-size: 0.72rem;"><?= (int)($topPerformingClub['total_events'] ?? 0) ?> Official Events Organized</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100" style="border-left: 4px solid #10b981 !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle p-3 text-success bg-success-subtle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                <i class="bi bi-people-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 mb-1" style="font-size: 0.65rem;">Largest Club Roster</span>
+                                <h6 class="fw-bold text-dark mb-0 text-truncate"><?= htmlspecialchars($largestClub['name'] ?? 'GFG SC UIT') ?></h6>
+                                <p class="small text-muted mb-0" style="font-size: 0.72rem;"><?= (int)($largestClub['member_count'] ?? 0) ?> Active Core Officers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100" style="border-left: 4px solid #ef4444 !important;">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle p-3 text-danger bg-danger-subtle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                            </div>
+                            <div>
+                                <span class="badge bg-danger-subtle text-danger rounded-pill px-2 py-1 mb-1" style="font-size: 0.65rem;">Audit Alert</span>
+                                <h6 class="fw-bold text-dark mb-0 text-truncate"><?= count($dormantClubs) ?> Inactive Clubs</h6>
+                                <p class="small text-muted mb-0" style="font-size: 0.72rem;">No event logged in last 60 days</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Pending Club & Event Proposals Table ── -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+                <div class="card-header bg-white border-bottom py-3 px-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-file-earmark-text text-primary me-2"></i>Pending Club & Event Proposals</h6>
+                        <span class="text-muted small" style="font-size:0.72rem;">Submitted by students and faculty for Dean Student Welfare approval</span>
+                    </div>
+                    <span class="badge bg-purple-subtle text-purple px-3 py-1 rounded-pill" style="background:#f5f3ff; color:#7c3aed; font-size:0.7rem;"><?= count($pendingProposals) ?> Proposals</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0" style="font-size:0.82rem;">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Type</th>
+                                <th>Proposed Title</th>
+                                <th>Applicant</th>
+                                <th>Faculty Mentor</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($pendingProposals)): ?>
+                                <tr><td colspan="6" class="text-center py-3 text-muted small">No pending proposals submitted yet.</td></tr>
+                            <?php else: foreach ($pendingProposals as $prop): ?>
+                                <tr>
+                                    <td>
+                                        <span class="badge rounded-pill px-2 py-1 <?= $prop['proposal_type'] === 'new_club' ? 'bg-primary-subtle text-primary' : 'bg-success-subtle text-success' ?>">
+                                            <?= $prop['proposal_type'] === 'new_club' ? 'New Club' : 'New Event' ?>
+                                        </span>
+                                    </td>
+                                    <td class="fw-bold text-dark"><?= htmlspecialchars($prop['proposed_title']) ?></td>
+                                    <td>
+                                        <div><?= htmlspecialchars($prop['applicant_name']) ?></div>
+                                        <div class="text-muted small" style="font-size:0.7rem;"><?= htmlspecialchars($prop['applicant_email']) ?></div>
+                                    </td>
+                                    <td><?= htmlspecialchars($prop['faculty_mentor'] ?: 'N/A') ?></td>
+                                    <td><?= date('d M Y', strtotime($prop['created_at'])) ?></td>
+                                    <td>
+                                        <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2 py-1">
+                                            <?= ucfirst($prop['status']) ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

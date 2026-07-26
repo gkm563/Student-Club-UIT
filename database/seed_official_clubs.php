@@ -35,10 +35,31 @@ try {
     $academicCatId = $cats['academic'] ?? 7;
 
     // Clear all existing data cleanly
+    $db->exec("DELETE FROM management_committee");
     $db->exec("DELETE FROM gallery_items");
     $db->exec("DELETE FROM events");
     $db->exec("DELETE FROM leadership");
     $db->exec("DELETE FROM clubs");
+
+    // 0. Seed Management Committee & Institutional Leadership
+    $committeeStmt = $db->prepare("
+        INSERT INTO management_committee (name, designation, role_title, photo, bio, order_index)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ");
+
+    $committeeMembers = [
+        ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop', 'Visionary leader driving educational excellence across United Group of Institutions.', 1],
+        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop', 'Guiding institutional growth, technical education innovation, and student welfare.', 2],
+        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 'Pioneering student activity frameworks and campus infrastructure development.', 3],
+        ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 'Fostering industry-academia collaboration and student co-curricular affairs.', 4],
+        ['Prof. (Dr.) Sanjay Srivastava', 'DEAN STUDENT WELFARE & PRINCIPAL', 'United Institute of Technology', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
+        ['Dr. Divya Nanda', 'FACULTY COORDINATOR', 'Student Club Affairs, UIT', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop', 'Coordinating official club registrations, event approvals, and student leadership.', 6]
+    ];
+
+    foreach ($committeeMembers as $cm) {
+        $committeeStmt->execute($cm);
+    }
+    echo "[+] Seeded 6 Institutional Management Committee Leaders.\n";
 
     // 1. Seed 10 Official Clubs
     $clubs = [

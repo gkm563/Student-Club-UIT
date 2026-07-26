@@ -23,7 +23,7 @@ try {
         $db->exec("SET FOREIGN_KEY_CHECKS = 0;");
     }
     
-    $tables = ['contact_messages', 'audit_logs', 'gallery_items', 'gallery_albums', 'events', 'leadership', 'club_admins', 'clubs', 'categories', 'users'];
+    $tables = ['club_proposals', 'management_committee', 'contact_messages', 'audit_logs', 'gallery_items', 'gallery_albums', 'events', 'leadership', 'club_admins', 'clubs', 'categories', 'users'];
     foreach ($tables as $table) {
         $db->exec("DROP TABLE IF EXISTS `$table`;");
     }
@@ -122,10 +122,38 @@ try {
                 description TEXT,
                 venue TEXT NOT NULL,
                 event_date DATETIME NOT NULL,
-                registration_link TEXT DEFAULT '/contact.html',
+                registration_link TEXT DEFAULT 'contact.html',
                 status TEXT NOT NULL DEFAULT 'upcoming',
+                registered_count INTEGER DEFAULT 0,
+                actual_attended INTEGER DEFAULT 0,
+                outcomes_summary TEXT,
+                budget_utilized REAL DEFAULT 0.0,
+                approval_status TEXT DEFAULT 'approved',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (club_id) REFERENCES clubs(id) ON DELETE CASCADE
+            );
+
+            CREATE TABLE IF NOT EXISTS management_committee (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                designation TEXT NOT NULL,
+                role_title TEXT NOT NULL,
+                photo TEXT DEFAULT 'assets/United Logo.webp',
+                bio TEXT,
+                order_index INTEGER DEFAULT 0
+            );
+
+            CREATE TABLE IF NOT EXISTS club_proposals (
+                id TEXT PRIMARY KEY,
+                proposal_type TEXT NOT NULL DEFAULT 'new_club',
+                applicant_name TEXT NOT NULL,
+                applicant_email TEXT NOT NULL,
+                applicant_phone TEXT,
+                proposed_title TEXT NOT NULL,
+                objective TEXT NOT NULL,
+                faculty_mentor TEXT,
+                status TEXT NOT NULL DEFAULT 'pending',
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
 
             CREATE TABLE IF NOT EXISTS gallery_items (
@@ -244,10 +272,38 @@ try {
                 description TEXT,
                 venue VARCHAR(191) NOT NULL,
                 event_date DATETIME NOT NULL,
-                registration_link VARCHAR(255) DEFAULT '/contact.html',
+                registration_link VARCHAR(255) DEFAULT 'contact.html',
                 status ENUM('upcoming', 'ongoing', 'completed', 'cancelled') NOT NULL DEFAULT 'upcoming',
+                registered_count INT DEFAULT 0,
+                actual_attended INT DEFAULT 0,
+                outcomes_summary TEXT,
+                budget_utilized DECIMAL(10,2) DEFAULT 0.00,
+                approval_status ENUM('pending', 'approved', 'rejected') DEFAULT 'approved',
                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (club_id) REFERENCES clubs(id) ON DELETE CASCADE
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+            CREATE TABLE IF NOT EXISTS management_committee (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(191) NOT NULL,
+                designation VARCHAR(191) NOT NULL,
+                role_title VARCHAR(191) NOT NULL,
+                photo VARCHAR(255) DEFAULT 'assets/United Logo.webp',
+                bio TEXT,
+                order_index INT DEFAULT 0
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+            CREATE TABLE IF NOT EXISTS club_proposals (
+                id VARCHAR(36) PRIMARY KEY,
+                proposal_type ENUM('new_club', 'new_event') NOT NULL DEFAULT 'new_club',
+                applicant_name VARCHAR(191) NOT NULL,
+                applicant_email VARCHAR(191) NOT NULL,
+                applicant_phone VARCHAR(50),
+                proposed_title VARCHAR(191) NOT NULL,
+                objective TEXT NOT NULL,
+                faculty_mentor VARCHAR(191),
+                status ENUM('pending', 'under_review', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+                created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
             CREATE TABLE IF NOT EXISTS gallery_items (

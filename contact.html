@@ -90,7 +90,7 @@
                         </div>
                         <div>
                             <h6 class="fw-bold mb-0 text-dark">Email Support</h6>
-                            <p class="text-secondary small mb-0">hello@clubhub.edu / gdgoc@uit.edu</p>
+                            <p class="text-secondary small mb-0">dsw@uit.edu / hello@clubhub.edu</p>
                         </div>
                     </div>
                 </div>
@@ -141,6 +141,66 @@
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Official Proposal Submission Form Section -->
+<section id="proposal" class="py-5 bg-white">
+    <div class="container">
+        <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5" style="border-top: 5px solid var(--vibrant-purple) !important;">
+            <div class="row align-items-center mb-4">
+                <div class="col-md-8">
+                    <span class="badge bg-purple-subtle text-purple fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2" style="background:#f5f3ff; color:#7c3aed; font-size: 0.75rem;">
+                        Official Institutional Portal
+                    </span>
+                    <h3 class="fw-bold text-dark mb-1">Submit Club or Event Proposal</h3>
+                    <p class="text-secondary small mb-0">Are you interested in establishing a new Student Club or hosting an official campus event? Submit your proposal for Dean Student Welfare & Management Committee review.</p>
+                </div>
+            </div>
+
+            <div id="proposalAlert" class="alert alert-success d-none rounded-3 small"></div>
+
+            <form id="proposalForm">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Proposal Type</label>
+                        <select id="propType" class="form-select bg-light border-0 py-2-5" required>
+                            <option value="new_club">Establish New Student Club</option>
+                            <option value="new_event">Host Official Campus Event</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Applicant Name</label>
+                        <input type="text" id="propName" class="form-control bg-light border-0 py-2-5" placeholder="Your full name" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Email Address</label>
+                        <input type="email" id="propEmail" class="form-control bg-light border-0 py-2-5" placeholder="student@uit.edu" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Contact Phone</label>
+                        <input type="text" id="propPhone" class="form-control bg-light border-0 py-2-5" placeholder="+91 98765 00000">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Proposed Title / Club Name</label>
+                        <input type="text" id="propTitle" class="form-control bg-light border-0 py-2-5" placeholder="e.g. AI & Robotics Club UIT" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold small text-secondary">Faculty Mentor (Optional)</label>
+                        <input type="text" id="propMentor" class="form-control bg-light border-0 py-2-5" placeholder="Faculty Mentor Name">
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold small text-secondary">Objectives, Vision & Expected Beneficiaries</label>
+                        <textarea id="propObjective" class="form-control bg-light border-0 py-2-5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." required></textarea>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-dark rounded-pill px-5 py-2-5 fw-bold shadow-sm">
+                            Submit Official Proposal <i class="bi bi-file-earmark-check ms-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>

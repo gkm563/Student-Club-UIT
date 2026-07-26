@@ -52,13 +52,19 @@ $error = '';
 
 // Handle Update Event
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
-    $title       = trim($_POST['title'] ?? '');
-    $description = trim($_POST['description'] ?? '');
-    $venue       = trim($_POST['venue'] ?? '');
-    $event_date  = $_POST['event_date'] ?? '';
-    $reg_link    = trim($_POST['registration_link'] ?? '/contact.html');
-    $status      = $_POST['status'] ?? 'upcoming';
-    $bannerUrl   = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    $title            = trim($_POST['title'] ?? '');
+    $description      = trim($_POST['description'] ?? '');
+    $venue            = trim($_POST['venue'] ?? '');
+    $event_date       = $_POST['event_date'] ?? '';
+    $reg_link         = trim($_POST['registration_link'] ?? 'contact.html');
+    $status           = $_POST['status'] ?? 'upcoming';
+    $bannerUrl        = trim($_POST['banner'] ?? 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    
+    // Post-Event Audit Fields
+    $registered_count = (int)($_POST['registered_count'] ?? 0);
+    $actual_attended  = (int)($_POST['actual_attended'] ?? 0);
+    $outcomes_summary = trim($_POST['outcomes_summary'] ?? '');
+    $budget_utilized  = (float)($_POST['budget_utilized'] ?? 0.0);
 
     // Process uploaded image file if provided
     $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $event['banner'] ?? $bannerUrl);
@@ -70,11 +76,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
         try {
             $uStmt = $db->prepare("
                 UPDATE events SET 
-                    title = ?, description = ?, venue = ?, event_date = ?, registration_link = ?, status = ?, banner = ?
+                    title = ?, description = ?, venue = ?, event_date = ?, registration_link = ?, status = ?, banner = ?,
+                    registered_count = ?, actual_attended = ?, outcomes_summary = ?, budget_utilized = ?
                 WHERE id = ? AND club_id = ?
             ");
-            $uStmt->execute([$title, $description, $venue, $event_date, $reg_link, $status, $banner, $eventId, $club['id']]);
-            $success = "Event details updated successfully!";
+            $uStmt->execute([$title, $description, $venue, $event_date, $reg_link, $status, $banner, $registered_count, $actual_attended, $outcomes_summary, $budget_utilized, $eventId, $club['id']]);
+            $success = "Event details and post-event documentation audit updated successfully!";
             
             // Refresh event data
             $evtStmt->execute([$eventId, $club['id']]);
@@ -228,11 +235,36 @@ if (!empty($event['event_date'])) {
                             <textarea name="description" class="form-control rounded-3" rows="4"><?= htmlspecialchars($event['description']) ?></textarea>
                         </div>
 
+                        <!-- Mandatory Post-Event Documentation & Audit Section -->
+                        <div class="p-4 bg-light rounded-4 border mb-4">
+                            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-shield-check text-success me-2"></i> Post-Event Documentation & Audit (Dean Review)</h6>
+                            <p class="text-muted small mb-3" style="font-size:0.75rem;">Required when updating event status to <strong>Completed</strong>. This data provides official documentation to college authorities for future event approvals.</p>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-semibold">Registered Participants</label>
+                                    <input type="number" name="registered_count" class="form-control rounded-3" value="<?= (int)($event['registered_count'] ?? 0) ?>" min="0">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-semibold">Actual Attendees Present</label>
+                                    <input type="number" name="actual_attended" class="form-control rounded-3" value="<?= (int)($event['actual_attended'] ?? 0) ?>" min="0">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-semibold">Budget / Resource Utilized (₹)</label>
+                                    <input type="number" step="0.01" name="budget_utilized" class="form-control rounded-3" value="<?= (float)($event['budget_utilized'] ?? 0.0) ?>" min="0">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-semibold">Event Outcomes & Key Highlights Summary</label>
+                                    <textarea name="outcomes_summary" class="form-control rounded-3" rows="3" placeholder="Log key achievements, guest speakers, winner details, and outcomes for college administration records..."><?= htmlspecialchars($event['outcomes_summary'] ?? '') ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="d-flex gap-3">
                             <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold text-white shadow-sm">
-                                Save Changes
+                                Save Changes & Audit Log
                             </button>
-                            <a href="/admin/events.php" class="btn btn-light rounded-pill px-4 py-2-5">Cancel</a>
+                            <a href="admin/events.php" class="btn btn-light rounded-pill px-4 py-2-5">Cancel</a>
                         </div>
                     </form>
                 </div>

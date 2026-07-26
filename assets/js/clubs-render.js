@@ -379,21 +379,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                     <!-- Club Events Showcase -->
                                     <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
-                                        <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-calendar-event text-primary me-2"></i> Organized Events & Activities (${club.events ? club.events.length : 0})</h4>
+                                        <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-calendar-event text-primary me-2"></i> Official Events & Campus Activities (${club.events ? club.events.length : 0})</h4>
                                         ${(!club.events || club.events.length === 0) ? `
                                             <div class="text-center py-4 text-muted bg-light rounded-3">
                                                 <i class="bi bi-calendar-x fs-2 d-block mb-1"></i>
-                                                No events scheduled yet.
+                                                No official events recorded yet.
                                             </div>
                                         ` : `
-                                            <div class="row g-3">
+                                            <div class="row g-4">
                                                 ${club.events.map(ev => `
                                                     <div class="col-md-6">
-                                                        <div class="p-3 bg-body-tertiary rounded-4 border h-100">
-                                                            <img src="${escapeHtml(ev.banner)}" class="img-fluid rounded-3 mb-2" style="height: 110px; width: 100%; object-fit: cover;">
-                                                            <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-0-5 small mb-1">${escapeHtml(ev.status)}</span>
-                                                            <h6 class="fw-bold mb-1 text-dark">${escapeHtml(ev.title)}</h6>
-                                                            <p class="small text-muted mb-0">${escapeHtml(ev.description || '')}</p>
+                                                        <div class="p-3 bg-body-tertiary rounded-4 border h-100 d-flex flex-column justify-content-between">
+                                                            <div>
+                                                                <img src="${escapeHtml(ev.banner)}" class="img-fluid rounded-3 mb-2" style="height: 120px; width: 100%; object-fit: cover;">
+                                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                    <span class="badge ${ev.status === 'completed' ? 'bg-success-subtle text-success' : 'bg-primary-subtle text-primary'} border rounded-pill px-2 py-1 small text-uppercase fw-bold">${escapeHtml(ev.status)}</span>
+                                                                    <span class="small text-muted"><i class="bi bi-geo-alt me-1"></i>${escapeHtml(ev.venue)}</span>
+                                                                </div>
+                                                                <h6 class="fw-bold mb-1 text-dark">${escapeHtml(ev.title)}</h6>
+                                                                <p class="small text-secondary mb-2 text-truncate-2">${escapeHtml(ev.description || '')}</p>
+                                                            </div>
+
+                                                            ${ev.status === 'completed' && (ev.actual_attended || ev.outcomes_summary) ? `
+                                                                <div class="p-2 bg-white rounded-3 border mt-2 small">
+                                                                    <div class="d-flex justify-content-between text-muted fw-semibold mb-1" style="font-size:0.72rem;">
+                                                                        <span><i class="bi bi-people-fill text-success me-1"></i> Attendees: ${ev.actual_attended || 'N/A'}</span>
+                                                                        <span><i class="bi bi-clipboard-check text-primary me-1"></i> Registered: ${ev.registered_count || 'N/A'}</span>
+                                                                    </div>
+                                                                    ${ev.outcomes_summary ? `<p class="mb-0 text-dark small fst-italic" style="font-size:0.72rem;">"${escapeHtml(ev.outcomes_summary)}"</p>` : ''}
+                                                                </div>
+                                                            ` : ''}
+
+                                                            ${ev.status === 'upcoming' || ev.status === 'ongoing' ? `
+                                                                <a href="${escapeHtml(ev.registration_link || 'contact.html')}" target="_blank" class="btn btn-sm btn-primary rounded-pill w-100 fw-bold mt-2">
+                                                                    Register for Event &rarr;
+                                                                </a>
+                                                            ` : ''}
                                                         </div>
                                                     </div>
                                                 `).join('')}
