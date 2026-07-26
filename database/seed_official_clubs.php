@@ -1,20 +1,25 @@
 <?php
 /**
- * Master Official Seeder for the 6 Official Clubs at UIT:
+ * Master Official Seeder for CCMS (United Institute of Technology)
+ * Seeds the 10 Official Campus Clubs:
  * 1. Google Developer Groups On Campus - UIT (GDGOC UIT)
  * 2. GeeksforGeeks Student Chapter - UIT (GFG SC UIT)
  * 3. HackerRank UIT
  * 4. E-Cell UIT (Entrepreneurship Cell)
  * 5. WikiClub Tech - UIT
  * 6. FOSS (Free and Open Source Software) UIT
+ * 7. Rotaract Club of UIT
+ * 8. UGI Toastmasters Club
+ * 9. FlutterFlow Student Chapter - UIT
+ * 10. TEDxUIT
  */
 
-require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 try {
     $db = Database::getConnection();
     echo "===========================================\n";
-    echo "  Seeding 6 Official Campus Clubs into Database \n";
+    echo "  Seeding 10 Official Campus Clubs into Database \n";
     echo "===========================================\n";
 
     // Fetch Category Mapping
@@ -26,14 +31,16 @@ try {
 
     $techCatId = $cats['technical'] ?? 1;
     $ecellCatId = $cats['entrepreneurship'] ?? 5;
+    $socialCatId = $cats['social'] ?? 4;
+    $academicCatId = $cats['academic'] ?? 7;
 
-    // Clear all existing data
+    // Clear all existing data cleanly
     $db->exec("DELETE FROM gallery_items");
     $db->exec("DELETE FROM events");
     $db->exec("DELETE FROM leadership");
     $db->exec("DELETE FROM clubs");
 
-    // 1. Seed 6 Official Clubs
+    // 1. Seed 10 Official Clubs
     $clubs = [
         [
             'clb_gdgoc_uit_2026',
@@ -124,6 +131,66 @@ try {
             'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop',
             2026, 'active', 1, '/contact.html', 'foss@uit.edu', '+91 98765 44441', 'United Institute of Technology Naini, UPSIDC Industrial Area, Naini, Prayagraj, Uttar Pradesh IN', 'https://foss.in'
+        ],
+        [
+            'clb_rotaract_uit_2026',
+            'Rotaract Club of UIT',
+            'Rotaract UIT',
+            'rotaract-uit',
+            $socialCatId,
+            'Service Above Self — Social Welfare, Community Outreach & Charity',
+            'Rotaract Club of UIT conducts social welfare initiatives, community outreach programs, blood donation camps, and charitable events like Project Smile across United Institute of Technology.',
+            'To inspire young leaders to serve society through impactful community development, environmental awareness, educational support for underprivileged children, and social welfare drives.',
+            'Fellowship Through Service. — Creating a compassionate and socially responsible student community at UIT.',
+            '• Project Smile & Charitable Outreach\n• Blood Donation & Health Camps\n• Environmental Awareness & Tree Plantation Drives\n• Free Educational Kits for Underprivileged Children',
+            'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop',
+            2024, 'active', 1, '/contact.html', 'rotaract@uit.edu', '+91 98765 55551', 'Student Activity Center, UIT, Prayagraj 211010', '/contact.html'
+        ],
+        [
+            'clb_toastmasters_ugi_2026',
+            'UGI Toastmasters Club',
+            'Toastmasters UGI',
+            'toastmasters-ugi',
+            $academicCatId,
+            'Where Voices Find Their Power',
+            'Since June 01st 2023, UGI Toastmasters Club stands as a lively stage for students eager to turn their voices into something extraordinary. Here, under laughter and learning, students discover that public speaking is an art, a journey, and a chance to grow. Each of our meetings is a little theatre of ideas and confidence-building that transforms the shy into the bold, preparing members for interview rooms and boardrooms alike.',
+            'To empower students with public speaking, effective communication, storytelling, and leadership skills through structured speeches and constructive peer feedback.',
+            'Where Voices Find Their Power — Transforming hesitant speakers into poised, confident global leaders.',
+            '• Speech & Storytelling Masterclasses\n• Table Topics & Impromptu Speaking Drills\n• Interview & Boardroom Presentation Preparation\n• Peer Evaluation & Communication Leadership',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
+            2023, 'active', 1, '/contact.html', 'toastmasters@uit.edu', '+91 98765 66661', 'Seminar Hall & Student Activity Center, UIT, Prayagraj 211010', '/contact.html'
+        ],
+        [
+            'clb_flutterflow_uit_2026',
+            'FlutterFlow Student Chapter - UIT',
+            'FlutterFlow UIT',
+            'flutterflow-uit',
+            $techCatId,
+            'Build Visual Cross-Platform Apps with Flutter & Low-Code Tech',
+            'FlutterFlow Student Chapter - UIT is the official student developer community at United Institute of Technology dedicated to visual mobile & web app development, UI/UX design, Firebase integration, and building cross-platform applications with FlutterFlow.',
+            'To empower students to turn creative app ideas into production-ready mobile and web applications without coding friction, leveraging FlutterFlow, Flutter, and cloud backends.',
+            'Design. Build. Launch. — Accelerating app innovation and empowering student app creators at UIT.',
+            '• FlutterFlow & Mobile App Development Bootcamps\n• Low-Code UI/UX & Firebase Hackathons\n• App Design Sprints & Prototype Demos\n• Flutter & Dart Integration Workshops',
+            'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop',
+            2025, 'active', 1, '/contact.html', 'flutterflow@uit.edu', '+91 98765 77771', 'UIT Induction Hall & Computer Lab 1, Prayagraj 211010', 'https://flutterflow.io'
+        ],
+        [
+            'clb_tedx_uit_2026',
+            'TEDxUIT',
+            'TEDxUIT',
+            'tedx-uit',
+            $academicCatId,
+            'Ideas Worth Spreading — Inspiring Talks, Innovation & Leadership',
+            'TEDxUIT is an independently organized TED event student community at United Institute of Technology, bringing together visionary thinkers, storytellers, innovators, and leaders to share Ideas Worth Spreading across technology, science, art, and humanity.',
+            'To spark deep discussion, inspire action, and showcase extraordinary ideas from students, faculty, and industry pioneers on the TEDx stage.',
+            'Ideas Worth Spreading. — Elevating campus voices and fostering intellectual curiosity at UIT.',
+            '• Annual TEDxUIT Flagship Conference\n• Salon Speaker Sessions & Panel Discussions\n• Student Speaker Curation & Public Speaking Coaching\n• Idea Networking & Youth Empowerment Drives',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
+            2024, 'active', 1, '/contact.html', 'tedx@uit.edu', '+91 98765 88881', 'Main Auditorium & Student Activity Center, UIT, Prayagraj 211010', 'https://www.ted.com/tedx'
         ]
     ];
 
@@ -153,7 +220,15 @@ try {
         ['ldr_wiki_lead', 'clb_wikiclub_uit_2026', 'Divyansh Sharma', 'WikiClub Lead & Convener', 'president', 'divyansh.wiki@uit.edu', '+91 98765 33331', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
         ['ldr_wiki_vice', 'clb_wikiclub_uit_2026', 'Priya Singh', 'Content & Tech Editor', 'vice_president', 'priya.wiki@uit.edu', '+91 98765 33332', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2],
         ['ldr_foss_lead', 'clb_foss_uit_2026', 'Yash Vardhan', 'FOSS Campus Lead', 'president', 'yash.foss@uit.edu', '+91 98765 44441', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_foss_vice', 'clb_foss_uit_2026', 'Alok Kumar', 'Linux & Kernel Lead', 'vice_president', 'alok.foss@uit.edu', '+91 98765 44442', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2]
+        ['ldr_foss_vice', 'clb_foss_uit_2026', 'Alok Kumar', 'Linux & Kernel Lead', 'vice_president', 'alok.foss@uit.edu', '+91 98765 44442', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_rota_ananya', 'clb_rotaract_uit_2026', 'Ananya Verma', 'Rotaract President & Social Lead', 'president', 'ananya.rotaract@uit.edu', '+91 98765 55551', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_rota_saurabh', 'clb_rotaract_uit_2026', 'Saurabh Mishra', 'Community Outreach Lead', 'vice_president', 'saurabh.rotaract@uit.edu', '+91 98765 55552', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_toast_neha', 'clb_toastmasters_ugi_2026', 'Neha Verma', 'Toastmasters President', 'president', 'neha.toast@uit.edu', '+91 98765 66661', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_toast_tanmay', 'clb_toastmasters_ugi_2026', 'Tanmay Kapoor', 'VP Education & Speech Lead', 'vice_president', 'tanmay.toast@uit.edu', '+91 98765 66662', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_ff_rishabh', 'clb_flutterflow_uit_2026', 'Rishabh Pandey', 'FlutterFlow Chapter Lead', 'president', 'rishabh.ff@uit.edu', '+91 98765 77771', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_ff_kriti', 'clb_flutterflow_uit_2026', 'Kriti Saxena', 'App Design & UI/UX Lead', 'vice_president', 'kriti.ff@uit.edu', '+91 98765 77772', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_tedx_siddharth', 'clb_tedx_uit_2026', 'Siddharth Tripathy', 'TEDx Licensee & Organizer', 'president', 'siddharth.tedx@uit.edu', '+91 98765 88881', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_tedx_mehak', 'clb_tedx_uit_2026', 'Mehak Srivastava', 'Executive Producer & Lead Curator', 'vice_president', 'mehak.tedx@uit.edu', '+91 98765 88882', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2]
     ];
 
     $lStmt = $db->prepare("
@@ -165,7 +240,7 @@ try {
     }
     echo "[+] Seeded " . count($leaders) . " Official Leadership Members.\n";
 
-    // 3. Seed Official Events (GDGoC + GFG + HackerRank + E-Cell + WikiClub + FOSS)
+    // 3. Seed Official Events
     $events = [
         [
             'evt_gdgoc_sol_cloud_recap_2026', 'clb_gdgoc_uit_2026',
@@ -278,6 +353,38 @@ try {
             'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
             'Hands-on workshop on Linux command-line, Git branching, open-source pull requests, and GSoC preparation.',
             'Computer Lab 3, UIT', '2026-03-18 14:00:00', '/contact.html', 'completed'
+        ],
+        [
+            'evt_rotaract_project_smile_2026', 'clb_rotaract_uit_2026',
+            'Project Smile: Community Outreach & Charity Drive',
+            'rotaract-project-smile-community-outreach',
+            'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800&auto=format&fit=crop',
+            'Annual flagship social welfare drive organizing free stationery kits, health checkups, and clothes distribution.',
+            'UIT Open Ground & Nearby Community School', '2026-02-14 10:00:00', '/contact.html', 'completed'
+        ],
+        [
+            'evt_toastmasters_44th_meeting_2026', 'clb_toastmasters_ugi_2026',
+            'UGI Toastmasters 44th Meeting: Where Voices Find Their Power',
+            'ugi-toastmasters-44th-meeting-public-speaking',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop',
+            'Lively public speaking session featuring Table Topics, prepared speeches, and constructive peer evaluation.',
+            'Seminar Hall & Student Activity Center, UIT', '2026-03-25 15:30:00', '/contact.html', 'completed'
+        ],
+        [
+            'evt_flutterflow_app_bootcamp_2026', 'clb_flutterflow_uit_2026',
+            'FlutterFlow Visual App Building & Firebase Bootcamp',
+            'flutterflow-visual-app-building-firebase-bootcamp',
+            'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop',
+            'Hands-on workshop building production cross-platform mobile apps using FlutterFlow low-code UI and Firebase backend.',
+            'UIT Induction Hall & Computer Lab 1', '2026-04-05 10:00:00', 'https://flutterflow.io', 'completed'
+        ],
+        [
+            'evt_tedx_flagship_conference_2026', 'clb_tedx_uit_2026',
+            'TEDxUIT Flagship Conference 2026: Ideas Worth Spreading',
+            'tedxuit-flagship-conference-2026',
+            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop',
+            'Inspiring annual conference featuring live talks by student innovators, industry pioneers, and visionary thinkers.',
+            'Main Auditorium, UIT', '2026-04-18 09:30:00', 'https://www.ted.com/tedx', 'completed'
         ]
     ];
 
@@ -300,7 +407,11 @@ try {
         ['gal_hr_1', 'clb_hackerrank_uit_2026', 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop', 'HackerRank UIT - CodeSprint Practice Session & Contest'],
         ['gal_ecell_1', 'clb_ecell_uit_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'E-Cell PitchFest Startup Presentations'],
         ['gal_wiki_1', 'clb_wikiclub_uit_2026', 'https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=800&auto=format&fit=crop', 'WikiClub Tech - Open Knowledge & Edit-a-thon Session'],
-        ['gal_foss_1', 'clb_foss_uit_2026', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop', 'FOSS UIT - Linux Command Line & Git Open Source Bootcamp']
+        ['gal_foss_1', 'clb_foss_uit_2026', 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop', 'FOSS UIT - Linux Command Line & Git Open Source Bootcamp'],
+        ['gal_rota_1', 'clb_rotaract_uit_2026', 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800&auto=format&fit=crop', 'Rotaract Club of UIT - Project Smile Social Welfare Drive'],
+        ['gal_toast_1', 'clb_toastmasters_ugi_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'UGI Toastmasters Club - Public Speaking & Table Topics Session'],
+        ['gal_ff_1', 'clb_flutterflow_uit_2026', 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop', 'FlutterFlow Student Chapter UIT - Mobile App UI/UX Hackathon'],
+        ['gal_tedx_1', 'clb_tedx_uit_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'TEDxUIT Flagship Stage & Inspiring Talks Session']
     ];
 
     $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, media_url, caption) VALUES (?, ?, ?, ?)");
@@ -310,9 +421,9 @@ try {
     echo "[+] Seeded " . count($gallery) . " Gallery Items.\n";
 
     echo "===========================================\n";
-    echo "  Official 6 Clubs Database Seeded!        \n";
+    echo "  Official 10 Clubs Database Seeded!       \n";
     echo "===========================================\n";
 
 } catch (Exception $e) {
-    echo "[-] Error seeding official 6 clubs: " . $e->getMessage() . "\n";
+    echo "[-] Error seeding official database: " . $e->getMessage() . "\n";
 }
