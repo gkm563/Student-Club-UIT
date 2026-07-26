@@ -492,66 +492,122 @@
     </div>
 </section>
 
-<!-- Section 2: Campus Moments Gallery (Full-Width Showcase) -->
-<section class="py-5" style="background: #f8fafc;">
+<!-- Section 2: Campus Moments Gallery (Ultra-Attractive 3D Showcase) -->
+<section class="py-5" style="background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
     <div class="container">
-        <div class="card p-4 border-0 shadow-sm rounded-4 bg-white">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">
-                        Live Campus Highlights
-                    </span>
-                    <h3 class="fw-bold text-dark mb-0">Campus Moments Gallery</h3>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 gap-3">
+            <div>
+                <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2 d-inline-flex align-items-center gap-1.5" style="font-size: 0.72rem; letter-spacing: 0.5px;">
+                    <span class="pulse-dot-green"></span> Live Campus Highlights
+                </span>
+                <h2 class="fw-bold text-dark mb-1">Campus Moments Gallery</h2>
+                <p class="text-secondary small mb-0">Capturing real-time hackathons, AI summits, study jams & campus celebrations</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a href="gallery.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+                    Explore Full Gallery <i class="bi bi-arrow-right-short fs-5 ms-1"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Moment 1: Google Cloud Study Jam -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop', 'Google Cloud Study Jam 2026', 'GDGOC UIT • Prayagraj')">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Google Cloud Study Jam">
+                    <div class="gallery-card-badge">GDGOC UIT</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">Cloud Study Jam</span>
+                            <h6 class="gallery-card-title">Google Cloud Study Jam 2026</h6>
+                        </div>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
+                        </div>
+                    </div>
                 </div>
-                <a href="gallery.html" class="btn btn-outline-primary rounded-pill px-4 fw-bold">Explore Full Gallery &rarr;</a>
             </div>
 
-            <div class="row g-3">
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="Google Cloud Study Jam">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">Study Jam '26</span>
+            <!-- Moment 2: HACKQUEST '25 24-Hour Hackathon -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop', 'HACKQUEST \'25 24-Hour Hackathon', 'GDGOC UIT • ₹85K Prize Pool')">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="HACKQUEST '25">
+                    <div class="gallery-card-badge bg-danger text-white">HACKATHON</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">Flagship Hackathon</span>
+                            <h6 class="gallery-card-title">HACKQUEST '25 Teams</h6>
+                        </div>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="HACKQUEST '25">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">HACKQUEST '25</span>
+            </div>
+
+            <!-- Moment 3: Build With AI Summit & Gemini API -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop', 'Build With AI Summit & Gemini API Showcase', 'Gemini Builders & GDGOC')">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Build With AI">
+                    <div class="gallery-card-badge bg-purple text-white" style="background:#7c3aed;">AI SUMMIT</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">Gen AI Workshop</span>
+                            <h6 class="gallery-card-title">Build With AI Summit</h6>
+                        </div>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="Build With AI">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">Build With AI</span>
+            </div>
+
+            <!-- Moment 4: GFG SC UIT Coding Sprint -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop', 'SyntaxClash 2026 Coding Contest', 'GFG SC UIT • 600+ Members')">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="GFG Coding Contest">
+                    <div class="gallery-card-badge bg-success text-white">GFG SC UIT</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">DSA & Contest</span>
+                            <h6 class="gallery-card-title">SyntaxClash 2026</h6>
+                        </div>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="TFUG Keynote">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">TFUG Keynote</span>
+            </div>
+
+            <!-- Moment 5: TFUG x GDG Inaugural Keynote -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop', 'TFUG x GDG On-Campus Inaugural', 'TensorFlow User Group & GDGoC')">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="TFUG Keynote">
+                    <div class="gallery-card-badge">TFUG PRAYAGRAJ</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">Inaugural Keynote</span>
+                            <h6 class="gallery-card-title">TFUG x GDG Inaugural</h6>
+                        </div>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="Orientation Session">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">GDGoC Kickoff</span>
+            </div>
+
+            <!-- Moment 6: Orientation & Gala Night Celebration -->
+            <div class="col-6 col-md-4 col-lg-4">
+                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop', 'GDG on Campus Orientation & Gala Night', 'UIT Induction Hall')">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Orientation Session">
+                    <div class="gallery-card-badge bg-warning text-dark fw-bold">ORIENTATION</div>
+                    <div class="gallery-card-overlay">
+                        <div>
+                            <span class="gallery-card-tag">Campus Onboarding</span>
+                            <h6 class="gallery-card-title">GDGoC Campus Kickoff</h6>
                         </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2">
-                    <div class="gallery-preview-item">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop" class="gallery-preview-img" alt="Winter Retreat">
-                        <div class="gallery-preview-overlay">
-                            <span class="gallery-preview-caption">Winter Retreat</span>
+                        <div class="gallery-expand-icon">
+                            <i class="bi bi-arrows-angle-expand"></i>
                         </div>
                     </div>
                 </div>
@@ -559,6 +615,24 @@
         </div>
     </div>
 </section>
+
+<!-- Gallery Fullscreen Lightbox Modal -->
+<div class="modal fade" id="galleryLightboxModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 rounded-4 overflow-hidden shadow-2xl" style="background:#0f172a;">
+            <div class="modal-header border-0 p-3" style="background: rgba(15,23,42,0.8); backdrop-filter: blur(10px);">
+                <div>
+                    <h6 class="modal-title fw-bold text-white mb-0" id="galleryModalTitle">Campus Highlight</h6>
+                    <span class="text-white-50 small" id="galleryModalSubtitle">United Institute of Technology</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0 text-center bg-black position-relative">
+                <img src="" id="galleryModalImg" class="img-fluid w-100" style="max-height: 75vh; object-fit: contain;" alt="Campus Moment">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

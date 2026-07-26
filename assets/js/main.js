@@ -63,3 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Gallery Fullscreen Lightbox Modal Helper
+function openGalleryModal(imgSrc, title, subtitle) {
+    const modalImg = document.getElementById('galleryModalImg');
+    const modalTitle = document.getElementById('galleryModalTitle');
+    const modalSubtitle = document.getElementById('galleryModalSubtitle');
+    const modalEl = document.getElementById('galleryLightboxModal');
+
+    if (modalImg) modalImg.src = imgSrc;
+    if (modalTitle) modalTitle.textContent = title || 'Campus Highlight';
+    if (modalSubtitle) modalSubtitle.textContent = subtitle || 'United Institute of Technology';
+
+    if (modalEl && typeof bootstrap !== 'undefined') {
+        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modalInstance.show();
+    }
+}
