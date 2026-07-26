@@ -60,62 +60,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     clubsGrid.innerHTML = clubs.map(club => {
                         const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop');
-                        const logoImg = club.logo ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-4 text-primary\'></i>'">` : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-4 text-primary"></i>`;
+                        const logoImg = club.logo ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary\'></i>'">` : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary"></i>`;
                         const memberCount = club.member_count || 45;
+                        const isGfg = club.id === 'clb_gfg_sc_uit_2026';
+                        const isGemini = club.id === 'clb_gemini_builders_uit_2026';
+                        const isGdg = club.id === 'clb_gdgoc_uit_2026';
+
+                        let leadName = 'Student Executive Committee';
+                        if (isGfg) leadName = 'Ansh Kumar Gupta (Campus Mantri)';
+                        else if (isGemini) leadName = 'Google Student Ambassador';
+                        else if (isGdg) leadName = 'GDG Student Lead';
+
+                        let eventSummary = 'Active Events';
+                        if (isGfg) eventSummary = '3 Real Events (SyntaxClash, AI/ML)';
+                        else if (isGemini) eventSummary = 'AI Builder Bootcamp';
+                        else if (isGdg) eventSummary = 'Cloud Study Jam 2026';
+
                         const recruitmentBadge = club.recruitment_open 
-                            ? `<span class="badge rounded-pill px-2-5 py-1 fw-bold text-nowrap" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.68rem;"><span class="pulse-dot-green me-1"></span>Recruiting</span>`
-                            : `<span class="badge rounded-pill px-2-5 py-1 fw-bold text-nowrap" style="background:#eff6ff; color:#2563eb; border:1px solid rgba(37,99,235,0.3); font-size:0.68rem;"><i class="bi bi-shield-check me-1"></i>Active</span>`;
+                            ? `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.75rem;"><span class="pulse-dot-green me-1.5"></span>Recruiting Members</span>`
+                            : `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#eff6ff; color:#1d4ed8; border:1px solid rgba(29,78,216,0.3); font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Official SAC Chapter</span>`;
 
                         return `
-                            <div class="col-md-6 col-lg-4">
-                                <div class="featured-club-card-3d h-100 d-flex flex-column">
-                                    <!-- Banner Image & Floating Badges -->
-                                    <div class="featured-club-banner" style="height: 135px;">
-                                        <img src="${coverImg}" class="featured-club-banner-img" alt="${escapeHtml(club.name)}">
-                                        <div class="featured-club-overlay"></div>
-                                        
-                                        <!-- Floating Club Logo -->
-                                        <div class="featured-club-logo-float" style="width: 52px; height: 52px; bottom: -18px; left: 16px;">
-                                            ${logoImg}
-                                        </div>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" style="background:#ffffff; border:1px solid #e2e8f0 !important;">
+                                    <!-- Cover Banner Header -->
+                                    <div class="position-relative" style="height: 160px;">
+                                        <img src="${coverImg}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(club.name)}">
+                                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.75) 100%);"></div>
 
-                                        <!-- Category Tag Badge -->
-                                        <div class="position-absolute top-0 end-0 m-3 d-flex gap-1.5 align-items-center">
-                                            <span class="badge bg-white text-dark rounded-pill px-2.5 py-1 fw-bold shadow-sm" style="font-size: 0.68rem;">
+                                        <!-- Category Badge floating right -->
+                                        <div class="position-absolute top-0 end-0 m-3 z-2">
+                                            <span class="badge bg-white text-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="font-size: 0.75rem;">
                                                 <i class="bi ${escapeHtml(club.category_icon || 'bi-grid')} me-1 text-primary"></i> ${escapeHtml(club.category_name)}
                                             </span>
                                         </div>
+
+                                        <!-- Floating Logo Badge -->
+                                        <div class="position-absolute bg-white rounded-4 p-1 shadow-md d-flex align-items-center justify-content-center" style="width: 62px; height: 62px; bottom: -24px; left: 24px; z-index: 3; border: 3px solid #ffffff;">
+                                            ${logoImg}
+                                        </div>
                                     </div>
 
-                                    <!-- Content Body -->
-                                    <div class="featured-club-content flex-grow-1 d-flex flex-column pt-4 px-3.5 pb-3">
-                                        <div class="d-flex justify-content-between align-items-start mb-1">
-                                            <h5 class="featured-club-name text-truncate mb-0 fw-bold" style="font-size: 1.05rem; line-height: 1.3;">
-                                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">
-                                                    ${escapeHtml(club.name)}
-                                                </a>
-                                            </h5>
-                                        </div>
-
-                                        <p class="featured-club-desc small text-secondary mb-3" style="min-height: 2.7em; font-size: 0.84rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                            ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology.')}
-                                        </p>
-
-                                        <!-- Meta Info Pills -->
-                                        <div class="d-flex align-items-center justify-content-between pt-2.5 border-top border-light-subtle mt-auto">
-                                            <div class="d-flex align-items-center gap-2 text-muted small" style="font-size: 0.76rem;">
-                                                <span><i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${memberCount}+</strong> Members</span>
-                                            </div>
+                                    <!-- Card Body -->
+                                    <div class="p-4 pt-4 mt-2 flex-grow-1 d-flex flex-column">
+                                        <div class="d-flex align-items-center justify-content-between mb-2">
                                             ${recruitmentBadge}
                                         </div>
-                                    </div>
 
-                                    <!-- Footer Action Bar -->
-                                    <div class="px-3.5 pb-3 pt-0">
-                                        <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn btn-sm btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm d-flex align-items-center justify-content-center gap-1.5">
-                                            <span>Explore Chapter</span>
-                                            <i class="bi bi-arrow-right-short fs-5"></i>
-                                        </a>
+                                        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
+                                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">
+                                                ${escapeHtml(club.name)}
+                                            </a>
+                                        </h4>
+
+                                        <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                            ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology organizing workshops, contests, and campus events.')}
+                                        </p>
+
+                                        <!-- Key Organization Info Deck -->
+                                        <div class="rounded-3 p-3 mb-3 bg-light border border-light-subtle">
+                                            <div class="row g-2 text-dark small" style="font-size: 0.8rem;">
+                                                <div class="col-6">
+                                                    <div class="d-flex align-items-center gap-1.5">
+                                                        <i class="bi bi-people-fill text-primary"></i>
+                                                        <span><strong>${memberCount}+</strong> Active Members</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="d-flex align-items-center gap-1.5">
+                                                        <i class="bi bi-calendar-event-fill text-danger"></i>
+                                                        <span class="text-truncate"><strong>${eventSummary}</strong></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-1 pt-1 border-top border-light-subtle">
+                                                    <div class="d-flex align-items-center gap-1.5 text-secondary">
+                                                        <i class="bi bi-person-badge-fill text-purple"></i>
+                                                        <span>Leadership: <strong class="text-dark">${escapeHtml(leadName)}</strong></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Footer Action Buttons Bar -->
+                                        <div class="d-flex align-items-center gap-2 pt-2 mt-auto">
+                                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold w-100 shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 0.88rem;">
+                                                <span>Explore Chapter & Events</span>
+                                                <i class="bi bi-arrow-right-short fs-5"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
