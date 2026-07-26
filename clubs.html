@@ -23,38 +23,73 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Professional Hero Header Section -->
-<section class="hero-clubhub py-5" style="background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
-    <div class="container py-3">
+<!-- Premium Hero Header Section -->
+<section class="py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #0b132b 0%, #1c2541 45%, #1e3a8a 80%, #1d4ed8 100%); color: #ffffff;">
+    <!-- Ambient Glass Orbs Background -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="pointer-events: none; opacity: 0.15; background: radial-gradient(circle at 20% 30%, #38bdf8 0%, transparent 50%), radial-gradient(circle at 80% 70%, #60a5fa 0%, transparent 50%);"></div>
+
+    <div class="container py-4 position-relative" style="z-index: 2;">
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a></li>
-                <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">Campus Clubs Directory</li>
+                <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium">Home</a></li>
+                <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Campus Clubs Directory</li>
             </ol>
         </nav>
 
         <div class="row align-items-center justify-content-between g-4">
             <div class="col-lg-7">
-                <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1-5 fw-bold mb-2 shadow-xs d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
-                    <i class="bi bi-compass-fill"></i> United Institute of Technology
-                </span>
-                <h1 class="hero-headline mb-2" style="font-size: 2.8rem;">All Campus Clubs Directory</h1>
-                <p class="hero-subtitle mb-0" style="font-size: 1.05rem;">
-                    Explore active student communities across technical, AI, cultural, sports, and social domains at UIT. Connect, collaborate, and grow your passion.
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white mb-3 backdrop-blur shadow-sm">
+                    <i class="bi bi-stars text-warning"></i>
+                    <span class="small fw-bold" style="letter-spacing: 0.4px;">Official Student Activity Centre (SAC) Directory</span>
+                </div>
+                <h1 class="fw-extrabold text-white mb-3" style="font-size: 3rem; letter-spacing: -1px; line-height: 1.15;">
+                    Explore Active Campus <span style="background: linear-gradient(90deg, #38bdf8, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Chapters & Communities</span>
+                </h1>
+                <p class="text-white-80 mb-0" style="font-size: 1.1rem; max-width: 620px; font-weight: 400;">
+                    Discover 11+ vibrant student societies across AI & Machine Learning, Google Developers, Competitive Coding, Cultural Arts, Sports, and Social Impact.
                 </p>
             </div>
 
-            <!-- Right Glass Stat Box -->
-            <div class="col-lg-4 text-lg-end">
-                <div class="card border border-primary-subtle rounded-4 p-3.5 d-inline-flex align-items-center gap-3 text-start shadow-sm bg-white">
-                    <div class="bg-primary text-white rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 52px; height: 52px;">
-                        <i class="bi bi-award-fill fs-4"></i>
+            <!-- Right Glass Stat Badges (3D Floating Glass Deck) -->
+            <div class="col-lg-5">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="background: linear-gradient(135deg, #38bdf8, #0284c7); width: 46px; height: 46px;">
+                                    <i class="bi bi-award-fill fs-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="fw-extrabold mb-0 text-white" id="heroDirectoryCount">11+</h4>
+                                    <span class="small text-white-80 fw-semibold" style="font-size: 0.76rem;">Active Clubs</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="fw-extrabold mb-0 text-dark" id="heroDirectoryCount">11+</h3>
-                        <span class="fw-semibold text-secondary small">Active Campus Chapters</span>
-                        <div class="text-muted" style="font-size: 0.72rem;">Official SAC & Institutional Governance</div>
+
+                    <div class="col-6">
+                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="rounded-circle p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="background: linear-gradient(135deg, #34d399, #059669); width: 46px; height: 46px;">
+                                    <i class="bi bi-people-fill fs-5 text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="fw-extrabold mb-0 text-white">600+</h4>
+                                    <span class="small text-white-80 fw-semibold" style="font-size: 0.76rem;">GFG & Tech Members</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card p-3 border border-white-20 text-white rounded-4 shadow-lg d-flex flex-row align-items-center justify-content-between" style="background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(16px);">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="pulse-dot-green"></span>
+                                <span class="small fw-bold text-white">Recruitment Season 2026 Live</span>
+                            </div>
+                            <a href="#clubsGrid" class="btn btn-sm btn-light rounded-pill px-3 fw-bold text-primary shadow-sm">View Chapters</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,40 +103,43 @@
         <div class="row g-4">
             <!-- Left Filter Sidebar -->
             <div class="col-lg-3">
-                <div class="card p-4 border-0 shadow-sm rounded-4 sticky-top bg-white" style="top: 90px; z-index: 10;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center gap-2">
-                            <i class="bi bi-sliders text-primary"></i> Filter Chapters
+                <div class="card p-4 border-0 shadow-lg rounded-4 sticky-top bg-white" style="top: 90px; z-index: 10; border: 1px solid #e2e8f0 !important;">
+                    <!-- Filter Top Bar -->
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                        <h6 class="fw-extrabold mb-0 text-dark d-flex align-items-center gap-2">
+                            <div class="bg-primary-subtle text-primary rounded-circle p-1.5 d-inline-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                <i class="bi bi-sliders fs-6"></i>
+                            </div>
+                            Filter Chapters
                         </h6>
-                        <button id="clearFiltersBtn" class="btn btn-link text-decoration-none p-0 small text-primary fw-bold">Reset All</button>
+                        <button id="clearFiltersBtn" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1 fw-bold text-decoration-none" style="font-size: 0.75rem;">Reset All</button>
                     </div>
 
-                    <!-- Search Input -->
+                    <!-- Quick Search Input -->
                     <div class="mb-4">
-                        <div class="input-group">
-                            <input type="text" id="clubSearchInput" class="form-control form-control-sm bg-light border-end-0 rounded-start-pill ps-3" placeholder="Search by name, AI, tech...">
-                            <span class="input-group-text bg-light border-start-0 text-muted rounded-end-pill pe-3"><i class="bi bi-search"></i></span>
+                        <label class="form-label fw-bold small text-uppercase text-secondary mb-1.5" style="letter-spacing: 0.8px; font-size: 0.72rem;">Search Keywords</label>
+                        <div class="position-relative">
+                            <input type="text" id="clubSearchInput" class="form-control form-control-sm bg-light border-0 rounded-pill ps-4 pe-4 py-2.5 fw-medium text-dark" placeholder="Search GFG, GDG, AI, Drama..." style="font-size: 0.88rem; box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);">
                         </div>
                     </div>
 
-                    <!-- Categories list -->
+                    <!-- Domain Categories List -->
                     <div class="mb-4">
-                        <h6 class="fw-bold mb-2.5 small text-uppercase text-secondary" style="letter-spacing: 0.8px;">Domains & Categories</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-2.5">
+                            <label class="form-label fw-bold small text-uppercase text-secondary mb-0" style="letter-spacing: 0.8px; font-size: 0.72rem;">Domains & Categories</label>
+                        </div>
                         <div class="d-flex flex-column gap-1.5" id="categoryFilterList">
-                            <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-semibold d-flex justify-content-between align-items-center active btn-primary" data-category="all">
-                                <span><i class="bi bi-grid-fill me-1.5"></i> All Categories</span>
-                                <span class="badge bg-white text-primary rounded-pill">11</span>
-                            </button>
+                            <!-- Dynamic Category Pills Rendered by JS -->
                         </div>
                     </div>
 
-                    <!-- Sort By -->
+                    <!-- Sort Ordering Select -->
                     <div class="mb-2">
-                        <label class="form-label fw-bold small text-uppercase text-secondary" style="letter-spacing: 0.8px;">Sort Ordering</label>
-                        <select id="sortSelect" class="form-select form-select-sm bg-light rounded-pill px-3">
-                            <option value="popularity">Most Active & Featured</option>
-                            <option value="name">Alphabetical (A - Z)</option>
-                            <option value="members">Highest Membership</option>
+                        <label class="form-label fw-bold small text-uppercase text-secondary mb-1.5" style="letter-spacing: 0.8px; font-size: 0.72rem;">Sort Ordering</label>
+                        <select id="sortSelect" class="form-select form-select-sm bg-light border-0 rounded-pill px-3 py-2.5 fw-semibold text-dark" style="font-size: 0.85rem;">
+                            <option value="popularity">🔥 Most Active & Featured</option>
+                            <option value="name">🔤 Alphabetical (A - Z)</option>
+                            <option value="members">👥 Highest Core Members</option>
                         </select>
                     </div>
                 </div>

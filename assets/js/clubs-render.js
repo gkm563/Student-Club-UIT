@@ -130,19 +130,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Render Dynamic Category Pills
         function renderCategoryPills(categories, totalClubs) {
+            const categoryIcons = {
+                'all': 'bi-grid-fill',
+                'technical': 'bi-code-slash',
+                'cultural': 'bi-palette-fill',
+                'sports': 'bi-trophy-fill',
+                'social': 'bi-heart-pulse-fill',
+                'academic': 'bi-mortarboard-fill',
+                'literary': 'bi-book-half',
+                'media': 'bi-camera-reels-fill'
+            };
+
             let pillsHtml = `
-                <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center ${currentCategory === 'all' ? 'active btn-primary text-white' : 'btn-light text-secondary'}" data-category="all">
-                    <span>All Categories</span>
-                    <span class="badge ${currentCategory === 'all' ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2">${totalClubs}</span>
+                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="all" style="font-size: 0.85rem;">
+                    <span><i class="bi ${categoryIcons['all']} me-2 text-warning"></i> All Domains</span>
+                    <span class="badge ${currentCategory === 'all' ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-extrabold">${totalClubs}</span>
                 </button>
             `;
 
             categories.forEach(cat => {
                 const isActive = (currentCategory === cat.slug);
+                const icon = categoryIcons[cat.slug] || cat.icon || 'bi-bookmark-star-fill';
                 pillsHtml += `
-                    <button class="btn btn-sm text-start rounded-pill px-3 py-1-5 fw-semibold d-flex justify-content-between align-items-center ${isActive ? 'active btn-primary text-white' : 'btn-light text-secondary'}" data-category="${escapeHtml(cat.slug)}">
-                        <span>${escapeHtml(cat.name)}</span>
-                        <span class="badge ${isActive ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2">${cat.club_count || 0}</span>
+                    <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-semibold d-flex justify-content-between align-items-center transition-all ${isActive ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="${escapeHtml(cat.slug)}" style="font-size: 0.85rem;">
+                        <span class="text-truncate me-1"><i class="bi ${icon} me-2 ${isActive ? 'text-white' : 'text-primary'}"></i> ${escapeHtml(cat.name)}</span>
+                        <span class="badge ${isActive ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-bold">${cat.club_count || 0}</span>
                     </button>
                 `;
             });
