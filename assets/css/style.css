@@ -1037,3 +1037,53 @@ body {
     background: linear-gradient(135deg, #7c3aed, #db2777);
     box-shadow: 0 4px 14px rgba(219, 39, 119, 0.35);
 }
+
+/* Developer Credits Badge & Animated Heart Pulse */
+.developer-credit-badge {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.developer-credit-badge:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(56, 189, 248, 0.3);
+}
+
+.developer-link {
+    color: #38bdf8 !important;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 3px;
+    transition: all 0.25s ease;
+}
+
+.developer-link:hover {
+    color: #60a5fa !important;
+    text-decoration: underline !important;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+}
+
+.pulse-heart {
+    display: inline-block;
+    animation: heartPulse 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    color: #ef4444 !important;
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.35); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.35); }
+    70% { transform: scale(1); }
+}
