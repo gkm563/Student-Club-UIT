@@ -429,26 +429,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
+                const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop');
+                const logoImg = escapeHtml(club.logo || 'assets/United Logo.webp');
+
                 // Render Club Details Layout
                 detailContainer.innerHTML = `
                     <!-- Hero Cover Banner -->
-                    <section class="hero-clubhub py-5" style="background: linear-gradient(180deg, rgba(11, 15, 25, 0.88) 0%, rgba(11, 15, 25, 0.98) 100%), url('${escapeHtml(club.cover_image)}') center/cover;">
-                        <div class="container py-4">
+                    <section class="hero-clubhub py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.98) 100%), url('${coverImg}') center/cover no-repeat; min-height: 280px;">
+                        <div class="container py-4 position-relative z-2">
                             <div class="row align-items-center g-4">
                                 <div class="col-lg-8 d-flex align-items-center gap-4">
-                                    <img src="${escapeHtml(club.logo)}" class="rounded-4 border border-white-10 bg-white p-2 shadow-lg flex-shrink-0" style="width: 100px; height: 100px; object-fit: cover;">
+                                    <div class="position-relative flex-shrink-0">
+                                        <img src="${logoImg}" class="rounded-4 border border-white-10 bg-white p-2 shadow-2xl" style="width: 110px; height: 110px; object-fit: cover;" alt="${escapeHtml(club.name)}" onerror="this.src='assets/United Logo.webp'">
+                                    </div>
                                     <div>
                                         <a href="clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
                                             <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                         </a>
-                                        <h1 class="hero-headline mb-2" style="font-size: 2.5rem;">${escapeHtml(club.name)}</h1>
-                                        <p class="hero-subtitle mb-0">${escapeHtml(club.tagline || '')}</p>
+                                        <h1 class="hero-headline mb-2 text-white fw-bold" style="font-size: 2.5rem; letter-spacing: -0.5px;">${escapeHtml(club.name)}</h1>
+                                        <p class="hero-subtitle mb-0 text-white-50 fs-6 fw-normal">${escapeHtml(club.tagline || '')}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
-                                    <a href="contact.html" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-lg text-white">
-                                        Join Club &rarr;
-                                    </a>
+                                    ${club.recruitment_open 
+                                        ? `<a href="contact.html" class="btn rounded-pill px-5 py-3 fw-bold shadow-lg text-white" style="background:#10b981; border:none;"><span class="pulse-dot-green me-2"></span>Apply for Membership &rarr;</a>`
+                                        : `<a href="contact.html" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg text-white"><i class="bi bi-envelope me-2"></i>Contact Club Lead &rarr;</a>`
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -480,6 +486,24 @@ document.addEventListener('DOMContentLoaded', () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <!-- Official Club Photo Gallery Section -->
+                                    ${(club.gallery && club.gallery.length > 0) ? `
+                                        <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4 bg-white">
+                                            <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-images text-primary me-2"></i> Official Club Photo Gallery</h4>
+                                            <p class="text-secondary small mb-4">Highlights, orientation sessions, and team moments from ${escapeHtml(club.name)}</p>
+                                            <div class="row g-3">
+                                                ${club.gallery.map(g => `
+                                                    <div class="col-6 col-md-4">
+                                                        <div class="rounded-4 overflow-hidden border shadow-xs position-relative" style="height: 150px;">
+                                                            <img src="${escapeHtml(g.media_url)}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(g.caption || 'Club Photo')}" onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop'">
+                                                            ${g.caption ? `<div class="position-absolute bottom-0 inset-x-0 p-2 text-white bg-dark bg-opacity-75 small text-truncate fw-semibold" style="font-size:0.75rem;">${escapeHtml(g.caption)}</div>` : ''}
+                                                        </div>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    ` : ''}
 
                                     <!-- Leadership Roster Grouped by Academic Tenure / Term Year -->
                                     <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
