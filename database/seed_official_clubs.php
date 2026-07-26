@@ -442,6 +442,48 @@ try {
     }
     echo "[+] Seeded " . count($gallery) . " Gallery Items.\n";
 
+    // 5. Seed 10 Official Club Lead Accounts
+    $clubAccounts = [
+        ['usr_gdgoc_admin', 'gdgoc@uit.edu', 'GdgocPass123!', 'GDGOC UIT Lead', 'clb_gdgoc_uit_2026'],
+        ['usr_gfg_admin', 'gfgsc@uit.edu', 'GfgscPass123!', 'GFG SC Lead', 'clb_gfg_sc_uit_2026'],
+        ['usr_hr_admin', 'hackerrank@uit.edu', 'HackerPass123!', 'HackerRank Lead', 'clb_hackerrank_uit_2026'],
+        ['usr_ecell_admin', 'ecell@uit.edu', 'EcellPass123!', 'E-Cell Lead', 'clb_ecell_uit_2026'],
+        ['usr_wiki_admin', 'wikiclub@uit.edu', 'WikiclubPass123!', 'WikiClub Tech Lead', 'clb_wikiclub_uit_2026'],
+        ['usr_foss_admin', 'foss@uit.edu', 'FossPass123!', 'FOSS UIT Lead', 'clb_foss_uit_2026'],
+        ['usr_rota_admin', 'rotaract@uit.edu', 'RotaractPass123!', 'Rotaract Lead', 'clb_rotaract_uit_2026'],
+        ['usr_toast_admin', 'toastmasters@uit.edu', 'ToastPass123!', 'Toastmasters Lead', 'clb_toastmasters_ugi_2026'],
+        ['usr_ff_admin', 'flutterflow@uit.edu', 'FlutterPass123!', 'FlutterFlow Lead', 'clb_flutterflow_uit_2026'],
+        ['usr_tedx_admin', 'tedx@uit.edu', 'TedxPass123!', 'TEDxUIT Lead', 'clb_tedx_uit_2026']
+    ];
+
+    $uStmt = $db->prepare("INSERT INTO users (id, email, password_hash, full_name, role, status) VALUES (?, ?, ?, ?, 'club_admin', 'active')");
+    $caStmt = $db->prepare("INSERT INTO club_admins (club_id, user_id) VALUES (?, ?)");
+
+    foreach ($clubAccounts as $acc) {
+        // Check if user exists
+        $chk = $db->prepare("SELECT id FROM users WHERE email = ?");
+        $chk->execute([$acc[1]]);
+        $existingId = $chk->fetchColumn();
+
+        $uid = $existingId ?: $acc[0];
+        $pwdHash = password_hash($acc[2], PASSWORD_DEFAULT);
+
+        if (!$existingId) {
+            $uStmt->execute([$uid, $acc[1], $pwdHash, $acc[3]]);
+        } else {
+            $upd = $db->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
+            $upd->execute([$pwdHash, $uid]);
+        }
+
+        // Link in club_admins
+        $chkCa = $db->prepare("SELECT user_id FROM club_admins WHERE user_id = ? AND club_id = ?");
+        $chkCa->execute([$uid, $acc[4]]);
+        if (!$chkCa->fetchColumn()) {
+            $caStmt->execute([$acc[4], $uid]);
+        }
+    }
+    echo "[+] Seeded 10 Official Club Lead User Accounts.\n";
+
     echo "===========================================\n";
     echo "  Official 10 Clubs Database Seeded!       \n";
     echo "===========================================\n";

@@ -1,6 +1,6 @@
 <?php
 /**
- * Club Leadership Dedicated Login Portal (/club-login.php)
+ * Club Leadership Dedicated Security Login Portal (/club-login.php)
  */
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -21,8 +21,12 @@ if (is_logged_in()) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $captchaInput = $_POST['captcha_code'] ?? '';
+
     if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "Security token invalid. Please try again.";
+        $error = "Security CSRF token invalid. Please try again.";
+    } elseif (!verify_captcha_code($captchaInput)) {
+        $error = "Incorrect CAPTCHA verification code. Please enter the code shown in the image.";
     } else {
         $email    = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
@@ -31,10 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Please enter your club credentials.";
         } else {
             $db = Database::getConnection();
+            // Prepared Statement preventing SQL Injection & Auth Bypass
             $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'club_admin' AND status = 'active'");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
+            // Password Hash Verification using BCRYPT
             if ($user && password_verify($password, $user['password_hash'])) {
                 session_regenerate_id(true);
 
@@ -45,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_role'] = $user['role'];
                 $_SESSION['role']      = $user['role'];
 
-                // Fetch assigned club ID
+                // Fetch assigned club ID safely using prepared statement
                 $stmtClub = $db->prepare("SELECT club_id FROM club_admins WHERE user_id = ?");
                 $stmtClub->execute([$user['id']]);
                 $_SESSION['assigned_club_id'] = $stmtClub->fetchColumn() ?: null;
@@ -55,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: /admin/dashboard.php");
                 exit;
             } else {
-                $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/login portal.";
+                $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/login.php portal.";
             }
         }
     }
@@ -76,7 +82,7 @@ require_once __DIR__ . '/includes/navbar.php';
                 
                 <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1-5 fw-bold mb-2 small">CLUB LEADERSHIP</span>
                 <h4 class="fw-bold mb-1 text-dark">Club Lead Portal</h4>
-                <p class="text-secondary small mb-4">President & Core Team Login</p>
+                <p class="text-secondary small mb-4">President & Core Team Secure Login</p>
 
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
@@ -93,7 +99,7 @@ require_once __DIR__ . '/includes/navbar.php';
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label small fw-semibold">Password</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-secondary"></i></span>
@@ -101,14 +107,26 @@ require_once __DIR__ . '/includes/navbar.php';
                         </div>
                     </div>
 
+                    <!-- Security Verification Code (CAPTCHA) -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Verification Code (CAPTCHA)</label>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <img id="captchaImg" src="/api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='/api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                                <i class="bi bi-arrow-clockwise fs-6"></i>
+                            </button>
+                        </div>
+                        <input type="text" name="captcha_code" class="form-control text-uppercase font-monospace fw-bold" placeholder="ENTER CODE" maxlength="6" autocomplete="off" required>
+                    </div>
+
                     <button type="submit" class="btn btn-success rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-3">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Log In to Club Dashboard
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Log In as Club Lead
                     </button>
                 </form>
 
                 <div class="pt-3 border-top mt-3 small text-muted">
-                    <span>Are you Dean Sir (Main Admin)?</span>
-                    <a href="/admin/login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Dean Sir Login &rarr;</a>
+                    <span>Dean Sir or Faculty Admin?</span>
+                    <a href="/admin/login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Dean Admin Login &rarr;</a>
                 </div>
             </div>
         </div>

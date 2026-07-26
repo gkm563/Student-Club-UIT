@@ -1,16 +1,28 @@
 <?php
 /**
- * Authentication & Session Management for ClubHub UIT
- * Enforces strict role-based access control for Dean Sir and Club Leads.
+ * Authentication & Security Management Engine for ClubHub UIT
+ * Enforces strict role-based access control, CSRF tokens, CAPTCHA verification, and Security Headers.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', '1');
     ini_set('session.use_only_cookies', '1');
+    ini_set('session.cookie_samesite', 'Lax');
     session_start();
 }
 
-// CSRF Protection
+// 1. Security Headers Execution
+function apply_security_headers(): void {
+    if (!headers_sent()) {
+        header("X-Frame-Options: DENY");
+        header("X-Content-Type-Options: nosniff");
+        header("X-XSS-Protection: 1; mode=block");
+        header("Referrer-Policy: strict-origin-when-cross-origin");
+    }
+}
+apply_security_headers();
+
+// 2. CSRF Token Engine
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -23,6 +35,36 @@ function verify_csrf_token(?string $token): bool {
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token ?? '');
 }
 
+// 3. Dynamic CAPTCHA Verification Engine
+function generate_captcha_code(): string {
+    $chars = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ'; // Exclude easily confused chars (0, O, 1, I)
+    $code = '';
+    for ($i = 0; $i < 5; $i++) {
+        $code .= $chars[random_int(0, strlen($chars) - 1)];
+    }
+    $_SESSION['captcha_code'] = $code;
+    return $code;
+}
+
+function get_captcha_code(): string {
+    if (empty($_SESSION['captcha_code'])) {
+        return generate_captcha_code();
+    }
+    return $_SESSION['captcha_code'];
+}
+
+function verify_captcha_code(?string $inputCode): bool {
+    if (empty($_SESSION['captcha_code']) || empty($inputCode)) {
+        return false;
+    }
+    $sessionCode = $_SESSION['captcha_code'];
+    $valid = hash_equals(strtoupper(trim($sessionCode)), strtoupper(trim($inputCode)));
+    // Reset captcha code after verification attempt to prevent replay attacks
+    generate_captcha_code();
+    return $valid;
+}
+
+// 4. Role & Auth Status Engine
 function is_logged_in(): bool {
     return !empty($_SESSION['user_id']);
 }
@@ -51,18 +93,18 @@ function require_login(string $redirectUrl = '/admin/login.php'): void {
 }
 
 function require_super_admin(): void {
-    require_login('/admin/dean-login.php');
+    require_login('/admin/login.php');
     if (get_current_user_role() !== 'super_admin') {
-        header("Location: /admin/dean-login.php?error=" . urlencode("Access Denied: Dean Sir Super Admin privileges required."));
+        header("Location: /admin/login.php?error=" . urlencode("Access Denied: Dean Sir Super Admin privileges required."));
         exit;
     }
 }
 
 function require_club_admin(): void {
-    require_login('/admin/club-login.php');
+    require_login('/club-login.php');
     $role = get_current_user_role();
     if ($role !== 'club_admin' && $role !== 'super_admin') {
-        header("Location: /admin/club-login.php?error=" . urlencode("Access Denied: Club Leadership privileges required."));
+        header("Location: /club-login.php?error=" . urlencode("Access Denied: Club Leadership privileges required."));
         exit;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Dean Sir / Main Super Admin Dedicated Login Portal (/admin/login.php)
+ * Dean Sir / Main Super Admin Dedicated Security Login Portal (/admin/login.php)
  */
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
@@ -21,20 +21,26 @@ if (is_logged_in()) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $captchaInput = $_POST['captcha_code'] ?? '';
+
     if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "Security token invalid. Please try again.";
+        $error = "Security CSRF token invalid. Please try again.";
+    } elseif (!verify_captcha_code($captchaInput)) {
+        $error = "Incorrect CAPTCHA verification code. Please enter the code shown in the image.";
     } else {
         $email    = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
         if (empty($email) || empty($password)) {
-            $error = "Please enter Dean Sir credentials.";
+            $error = "Please enter valid Dean Sir credentials.";
         } else {
             $db = Database::getConnection();
+            // Strict Prepared Statement preventing SQL Injection
             $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin' AND status = 'active'");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
+            // Password Hash Verification using BCRYPT
             if ($user && password_verify($password, $user['password_hash'])) {
                 session_regenerate_id(true);
 
@@ -71,7 +77,7 @@ require_once __DIR__ . '/../includes/navbar.php';
                 
                 <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 fw-bold mb-2 small">SECURED ACCESS</span>
                 <h4 class="fw-bold mb-1 text-dark">Dean Sir Portal</h4>
-                <p class="text-secondary small mb-4">Head of Student Affairs Login</p>
+                <p class="text-secondary small mb-4">Head of Student Affairs Secure Login</p>
 
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
@@ -88,12 +94,24 @@ require_once __DIR__ . '/../includes/navbar.php';
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label small fw-semibold">Password</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-secondary"></i></span>
                             <input type="password" name="password" class="form-control border-start-0" placeholder="••••••••" required>
                         </div>
+                    </div>
+
+                    <!-- Security Verification Code (CAPTCHA) -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Verification Code (CAPTCHA)</label>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <img id="captchaImg" src="/api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='/api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                                <i class="bi bi-arrow-clockwise fs-6"></i>
+                            </button>
+                        </div>
+                        <input type="text" name="captcha_code" class="form-control text-uppercase font-monospace fw-bold" placeholder="ENTER CODE" maxlength="6" autocomplete="off" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-3">
