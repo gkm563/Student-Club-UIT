@@ -320,20 +320,24 @@ $clubPhotos = $clubGalStmt->fetchAll();
                     <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-images text-primary me-2"></i> Official Club Portfolio Gallery</h5>
                     <p class="text-secondary small mb-3">Upload important campus moments & team photos displayed on your Club Detail Page.</p>
 
-                    <form action="" method="POST" enctype="multipart/form-data" class="mb-4">
+                    <form action="" method="POST" enctype="multipart/form-data" class="mb-4 p-3 bg-light rounded-4 border">
                         <input type="hidden" name="action" value="add_club_photo">
-                        <div class="row g-2 align-items-center">
-                            <div class="col-md-5">
-                                <label class="form-label small fw-semibold">Upload Photo File</label>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark"><i class="bi bi-upload text-primary me-1"></i> Upload Photo File (PC)</label>
                                 <input type="file" name="photo_file" class="form-control form-control-sm rounded-3" accept="image/*">
                             </div>
-                            <div class="col-md-5">
-                                <label class="form-label small fw-semibold">Caption / Title</label>
-                                <input type="text" name="caption" class="form-control form-control-sm rounded-3" placeholder="e.g. Annual Orientation / Team Photo">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-dark">Or Paste Image URL</label>
+                                <input type="url" name="media_url" class="form-control form-control-sm rounded-3" placeholder="https://images.unsplash.com/...">
                             </div>
-                            <div class="col-md-2 mt-md-4">
+                            <div class="col-md-9">
+                                <label class="form-label small fw-semibold">Photo Caption / Description</label>
+                                <input type="text" name="caption" class="form-control form-control-sm rounded-3" placeholder="e.g. Annual Tech Orientation 2026 / Executive Team Photo">
+                            </div>
+                            <div class="col-md-3 d-flex align-items-end">
                                 <button type="submit" class="btn btn-sm btn-primary rounded-pill w-100 py-2 fw-bold text-white shadow-xs">
-                                    <i class="bi bi-cloud-arrow-up me-1"></i> Upload
+                                    <i class="bi bi-cloud-arrow-up me-1"></i> Add Photo
                                 </button>
                             </div>
                         </div>
