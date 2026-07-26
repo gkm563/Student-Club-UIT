@@ -48,27 +48,51 @@ if (!function_exists('log_audit')) {
 
 if (!function_exists('upload_image_file')) {
     /**
-     * Handles image file uploads safely to public/uploads/$subFolder
+     * Handles image file uploads with strict MIME magic-bytes checking & execution prevention
      */
     function upload_image_file(?array $fileArray, string $subFolder = 'events', string $fallbackUrl = ''): string {
         if (!$fileArray || !isset($fileArray['error']) || $fileArray['error'] !== UPLOAD_ERR_OK) {
             return $fallbackUrl;
         }
 
-        $allowedExts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-        $fileName = $fileArray['name'];
-        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExts  = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
+        $fileName = strtolower($fileArray['name']);
+        
+        // Prevent double extension attacks (e.g. shell.php.jpg or malicious.phtml.png)
+        if (preg_match('/\.(php|phtml|php3|php4|php5|phps|cgi|pl|exe|sh|asp|aspx|jsp)\b/i', $fileName)) {
+            return $fallbackUrl;
+        }
+
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
         if (!in_array($ext, $allowedExts)) {
             return $fallbackUrl;
         }
 
-        $uploadDir = __DIR__ . '/../public/uploads/' . $subFolder . '/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
+        // Magic Bytes / MIME Inspection via finfo
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $fileArray['tmp_name']);
+            finfo_close($finfo);
+
+            if (!in_array($mimeType, $allowedMimes)) {
+                return $fallbackUrl;
+            }
         }
 
-        $newFilename = 'img_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+        $uploadDir = __DIR__ . '/../public/uploads/' . $subFolder . '/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        // Generate Security .htaccess in uploads directory disabling PHP execution
+        $htaccessPath = __DIR__ . '/../public/uploads/.htaccess';
+        if (!file_exists($htaccessPath)) {
+            @file_put_contents($htaccessPath, "php_flag engine off\nSetHandler default-handler\n<FilesMatch \"\.(php|phtml|php5|py|sh|pl|cgi)$\">\n    Order allow,deny\n    Deny from all\n</FilesMatch>\n");
+        }
+
+        $newFilename = 'img_' . time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
         $targetFilePath = $uploadDir . $newFilename;
 
         if (move_uploaded_file($fileArray['tmp_name'], $targetFilePath)) {

@@ -1,13 +1,13 @@
 <?php
 /**
  * RESTful API Endpoint for Campus Gallery Media Items (ClubHub UIT)
- * Fetches gallery photos & media linked with student clubs from database.
  */
+
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../config/database.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
-
-require_once __DIR__ . '/../config/database.php';
 
 try {
     $db = Database::getConnection();

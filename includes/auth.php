@@ -11,6 +11,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Load Campus Cyber Security Firewall WAF Defense Engine
+require_once __DIR__ . '/security_firewall.php';
+
 // 1. Security Headers Execution
 function apply_security_headers(): void {
     if (!headers_sent()) {

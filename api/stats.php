@@ -1,17 +1,13 @@
 <?php
 /**
  * RESTful API Endpoint for Live Community Statistics (ClubHub UIT)
- * Calculates real database counts for:
- *  - Active Clubs
- *  - Active Members / Core Leadership Roster
- *  - Events Organized
- *  - Activities Completed
  */
+
+require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../config/database.php';
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
-
-require_once __DIR__ . '/../config/database.php';
 
 try {
     $db = Database::getConnection();

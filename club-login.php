@@ -22,15 +22,18 @@ if (is_logged_in()) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $captchaInput = $_POST['captcha_code'] ?? '';
+    $email        = trim($_POST['email'] ?? '');
+    $password     = $_POST['password'] ?? '';
 
-    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+    $rateLimitError = check_login_rate_limit($email);
+
+    if ($rateLimitError) {
+        $error = $rateLimitError;
+    } elseif (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         $error = "Security CSRF token invalid. Please try again.";
     } elseif (!verify_captcha_code($captchaInput)) {
         $error = "Incorrect CAPTCHA verification code. Please enter the code shown in the image.";
     } else {
-        $email    = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
-
         if (empty($email) || empty($password)) {
             $error = "Please enter your club credentials.";
         } else {
@@ -43,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Password Hash Verification using BCRYPT
             if ($user && password_verify($password, $user['password_hash'])) {
                 session_regenerate_id(true);
+                reset_login_rate_limit($email);
 
                 $_SESSION['user_id']   = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
@@ -61,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: /admin/dashboard.php");
                 exit;
             } else {
+                record_failed_login_attempt($email);
                 $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/login.php portal.";
             }
         }
