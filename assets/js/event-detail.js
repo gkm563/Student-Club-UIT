@@ -148,6 +148,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const detailClubShort = document.getElementById('detailClubShort');
         if (detailClubShort) detailClubShort.textContent = `${event.club_short_name || 'Student Club'} • Official SAC Society`;
+
+        // Fetch Uploaded Event Photos from Gallery API
+        fetch(getApiUrl(`gallery.php?event_id=${encodeURIComponent(event.id)}`))
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === 'success' && res.data && res.data.length > 0) {
+                    renderEventGallery(res.data);
+                }
+            })
+            .catch(err => console.error('Gallery fetch error:', err));
+    }
+
+    function renderEventGallery(photos) {
+        const galleryGrid = document.getElementById('eventGalleryGrid');
+        if (!galleryGrid) return;
+
+        galleryGrid.innerHTML = photos.map(photo => `
+            <div class="col-6 col-md-6">
+                <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 200px;">
+                    <img src="${escapeHtml(photo.media_url)}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(photo.caption || 'Event Recap Photo')}">
+                    <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">${escapeHtml(photo.caption || 'Event Recap Moment')}</div>
+                </div>
+            </div>
+        `).join('');
     }
 
     function renderErrorState() {

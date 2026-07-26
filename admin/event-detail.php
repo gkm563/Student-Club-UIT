@@ -92,6 +92,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
     }
 }
 
+// Handle Upload Event Gallery Photo
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_upload_event_photo'])) {
+    $mediaUrl = trim($_POST['media_url'] ?? '');
+    $caption  = trim($_POST['caption'] ?? '');
+
+    $uploadedPhoto = upload_image_file($_FILES['photo_file'] ?? null, 'events', $mediaUrl);
+    $finalUrl = $uploadedPhoto ?: $mediaUrl;
+
+    if (empty($finalUrl)) {
+        $error = "Please select an image file or provide an image URL.";
+    } else {
+        try {
+            $galId = 'gal_' . bin2hex(random_bytes(4));
+            $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, event_id, media_url, caption) VALUES (?, ?, ?, ?, ?)");
+            $gStmt->execute([$galId, $club['id'], $eventId, $finalUrl, $caption]);
+            $success = "Event photo uploaded successfully!";
+        } catch (Exception $e) {
+            $error = "Failed to upload photo: " . $e->getMessage();
+        }
+    }
+}
+
+// Handle Delete Event Gallery Photo
+if (isset($_GET['delete_photo'])) {
+    $photoId = $_GET['delete_photo'];
+    $dpStmt = $db->prepare("DELETE FROM gallery_items WHERE id = ? AND club_id = ?");
+    $dpStmt->execute([$photoId, $club['id']]);
+    header('Location: /admin/event-detail.php?id=' . urlencode($eventId) . '&msg=Photo+deleted');
+    exit;
+}
+
+// Fetch event gallery items
+$eventGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE event_id = ? ORDER BY created_at DESC");
+$eventGalStmt->execute([$eventId]);
+$eventPhotos = $eventGalStmt->fetchAll();
+
 // Format date for datetime-local input
 $formattedDate = '';
 if (!empty($event['event_date'])) {
@@ -179,6 +215,48 @@ if (!empty($event['event_date'])) {
                             <div><i class="bi bi-link-45deg text-success me-2"></i> <strong>Registration:</strong> <a href="<?= htmlspecialchars($event['registration_link']) ?>" target="_blank" class="text-truncate d-inline-block align-middle" style="max-width: 150px;"><?= htmlspecialchars($event['registration_link']) ?></a></div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Event Photo Gallery Manager Card -->
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white p-4">
+                    <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-images text-primary me-2"></i> Event Photo Gallery</h5>
+                    <p class="text-secondary small mb-3">Upload recap photos from this event for students to view on event page.</p>
+
+                    <!-- Upload Form -->
+                    <form action="/admin/event-detail.php?id=<?= htmlspecialchars($event['id']) ?>" method="POST" enctype="multipart/form-data" class="mb-4">
+                        <input type="hidden" name="action_upload_event_photo" value="1">
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold">Select Photo (File Upload)</label>
+                            <input type="file" name="photo_file" class="form-control form-control-sm rounded-3" accept="image/*">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label small fw-semibold">Photo Caption / Title</label>
+                            <input type="text" name="caption" class="form-control form-control-sm rounded-3" placeholder="e.g. Keynote Session / Prize Distribution">
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary rounded-pill w-100 py-2 fw-bold text-white shadow-xs">
+                            <i class="bi bi-cloud-arrow-up me-1"></i> Upload Photo to Gallery
+                        </button>
+                    </form>
+
+                    <!-- Uploaded Photos Grid -->
+                    <h6 class="fw-bold small text-muted border-bottom pb-2 mb-3">Uploaded Photos (<?= count($eventPhotos) ?>)</h6>
+                    <?php if (empty($eventPhotos)): ?>
+                        <div class="text-center py-3 text-muted small bg-light rounded-3">No photos uploaded for this event yet.</div>
+                    <?php else: ?>
+                        <div class="row g-2">
+                            <?php foreach ($eventPhotos as $photo): ?>
+                                <div class="col-6">
+                                    <div class="rounded-3 overflow-hidden border position-relative" style="height: 100px;">
+                                        <img src="<?= htmlspecialchars($photo['media_url']) ?>" class="w-100 h-100 object-fit-cover">
+                                        <a href="/admin/event-detail.php?id=<?= urlencode($event['id']) ?>&delete_photo=<?= urlencode($photo['id']) ?>" onclick="return confirm('Delete this photo?');" class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 m-1 p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.7rem;" title="Delete Photo">
+                                            <i class="bi bi-x-lg"></i>
+                                        </a>
+                                    </div>
+                                    <span class="small text-muted d-block text-truncate mt-1" style="font-size: 0.7rem;"><?= htmlspecialchars($photo['caption'] ?: 'Photo') ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
