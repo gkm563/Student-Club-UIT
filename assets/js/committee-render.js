@@ -14,17 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const members = response.data;
                 committeeContainer.innerHTML = members.map(m => {
                     const avatar = m.photo || 'assets/United Logo.webp';
+                    const isStudent = (m.designation && m.designation.toUpperCase().includes('STUDENT'));
+                    const cardExtraClass = isStudent ? 'committee-card-student' : '';
+
                     return `
                         <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card h-100 border-0 shadow-sm rounded-4 text-center p-4 transition-hover style-committee-card">
-                                <div class="position-relative d-inline-block mx-auto mb-3">
-                                    <img src="${avatar}" alt="${m.name}" class="rounded-circle shadow-sm border border-4 border-white" style="width: 140px; height: 140px; object-fit: cover;">
+                            <div class="committee-card-3d text-center ${cardExtraClass}">
+                                <div class="committee-avatar-ring">
+                                    <img src="${avatar}" alt="${m.name}" class="committee-avatar-img" onerror="this.src='assets/United Logo.webp'">
                                 </div>
-                                <h5 class="fw-bold text-dark mb-1">${m.name}</h5>
-                                <div class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2 d-inline-block" style="font-size: 0.75rem; letter-spacing: 1px;">
-                                    ${m.designation}
+                                <h5 class="fw-bold text-dark mb-1" style="font-size: 1.15rem; letter-spacing: -0.3px;">${m.name}</h5>
+                                <div class="committee-designation-badge">
+                                    <i class="bi bi-award-fill me-1"></i> ${m.designation}
                                 </div>
-                                <p class="small text-muted mb-0 fw-medium">${m.role_title}</p>
+                                <p class="committee-role-tag mb-2">${m.role_title}</p>
+                                ${m.bio ? `<p class="small text-muted mb-0 px-2" style="font-size: 0.8rem; line-height: 1.4;">${m.bio}</p>` : ''}
                             </div>
                         </div>
                     `;
