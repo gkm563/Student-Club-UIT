@@ -60,11 +60,9 @@ function verify_captcha_code(?string $inputCode): bool {
     if (empty($_SESSION['captcha_code']) || empty($inputCode)) {
         return false;
     }
-    $sessionCode = $_SESSION['captcha_code'];
-    $valid = hash_equals(strtoupper(trim($sessionCode)), strtoupper(trim($inputCode)));
-    // Reset captcha code after verification attempt to prevent replay attacks
-    generate_captcha_code();
-    return $valid;
+    $sessionCode = trim((string)$_SESSION['captcha_code']);
+    $userCode    = trim((string)$inputCode);
+    return (strcasecmp($sessionCode, $userCode) === 0);
 }
 
 // 4. Role & Auth Status Engine

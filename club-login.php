@@ -116,8 +116,8 @@ require_once __DIR__ . '/includes/header.php';
                     <div class="mb-4">
                         <label class="form-label small fw-semibold">Verification Code (CAPTCHA)</label>
                         <div class="d-flex align-items-center gap-2 mb-2">
-                            <img id="captchaImg" src="/api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
-                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='/api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                            <img id="captchaImg" src="<?= $assetPrefix ?>api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='<?= $assetPrefix ?>api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
                                 <i class="bi bi-arrow-clockwise fs-6"></i>
                             </button>
                         </div>
