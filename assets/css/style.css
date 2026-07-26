@@ -282,42 +282,101 @@ body {
 
 .hero-stats-row {
     display: flex;
-    gap: 32px;
+    gap: 18px;
     color: #ffffff;
     flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
 }
 
-.hero-stat-item {
+/* Ultra-Premium 3D Floating Glass Stat Cards */
+.hero-stat-card-3d {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 10px 18px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-stat-card-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.hero-stat-card-3d:hover::before {
+    opacity: 1;
+}
+
+.hero-stat-card-3d:hover {
+    transform: translateY(-6px) scale(1.05);
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 0 25px rgba(255, 255, 255, 0.25);
+}
+
+.hero-stat-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.12);
-    padding: 8px 16px;
-    border-radius: 14px;
-    backdrop-filter: blur(8px);
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
+.hero-stat-card-3d:hover .hero-stat-icon-box {
+    transform: scale(1.18) rotate(6deg);
+}
+
+.trophy-bg { background: rgba(244, 63, 94, 0.25); border: 1px solid rgba(244, 63, 94, 0.4); box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3); }
+.calendar-bg { background: rgba(96, 165, 250, 0.25); border: 1px solid rgba(96, 165, 250, 0.4); box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); }
+.members-bg { background: rgba(192, 132, 252, 0.25); border: 1px solid rgba(192, 132, 252, 0.4); box-shadow: 0 4px 12px rgba(192, 132, 252, 0.3); }
+.activities-bg { background: rgba(52, 211, 153, 0.25); border: 1px solid rgba(52, 211, 153, 0.4); box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3); }
 
 .hero-stat-icon {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #ffffff;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
 }
 
-.hero-stat-icon.trophy { color: #f43f5e; }
+.hero-stat-icon.trophy { color: #ff4d6d; }
 .hero-stat-icon.calendar { color: #60a5fa; }
 .hero-stat-icon.members { color: #c084fc; }
 .hero-stat-icon.activities { color: #34d399; }
 
 .hero-stat-num {
     font-weight: 800;
-    font-size: 1.25rem;
-    line-height: 1;
+    font-size: 1.4rem;
+    line-height: 1.1;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    letter-spacing: -0.3px;
 }
 
 .hero-stat-label {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 500;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
 }
 
 .hero-wave-divider {
@@ -1567,17 +1626,29 @@ body {
         height: 40px;
     }
 
-    .hero-stats {
+    .hero-stats-row {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        max-width: 360px;
-        margin: 0 auto;
+        gap: 12px;
+        max-width: 420px;
+        margin: 15px auto 0;
     }
 
-    .hero-stat-item {
-        padding: 10px 12px;
-        justify-content: center;
+    .hero-stat-card-3d {
+        padding: 10px 14px;
+        gap: 10px;
+        justify-content: flex-start;
+        border-radius: 16px;
+    }
+
+    .hero-stat-icon-box {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+    }
+
+    .hero-stat-icon {
+        font-size: 1.2rem;
     }
 
     .hero-stat-num {
