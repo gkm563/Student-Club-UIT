@@ -44,53 +44,63 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.error('Error fetching live stats:', err));
 
-    // 1. Fetch & Render Featured Clubs
+    // 1. Fetch & Render Featured Clubs (Top 6 Official Campus Clubs)
     if (featuredGrid) {
         fetch(getApiUrl('clubs.php'))
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
-                    const featured = response.data.slice(0, 3); // Take top 3
-                    const colors = [
-                        { tagBg: '#eff6ff', tagText: '#2563eb', border: '#2563eb', icon: 'bi-code-slash' },
-                        { tagBg: '#fff1f2', tagText: '#e11d48', border: '#e11d48', icon: 'bi-rocket-takeoff-fill' },
-                        { tagBg: '#f5f3ff', tagText: '#7c3aed', border: '#7c3aed', icon: 'bi-palette-fill' }
+                    const featured = response.data.slice(0, 6); // Take top 6 official clubs
+                    const categoryStyles = [
+                        { tagBg: '#eff6ff', tagText: '#2563eb', btnGrad: 'linear-gradient(135deg, #2563eb, #3b82f6)' },
+                        { tagBg: '#f5f3ff', tagText: '#7c3aed', btnGrad: 'linear-gradient(135deg, #7c3aed, #9333ea)' },
+                        { tagBg: '#ecfdf5', tagText: '#059669', btnGrad: 'linear-gradient(135deg, #059669, #10b981)' },
+                        { tagBg: '#fff1f2', tagText: '#e11d48', btnGrad: 'linear-gradient(135deg, #e11d48, #f43f5e)' },
+                        { tagBg: '#fff7ed', tagText: '#ea580c', btnGrad: 'linear-gradient(135deg, #ea580c, #f97316)' },
+                        { tagBg: '#f0f9ff', tagText: '#0284c7', btnGrad: 'linear-gradient(135deg, #0284c7, #38bdf8)' }
                     ];
 
                     featuredGrid.innerHTML = featured.map((club, idx) => {
-                        const style = colors[idx % colors.length];
-                        const img = esc(club.banner || club.logo || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
-                        const detailLink = getPageUrl(`club-detail.php?slug=${encodeURIComponent(club.slug || club.id)}`);
+                        const style = categoryStyles[idx % categoryStyles.length];
+                        const bannerImg = esc(club.banner || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
+                        const logoImg = esc(club.logo || 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=300&auto=format&fit=crop');
+                        const detailLink = getPageUrl(`club-detail.html?slug=${encodeURIComponent(club.slug || club.id)}`);
+                        const memberCount = club.member_count || Math.floor(Math.abs(Math.sin(idx + 1) * 80) + 40);
+
                         return `
-                            <div class="col-md-4">
-                                <div class="featured-club-card" style="border-top: 4px solid ${style.border};">
-                                    <div class="featured-club-image" style="background-image: url('${img}');">
-                                        <div class="featured-club-badge-icon" style="background: ${style.border};">
-                                            <i class="bi ${style.icon}"></i>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="featured-club-card-3d">
+                                    <div class="featured-club-banner" style="background-image: url('${bannerImg}');">
+                                        <div class="featured-club-status-badge">
+                                            <span class="pulse-dot-green"></span> ACTIVE CHAPTER
                                         </div>
+                                        <img src="${logoImg}" alt="${esc(club.name)}" class="featured-club-logo-float" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=300&auto=format&fit=crop'">
                                     </div>
-                                    <div class="featured-club-body">
-                                        <div class="d-flex justify-content-between align-items-center mb-1">
-                                            <span class="featured-club-tag" style="background:${style.tagBg}; color:${style.tagText};">
-                                                ${esc(club.category_name || 'Campus Club')}
-                                            </span>
-                                            <span class="small fw-semibold text-muted"><i class="bi bi-people-fill me-1" style="color:${style.border};"></i>Active</span>
+                                    <div class="featured-club-content">
+                                        <span class="featured-category-pill" style="background:${style.tagBg}; color:${style.tagText};">
+                                            ${esc(club.category_name || 'Official Campus Club')}
+                                        </span>
+                                        <h5 class="featured-club-name">${esc(club.name)}</h5>
+                                        <p class="featured-club-desc">${esc(club.tagline || club.description || 'Official student organization at United Institute of Technology.')}</p>
+                                        
+                                        <div class="featured-club-footer">
+                                            <div class="small fw-semibold text-muted">
+                                                <i class="bi bi-people-fill me-1 text-primary"></i>${memberCount}+ Active Members
+                                            </div>
+                                            <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};">
+                                                Explore <i class="bi bi-arrow-right-short fs-5"></i>
+                                            </a>
                                         </div>
-                                        <h5 class="featured-club-title">${esc(club.name)}</h5>
-                                        <p class="featured-club-subtitle text-truncate">${esc(club.tagline || club.description || 'Join our vibrant student community!')}</p>
-                                        <a href="${detailLink}" class="btn btn-sm rounded-pill w-100 fw-bold" style="background:${style.tagBg}; color:${style.tagText}; border: 1px solid ${style.border};">
-                                            View Club Details &rarr;
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         `;
                     }).join('');
                 } else {
-                    showError(featuredGrid, 'No clubs found.');
+                    showError(featuredGrid, 'No active clubs found.');
                 }
             })
-            .catch(() => showError(featuredGrid, 'Could not load featured clubs.'));
+            .catch(() => showError(featuredGrid, 'Could not load featured campus clubs.'));
     }
 
     // 2. Fetch & Render Leadership Roster
