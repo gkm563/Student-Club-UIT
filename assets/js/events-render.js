@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ev.preventDefault();
                 const eventId = btn.dataset.eventId;
                 if (eventId) {
-                    openEventModal(eventId);
+                    window.location.href = `event-detail.html?id=${eventId}`;
                 }
             });
         });
@@ -485,12 +485,12 @@ function renderFloatingEventCard(event, isPast = false) {
                         </div>
 
                         ${!isPast && event.status !== 'completed' ? `
-                            <button class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2 open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
                                 <span>RSVP & View Full Details</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
-                            </button>
+                            </a>
                         ` : `
-                            <button class="btn btn-light text-dark border rounded-pill w-100 py-2.5 text-center d-block open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="font-size: 0.82rem;"><i class="bi bi-info-circle me-1"></i> View Session Summary</button>
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-light text-dark border rounded-pill w-100 py-2.5 text-center d-block text-decoration-none" style="font-size: 0.82rem;"><i class="bi bi-info-circle me-1"></i> View Session Summary</a>
                         `}
                     </div>
                 </div>

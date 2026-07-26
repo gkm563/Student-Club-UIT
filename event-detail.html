@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details | ClubHub UIT</title>
+    <meta name="description" content="View complete event details, agenda, venue, rewards, and RSVP for student club events at United Institute of Technology.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom Design CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-light">
+
+<!-- Universal Header Container -->
+<div id="header-placeholder"></div>
+
+<!-- Event Detail Hero Header -->
+<section class="py-5 google-meta-hero">
+    <div class="google-mesh-orb-1"></div>
+    <div class="google-mesh-orb-2"></div>
+
+    <div class="container py-3 position-relative" style="z-index: 2;">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium"><i class="bi bi-house-door-fill me-1"></i> Home</a></li>
+                <li class="breadcrumb-item"><a href="events.html" class="text-white-80 text-decoration-none fw-medium">Events</a></li>
+                <li class="breadcrumb-item active text-white fw-bold" id="eventBreadcrumbTitle" aria-current="page">Event Details</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center justify-content-between g-4">
+            <div class="col-lg-8">
+                <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
+                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold" id="detailStatusBadge"><i class="bi bi-calendar-event me-1"></i> Upcoming Event</span>
+                    <span class="badge bg-white-10 text-white border border-white-20 rounded-pill px-3 py-1.5 fw-bold backdrop-blur" id="detailClubBadge"><i class="bi bi-shield-fill text-info me-1"></i> Student Chapter</span>
+                </div>
+
+                <h1 class="fw-extrabold text-white mb-3 display-4" id="detailTitle" style="letter-spacing: -1.2px; line-height: 1.15;">
+                    Loading Session Title...
+                </h1>
+
+                <!-- Specs Meta Row -->
+                <div class="d-flex flex-wrap align-items-center gap-4 text-white-80 small fw-medium">
+                    <span><i class="bi bi-geo-alt-fill text-danger me-1.5 fs-6"></i> <strong class="text-white" id="detailVenue">Venue Loading...</strong></span>
+                    <span><i class="bi bi-calendar3 text-info me-1.5 fs-6"></i> <strong class="text-white" id="detailDateTime">Date Loading...</strong></span>
+                    <span><i class="bi bi-people-fill text-warning me-1.5 fs-6"></i> <strong class="text-white" id="detailRsvpCount">0+ Coders RSVP'd</strong></span>
+                </div>
+            </div>
+
+            <!-- Quick Action Top Card -->
+            <div class="col-lg-4 text-lg-end">
+                <a href="#rsvpFormSection" class="btn btn-light rounded-pill px-4 py-3 fw-bold text-primary shadow-lg d-inline-flex align-items-center gap-2">
+                    <span>Jump to Registration</span>
+                    <i class="bi bi-arrow-down-short fs-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Event Detail Content Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Left Main Column (8 Cols): Cover, About, Rewards, Agenda, Organizers -->
+            <div class="col-lg-8">
+                <!-- Event Cover Image Banner -->
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    <div class="position-relative" style="height: 380px;">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" id="detailBannerImg" class="w-100 h-100 object-fit-cover" alt="Event Cover Banner">
+                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.65) 100%);"></div>
+
+                        <!-- Floating Date Pill -->
+                        <div class="position-absolute top-0 start-0 m-4 z-2">
+                            <div class="google-date-badge text-center shadow-lg px-3 py-2" style="min-width: 65px;">
+                                <span class="d-block fw-extrabold text-primary lh-1" id="detailDay" style="font-size: 1.5rem;">01</span>
+                                <span class="small fw-bold text-dark text-uppercase" id="detailMonthYear" style="font-size: 0.72rem;">MAY '26</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rewards & Perks Highlight Card -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white border-start border-4 border-warning" id="detailRewardsCard">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-warning-subtle text-warning p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
+                            <i class="bi bi-trophy-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-1">Rewards, Swags & Certificates</h6>
+                            <p class="text-secondary small mb-0 fs-6" id="detailOutcomes">Laptop Bags, GFG Goodies & Swags, Certificates for all participants.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Event Description -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+                    <h4 class="fw-bold text-dark mb-3">About This Event</h4>
+                    <p class="text-secondary mb-4" id="detailDescription" style="line-height: 1.75; font-size: 1.02rem;">
+                        Detailed description loading...
+                    </p>
+
+                    <h5 class="fw-bold text-dark mb-3">What You Will Gain</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-dark d-block small">Hands-on Technical Practice</strong>
+                                    <span class="small text-secondary">Solve live competitive problems & build real projects.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-dark d-block small">Mentorship & Guidance</strong>
+                                    <span class="small text-secondary">Interact directly with senior domain leads & mentors.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-dark d-block small">Certificates & Credentials</strong>
+                                    <span class="small text-secondary">Get official SAC verified participation certificates.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
+                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
+                                <div>
+                                    <strong class="text-dark d-block small">Swags & Cash Prizes</strong>
+                                    <span class="small text-secondary">Win exclusive chapter swags, t-shirts & goodies.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Organizing Chapter Info Card -->
+                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                    <h5 class="fw-bold text-dark mb-3">Organized By</h5>
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="assets/images/clubs/gfg.png" id="detailClubLogo" class="rounded-circle bg-light p-1 border shadow-xs" style="width: 58px; height: 58px; object-fit: cover;" alt="Club Logo">
+                            <div>
+                                <h5 class="fw-bold text-dark mb-0" id="detailClubName">Organizing Club</h5>
+                                <span class="small text-secondary" id="detailClubShort">Official Student Society • SAC Governed</span>
+                            </div>
+                        </div>
+                        <a href="clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                            <i class="bi bi-collection me-1"></i> View Club Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column (4 Cols): Sticky RSVP Registration Ticket Card -->
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 90px; z-index: 900;" id="rsvpFormSection">
+                    <div class="card border-0 shadow-xl rounded-4 overflow-hidden bg-white">
+                        <div class="p-4 text-white" style="background: linear-gradient(135deg, #1d4ed8, #0284c7) !important;">
+                            <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-2">Registration Ticket</span>
+                            <h4 class="fw-bold text-white mb-1">Confirm Your RSVP</h4>
+                            <p class="small text-white-80 mb-0">Fill out your details to secure your seat for this session.</p>
+                        </div>
+
+                        <div class="card-body p-4">
+                            <form id="eventRsvpForm">
+                                <div class="mb-3">
+                                    <label for="rsvpName" class="form-label small fw-bold text-dark">Full Name *</label>
+                                    <input type="text" class="form-control rounded-3 py-2 fs-6" id="rsvpName" placeholder="Enter your full name" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="rsvpStudentId" class="form-label small fw-bold text-dark">College Roll No. / Student ID *</label>
+                                    <input type="text" class="form-control rounded-3 py-2 fs-6" id="rsvpStudentId" placeholder="e.g. 2301040100..." required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="rsvpBranch" class="form-label small fw-bold text-dark">Branch & Year *</label>
+                                    <select class="form-select rounded-3 py-2 fs-6" id="rsvpBranch" required>
+                                        <option value="">Select Branch / Year</option>
+                                        <option value="CSE 1st Year">CSE - 1st Year</option>
+                                        <option value="CSE 2nd Year">CSE - 2nd Year</option>
+                                        <option value="CSE 3rd Year">CSE - 3rd Year</option>
+                                        <option value="CSE 4th Year">CSE - 4th Year</option>
+                                        <option value="IT / ECE">IT / ECE</option>
+                                        <option value="Other Branch">Other Department</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="rsvpEmail" class="form-label small fw-bold text-dark">Email Address *</label>
+                                    <input type="email" class="form-control rounded-3 py-2 fs-6" id="rsvpEmail" placeholder="yourname@uit.ac.in" required>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="rsvpPhone" class="form-label small fw-bold text-dark">WhatsApp Number *</label>
+                                    <input type="tel" class="form-control rounded-3 py-2 fs-6" id="rsvpPhone" placeholder="+91 9876543210" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary rounded-pill w-100 py-3 fw-bold text-white shadow-md d-flex align-items-center justify-content-center gap-2" id="rsvpSubmitBtn" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none;">
+                                    <span>Confirm My RSVP Now</span>
+                                    <i class="bi bi-arrow-right-short fs-5"></i>
+                                </button>
+                            </form>
+
+                            <div id="rsvpSuccessAlert" class="alert alert-success rounded-3 mt-3 d-none mb-0 small">
+                                <i class="bi bi-check-circle-fill me-1 fs-6"></i>
+                                <strong>RSVP Confirmed!</strong> Your seat has been reserved. Check your email for pass details.
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-light p-3 text-center border-top">
+                            <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i> Verified SAC Event • Free Registration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Universal Footer Container -->
+<div id="footer-placeholder"></div>
+
+<!-- JS Dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/layout-loader.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/event-detail.js"></script>
+</body>
+</html>
