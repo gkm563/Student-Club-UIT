@@ -1,10 +1,12 @@
 <?php
 session_start();
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
 
 // Auth Check for Club Admin
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'club_admin') {
-    header('Location: /admin/login.php');
+    header('Location: club-login.php');
     exit;
 }
 
