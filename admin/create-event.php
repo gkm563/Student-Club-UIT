@@ -20,10 +20,11 @@ $stmt = $db->prepare("
     SELECT c.*, cat.name as category_name
     FROM clubs c
     JOIN club_admins ca ON ca.club_id = c.id
+    LEFT JOIN categories cat ON c.category_id = cat.id
     WHERE ca.user_id = ?
     LIMIT 1
 ");
-$stmt->execute([$_SESSION['user_id']]);
+$stmt->execute([get_current_user_id()]);
 $club = $stmt->fetch();
 
 if (!$club) {
