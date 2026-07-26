@@ -20,14 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             debounceTimer = setTimeout(() => {
-                fetch(`/api/search.php?q=${encodeURIComponent(query)}`)
+                fetch(`api/search.php?q=${encodeURIComponent(query)}`)
                     .then(res => res.json())
                     .then(data => {
                         if (data.results && data.results.length > 0) {
                             let html = '';
                             data.results.forEach(item => {
                                 html += `
-                                    <a href="/club-detail.php?slug=${encodeURIComponent(item.slug)}" class="search-result-item">
+                                    <a href="club-detail.php?slug=${encodeURIComponent(item.slug)}" class="search-result-item">
                                         <div class="me-3">
                                             <span class="badge bg-primary-subtle text-primary border rounded-pill">${escapeHtml(item.category_name)}</span>
                                         </div>

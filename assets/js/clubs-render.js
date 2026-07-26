@@ -23,11 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clubSearchInput.value = currentSearch;
         }
 
-        const getApiUrl = (endpoint) => {
-            if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
-            if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
-            return `/api/${endpoint}`;
-        };
+        const getApiUrl = (endpoint) => `api/${endpoint}`;
 
         function loadClubs() {
             clubsGrid.innerHTML = `
@@ -262,11 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const getApiUrl = (endpoint) => {
-            if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
-            if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
-            return `/api/${endpoint}`;
-        };
+        const getApiUrl = (endpoint) => `api/${endpoint}`;
 
         fetch(getApiUrl(`clubs.php?id=${encodeURIComponent(clubId)}`))
             .then(res => res.json())

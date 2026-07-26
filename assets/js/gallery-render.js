@@ -9,11 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allGalleryItems = [];
 
-    const getApiUrl = (endpoint) => {
-        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
-        if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
-        return `/api/${endpoint}`;
-    };
+    const getApiUrl = (endpoint) => `api/${endpoint}`;
 
     fetch(getApiUrl('gallery.php'))
         .then(res => res.json())

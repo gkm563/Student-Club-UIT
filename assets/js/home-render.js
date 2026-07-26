@@ -9,17 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const featuredGrid = document.getElementById('featuredClubsGrid');
     const leadershipContainer = document.getElementById('homeLeadershipList');
 
-    const getApiUrl = (endpoint) => {
-        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
-        if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
-        return `/api/${endpoint}`;
-    };
-
-    const getPageUrl = (page) => {
-        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/${page}`;
-        if (window.location.pathname.startsWith('/UIT')) return `/UIT/${page}`;
-        return `/${page}`;
-    };
+    const getApiUrl = (endpoint) => `api/${endpoint}`;
+    const getPageUrl = (page) => `${page}`;
 
     // 0. Fetch & Render Real Database Statistics (No Dummy Data)
     fetch(getApiUrl('stats.php'))
