@@ -23,6 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
             clubSearchInput.value = currentSearch;
         }
 
+        const getApiUrl = (endpoint) => {
+            if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
+            if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
+            return `/api/${endpoint}`;
+        };
+
         function loadClubs() {
             clubsGrid.innerHTML = `
                 <div class="col-12 text-center py-5 text-muted">
@@ -31,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            const apiUrl = `/api/clubs.php?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}&sort=${encodeURIComponent(currentSort)}`;
+            const apiUrl = getApiUrl(`clubs.php?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}&sort=${encodeURIComponent(currentSort)}`);
 
             fetch(apiUrl)
                 .then(res => res.json())
@@ -256,7 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch(`/api/clubs.php?id=${encodeURIComponent(clubId)}`)
+        const getApiUrl = (endpoint) => {
+            if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
+            if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
+            return `/api/${endpoint}`;
+        };
+
+        fetch(getApiUrl(`clubs.php?id=${encodeURIComponent(clubId)}`))
             .then(res => res.json())
             .then(response => {
                 if (response.status !== 'success' || !response.data) {

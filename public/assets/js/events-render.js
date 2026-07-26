@@ -16,8 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentClubFilter = 'all';
     let currentStatusTab = 'all';
 
+    const getApiUrl = (endpoint) => {
+        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
+        if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
+        return `/api/${endpoint}`;
+    };
+
     // Fetch Events API
-    fetch('/api/events.php')
+    fetch(getApiUrl('events.php'))
         .then(res => res.json())
         .then(response => {
             if (response.status !== 'success') {

@@ -9,8 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const featuredGrid = document.getElementById('featuredClubsGrid');
     const leadershipContainer = document.getElementById('homeLeadershipList');
 
+    const getApiUrl = (endpoint) => {
+        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
+        if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
+        return `/api/${endpoint}`;
+    };
+
+    const getPageUrl = (page) => {
+        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/${page}`;
+        if (window.location.pathname.startsWith('/UIT')) return `/UIT/${page}`;
+        return `/${page}`;
+    };
+
     // 0. Fetch & Render Real Database Statistics (No Dummy Data)
-    fetch('/api/stats.php')
+    fetch(getApiUrl('stats.php'))
         .then(res => res.json())
         .then(response => {
             if (response.status === 'success' && response.data) {
@@ -43,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Fetch & Render Featured Clubs
     if (featuredGrid) {
-        fetch('/api/clubs.php')
+        fetch(getApiUrl('clubs.php'))
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
@@ -57,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     featuredGrid.innerHTML = featured.map((club, idx) => {
                         const style = colors[idx % colors.length];
                         const img = esc(club.banner || club.logo || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
+                        const detailLink = getPageUrl(`club-detail.php?slug=${encodeURIComponent(club.slug || club.id)}`);
                         return `
                             <div class="col-md-4">
                                 <div class="featured-club-card" style="border-top: 4px solid ${style.border};">
@@ -74,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </div>
                                         <h5 class="featured-club-title">${esc(club.name)}</h5>
                                         <p class="featured-club-subtitle text-truncate">${esc(club.tagline || club.description || 'Join our vibrant student community!')}</p>
-                                        <a href="/club-detail.php?slug=${encodeURIComponent(club.slug || club.id)}" class="btn btn-sm rounded-pill w-100 fw-bold" style="background:${style.tagBg}; color:${style.tagText}; border: 1px solid ${style.border};">
+                                        <a href="${detailLink}" class="btn btn-sm rounded-pill w-100 fw-bold" style="background:${style.tagBg}; color:${style.tagText}; border: 1px solid ${style.border};">
                                             View Club Details &rarr;
                                         </a>
                                     </div>
@@ -91,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Fetch & Render Leadership Roster
     if (leadershipContainer) {
-        fetch('/api/leaders.php')
+        fetch(getApiUrl('leaders.php'))
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
@@ -121,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Fetch & Render Events / Activities
     if (activityList || upcomingList) {
-        fetch('/api/events.php')
+        fetch(getApiUrl('events.php'))
             .then(res => res.json())
             .then(response => {
                 if (response.status !== 'success') {

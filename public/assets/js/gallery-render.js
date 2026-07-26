@@ -9,9 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allGalleryItems = [];
 
-    if (!galleryGrid) return;
+    const getApiUrl = (endpoint) => {
+        if (window.location.pathname.startsWith('/UIT/public')) return `/UIT/public/api/${endpoint}`;
+        if (window.location.pathname.startsWith('/UIT')) return `/UIT/api/${endpoint}`;
+        return `/api/${endpoint}`;
+    };
 
-    fetch('/api/gallery.php')
+    fetch(getApiUrl('gallery.php'))
         .then(res => res.json())
         .then(response => {
             if (response.status !== 'success' || !Array.isArray(response.data)) {
