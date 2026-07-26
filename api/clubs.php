@@ -38,16 +38,16 @@ try {
             ORDER BY order_index ASC, id ASC
         ");
         $leadStmt->execute([$club['id']]);
-        $club['leadership'] = $leadStmt->fetchAll();
+        $club['leadership'] = $leadStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fetch Upcoming Events
+        // Fetch Club Events (Both Past Completed & Upcoming)
         $eventStmt = $db->prepare("
             SELECT * FROM events 
-            WHERE club_id = ? AND status = 'upcoming' 
-            ORDER BY event_date ASC
+            WHERE club_id = ? AND status NOT IN ('draft', 'hidden', 'archived', 'cancelled') 
+            ORDER BY event_date DESC
         ");
         $eventStmt->execute([$club['id']]);
-        $club['events'] = $eventStmt->fetchAll();
+        $club['events'] = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Fetch Gallery Media Items
         $galStmt = $db->prepare("
@@ -56,7 +56,7 @@ try {
             ORDER BY created_at DESC LIMIT 12
         ");
         $galStmt->execute([$club['id']]);
-        $club['gallery'] = $galStmt->fetchAll();
+        $club['gallery'] = $galStmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode(['status' => 'success', 'data' => $club]);
         exit;
