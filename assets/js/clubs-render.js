@@ -542,45 +542,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                     <!-- Club Events Showcase -->
                                     <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4">
-                                        <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-calendar-event text-primary me-2"></i> Official Events & Campus Activities (${club.events ? club.events.length : 0})</h4>
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <div>
+                                                <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-calendar-event text-primary me-2"></i> Official Events & Campus Activities (${club.events ? club.events.length : 0})</h4>
+                                                <span class="small text-muted">Hackathons, workshops, and tech sessions hosted by ${escapeHtml(club.name)}</span>
+                                            </div>
+                                        </div>
                                         ${(!club.events || club.events.length === 0) ? `
-                                            <div class="text-center py-4 text-muted bg-light rounded-3">
-                                                <i class="bi bi-calendar-x fs-2 d-block mb-1"></i>
-                                                No official events recorded yet.
+                                            <div class="text-center py-5 text-muted bg-light rounded-4">
+                                                <i class="bi bi-calendar-x fs-1 d-block mb-2 text-secondary"></i>
+                                                <h6 class="fw-bold text-dark">No Events Published Yet</h6>
+                                                <p class="small text-muted mb-0">Check back soon for upcoming hackathons and workshops.</p>
                                             </div>
                                         ` : `
                                             <div class="row g-4">
-                                                ${club.events.map(ev => `
-                                                    <div class="col-md-6">
-                                                        <div class="p-3 bg-body-tertiary rounded-4 border h-100 d-flex flex-column justify-content-between">
-                                                            <div>
-                                                                <img src="${escapeHtml(ev.banner)}" class="img-fluid rounded-3 mb-2" style="height: 120px; width: 100%; object-fit: cover;">
-                                                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                                                    <span class="badge ${ev.status === 'completed' ? 'bg-success-subtle text-success' : 'bg-primary-subtle text-primary'} border rounded-pill px-2 py-1 small text-uppercase fw-bold">${escapeHtml(ev.status)}</span>
-                                                                    <span class="small text-muted"><i class="bi bi-geo-alt me-1"></i>${escapeHtml(ev.venue)}</span>
-                                                                </div>
-                                                                <h6 class="fw-bold mb-1 text-dark">${escapeHtml(ev.title)}</h6>
-                                                                <p class="small text-secondary mb-2 text-truncate-2">${escapeHtml(ev.description || '')}</p>
-                                                            </div>
+                                                ${club.events.map(ev => {
+                                                    const dateFormatted = ev.event_date ? new Date(ev.event_date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'TBA';
+                                                    const evType = ev.event_type || 'Workshop';
+                                                    const isCompleted = ev.status === 'completed';
+                                                    const isOngoing = ev.status === 'ongoing';
 
-                                                            ${ev.status === 'completed' && (ev.actual_attended || ev.outcomes_summary) ? `
-                                                                <div class="p-2 bg-white rounded-3 border mt-2 small">
-                                                                    <div class="d-flex justify-content-between text-muted fw-semibold mb-1" style="font-size:0.72rem;">
-                                                                        <span><i class="bi bi-people-fill text-success me-1"></i> Attendees: ${ev.actual_attended || 'N/A'}</span>
-                                                                        <span><i class="bi bi-clipboard-check text-primary me-1"></i> Registered: ${ev.registered_count || 'N/A'}</span>
+                                                    let statusBadge = `<span class="badge bg-primary rounded-pill px-3 py-1 fw-bold"><i class="bi bi-calendar-event me-1"></i> Upcoming</span>`;
+                                                    if (isCompleted) {
+                                                        statusBadge = `<span class="badge bg-secondary rounded-pill px-3 py-1 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Concluded</span>`;
+                                                    } else if (isOngoing) {
+                                                        statusBadge = `<span class="badge bg-success rounded-pill px-3 py-1 fw-bold"><span class="pulse-dot-green me-1.5"></span> Live Now</span>`;
+                                                    }
+
+                                                    return `
+                                                        <div class="col-md-6">
+                                                            <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 d-flex flex-column justify-content-between transition-all card-hover-lift" style="border: 1px solid #e2e8f0 !important; background: #ffffff;">
+                                                                <div>
+                                                                    <!-- Event Poster Image -->
+                                                                    <div class="position-relative" style="height: 160px; overflow: hidden;">
+                                                                        <img src="${escapeHtml(ev.banner)}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(ev.title)}" onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop'">
+                                                                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.7) 100%);"></div>
+                                                                        <div class="position-absolute top-0 start-0 m-3 z-2">
+                                                                            ${statusBadge}
+                                                                        </div>
+                                                                        <div class="position-absolute top-0 end-0 m-3 z-2">
+                                                                            <span class="badge bg-white text-dark rounded-pill px-2.5 py-1 fw-bold small shadow-sm">${escapeHtml(evType)}</span>
+                                                                        </div>
+                                                                        <div class="position-absolute bottom-0 start-0 m-3 z-2 text-white">
+                                                                            <span class="small fw-semibold"><i class="bi bi-clock me-1 text-info"></i>${escapeHtml(dateFormatted)}</span>
+                                                                        </div>
                                                                     </div>
-                                                                    ${ev.outcomes_summary ? `<p class="mb-0 text-dark small fst-italic" style="font-size:0.72rem;">"${escapeHtml(ev.outcomes_summary)}"</p>` : ''}
-                                                                </div>
-                                                            ` : ''}
 
-                                                            ${ev.status === 'upcoming' || ev.status === 'ongoing' ? `
-                                                                <a href="${escapeHtml(ev.registration_link || 'contact.html')}" target="_blank" class="btn btn-sm btn-primary rounded-pill w-100 fw-bold mt-2">
-                                                                    Register for Event &rarr;
-                                                                </a>
-                                                            ` : ''}
+                                                                    <!-- Event Content Body -->
+                                                                    <div class="p-4">
+                                                                        <h5 class="fw-bold text-dark mb-2">${escapeHtml(ev.title)}</h5>
+                                                                        <div class="small text-muted mb-3"><i class="bi bi-geo-alt-fill text-danger me-1"></i>${escapeHtml(ev.venue || 'UIT Campus')}</div>
+                                                                        <p class="small text-secondary mb-3" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${escapeHtml(ev.description || 'Join us for an exciting session of learning and innovation.')}</p>
+
+                                                                        ${isCompleted && (ev.actual_attended || ev.outcomes_summary) ? `
+                                                                            <div class="p-3 bg-light rounded-3 border mb-3 small">
+                                                                                <div class="d-flex justify-content-between text-dark fw-bold mb-1" style="font-size:0.75rem;">
+                                                                                    <span><i class="bi bi-people-fill text-success me-1"></i> Attendees: ${ev.actual_attended || 0}</span>
+                                                                                    <span><i class="bi bi-clipboard-check text-primary me-1"></i> Registered: ${ev.registered_count || 0}</span>
+                                                                                </div>
+                                                                                ${ev.outcomes_summary ? `<p class="mb-0 text-muted small fst-italic mt-1" style="font-size:0.75rem;">"${escapeHtml(ev.outcomes_summary)}"</p>` : ''}
+                                                                            </div>
+                                                                        ` : ''}
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Card Action Footer -->
+                                                                <div class="p-4 pt-0">
+                                                                    <a href="event-detail.html?id=${encodeURIComponent(ev.id)}" class="btn ${isCompleted ? 'btn-outline-primary' : 'btn-primary'} rounded-pill w-100 py-2-5 fw-bold text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                                                                        <span>${isCompleted ? 'View Event Recap & Photos' : 'View Full Details & RSVP'}</span>
+                                                                        <i class="bi bi-arrow-right"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                `).join('')}
+                                                    `;
+                                                }).join('')}
                                             </div>
                                         `}
                                     </div>
