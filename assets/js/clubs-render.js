@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     clubsGrid.innerHTML = clubs.map(club => `
                         <div class="col-md-4">
-                            <a href="/club-detail.html?id=${club.id}" class="text-decoration-none text-dark">
+                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark">
                                 <div class="card p-4 border-0 shadow-sm rounded-4 h-100 ccms-card position-relative">
                                     <button class="btn btn-link text-secondary position-absolute top-0 end-0 m-3 p-0" title="Bookmark"><i class="bi bi-bookmark fs-5"></i></button>
                                     
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="bi bi-exclamation-triangle fs-1 d-block mb-3 text-warning"></i>
                         <h4 class="fw-bold mb-2">No Club Specified</h4>
                         <p class="small text-secondary mb-4">Please select a valid club from the directory.</p>
-                        <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Browse All Clubs</a>
+                        <a href="clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Browse All Clubs</a>
                     </div>
                 </div>
             `;
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <i class="bi bi-x-circle fs-1 d-block mb-3 text-danger"></i>
                                 <h4 class="fw-bold mb-2">Club Not Found</h4>
                                 <p class="small text-secondary mb-4">The requested club could not be found or has been removed.</p>
-                                <a href="/clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Return to Directory</a>
+                                <a href="clubs.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white">Return to Directory</a>
                             </div>
                         </div>
                     `;
@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="col-lg-8 d-flex align-items-center gap-4">
                                     <img src="${escapeHtml(club.logo)}" class="rounded-4 border border-white-10 bg-white p-2 shadow-lg flex-shrink-0" style="width: 100px; height: 100px; object-fit: cover;">
                                     <div>
-                                        <a href="/clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
+                                        <a href="clubs.html?category=${encodeURIComponent(club.category_slug)}" class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1-5 mb-2 fw-semibold small text-decoration-none">
                                             <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                         </a>
                                         <h1 class="hero-headline mb-2" style="font-size: 2.5rem;">${escapeHtml(club.name)}</h1>
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
-                                    <a href="/contact.html" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-lg text-white">
+                                    <a href="contact.html" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold shadow-lg text-white">
                                         Join Club &rarr;
                                     </a>
                                 </div>
