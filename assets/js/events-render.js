@@ -183,10 +183,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Re-attach "Filter by this Club" click handlers on rendered cards
+        // Re-attach "Filter by this Club" & "Open Event Detail" click handlers on rendered cards
         document.querySelectorAll('.filter-this-club-btn').forEach(btn => {
             btn.addEventListener('click', (ev) => {
                 ev.preventDefault();
+                ev.stopPropagation();
                 const clubId = btn.dataset.clubId;
                 const targetPill = clubPillsContainer?.querySelector(`[data-club-id="${clubId}"]`);
                 if (targetPill) {
@@ -195,6 +196,167 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        document.querySelectorAll('.open-event-detail-btn').forEach(btn => {
+            btn.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                const eventId = btn.dataset.eventId;
+                if (eventId) {
+                    openEventModal(eventId);
+                }
+            });
+        });
+    }
+
+    // Modal Opener & Dynamic Detailed Renderer
+    function openEventModal(eventId) {
+        const targetEvent = allEvents.find(e => String(e.id) === String(eventId));
+        if (!targetEvent) return;
+
+        const modalContent = document.getElementById('eventModalContent');
+        if (!modalContent) return;
+
+        const eventDate = new Date(targetEvent.event_date);
+        const day = String(eventDate.getDate()).padStart(2, '0');
+        const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+        const year = eventDate.getFullYear();
+        const fullDateStr = eventDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+        const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
+
+        const isPast = (eventDate < new Date()) || (targetEvent.status === 'completed');
+        let statusBadge = `<span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold"><i class="bi bi-calendar-event me-1"></i> Upcoming Contest</span>`;
+        if (isPast) {
+            statusBadge = `<span class="badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1.5 fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Completed Session</span>`;
+        } else if (targetEvent.status === 'ongoing') {
+            statusBadge = `<span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1.5 fw-bold"><span class="pulse-dot-green me-1.5"></span> Live Workshop</span>`;
+        }
+
+        const registeredCount = targetEvent.registered_count || 45;
+        const bannerUrl = escapeHtml(targetEvent.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop');
+        const clubLogo = escapeHtml(targetEvent.club_logo || 'assets/images/clubs/gfg.png');
+
+        modalContent.innerHTML = `
+            <!-- Modal Banner Header -->
+            <div class="position-relative overflow-hidden" style="height: 240px;">
+                <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(targetEvent.title)}">
+                <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.3) 0%, rgba(15,23,42,0.9) 100%);"></div>
+
+                <!-- Close Button -->
+                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 p-2 bg-dark bg-opacity-50 rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <!-- Floating Date Badge -->
+                <div class="position-absolute top-0 start-0 m-3 z-2">
+                    <div class="google-date-badge text-center shadow-lg" style="min-width: 65px;">
+                        <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.4rem;">${day}</span>
+                        <span class="small fw-bold text-dark text-uppercase" style="font-size: 0.68rem;">${month} '${String(year).slice(-2)}</span>
+                    </div>
+                </div>
+
+                <!-- Club Badge & Category Floating Bottom -->
+                <div class="position-absolute bottom-0 start-0 m-4 z-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="${clubLogo}" class="rounded-circle bg-white p-1 shadow-sm" style="width: 38px; height: 38px; object-fit: cover;" alt="${escapeHtml(targetEvent.club_name)}">
+                        <div>
+                            <h6 class="text-white fw-bold mb-0 lh-1">${escapeHtml(targetEvent.club_name)}</h6>
+                            <span class="small text-white-80" style="font-size: 0.75rem;">Official SAC Governed Society</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body Details -->
+            <div class="modal-body p-4 p-md-5">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                    ${statusBadge}
+                    <span class="small text-secondary fw-semibold">
+                        <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> Coders Registered
+                    </span>
+                </div>
+
+                <h3 class="fw-extrabold text-dark mb-3" style="letter-spacing: -0.5px;">${escapeHtml(targetEvent.title)}</h3>
+
+                <!-- 4-Grid Key Event Specs -->
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="p-3 rounded-4 bg-light border text-start h-100">
+                            <i class="bi bi-geo-alt-fill text-danger fs-4 d-block mb-1"></i>
+                            <span class="small text-muted d-block fw-bold" style="font-size: 0.72rem;">VENUE / LOCATION</span>
+                            <strong class="text-dark small">${escapeHtml(targetEvent.venue)}</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="p-3 rounded-4 bg-light border text-start h-100">
+                            <i class="bi bi-calendar3 text-primary fs-4 d-block mb-1"></i>
+                            <span class="small text-muted d-block fw-bold" style="font-size: 0.72rem;">DATE & TIME</span>
+                            <strong class="text-dark small">${fullDateStr} at ${timeStr}</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="p-3 rounded-4 bg-light border text-start h-100">
+                            <i class="bi bi-people-fill text-success fs-4 d-block mb-1"></i>
+                            <span class="small text-muted d-block fw-bold" style="font-size: 0.72rem;">TOTAL RSVPs</span>
+                            <strong class="text-dark small">${registeredCount}+ Participants</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="p-3 rounded-4 bg-light border text-start h-100">
+                            <i class="bi bi-shield-check text-info fs-4 d-block mb-1"></i>
+                            <span class="small text-muted d-block fw-bold" style="font-size: 0.72rem;">ELIGIBILITY</span>
+                            <strong class="text-dark small">All Tech Enthusiasts</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Rewards & Outcomes Highlights Box -->
+                ${targetEvent.outcomes_summary ? `
+                    <div class="p-3.5 mb-4 rounded-4 border border-warning-subtle bg-warning-subtle text-dark d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-warning text-white p-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                            <i class="bi bi-trophy-fill fs-5"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0 text-dark">Rewards, Swags & Benefits</h6>
+                            <span class="small text-dark opacity-90">${escapeHtml(targetEvent.outcomes_summary)}</span>
+                        </div>
+                    </div>
+                ` : ''}
+
+                <!-- Full Event Description -->
+                <div class="mb-4">
+                    <h5 class="fw-bold text-dark mb-2">About This Event</h5>
+                    <p class="text-secondary" style="line-height: 1.7; font-size: 0.95rem;">
+                        ${escapeHtml(targetEvent.description || 'Join us for an immersive technical workshop organized by student chapter leads. Gain hands-on practice, network with domain mentors, and showcase your problem-solving capabilities.')}
+                    </p>
+                </div>
+
+                <!-- Lead Mentors & Organizers Box -->
+                <div class="p-3.5 rounded-4 bg-body-tertiary border mb-2 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-workspace fs-4 text-primary"></i>
+                        <div>
+                            <strong class="text-dark d-block small">Organized by Student Chapter Leads</strong>
+                            <span class="small text-muted">${escapeHtml(targetEvent.club_name)} Board</span>
+                        </div>
+                    </div>
+                    <span class="badge bg-white text-dark border rounded-pill px-3 py-1.5 fw-semibold small"><i class="bi bi-check-circle-fill text-success me-1"></i> SAC Verified Event</span>
+                </div>
+            </div>
+
+            <!-- Modal Footer Action Bar -->
+            <div class="modal-footer bg-light p-3 px-4 d-flex align-items-center justify-content-between border-top">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold" data-bs-dismiss="modal">Close</button>
+                ${!isPast ? `
+                    <a href="${escapeHtml(targetEvent.registration_link || 'https://www.geeksforgeeks.org/')}" target="_blank" class="btn btn-primary rounded-pill px-5 py-2.5 fw-bold text-white shadow-md d-flex align-items-center gap-2" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none;">
+                        <span>RSVP Now for Event</span>
+                        <i class="bi bi-arrow-right-short fs-5"></i>
+                    </a>
+                ` : `
+                    <button class="btn btn-secondary rounded-pill px-4 py-2 fw-bold" disabled><i class="bi bi-check-circle me-1"></i> Event Completed</button>
+                `}
+            </div>
+        `;
+
+        const modalInstance = new bootstrap.Modal(document.getElementById('eventDetailModal'));
+        modalInstance.show();
     }
 
     // Hero Search Input & Button Listeners
@@ -269,7 +431,7 @@ function renderFloatingEventCard(event, isPast = false) {
 
     return `
         <div class="col-md-6 col-lg-6">
-            <div class="google-meta-card h-100 d-flex flex-column">
+            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer;">
                 <!-- Cover Image Banner -->
                 <div class="position-relative overflow-hidden" style="height: 195px;">
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
@@ -323,12 +485,12 @@ function renderFloatingEventCard(event, isPast = false) {
                         </div>
 
                         ${!isPast && event.status !== 'completed' ? `
-                            <a href="${escapeHtml(event.registration_link || 'https://www.geeksforgeeks.org/')}" target="_blank" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
-                                <span>RSVP & Explore Session</span>
+                            <button class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2 open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
+                                <span>RSVP & View Full Details</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
-                            </a>
+                            </button>
                         ` : `
-                            <span class="badge bg-light text-muted border rounded-pill w-100 py-2.5 text-center d-block" style="font-size: 0.82rem;"><i class="bi bi-check-circle me-1"></i> Completed Session</span>
+                            <button class="btn btn-light text-dark border rounded-pill w-100 py-2.5 text-center d-block open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="font-size: 0.82rem;"><i class="bi bi-info-circle me-1"></i> View Session Summary</button>
                         `}
                     </div>
                 </div>
