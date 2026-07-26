@@ -113,6 +113,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
     }
 }
+// 2b. Handle Annual Roster Leadership Member Edit/Update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit_leader') {
+    $leadId = trim($_POST['leader_id'] ?? '');
+    $name = trim($_POST['leader_name'] ?? '');
+    $roleTitle = trim($_POST['role_title'] ?? '');
+    $categorySelect = $_POST['category'] ?? 'core_member';
+    $customCategory = trim($_POST['custom_category'] ?? '');
+    
+    $category = ($categorySelect === 'other' && !empty($customCategory)) ? slugify($customCategory) : $categorySelect;
+    
+    $termYear = trim($_POST['term_year'] ?? '2025-2026');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $existingAvatar = trim($_POST['current_avatar'] ?? '');
+    $avatarUrl = trim($_POST['avatar'] ?? '');
+
+    // Process uploaded avatar image file from PC
+    $uploadedAvatar = upload_image_file($_FILES['avatar_file'] ?? null, 'roster', $existingAvatar);
+    $avatar = !empty($uploadedAvatar) ? $uploadedAvatar : (!empty($avatarUrl) ? $avatarUrl : $existingAvatar);
+
+    if (!empty($leadId) && !empty($name) && !empty($roleTitle)) {
+        try {
+            $lUpStmt = $db->prepare("
+                UPDATE leadership 
+                SET name = ?, role_title = ?, category = ?, term_year = ?, email = ?, phone = ?, avatar = ?
+                WHERE id = ? AND club_id = ?
+            ");
+            $lUpStmt->execute([$name, $roleTitle, $category, $termYear, $email, $phone, $avatar, $leadId, $club['id']]);
+            $message = "Leadership details for '$name' ($roleTitle) updated successfully!";
+        } catch (Exception $e) {
+            $error = 'Error updating leadership member: ' . $e->getMessage();
+        }
+    }
+}
 
 // 3. Handle Annual Roster Leadership Delete
 if (isset($_GET['delete_leader'])) {
@@ -392,9 +426,23 @@ $clubPhotos = $clubGalStmt->fetchAll();
                                             <span class="small text-muted d-block" style="font-size: 0.72rem;"><?= htmlspecialchars($r['term_year']) ?></span>
                                         </div>
                                     </div>
-                                    <a href="profile.php?delete_leader=<?= $r['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Remove this leader from roster?');">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <button type="button" class="btn btn-sm btn-outline-primary rounded-circle edit-leader-btn" 
+                                                data-id="<?= htmlspecialchars($r['id']) ?>"
+                                                data-name="<?= htmlspecialchars($r['name']) ?>"
+                                                data-role="<?= htmlspecialchars($r['role_title']) ?>"
+                                                data-term="<?= htmlspecialchars($r['term_year']) ?>"
+                                                data-category="<?= htmlspecialchars($r['category']) ?>"
+                                                data-email="<?= htmlspecialchars($r['email'] ?? '') ?>"
+                                                data-phone="<?= htmlspecialchars($r['phone'] ?? '') ?>"
+                                                data-avatar="<?= htmlspecialchars($r['avatar']) ?>"
+                                                title="Edit Leader Details">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <a href="profile.php?delete_leader=<?= $r['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Remove this leader from roster?');" title="Remove Leader">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -468,6 +516,75 @@ $clubPhotos = $clubGalStmt->fetchAll();
     </div>
 </div>
 
+<!-- Modal: Edit Annual Leadership Roster Member -->
+<div class="modal fade" id="editLeaderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold modal-title"><i class="bi bi-pencil-square text-primary me-2"></i> Edit Core Team Leader</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="edit_leader">
+                <input type="hidden" name="leader_id" id="editLeaderId">
+                <input type="hidden" name="current_avatar" id="editLeaderCurrentAvatar">
+                
+                <div class="modal-body space-y-3">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Member Name *</label>
+                        <input type="text" name="leader_name" id="editLeaderName" class="form-control rounded-3" required>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Role Title *</label>
+                            <input type="text" name="role_title" id="editLeaderRole" class="form-control rounded-3" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Academic Term Year</label>
+                            <input type="text" name="term_year" id="editLeaderTerm" class="form-control rounded-3">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Role Category</label>
+                        <select name="category" id="editRoleCategorySelect" class="form-select rounded-3">
+                            <option value="president">President / Lead</option>
+                            <option value="vice_president">Vice President</option>
+                            <option value="secretary">Secretary</option>
+                            <option value="treasurer">Treasurer</option>
+                            <option value="faculty_coordinator">Faculty Coordinator</option>
+                            <option value="core_member">Core Team Member</option>
+                            <option value="other">Other (Custom Category)</option>
+                        </select>
+                        <input type="text" name="custom_category" id="editCustomCategoryInput" class="form-control rounded-3 mt-2 d-none" placeholder="Enter custom role category...">
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Email</label>
+                            <input type="email" name="email" id="editLeaderEmail" class="form-control rounded-3">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">Phone</label>
+                            <input type="text" name="phone" id="editLeaderPhone" class="form-control rounded-3">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Replace Photo (From PC)</label>
+                        <input type="file" name="avatar_file" class="form-control rounded-3" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Or Image URL</label>
+                        <input type="url" name="avatar" id="editLeaderAvatarUrl" class="form-control rounded-3" placeholder="https://images.unsplash.com/...">
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Update Leader Details</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -484,6 +601,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Edit Leader Modal Handler
+    document.querySelectorAll('.edit-leader-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('editLeaderId').value = btn.dataset.id || '';
+            document.getElementById('editLeaderName').value = btn.dataset.name || '';
+            document.getElementById('editLeaderRole').value = btn.dataset.role || '';
+            document.getElementById('editLeaderTerm').value = btn.dataset.term || '2025-2026';
+            document.getElementById('editRoleCategorySelect').value = btn.dataset.category || 'core_member';
+            document.getElementById('editLeaderEmail').value = btn.dataset.email || '';
+            document.getElementById('editLeaderPhone').value = btn.dataset.phone || '';
+            document.getElementById('editLeaderCurrentAvatar').value = btn.dataset.avatar || '';
+            document.getElementById('editLeaderAvatarUrl').value = btn.dataset.avatar || '';
+            
+            const modal = new bootstrap.Modal(document.getElementById('editLeaderModal'));
+            modal.show();
+        });
+    });
 });
 </script>
 </body>
