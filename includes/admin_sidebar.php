@@ -59,8 +59,8 @@ $clubStatus  = $club['status']     ?? 'active';
         <a href="events.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'events.php') || str_contains($currentAdminUri, 'event-detail.php')) ? 'active' : '' ?>">
             <i class="bi bi-calendar-event"></i> Manage Events
         </a>
-        <a href="gallery.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'gallery.php')) ? 'active' : '' ?>">
-            <i class="bi bi-images"></i> Photo Gallery
+        <a href="create-event.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'create-event.php')) ? 'active' : '' ?>" style="color: #60a5fa !important; font-weight: 600;">
+            <i class="bi bi-plus-circle-fill"></i> + Add New Event
         </a>
         <a href="recruitment.php" class="admin-nav-link <?= (str_contains($currentAdminUri, 'recruitment.php')) ? 'active' : '' ?>">
             <i class="bi bi-person-plus"></i> Recruitment Drive
