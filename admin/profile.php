@@ -287,6 +287,8 @@ $clubPhotos = $clubGalStmt->fetchAll();
                                 <label class="form-label small fw-semibold">GitHub URL</label>
                                 <input type="url" name="github" class="form-control rounded-3" value="<?= htmlspecialchars($club['github'] ?? '') ?>">
                             </div>
+                        </div>
+
                         <!-- Club Branding Assets (Logo & Cover Image) -->
                         <div class="p-3.5 bg-light rounded-4 border mb-4">
                             <h6 class="fw-bold text-dark mb-3"><i class="bi bi-palette text-primary me-2"></i> Club Branding Assets (Logo & Cover Banner)</h6>
@@ -386,7 +388,7 @@ $clubPhotos = $clubGalStmt->fetchAll();
                                             <span class="small text-muted d-block" style="font-size: 0.72rem;"><?= htmlspecialchars($r['term_year']) ?></span>
                                         </div>
                                     </div>
-                                    <a href="/admin/profile.php?delete_leader=<?= $r['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Remove this leader from roster?');">
+                                    <a href="profile.php?delete_leader=<?= $r['id'] ?>" class="btn btn-sm btn-outline-danger rounded-circle" onclick="return confirm('Remove this leader from roster?');">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
@@ -407,7 +409,7 @@ $clubPhotos = $clubGalStmt->fetchAll();
                 <h5 class="fw-bold modal-title"><i class="bi bi-person-plus text-primary me-2"></i> Add Core Team Leader</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="/admin/profile.php" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="add_leader">
                 <div class="modal-body space-y-3">
                     <div class="mb-3">
