@@ -155,55 +155,70 @@ $firstName = explode(' ', trim($adminName))[0];
                 </div>
             </div>
 
-            <!-- 4 Stat Cards -->
+            <!-- 4 Clickable Stat Cards -->
             <div class="row g-4 mb-4">
+                <!-- Card 1: Core Team Members -> profile.php -->
                 <div class="col-6 col-lg-3">
-                    <div class="card border-0 rounded-4 p-4 h-100 shadow-sm" style="background: #f0fdf4;">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #bbf7d0; width: 44px; height: 44px;">
-                                <i class="bi bi-people-fill text-success fs-5"></i>
+                    <a href="profile.php" class="text-decoration-none d-block h-100">
+                        <div class="card border-0 rounded-4 p-4 h-100 shadow-sm transition-all card-hover-lift" style="background: #f0fdf4;">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #bbf7d0; width: 44px; height: 44px;">
+                                    <i class="bi bi-people-fill text-success fs-5"></i>
+                                </div>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 small fw-bold">Team &rarr;</span>
                             </div>
-                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 small">Team</span>
+                            <h3 class="fw-bold mb-0 text-dark"><?= $totalLeaders ?></h3>
+                            <p class="text-muted small mb-0 mt-1">Core Team Members</p>
                         </div>
-                        <h3 class="fw-bold mb-0 text-dark"><?= $totalLeaders ?></h3>
-                        <p class="text-muted small mb-0 mt-1">Core Team Members</p>
-                    </div>
+                    </a>
                 </div>
+
+                <!-- Card 2: Total Events Published -> events.php -->
                 <div class="col-6 col-lg-3">
-                    <div class="card border-0 rounded-4 p-4 h-100 shadow-sm" style="background: #eff6ff;">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #bfdbfe; width: 44px; height: 44px;">
-                                <i class="bi bi-calendar-event-fill text-primary fs-5"></i>
+                    <a href="events.php" class="text-decoration-none d-block h-100">
+                        <div class="card border-0 rounded-4 p-4 h-100 shadow-sm transition-all card-hover-lift" style="background: #eff6ff;">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #bfdbfe; width: 44px; height: 44px;">
+                                    <i class="bi bi-calendar-event-fill text-primary fs-5"></i>
+                                </div>
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2.5 py-1 small fw-bold">Events &rarr;</span>
                             </div>
-                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-1 small">Events</span>
+                            <h3 class="fw-bold mb-0 text-dark"><?= $totalEvents ?></h3>
+                            <p class="text-muted small mb-0 mt-1">Total Events Published</p>
                         </div>
-                        <h3 class="fw-bold mb-0 text-dark"><?= $totalEvents ?></h3>
-                        <p class="text-muted small mb-0 mt-1">Total Events Published</p>
-                    </div>
+                    </a>
                 </div>
+
+                <!-- Card 3: Upcoming Events -> events.php?status=upcoming -->
                 <div class="col-6 col-lg-3">
-                    <div class="card border-0 rounded-4 p-4 h-100 shadow-sm" style="background: #fefce8;">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #fef08a; width: 44px; height: 44px;">
-                                <i class="bi bi-clock-fill text-warning fs-5"></i>
+                    <a href="events.php?status=upcoming" class="text-decoration-none d-block h-100">
+                        <div class="card border-0 rounded-4 p-4 h-100 shadow-sm transition-all card-hover-lift" style="background: #fefce8;">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #fef08a; width: 44px; height: 44px;">
+                                    <i class="bi bi-clock-fill text-warning fs-5"></i>
+                                </div>
+                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2.5 py-1 small fw-bold">Coming Up &rarr;</span>
                             </div>
-                            <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2 py-1 small">Coming Up</span>
+                            <h3 class="fw-bold mb-0 text-dark"><?= $totalUpcoming ?></h3>
+                            <p class="text-muted small mb-0 mt-1">Upcoming Events</p>
                         </div>
-                        <h3 class="fw-bold mb-0 text-dark"><?= $totalUpcoming ?></h3>
-                        <p class="text-muted small mb-0 mt-1">Upcoming Events</p>
-                    </div>
+                    </a>
                 </div>
+
+                <!-- Card 4: Gallery Photos -> profile.php -->
                 <div class="col-6 col-lg-3">
-                    <div class="card border-0 rounded-4 p-4 h-100 shadow-sm" style="background: #fdf4ff;">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #e9d5ff; width: 44px; height: 44px;">
-                                <i class="bi bi-images text-purple fs-5" style="color: #a855f7 !important;"></i>
+                    <a href="profile.php" class="text-decoration-none d-block h-100">
+                        <div class="card border-0 rounded-4 p-4 h-100 shadow-sm transition-all card-hover-lift" style="background: #fdf4ff;">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: #e9d5ff; width: 44px; height: 44px;">
+                                    <i class="bi bi-images text-purple fs-5" style="color: #a855f7 !important;"></i>
+                                </div>
+                                <span class="badge rounded-pill px-2.5 py-1 small fw-bold" style="background: rgba(168,85,247,0.1); color: #a855f7; border: 1px solid rgba(168,85,247,0.2);">Gallery &rarr;</span>
                             </div>
-                            <span class="badge rounded-pill px-2 py-1 small" style="background: rgba(168,85,247,0.1); color: #a855f7; border: 1px solid rgba(168,85,247,0.2);">Gallery</span>
+                            <h3 class="fw-bold mb-0 text-dark"><?= $totalGallery ?></h3>
+                            <p class="text-muted small mb-0 mt-1">Gallery Photos</p>
                         </div>
-                        <h3 class="fw-bold mb-0 text-dark"><?= $totalGallery ?></h3>
-                        <p class="text-muted small mb-0 mt-1">Gallery Photos</p>
-                    </div>
+                    </a>
                 </div>
             </div>
 
