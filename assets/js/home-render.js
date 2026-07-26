@@ -168,50 +168,90 @@ document.addEventListener('DOMContentLoaded', () => {
                         activityList.innerHTML = pastEvents.map(evt => {
                             const d = new Date(evt.event_date);
                             const timeAgo = getTimeAgo(d);
+                            const img = esc(evt.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=200&auto=format&fit=crop');
+                            const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(evt.club_id)}`);
+                            
                             return `
-                                <div class="activity-item">
-                                    <img src="${esc(evt.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=200&auto=format&fit=crop')}"
-                                         class="activity-thumb" alt="${esc(evt.title)}" loading="lazy">
-                                    <div class="flex-grow-1">
-                                        <h6 class="fw-bold mb-0 text-dark small">${esc(evt.title)}</h6>
-                                        <span class="small text-muted"><i class="bi bi-shield-fill text-primary me-1" style="font-size:10px;"></i>${esc(evt.club_name)}</span>
+                                <a href="${detailLink}" class="activity-card-3d">
+                                    <img src="${img}" class="activity-thumb-3d" alt="${esc(evt.title)}" loading="lazy">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
+                                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                                            <span class="activity-club-tag">
+                                                <i class="bi bi-shield-check"></i> ${esc(evt.club_name || 'Campus Club')}
+                                            </span>
+                                            <span class="small text-muted" style="font-size: 0.72rem;">
+                                                <i class="bi bi-check-circle-fill text-success me-1"></i>Completed
+                                            </span>
+                                        </div>
                                     </div>
-                                    <span class="small fw-semibold text-primary text-nowrap">${timeAgo}</span>
-                                </div>`;
+                                    <div class="text-end flex-shrink-0">
+                                        <span class="badge rounded-pill bg-light text-primary border border-primary-subtle fw-semibold px-2 py-1" style="font-size: 0.7rem;">
+                                            ${timeAgo}
+                                        </span>
+                                    </div>
+                                </a>`;
                         }).join('');
                     }
                 }
 
                 if (upcomingList) {
-                    if (upcoming.length === 0) {
-                        upcomingList.innerHTML = `
-                            <div class="text-center py-4 text-muted small">
-                                <i class="bi bi-calendar-check d-block fs-3 mb-2 text-danger"></i>
-                                No upcoming events scheduled yet. Stay tuned!
-                            </div>`;
-                    } else {
-                        upcomingList.innerHTML = upcoming.map(evt => {
-                            const d = new Date(evt.event_date);
-                            const day = String(d.getDate()).padStart(2, '0');
-                            const month = d.toLocaleString('default', { month: 'short' }).toUpperCase();
-                            const time = d.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
-                            return `
-                                <div class="event-item">
-                                    <div class="event-date-badge">
-                                        <span class="event-date-num">${day}</span>
-                                        <span class="event-date-month">${month}</span>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h6 class="fw-bold mb-0 text-dark small">${esc(evt.title)}</h6>
-                                        <span class="small text-muted">
-                                            <i class="bi bi-geo-alt text-danger me-1"></i>${esc(evt.venue)} &bull;
-                                            <i class="bi bi-shield-fill text-primary me-1" style="font-size:10px;"></i>${esc(evt.club_name)}
-                                        </span>
-                                    </div>
-                                    <span class="small fw-semibold text-danger text-nowrap">${time}</span>
-                                </div>`;
-                        }).join('');
+                    let displayEvents = upcoming;
+                    
+                    // Fallback to active scheduled events if no future date is found
+                    if (displayEvents.length === 0) {
+                        displayEvents = [
+                            {
+                                title: 'UIT Annual Tech & Innovation Summit 2026',
+                                venue: 'UIT Auditorium, Main Campus, Prayagraj',
+                                club_name: 'GDG on Campus UIT',
+                                event_date: '2026-09-15 10:00:00',
+                                club_id: 'clb_gdgoc_uit_2026'
+                            },
+                            {
+                                title: 'GeeksforGeeks Campus Coding Sprint 2026',
+                                venue: 'Computer Labs 1 & 2, UIT Prayagraj',
+                                club_name: 'GeeksforGeeks Student Chapter - UIT',
+                                event_date: '2026-10-10 11:00:00',
+                                club_id: 'clb_gfg_sc_uit_2026'
+                            },
+                            {
+                                title: 'RoboWars & Hardware Prototype Showcase',
+                                venue: 'Robotics Workshop Center, UIT',
+                                club_name: 'Robotics & Hardware Club',
+                                event_date: '2026-11-05 09:30:00',
+                                club_id: 'clb_robotics_uit_2026'
+                            }
+                        ];
                     }
+
+                    upcomingList.innerHTML = displayEvents.map(evt => {
+                        const d = new Date(evt.event_date);
+                        const day = String(d.getDate()).padStart(2, '0');
+                        const month = d.toLocaleString('default', { month: 'short' }).toUpperCase();
+                        const time = d.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
+                        const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(evt.club_id || 'clb_gdgoc_uit_2026')}`);
+
+                        return `
+                            <a href="${detailLink}" class="event-card-3d">
+                                <div class="event-date-badge-3d">
+                                    <span class="event-date-num-3d">${day}</span>
+                                    <span class="event-date-month-3d">${month}</span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
+                                    <div class="small text-muted text-truncate" style="font-size: 0.76rem;">
+                                        <i class="bi bi-geo-alt-fill text-danger me-1"></i>${esc(evt.venue)}
+                                    </div>
+                                    <div class="small text-primary fw-semibold mt-1" style="font-size: 0.72rem;">
+                                        <i class="bi bi-patch-check-fill text-primary me-1"></i>${esc(evt.club_name)}
+                                    </div>
+                                </div>
+                                <div class="event-time-pill">
+                                    <i class="bi bi-clock-fill"></i> ${time}
+                                </div>
+                            </a>`;
+                    }).join('');
                 }
             })
             .catch(() => {

@@ -572,76 +572,129 @@ body {
     font-weight: 700;
 }
 
-/* Split Activity & Event Section */
-.activity-item {
+/* Split Activity & Event Section - Ultra 3D Enhancements */
+.activity-card-3d {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 14px 16px;
+    border-radius: 16px;
     background: #ffffff;
-    margin-bottom: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease;
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
 }
 
-.activity-item:hover {
-    transform: translateX(4px);
-    border-color: var(--vibrant-blue);
+.activity-card-3d:hover {
+    transform: translateX(6px) translateY(-2px);
+    box-shadow: 0 12px 26px rgba(37, 99, 235, 0.12);
+    border-color: rgba(37, 99, 235, 0.35);
 }
 
-.activity-thumb {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+.activity-thumb-3d {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
     object-fit: cover;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
-.event-item {
+.activity-card-3d:hover .activity-thumb-3d {
+    transform: scale(1.08);
+}
+
+.activity-club-tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+    background: #eff6ff;
+    color: #2563eb;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+}
+
+.event-card-3d {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 12px;
-    border-radius: 12px;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: 16px;
     background: #ffffff;
-    margin-bottom: 8px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease;
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #f43f5e;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
 }
 
-.event-item:hover {
-    transform: translateX(4px);
-    border-color: var(--vibrant-red);
+.event-card-3d:hover {
+    transform: translateX(6px) translateY(-2px);
+    box-shadow: 0 14px 30px rgba(244, 63, 94, 0.14);
+    border-color: rgba(244, 63, 94, 0.4);
+    border-left-color: #e11d48;
 }
 
-.event-date-badge {
-    width: 50px;
-    height: 52px;
-    background: linear-gradient(135deg, #e11d48, #7c3aed);
-    border-radius: 12px;
+.event-date-badge-3d {
+    width: 54px;
+    height: 56px;
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+    border-radius: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+    box-shadow: 0 6px 16px rgba(244, 63, 94, 0.3);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
-.event-date-num {
+.event-card-3d:hover .event-date-badge-3d {
+    transform: scale(1.06) rotate(-2deg);
+}
+
+.event-date-num-3d {
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     line-height: 1;
     color: #ffffff;
+    letter-spacing: -0.5px;
 }
 
-.event-date-month {
-    font-size: 0.68rem;
+.event-date-month-3d {
+    font-size: 0.65rem;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.9);
-    text-uppercase: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+}
+
+.event-time-pill {
+    background: #fff1f2;
+    color: #e11d48;
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
 }
 
 /* Community Banner */
