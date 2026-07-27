@@ -3,8 +3,9 @@
  * Universal Header Component (ClubHub UIT)
  * Provides HTML <head> with Bootstrap 5 & Custom Design System CSS.
  */
-if (!isset($assetPrefix) || empty($assetPrefix)) {
-    if (str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') || str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/club/')) {
+if (!isset($assetPrefix)) {
+    $script = $_SERVER['SCRIPT_NAME'] ?? '';
+    if (str_contains($script, '/admin/') || (str_contains($script, '/club/') && !str_contains($script, 'club-login'))) {
         $assetPrefix = '../';
     } else {
         $assetPrefix = '';

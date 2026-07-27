@@ -2,8 +2,9 @@
 /**
  * Universal Footer Component (ClubHub UIT)
  */
-if (!isset($assetPrefix) || empty($assetPrefix)) {
-    if (str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/admin/') || str_contains($_SERVER['SCRIPT_NAME'] ?? '', '/club/')) {
+if (!isset($assetPrefix)) {
+    $script = $_SERVER['SCRIPT_NAME'] ?? '';
+    if (str_contains($script, '/admin/') || (str_contains($script, '/club/') && !str_contains($script, 'club-login'))) {
         $assetPrefix = '../';
     } else {
         $assetPrefix = '';
