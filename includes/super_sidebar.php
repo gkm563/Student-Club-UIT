@@ -125,6 +125,10 @@ $firstName = explode(' ', trim($deanName))[0];
             </a>
 
             <div class="sidebar-section-label">Campus Governance</div>
+            <a href="proposals.php"
+               class="admin-nav-link <?= str_contains($currentSuperUri, 'proposals.php') ? 'active' : '' ?>">
+                <i class="bi bi-file-earmark-text"></i> Proposals Center
+            </a>
             <a href="clubs.php"
                class="admin-nav-link <?= str_contains($currentSuperUri, 'clubs.php') ? 'active' : '' ?>">
                 <i class="bi bi-trophy"></i> Manage Clubs

@@ -405,7 +405,12 @@ $pendingProposals = $db->query("
                         <h6 class="fw-bold mb-0 text-dark"><i class="bi bi-file-earmark-text text-primary me-2"></i>Pending Club & Event Proposals</h6>
                         <span class="text-muted small" style="font-size:0.72rem;">Submitted by students and faculty for Dean Student Welfare approval</span>
                     </div>
-                    <span class="badge bg-purple-subtle text-purple px-3 py-1 rounded-pill" style="background:#f5f3ff; color:#7c3aed; font-size:0.7rem;"><?= count($pendingProposals) ?> Proposals</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-purple-subtle text-purple px-3 py-1 rounded-pill" style="background:#f5f3ff; color:#7c3aed; font-size:0.7rem;"><?= count($pendingProposals) ?> Proposals</span>
+                        <a href="proposals.php" class="btn btn-sm btn-outline-purple rounded-pill px-3 py-1 fw-bold" style="font-size:0.75rem; color:#7c3aed; border-color:#c084fc;">
+                            Proposals Center &rarr;
+                        </a>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-middle mb-0" style="font-size:0.82rem;">
