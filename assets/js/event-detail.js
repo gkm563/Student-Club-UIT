@@ -1,7 +1,10 @@
 /**
  * Dynamic Event Detail Sub-Page Controller (ClubHub UIT)
- * Fetches event by ID, renders Google/Meta Tech Specs, and handles RSVP Form Submit
+ * Fetches event by ID, renders Google/Meta Tech Specs, full-width gallery & full screen lightbox with swipe/keyboard controls
  */
+
+let galleryPhotosList = [];
+let currentPhotoIndex = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -181,22 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Gallery fetch error:', err));
     }
 
-    function renderEventGallery(photos) {
-        const galleryGrid = document.getElementById('eventGalleryGrid');
-        if (!galleryGrid) return;
-
-        galleryGrid.innerHTML = photos.map(photo => `
-            <div class="col-6 col-sm-6 col-md-4 col-lg-4">
-                <div class="gallery-card-item rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 180px; cursor: pointer;" onclick="openGalleryLightbox('${escapeHtml(photo.media_url)}', '${escapeHtml(photo.caption || 'Event Recap Photo')}')">
-                    <img src="${escapeHtml(photo.media_url)}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(photo.caption || 'Event Recap Photo')}">
-                    <div class="position-absolute bottom-0 start-0 w-100 p-2 text-truncate bg-dark bg-opacity-75 text-white small" style="backdrop-filter: blur(4px);">
-                        <i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photo.caption || 'Event Moment')}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
     function renderErrorState() {
         const titleEl = document.getElementById('detailTitle');
         if (titleEl) titleEl.textContent = 'Event Not Found';
@@ -227,19 +214,118 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         });
     }
+
+    // Bind Navigation, Keyboard & Touch Swipe Listeners
+    const prevBtn = document.getElementById('lightboxPrevBtn');
+    const nextBtn = document.getElementById('lightboxNextBtn');
+    if (prevBtn) prevBtn.addEventListener('click', showPrevPhoto);
+    if (nextBtn) nextBtn.addEventListener('click', showNextPhoto);
+
+    // Keyboard Navigation (Left / Right Arrows)
+    document.addEventListener('keydown', (e) => {
+        const modalEl = document.getElementById('eventGalleryModal');
+        if (modalEl && modalEl.classList.contains('show')) {
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+                showNextPhoto();
+            } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+                showPrevPhoto();
+            }
+        }
+    });
+
+    // Touch Swipe Navigation for Mobile Devices
+    const modalEl = document.getElementById('eventGalleryModal');
+    if (modalEl) {
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        modalEl.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        modalEl.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 40;
+            if (touchStartX - touchEndX > swipeThreshold) {
+                showNextPhoto();
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                showPrevPhoto();
+            }
+        }
+    }
 });
 
-function openGalleryLightbox(url, caption) {
-    const modalImg = document.getElementById('lightboxModalImg');
-    const modalCaption = document.getElementById('lightboxModalCaption');
-    if (modalImg) modalImg.src = url;
-    if (modalCaption) modalCaption.textContent = caption || 'Event Moment';
+function renderEventGallery(photos) {
+    const galleryGrid = document.getElementById('eventGalleryGrid');
+    const galleryPhotoCountBadge = document.getElementById('galleryPhotoCountBadge');
+    if (!galleryGrid) return;
+
+    galleryPhotosList = photos;
+    if (galleryPhotoCountBadge) {
+        galleryPhotoCountBadge.textContent = `${photos.length} Photos`;
+    }
+
+    galleryGrid.innerHTML = photos.map((photo, index) => `
+        <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+            <div class="gallery-card-item rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 220px; cursor: pointer;" onclick="openGalleryLightbox(${index})">
+                <img src="${escapeHtml(photo.media_url)}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(photo.caption || 'Event Recap Photo')}">
+                <div class="position-absolute bottom-0 start-0 w-100 p-2 text-truncate bg-dark bg-opacity-75 text-white small" style="backdrop-filter: blur(4px);">
+                    <i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photo.caption || 'Event Moment')}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function openGalleryLightbox(index) {
+    if (!galleryPhotosList || galleryPhotosList.length === 0) return;
+    
+    currentPhotoIndex = index;
+    updateLightboxView();
 
     const modalEl = document.getElementById('eventGalleryModal');
     if (modalEl && window.bootstrap) {
-        const modal = new bootstrap.Modal(modalEl);
-        modal.show();
+        let modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (!modalInstance) {
+            modalInstance = new bootstrap.Modal(modalEl);
+        }
+        modalInstance.show();
     }
+}
+
+function updateLightboxView() {
+    if (!galleryPhotosList || galleryPhotosList.length === 0) return;
+    if (currentPhotoIndex < 0) currentPhotoIndex = galleryPhotosList.length - 1;
+    if (currentPhotoIndex >= galleryPhotosList.length) currentPhotoIndex = 0;
+
+    const photo = galleryPhotosList[currentPhotoIndex];
+    const modalImg = document.getElementById('lightboxModalImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxBottomCaption = document.getElementById('lightboxBottomCaption');
+
+    if (modalImg) {
+        modalImg.style.transform = 'scale(0.96)';
+        modalImg.src = photo.media_url;
+        setTimeout(() => { modalImg.style.transform = 'scale(1)'; }, 50);
+    }
+    if (lightboxCounter) lightboxCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${galleryPhotosList.length}`;
+    if (lightboxCaption) lightboxCaption.textContent = photo.caption || 'Event Recap Moment';
+    if (lightboxBottomCaption) lightboxBottomCaption.textContent = photo.caption || 'Event Moment';
+}
+
+function showNextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % galleryPhotosList.length;
+    updateLightboxView();
+}
+
+function showPrevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + galleryPhotosList.length) % galleryPhotosList.length;
+    updateLightboxView();
 }
 
 function escapeHtml(str) {

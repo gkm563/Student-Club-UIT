@@ -223,32 +223,6 @@
                     </div>
                 </div>
 
-                <!-- 📸 Event Photo Gallery & Memories (Shown for Completed & Past Events) -->
-                <div class="about-card-elevated p-4 p-md-5 mb-4 d-none" id="completedGallerySection">
-                    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
-                        <div>
-                            <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Event Recap & Memory Gallery</h4>
-                            <p class="text-secondary small mb-0">High-resolution photos & glimpses captured during this event session.</p>
-                        </div>
-                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold">Official Event Photos</span>
-                    </div>
-
-                    <div class="row g-3" id="eventGalleryGrid">
-                        <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden border position-relative" style="height: 200px;">
-                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Event Moment 1">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white">Keynote Presentation</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden border position-relative" style="height: 200px;">
-                                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Event Moment 2">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white">Live Coding Session</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Organizing Chapter Info Card -->
                 <div class="about-card-elevated p-4">
                     <h5 class="fw-black text-dark mb-3" style="font-weight: 900;">Organized By</h5>
@@ -344,20 +318,74 @@
                 </div>
             </div>
         </div>
+
+        <!-- 📸 Full-Width Event Photo Gallery & Memories (Shown for Completed & Past Events) -->
+        <div class="row mt-5 d-none" id="completedGallerySection">
+            <div class="col-12">
+                <div class="about-card-elevated p-4 p-md-5">
+                    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3 border-bottom pb-3">
+                        <div>
+                            <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Event Recap & Memory Gallery</h4>
+                            <p class="text-secondary small mb-0">High-resolution photos & glimpses captured during this event session. Click any photo to view in full screen.</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold">Official Event Photos</span>
+                            <span class="badge bg-dark text-white rounded-pill px-3 py-1.5 fw-bold" id="galleryPhotoCountBadge">7 Photos</span>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 g-md-4" id="eventGalleryGrid">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Universal Footer Container -->
 <div id="footer-placeholder"></div>
 
-<!-- Event Gallery Image Lightbox Modal -->
+<!-- 📸 Event Gallery Fullscreen Image Lightbox Modal -->
 <div class="modal fade" id="eventGalleryModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 bg-transparent">
-            <div class="modal-body p-0 text-center position-relative">
-                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3 z-3 bg-dark p-2 rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
-                <img id="lightboxModalImg" src="" class="img-fluid rounded-4 shadow-lg border border-secondary" style="max-height: 80vh; object-fit: contain;" alt="Full Event Recap Photo">
-                <div id="lightboxModalCaption" class="mt-2 text-white small fw-bold bg-dark bg-opacity-75 py-2 px-3 rounded-pill d-inline-block backdrop-blur"></div>
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content border-0" style="background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(16px);">
+            <!-- Top Bar -->
+            <div class="modal-header border-0 px-4 py-3 d-flex align-items-center justify-content-between z-3">
+                <div class="d-flex align-items-center gap-2 text-white">
+                    <span class="badge bg-primary rounded-pill px-3 py-1.5 fw-bold fs-6" id="lightboxCounter">Photo 1 of 7</span>
+                    <span class="text-white-80 small ms-2 d-none d-md-inline" id="lightboxCaption">TFUG x GDG On-Campus Inaugural</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-outline-light rounded-circle p-2 d-flex align-items-center justify-content-center shadow-sm" data-bs-dismiss="modal" aria-label="Close" style="width: 44px; height: 44px;">
+                        <i class="bi bi-x-lg fs-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Viewport with Left/Right Buttons -->
+            <div class="modal-body p-0 d-flex align-items-center justify-content-center position-relative overflow-hidden">
+                <!-- Left / Previous Button -->
+                <button class="lightbox-nav-btn position-absolute top-50 start-0 translate-middle-y ms-3 z-3 btn btn-dark bg-opacity-75 text-white rounded-circle border border-secondary p-3 shadow-lg d-flex align-items-center justify-content-center" id="lightboxPrevBtn" style="width: 56px; height: 56px;" title="Previous Photo (Left Arrow)">
+                    <i class="bi bi-chevron-left fs-4"></i>
+                </button>
+
+                <!-- Fullscreen Image Container -->
+                <div class="lightbox-img-wrapper d-flex align-items-center justify-content-center w-100 h-100 p-3 p-md-5">
+                    <img id="lightboxModalImg" src="" class="img-fluid rounded-3 shadow-2xl user-select-none" style="max-height: 82vh; max-width: 92vw; object-fit: contain; transition: transform 0.2s ease-in-out;" alt="Full Event Recap Photo">
+                </div>
+
+                <!-- Right / Next Button -->
+                <button class="lightbox-nav-btn position-absolute top-50 end-0 translate-middle-y me-3 z-3 btn btn-dark bg-opacity-75 text-white rounded-circle border border-secondary p-3 shadow-lg d-flex align-items-center justify-content-center" id="lightboxNextBtn" style="width: 56px; height: 56px;" title="Next Photo (Right Arrow)">
+                    <i class="bi bi-chevron-right fs-4"></i>
+                </button>
+            </div>
+
+            <!-- Bottom Caption Bar -->
+            <div class="modal-footer border-0 justify-content-center py-3 text-center z-3">
+                <div class="text-white small fw-bold bg-dark bg-opacity-75 px-4 py-2 rounded-pill border border-secondary" id="lightboxBottomCaption">
+                    Event Moment
+                </div>
             </div>
         </div>
     </div>
