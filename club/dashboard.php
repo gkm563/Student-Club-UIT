@@ -206,17 +206,17 @@ try {
                     <span class="badge bg-white text-success rounded-pill px-3 py-1 fw-bold mb-2 small"><i class="bi bi-shield-check me-1"></i> OFFICIAL CHAPTER PORTAL</span>
                     <h2 class="fw-bold mb-2">Welcome back, <?= e($firstName) ?>! 👋</h2>
                     <p class="text-white-80 mb-0">Managing <strong><?= e($club['name']) ?></strong> campus activities, hackathons, and core student leadership roster.</p>
-                    <div class="mt-3 d-flex flex-wrap gap-3">
-                        <span class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 rounded-pill px-3 py-1 small">
-                            <i class="bi bi-calendar-check me-1"></i> This Month: <?= $eventsThisMonth ?> events
+                    <div class="mt-3 d-flex flex-wrap gap-2">
+                        <span style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.45); color: #fff; border-radius: 30px; padding: 5px 14px; font-size: 0.82rem; font-weight: 600; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="bi bi-calendar-check"></i> This Month: <?= $eventsThisMonth ?> events
                             <?php if ($eventsThisMonth > $eventsLastMonth): ?>
-                                <span class="ms-1 text-white">↑</span>
+                                <span>↑</span>
                             <?php elseif ($eventsThisMonth < $eventsLastMonth): ?>
-                                <span class="ms-1 text-white">↓</span>
+                                <span>↓</span>
                             <?php endif; ?>
                         </span>
-                        <span class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 rounded-pill px-3 py-1 small">
-                            <i class="bi bi-bar-chart me-1"></i> Last Month: <?= $eventsLastMonth ?> events
+                        <span style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.45); color: #fff; border-radius: 30px; padding: 5px 14px; font-size: 0.82rem; font-weight: 600; display:inline-flex; align-items:center; gap:6px;">
+                            <i class="bi bi-bar-chart"></i> Last Month: <?= $eventsLastMonth ?> events
                         </span>
                     </div>
                 </div>
