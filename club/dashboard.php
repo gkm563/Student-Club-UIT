@@ -285,56 +285,95 @@ try {
         </div>
         <?php endif; ?>
 
-        <!-- Executive Hero Banner -->
+        <!-- Executive Hero Banner (Ultra-Premium Redesign) -->
         <div class="card p-4 p-md-5 club-hero-card mb-4 text-white">
             <div class="row align-items-center g-4">
                 <div class="col-lg-8 position-relative z-1">
-                    <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                        <span class="badge bg-white bg-opacity-20 border border-white-10 text-white rounded-pill px-3 py-1-5 fw-bold small text-uppercase" style="backdrop-filter: blur(8px);">
-                            <i class="bi bi-patch-check-fill text-warning me-1"></i> Official Chapter Portal
+                    
+                    <!-- Top Badges & Live Status -->
+                    <div class="d-flex align-items-center gap-2.5 mb-3 flex-wrap">
+                        <span class="badge bg-white bg-opacity-20 border border-white-10 text-white rounded-pill px-3 py-1.5 fw-bold small text-uppercase" style="backdrop-filter: blur(10px);">
+                            <i class="bi bi-patch-check-fill text-warning me-1.5"></i> OFFICIAL CHAPTER PORTAL
                         </span>
-                        <span class="badge bg-black bg-opacity-25 text-white rounded-pill px-3 py-1-5 fw-semibold small">
-                            <?= e($club['category_name'] ?? 'Student Club') ?>
+                        <span class="badge bg-emerald-900 bg-opacity-50 text-emerald-300 border border-emerald-500-30 rounded-pill px-3 py-1.5 fw-semibold small" style="background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.35);">
+                            <i class="bi bi-tag-fill me-1" style="font-size:0.75rem;"></i> <?= e($club['category_name'] ?? 'Student Club') ?>
                         </span>
+                        <?php if (!empty($club['recruitment_open'])): ?>
+                            <span class="badge bg-warning text-dark rounded-pill px-3 py-1.5 fw-bold small">
+                                <i class="bi bi-megaphone-fill me-1"></i> RECRUITMENT OPEN
+                            </span>
+                        <?php endif; ?>
                     </div>
 
-                    <h1 class="fw-bold text-white mb-2 display-6">Welcome back, <?= e($firstName) ?>! 👋</h1>
-                    <p class="text-white-80 mb-4 fs-6" style="max-width: 620px; line-height: 1.6;">
-                        Directing <strong><?= e($club['name']) ?></strong> campus operations, upcoming workshops, media recaps, and annual student leadership.
+                    <!-- Welcome Title with Club Logo Avatar -->
+                    <div class="d-flex align-items-center gap-3.5 mb-3">
+                        <div class="rounded-4 p-1 border border-white-20 shadow-md flex-shrink-0" style="background: rgba(255,255,255,0.12); width: 62px; height: 62px; backdrop-filter: blur(8px);">
+                            <img src="<?= e($club['logo'] ?: '../assets/United Logo.webp') ?>" class="w-100 h-100 object-fit-cover rounded-3" alt="" onerror="this.src='../assets/United Logo.webp'">
+                        </div>
+                        <div>
+                            <h1 class="fw-bold text-white mb-1 display-6">Welcome back, <?= e($firstName) ?>! 👋</h1>
+                            <div class="text-white-80 small fw-semibold">
+                                Executive Lead &mdash; <span class="text-warning fw-bold"><?= e($club['name']) ?></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-white-80 mb-4 fs-6" style="max-width: 650px; line-height: 1.6;">
+                        Directing campus operations, hackathons, workshop registrations, media gallery recaps, and annual student leadership.
                     </p>
 
-                    <div class="d-flex flex-wrap gap-2 align-items-center">
-                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" style="background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.2); font-size: 0.82rem;">
-                            <i class="bi bi-calendar-event text-warning"></i>
-                            <span>This Month: <strong><?= $eventsThisMonth ?> events</strong></span>
+                    <!-- Interactive Metric Pills & Direct Action Buttons -->
+                    <div class="d-flex flex-wrap gap-2.5 align-items-center">
+                        <div class="d-flex align-items-center gap-2 px-3.5 py-2 rounded-pill" style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.18); font-size: 0.84rem; backdrop-filter: blur(8px);">
+                            <i class="bi bi-calendar-event text-warning fs-6"></i>
+                            <span>This Month: <strong class="text-white"><?= $eventsThisMonth ?> events</strong></span>
                             <?php if ($eventsThisMonth > $eventsLastMonth): ?>
-                                <span class="badge bg-success-subtle text-success rounded-pill px-1.5 py-0.5" style="font-size:0.68rem;">+<?= $eventsThisMonth - $eventsLastMonth ?></span>
+                                <span class="badge bg-success text-white rounded-pill px-2 py-0.5" style="font-size:0.65rem;">+<?= $eventsThisMonth - $eventsLastMonth ?></span>
                             <?php endif; ?>
                         </div>
 
-                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" style="background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.2); font-size: 0.82rem;">
-                            <i class="bi bi-person-badge text-info"></i>
-                            <span>Roster Leaders: <strong><?= $totalLeaders ?> members</strong></span>
+                        <div class="d-flex align-items-center gap-2 px-3.5 py-2 rounded-pill" style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.18); font-size: 0.84rem; backdrop-filter: blur(8px);">
+                            <i class="bi bi-people-fill text-info fs-6"></i>
+                            <span>Roster Leaders: <strong class="text-white"><?= $totalLeaders ?> members</strong></span>
                         </div>
 
-                        <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3 py-2 font-monospace fw-bold ms-auto d-none d-md-inline-block">
-                            <i class="bi bi-box-arrow-up-right me-1"></i> Preview Chapter Page
-                        </a>
+                        <div class="d-flex align-items-center gap-2 px-3.5 py-2 rounded-pill" style="background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.18); font-size: 0.84rem; backdrop-filter: blur(8px);">
+                            <i class="bi bi-camera-fill text-success fs-6"></i>
+                            <span>Gallery: <strong class="text-white"><?= $totalGallery ?> photos</strong></span>
+                        </div>
+
+                        <div class="ms-auto d-flex gap-2 flex-wrap mt-2 mt-md-0">
+                            <a href="create-event.php" class="btn btn-warning rounded-pill px-4 py-2 fw-bold text-dark shadow-sm d-inline-flex align-items-center gap-1.5" style="background: #f59e0b; border: none;">
+                                <i class="bi bi-plus-circle-fill"></i> Post Event
+                            </a>
+                            <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="btn btn-outline-light rounded-pill px-3.5 py-2 fw-bold font-monospace text-nowrap d-inline-flex align-items-center gap-1.5">
+                                <i class="bi bi-globe2"></i> Preview Page
+                            </a>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Right HUD Health Score Card -->
                 <div class="col-lg-4 text-lg-end position-relative z-1">
-                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-4 p-4 border border-white-10 text-start text-lg-start">
-                        <div class="text-white-50 small font-monospace text-uppercase fw-bold mb-1">CHAPTER HEALTH SCORE</div>
+                    <div class="bg-black bg-opacity-30 backdrop-blur rounded-4 p-4 border border-white-15 shadow-lg text-start text-lg-start" style="background: linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(16,185,129,0.15) 100%);">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="text-white-50 small font-monospace text-uppercase fw-bold" style="letter-spacing: 0.8px;">CHAPTER HEALTH SCORE</span>
+                            <span class="badge bg-<?= $healthBadge[1] ?> text-white rounded-pill px-3 py-1 fw-bold shadow-xs"><?= $healthBadge[0] ?></span>
+                        </div>
                         <div class="d-flex align-items-baseline gap-2 mb-2">
-                            <span class="display-5 fw-bold text-white mb-0"><?= $healthScore ?></span>
-                            <span class="text-white-50 fs-5">/ 100</span>
-                            <span class="badge bg-<?= $healthBadge[1] ?> text-white ms-auto rounded-pill px-3 py-1 fw-bold"><?= $healthBadge[0] ?></span>
+                            <span class="display-4 fw-bold text-white mb-0" style="letter-spacing: -1px;"><?= $healthScore ?></span>
+                            <span class="text-white-50 fs-4">/ 100</span>
+                            <div class="ms-auto text-end">
+                                <span class="d-block small text-warning fw-semibold"><i class="bi bi-activity me-1"></i>Live Metric</span>
+                            </div>
                         </div>
-                        <div class="progress bg-black bg-opacity-30 rounded-pill" style="height: 8px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $healthScore ?>%;" aria-valuenow="<?= $healthScore ?>"></div>
+                        <div class="progress bg-black bg-opacity-40 rounded-pill mb-2" style="height: 10px;">
+                            <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: <?= $healthScore ?>%; background: linear-gradient(90deg, #f59e0b, #10b981);" aria-valuenow="<?= $healthScore ?>"></div>
                         </div>
-                        <span class="d-block text-white-50 small mt-2" style="font-size:0.75rem;">Keep profiles, leaders & upcoming events active for maximum score.</span>
+                        <div class="d-flex justify-content-between align-items-center text-white-50 small mt-2" style="font-size:0.75rem;">
+                            <span><i class="bi bi-shield-check text-success me-1"></i>Verified Status</span>
+                            <span>Keep events & roster active</span>
+                        </div>
                     </div>
                 </div>
             </div>
