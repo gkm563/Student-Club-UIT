@@ -105,11 +105,11 @@ $healthBadge = $healthScore >= 80 ? ['Excellent', 'success'] : ($healthScore >= 
 
 // Pending Tasks
 $pendingTasks = [];
-if (empty($club['cover_image'])) $pendingTasks[] = ['Add a cover image to your club page', 'bi-image', '../admin/profile.php'];
-if (empty($club['description'])) $pendingTasks[] = ['Write a club description', 'bi-pencil', '../admin/profile.php'];
-if ($totalLeaders == 0) $pendingTasks[] = ['Add leadership team members', 'bi-person-plus', '../admin/profile.php'];
-if ($totalGallery == 0) $pendingTasks[] = ['Upload club gallery photos', 'bi-images', '../admin/gallery.php'];
-if ($totalUpcoming == 0) $pendingTasks[] = ['Schedule an upcoming event', 'bi-calendar-plus', '../admin/create-event.php'];
+if (empty($club['cover_image'])) $pendingTasks[] = ['Add a cover image to your club page', 'bi-image', 'profile.php'];
+if (empty($club['description'])) $pendingTasks[] = ['Write a club description', 'bi-pencil', 'profile.php'];
+if ($totalLeaders == 0) $pendingTasks[] = ['Add leadership team members', 'bi-person-plus', 'profile.php'];
+if ($totalGallery == 0) $pendingTasks[] = ['Upload club gallery photos', 'bi-images', 'gallery.php'];
+if ($totalUpcoming == 0) $pendingTasks[] = ['Schedule an upcoming event', 'bi-calendar-plus', 'create-event.php'];
 
 // Recent activity feed (last 5 audit log entries by this user)
 try {
@@ -221,7 +221,7 @@ try {
                     </div>
                 </div>
                 <div class="col-md-4 text-md-end">
-                    <a href="../admin/create-event.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-success shadow-sm">
+                    <a href="create-event.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-success shadow-sm">
                         <i class="bi bi-plus-lg me-1"></i> Post New Event
                     </a>
                 </div>
@@ -287,19 +287,19 @@ try {
         <!-- Quick Action Shortcuts Row -->
         <div class="row g-3 mb-4">
             <div class="col-3 col-sm-3">
-                <a href="../admin/create-event.php" class="quick-action-btn w-100">
+                <a href="create-event.php" class="quick-action-btn w-100">
                     <i class="bi bi-calendar-plus text-success"></i>
                     <span>Post Event</span>
                 </a>
             </div>
             <div class="col-3 col-sm-3">
-                <a href="../admin/profile.php" class="quick-action-btn w-100">
+                <a href="profile.php" class="quick-action-btn w-100">
                     <i class="bi bi-person-plus text-primary"></i>
                     <span>Add Leader</span>
                 </a>
             </div>
             <div class="col-3 col-sm-3">
-                <a href="../admin/gallery.php" class="quick-action-btn w-100">
+                <a href="gallery.php" class="quick-action-btn w-100">
                     <i class="bi bi-camera text-warning"></i>
                     <span>Upload Photo</span>
                 </a>
@@ -321,7 +321,7 @@ try {
                             <h5 class="fw-bold mb-0 text-dark">Recent Club Events</h5>
                             <span class="text-secondary small">Latest workshops & tech jams</span>
                         </div>
-                        <a href="../admin/events.php" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold">View All &rarr;</a>
+                        <a href="events.php" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold">View All &rarr;</a>
                     </div>
 
                     <?php if (empty($eventsList)): ?>
@@ -361,7 +361,7 @@ try {
                                             </td>
                                             <td class="text-end">
                                                 <a href="../event-detail.html?id=<?= e($ev['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Event"><i class="bi bi-eye text-primary"></i></a>
-                                                <a href="../admin/event-detail.php?id=<?= e($ev['id']) ?>" class="btn btn-sm btn-light rounded-circle ms-1" title="Manage Event"><i class="bi bi-pencil-square text-success"></i></a>
+                                                <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="btn btn-sm btn-light rounded-circle ms-1" title="Manage Event"><i class="bi bi-pencil-square text-success"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

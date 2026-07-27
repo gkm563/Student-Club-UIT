@@ -4,17 +4,12 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-require_login();
+require_login('../club-login.php');
 
-// Redirect Super Admin (Dean Sir) to Super Dashboard
+// Redirect Super Admin (Dean Sir) to Dean Dashboard
 $userRole = get_current_user_role();
 if ($userRole === 'super_admin') {
-    header('Location: super/index.php');
-    exit;
-}
-if ($userRole === 'club_admin') {
-    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-    header('Location: ../club/create-event.php' . $qs);
+    header('Location: ../admin/super/index.php');
     exit;
 }
 
@@ -98,24 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         body { background: #f8fafc; }
-        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
-        .admin-nav-link {
-            color: rgba(255,255,255,0.65);
-            padding: 11px 16px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            margin-bottom: 2px;
-        }
-        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(3px); }
-        .admin-nav-link.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
-        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
         .creator-card { border-radius: 16px; border: 1px solid #e2e8f0; background: #ffffff; }
     </style>
 </head>
@@ -126,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
     <?php require_once __DIR__ . '/../includes/club_sidebar.php'; ?>
 
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4 p-md-5">
+    <div class="flex-grow-1 p-3 p-md-4 p-xl-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <a href="events.php" class="text-primary fw-bold text-decoration-none small d-inline-block mb-2">&larr; Back to All Events</a>

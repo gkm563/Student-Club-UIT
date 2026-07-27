@@ -4,16 +4,11 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-require_login('/admin/club-login.php');
+require_login('../club-login.php');
 
 $userRole = get_current_user_role();
 if ($userRole === 'super_admin') {
-    header('Location: super/index.php');
-    exit;
-}
-if ($userRole === 'club_admin') {
-    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-    header('Location: ../club/event-detail.php' . $qs);
+    header('Location: ../admin/super/index.php');
     exit;
 }
 
@@ -139,7 +134,7 @@ if (isset($_GET['delete_photo'])) {
     exit;
 }
 
-// Fetch event gallery items (all club gallery items — event_id column doesn't exist in schema)
+// Fetch event gallery items
 $eventGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? ORDER BY created_at DESC LIMIT 20");
 $eventGalStmt->execute([$club['id']]);
 $eventPhotos = $eventGalStmt->fetchAll();
@@ -159,28 +154,6 @@ if (!empty($event['event_date'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body { background: #f8fafc; }
-        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
-        .admin-nav-link {
-            color: rgba(255,255,255,0.65);
-            padding: 11px 16px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            margin-bottom: 2px;
-        }
-        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(3px); }
-        .admin-nav-link.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
-        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
-    </style>
 </head>
 <body>
 
@@ -189,7 +162,7 @@ if (!empty($event['event_date'])) {
     <?php require_once __DIR__ . '/../includes/club_sidebar.php'; ?>
 
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4 p-md-5">
+    <div class="flex-grow-1 p-3 p-md-4 p-xl-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <a href="events.php" class="text-primary fw-bold text-decoration-none small d-inline-block mb-2">&larr; Back to Events List</a>
@@ -207,11 +180,11 @@ if (!empty($event['event_date'])) {
         </div>
 
         <?php if (!empty($success)): ?>
-            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($success) ?></div>
+            <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($success) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         <?php endif; ?>
 
         <?php if (!empty($error)): ?>
-            <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         <?php endif; ?>
 
         <div class="row g-4">
@@ -278,7 +251,7 @@ if (!empty($event['event_date'])) {
 
             <!-- Edit Event Form -->
             <div class="col-lg-8">
-                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4">
+                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 bg-white">
                     <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information Editor</h5>
                     
                     <form action="" method="POST" enctype="multipart/form-data" id="editEventForm">

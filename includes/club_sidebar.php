@@ -23,14 +23,14 @@ if (!isset($totalEvents)) {
 $inAdmin  = str_contains($currentUri, '/admin/')
          || str_contains($_SERVER['SCRIPT_FILENAME'] ?? '', DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR);
 
-$dashLink   = $inAdmin ? '../club/dashboard.php'              : 'dashboard.php';
-$eventsLink = $inAdmin ? 'events.php'                         : '../admin/events.php';
-$createLink = $inAdmin ? 'create-event.php'                   : '../admin/create-event.php';
-$profileLink= $inAdmin ? 'profile.php'                        : '../admin/profile.php';
-$galleryLink= $inAdmin ? 'gallery.php'                        : '../admin/gallery.php';
-$recruitLink= $inAdmin ? 'recruitment.php'                    : '../admin/recruitment.php';
-$logoutLink = $inAdmin ? 'logout.php'                         : '../admin/logout.php';
-$publicLink = isset($club['id']) ? ($inAdmin ? '../club-detail.html?id=' : '../club-detail.html?id=') . htmlspecialchars($club['id']) : '#';
+$dashLink   = 'dashboard.php';
+$eventsLink = 'events.php';
+$createLink = 'create-event.php';
+$profileLink= 'profile.php';
+$galleryLink= 'gallery.php';
+$recruitLink= 'recruitment.php';
+$logoutLink = '../admin/logout.php';
+$publicLink = isset($club['id']) ? '../club-detail.html?id=' . htmlspecialchars($club['id']) : '#';
 
 if (!function_exists('__clubNavActive')) {
     function __clubNavActive(string $uri, array $patterns): string {

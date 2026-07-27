@@ -4,16 +4,11 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-require_login('/admin/club-login.php');
+require_login('../club-login.php');
 
 $userRole = get_current_user_role();
 if ($userRole === 'super_admin') {
-    header('Location: super/index.php');
-    exit;
-}
-if ($userRole === 'club_admin') {
-    $qs = !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
-    header('Location: ../club/gallery.php' . $qs);
+    header('Location: ../admin/super/index.php');
     exit;
 }
 
