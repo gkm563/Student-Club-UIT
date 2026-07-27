@@ -303,7 +303,6 @@ function updateLightboxView() {
     const modalImg = document.getElementById('lightboxModalImg');
     const lightboxCounter = document.getElementById('lightboxCounter');
     const lightboxCaption = document.getElementById('lightboxCaption');
-    const lightboxBottomCaption = document.getElementById('lightboxBottomCaption');
 
     const photoCaption = photo.caption && photo.caption.trim() !== '' ? photo.caption : 'Event Recap Moment';
 
@@ -314,9 +313,6 @@ function updateLightboxView() {
     }
     if (lightboxCounter) lightboxCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${galleryPhotosList.length}`;
     if (lightboxCaption) lightboxCaption.textContent = photoCaption;
-    if (lightboxBottomCaption) {
-        lightboxBottomCaption.innerHTML = `<i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photoCaption)}`;
-    }
 }
 
 function showNextPhoto() {
