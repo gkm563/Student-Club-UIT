@@ -6,7 +6,7 @@ require_once __DIR__ . '/../includes/auth.php';
 
 // Auth Check for Super Admin (Dean Sir)
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
-    header('Location: /admin/dean-login.php');
+    header('Location: dean-login.php');
     exit;
 }
 
@@ -44,49 +44,7 @@ $nextEvents = $db->query("
     ORDER BY e.event_date ASC LIMIT 5
 ")->fetchAll();
 
-// ── Recent Activities (recent events or gallery items) ─
-$recentActivity = $db->query("
-    SELECT e.title, e.created_at, c.name as club_name, 'event' as type
-    FROM events e
-    JOIN clubs c ON e.club_id = c.id
-    ORDER BY e.created_at DESC LIMIT 5
-")->fetchAll();
-
-// ── Category distribution ──────────────────────────────
-$catDist = $db->query("
-    SELECT cat.name, COUNT(c.id) as cnt
-    FROM categories cat
-    LEFT JOIN clubs c ON c.category_id = cat.id
-    GROUP BY cat.id, cat.name
-    ORDER BY cnt DESC
-")->fetchAll();
-
-// ── Executive Intelligence Queries ─────────────────────
-$topPerformingClub = $db->query("
-    SELECT c.name, c.short_name, c.logo, COUNT(e.id) as total_events
-    FROM clubs c
-    LEFT JOIN events e ON e.club_id = c.id
-    GROUP BY c.id, c.name, c.short_name, c.logo
-    ORDER BY total_events DESC LIMIT 1
-")->fetch();
-
-$largestClub = $db->query("
-    SELECT c.name, c.short_name, c.logo, COUNT(l.id) as member_count
-    FROM clubs c
-    LEFT JOIN leadership l ON l.club_id = c.id
-    GROUP BY c.id, c.name, c.short_name, c.logo
-    ORDER BY member_count DESC LIMIT 1
-")->fetch();
-
-$dormantClubs = $db->query("
-    SELECT c.name, c.short_name, c.logo, c.email
-    FROM clubs c
-    LEFT JOIN events e ON e.club_id = c.id
-    WHERE e.id IS NULL OR e.created_at < DATE_SUB(NOW(), INTERVAL 60 DAY)
-    GROUP BY c.id, c.name, c.short_name, c.logo, c.email
-    LIMIT 5
-")->fetchAll();
-
+// ── Pending Proposals ──────────────────────────────────
 $pendingProposals = $db->query("
     SELECT * FROM club_proposals ORDER BY created_at DESC LIMIT 5
 ")->fetchAll();
@@ -102,111 +60,141 @@ $pendingProposals = $db->query("
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         * { box-sizing: border-box; }
-        body { background: #f1f5f9; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #f8fafc; font-family: 'Inter', system-ui, -apple-system, sans-serif; overflow-x: hidden; }
 
         /* ── Sidebar ── */
         .super-sidebar {
-            width: 260px; min-height: 100vh; flex-shrink: 0;
+            width: 265px; min-height: 100vh; flex-shrink: 0;
             background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
             color: #fff; display: flex; flex-direction: column;
             position: sticky; top: 0; overflow-y: auto;
             box-shadow: 4px 0 24px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
         .admin-nav-link {
-            color: rgba(255,255,255,0.65); padding: 10px 14px; border-radius: 10px;
+            color: rgba(255,255,255,0.7); padding: 11px 15px; border-radius: 12px;
             display: flex; align-items: center; gap: 11px; text-decoration: none;
-            font-weight: 500; font-size: 0.82rem; transition: all 0.2s ease; margin-bottom: 1px;
+            font-weight: 500; font-size: 0.88rem; transition: all 0.2s ease; margin-bottom: 2px;
         }
-        .admin-nav-link i { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(2px); }
-        .admin-nav-link.active { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
-        .admin-nav-link .nav-badge { margin-left:auto; background: #ef4444; color:#fff; border-radius:20px; padding: 1px 7px; font-size:0.65rem; font-weight:700; }
-        .sidebar-section-label { color: rgba(255,255,255,0.35); font-size: 0.6rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; padding: 0 14px; margin: 14px 0 6px; }
+        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; flex-shrink: 0; }
+        .admin-nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; transform: translateX(3px); }
+        .admin-nav-link.active { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 14px rgba(99,102,241,0.4); }
+        .sidebar-section-label { color: rgba(255,255,255,0.4); font-size: 0.65rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; padding: 0 14px; margin: 16px 0 6px; }
         .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
 
         /* ── Stat Cards ── */
-        .stat-card { border: none; border-radius: 16px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
-        .stat-icon-box { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-        .stat-trend { font-size: 0.72rem; font-weight: 600; }
+        .stat-card { border: none; border-radius: 20px; padding: 22px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; background: #fff; }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
+        .stat-icon-box { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+        .stat-trend { font-size: 0.75rem; font-weight: 600; }
         .trend-up { color: #22c55e; }
 
         /* ── Content cards ── */
-        .content-card { border: none; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); background: #fff; }
-        .content-card .card-header-custom { padding: 18px 20px 12px; border-bottom: 1px solid #f1f5f9; }
+        .content-card { border: none; border-radius: 20px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); background: #fff; }
+        .content-card .card-header-custom { padding: 20px 24px 14px; border-bottom: 1px solid #f1f5f9; }
 
-        /* ── Quick Action Buttons ── */
-        .qa-btn { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 10px; text-align: center; text-decoration: none; background: #fff; transition: all 0.2s ease; display: block; }
-        .qa-btn:hover { border-color: #6366f1; background: #f5f3ff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99,102,241,0.15); }
-        .qa-btn i { font-size: 1.5rem; display: block; margin-bottom: 6px; }
-        .qa-btn span { font-size: 0.72rem; font-weight: 600; color: #334155; display: block; }
-
-        /* ── Activity items ── */
-        .activity-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f8fafc; }
-        .activity-row:last-child { border-bottom: none; }
-        .activity-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-        /* ── Scrollbar ── */
-        .super-sidebar::-webkit-scrollbar { width: 4px; }
-        .super-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+        @media (max-width: 991.98px) {
+            .super-sidebar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                z-index: 1050;
+                height: 100vh;
+            }
+            .super-sidebar.show {
+                left: 0;
+            }
+            .sidebar-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.5);
+                backdrop-filter: blur(4px);
+                z-index: 1040;
+                display: none;
+            }
+            .sidebar-backdrop.show {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
 
+<!-- Mobile Header Bar (< 992px) -->
+<header class="d-lg-none bg-dark text-white p-3 d-flex align-items-center justify-content-between shadow-sm sticky-top" style="background: #0f172a !important;">
+    <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light btn-sm rounded-circle p-2" type="button" id="deanSidebarToggle" aria-label="Toggle Sidebar">
+            <i class="bi bi-list fs-5"></i>
+        </button>
+        <div class="d-flex align-items-center gap-2">
+            <img src="../assets/United Logo.webp" style="height: 28px; width: auto;" alt="">
+            <span class="fw-bold text-white small">Dean Sir Portal</span>
+        </div>
+    </div>
+    <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small">SUPER ADMIN</span>
+</header>
+
+<div class="sidebar-backdrop" id="deanSidebarBackdrop"></div>
+
 <div class="d-flex" style="min-height:100vh;">
 
     <!-- SIDEBAR -->
-    <aside class="super-sidebar d-none d-md-flex flex-column">
-        <!-- Brand -->
-        <div class="p-4 border-bottom border-white-10">
-            <div class="d-flex align-items-center gap-3 mb-1">
-                <img src="/assets/United Logo.webp" alt="ClubHub" style="height:28px;opacity:0.9;">
-                <div>
-                    <div class="fw-bold text-white lh-1" style="font-size:0.95rem;">ClubHub</div>
-                    <div class="text-white-50" style="font-size:0.58rem;letter-spacing:1.5px;">DEAN SIR PORTAL</div>
+    <aside class="super-sidebar p-3 p-md-4 d-flex flex-column justify-content-between shadow-lg" id="deanSidebar">
+        <div>
+            <!-- Brand Header -->
+            <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom border-white-10">
+                <div class="d-flex align-items-center gap-3">
+                    <img src="../assets/United Logo.webp" alt="ClubHub" style="height:32px; width:auto; object-fit:contain;">
+                    <div>
+                        <div class="fw-bold text-white lh-1" style="font-size:0.95rem;">ClubHub UIT</div>
+                        <div class="text-white-50" style="font-size:0.6rem;letter-spacing:1.5px;">DEAN SIR PORTAL</div>
+                    </div>
                 </div>
+                <button type="button" class="btn-close btn-close-white d-lg-none" id="deanSidebarClose" aria-label="Close"></button>
             </div>
-            <div class="text-white-50 mt-2" style="font-size:0.68rem;">United Institute of Technology</div>
+
+            <!-- Navigation -->
+            <nav class="nav flex-column gap-1">
+                <a href="dashboard.php" class="admin-nav-link active">
+                    <i class="bi bi-speedometer2"></i> Executive Overview
+                </a>
+
+                <div class="sidebar-section-label">Campus Governance</div>
+                <a href="super/clubs.php" class="admin-nav-link">
+                    <i class="bi bi-trophy"></i> Manage Clubs
+                </a>
+                <a href="super/categories.php" class="admin-nav-link">
+                    <i class="bi bi-grid-3x3-gap"></i> Categories
+                </a>
+                <a href="super/users.php" class="admin-nav-link">
+                    <i class="bi bi-person-gear"></i> Club Accounts
+                </a>
+
+                <div class="sidebar-section-label">Supervision & Audit</div>
+                <a href="super/messages.php" class="admin-nav-link">
+                    <i class="bi bi-inbox-fill"></i> Help Desk Messages
+                </a>
+                <a href="super/audit-logs.php" class="admin-nav-link">
+                    <i class="bi bi-journal-text"></i> Security Audit Logs
+                </a>
+            </nav>
         </div>
 
-        <!-- Navigation -->
-        <nav class="px-3 py-3 flex-grow-1">
-            <a href="/admin/dashboard.php" class="admin-nav-link active">
-                <i class="bi bi-speedometer2"></i> Executive Overview
-            </a>
-
-            <div class="sidebar-section-label">Campus Governance</div>
-            <a href="/admin/super/clubs.php" class="admin-nav-link">
-                <i class="bi bi-trophy"></i> Manage Clubs
-            </a>
-            <a href="/admin/super/categories.php" class="admin-nav-link">
-                <i class="bi bi-grid-3x3-gap"></i> Categories
-            </a>
-            <a href="/admin/super/users.php" class="admin-nav-link">
-                <i class="bi bi-person-gear"></i> Club Accounts
-            </a>
-
-            <div class="sidebar-section-label">Supervision & Audit</div>
-            <a href="/admin/super/messages.php" class="admin-nav-link">
-                <i class="bi bi-inbox-fill"></i> Help Desk Messages
-            </a>
-            <a href="/admin/super/audit-logs.php" class="admin-nav-link">
-                <i class="bi bi-journal-text"></i> Security Audit Logs
-            </a>
-        </nav>
-
         <!-- User Profile footer -->
-        <div class="p-3 border-top border-white-10">
-            <div class="d-flex align-items-center gap-2 mb-2">
-                <div class="rounded-circle bg-indigo text-white d-flex align-items-center justify-content-center fw-bold" style="width:34px;height:34px;font-size:0.8rem;background:#6366f1;">
+        <div class="pt-3 border-top border-white-10 mt-4">
+            <div class="d-flex align-items-center gap-2.5 mb-3">
+                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width:38px;height:38px;font-size:0.9rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);">
                     D
                 </div>
-                <div class="overflow-hidden">
-                    <div class="fw-semibold text-white small text-truncate" style="max-width:130px;"><?= e($deanName) ?></div>
-                    <div class="text-white-50 small" style="font-size:0.65rem;">Dean of Student Affairs</div>
+                <div class="overflow-hidden text-truncate">
+                    <span class="fw-semibold text-white small d-block text-truncate" style="max-width:140px;"><?= e($deanName) ?></span>
+                    <span class="text-white-50 small d-block text-truncate" style="font-size:0.7rem; max-width:140px;">Dean of Student Affairs</span>
                 </div>
             </div>
-            <a href="/admin/logout.php" class="btn btn-outline-danger btn-sm w-100 rounded-pill fw-bold" style="font-size:0.75rem;">
+            <a href="logout.php" class="btn btn-outline-danger btn-sm w-100 rounded-pill fw-bold">
                 <i class="bi bi-box-arrow-right me-1"></i> Sign Out
             </a>
         </div>
@@ -216,25 +204,20 @@ $pendingProposals = $db->query("
     <main class="flex-grow-1 d-flex flex-column min-w-0">
 
         <!-- Top Header Bar -->
-        <header class="bg-white border-bottom px-4 py-3 d-flex align-items-center justify-content-between sticky-top z-3">
-            <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-light d-md-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-                    <i class="bi bi-list fs-5"></i>
-                </button>
-                <div>
-                    <h5 class="fw-bold mb-0 text-dark">Dean Sir Super Admin Portal</h5>
-                    <span class="text-muted small">United Institute of Technology – Student Affairs Directorate</span>
-                </div>
+        <header class="bg-white border-bottom px-4 py-3 d-none d-lg-flex align-items-center justify-content-between sticky-top z-3">
+            <div>
+                <h5 class="fw-bold mb-0 text-dark">Dean Sir Super Admin Portal</h5>
+                <span class="text-muted small">United Institute of Technology – Student Affairs Directorate</span>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <a href="/index.html" class="btn btn-sm btn-outline-secondary rounded-pill px-3" target="_blank">
+                <a href="../index.html" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" target="_blank">
                     <i class="bi bi-globe me-1"></i> Public Site
                 </a>
             </div>
         </header>
 
         <!-- Main Body -->
-        <div class="p-4 p-md-5 flex-grow-1">
+        <div class="p-3 p-md-4 p-xl-5 flex-grow-1">
 
             <!-- Hero Welcome Card -->
             <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);">
@@ -245,7 +228,7 @@ $pendingProposals = $db->query("
                         <p class="text-white-80 mb-0">Overseeing <strong><?= $totalClubs ?> Active Chapters</strong>, campus events, funding proposals, and leadership appointments.</p>
                     </div>
                     <div class="col-md-4 text-md-end">
-                        <a href="/admin/super/clubs.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-dark shadow-sm">
+                        <a href="super/clubs.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-dark shadow-sm">
                             <i class="bi bi-gear-fill me-1"></i> Governance Portal
                         </a>
                     </div>
@@ -255,7 +238,7 @@ $pendingProposals = $db->query("
             <!-- Stats Grid -->
             <div class="row g-3 mb-4">
                 <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white">
+                    <div class="stat-card bg-white h-100">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="text-secondary small fw-semibold">ACTIVE CLUBS</span>
                             <div class="stat-icon-box bg-primary-subtle text-primary"><i class="bi bi-trophy-fill"></i></div>
@@ -266,7 +249,7 @@ $pendingProposals = $db->query("
                 </div>
 
                 <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white">
+                    <div class="stat-card bg-white h-100">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="text-secondary small fw-semibold">TOTAL EVENTS</span>
                             <div class="stat-icon-box bg-success-subtle text-success"><i class="bi bi-calendar-event-fill"></i></div>
@@ -277,7 +260,7 @@ $pendingProposals = $db->query("
                 </div>
 
                 <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white">
+                    <div class="stat-card bg-white h-100">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="text-secondary small fw-semibold">CORE LEADERS</span>
                             <div class="stat-icon-box bg-purple-subtle text-purple"><i class="bi bi-person-badge-fill"></i></div>
@@ -288,7 +271,7 @@ $pendingProposals = $db->query("
                 </div>
 
                 <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white">
+                    <div class="stat-card bg-white h-100">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <span class="text-secondary small fw-semibold">PROPOSALS</span>
                             <div class="stat-icon-box bg-warning-subtle text-warning"><i class="bi bi-inbox-fill"></i></div>
@@ -308,7 +291,7 @@ $pendingProposals = $db->query("
                                 <h6 class="fw-bold mb-0 text-dark">Institutional Chapters Overview</h6>
                                 <span class="text-muted small">Registered student clubs & lead accounts</span>
                             </div>
-                            <a href="/admin/super/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-bold">View All</a>
+                            <a href="super/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-bold">View All</a>
                         </div>
                         <div class="p-3">
                             <div class="table-responsive">
@@ -333,7 +316,7 @@ $pendingProposals = $db->query("
                                                 <td class="small text-secondary"><?= e($rc['category_name']) ?></td>
                                                 <td><span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small">Active</span></td>
                                                 <td class="text-end">
-                                                    <a href="/club-detail.html?id=<?= e($rc['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Page"><i class="bi bi-eye text-primary"></i></a>
+                                                    <a href="../club-detail.html?id=<?= e($rc['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Page"><i class="bi bi-eye text-primary"></i></a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -379,5 +362,25 @@ $pendingProposals = $db->query("
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const deanToggleBtn = document.getElementById('deanSidebarToggle');
+    const deanCloseBtn = document.getElementById('deanSidebarClose');
+    const deanSidebar = document.getElementById('deanSidebar');
+    const deanBackdrop = document.getElementById('deanSidebarBackdrop');
+
+    function openDeanSidebar() {
+        deanSidebar.classList.add('show');
+        deanBackdrop.classList.add('show');
+    }
+
+    function closeDeanSidebar() {
+        deanSidebar.classList.remove('show');
+        deanBackdrop.classList.remove('show');
+    }
+
+    if (deanToggleBtn) deanToggleBtn.addEventListener('click', openDeanSidebar);
+    if (deanCloseBtn) deanCloseBtn.addEventListener('click', closeDeanSidebar);
+    if (deanBackdrop) deanBackdrop.addEventListener('click', closeDeanSidebar);
+</script>
 </body>
 </html>
