@@ -361,6 +361,15 @@ try {
             'Seminar Hall 2, UIT', '2026-03-28 11:00:00', '/contact.html', 'completed'
         ],
         [
+            'evt_ecell_intro_session_2026', 'clb_ecell_uit_2026',
+            'E-Cell Introductory Session: Fostering Innovation & Startup Mindset',
+            'ecell-introductory-session-fostering-innovation-2026',
+            'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=800&auto=format&fit=crop',
+            'United Institute of Technology (UIT) successfully organized an engaging Entrepreneurship Cell (E-Cell) Introductory Session, bringing together aspiring innovators to explore the institute\'s dynamic entrepreneurial ecosystem. The session highlighted the importance of cultivating a startup mindset, encouraging students to transform innovative ideas into impactful solutions through collaboration, creativity, and practical learning. Students were also introduced to exciting opportunities through IEEE and the Institution\'s Innovation Council (IIC), aimed at supporting and nurturing student-led ventures. Principal Prof. (Dr.) Sanjay Srivastava applauded Team E-Cell for its efforts and inspired students to embrace entrepreneurship as a pathway to innovation and leadership. The session was enriched by valuable insights from Dr. Abhishek Malviya, Dr. Dhananjay Sharma, Dr. Manas Pandey (IITian), Ms. Shruti Sharma, Mr. Amitabh Srivastava, and Dr. Rehan Haider. Led by Prakhar Pandey with over 60 enthusiastic student participants across departments.',
+            'Main Seminar Hall & Student Activity Center, UIT Prayagraj', '2026-02-10 10:30:00', '/contact.html', 'completed'
+        ],
+
+        [
             'evt_wiki_tech_writing_2026', 'clb_wikiclub_uit_2026',
             'WikiClub Open Knowledge & Technical Writing Edit-a-thon',
             'wikiclub-open-knowledge-tech-writing-editathon',
