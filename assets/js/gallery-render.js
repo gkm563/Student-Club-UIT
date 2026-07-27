@@ -21,8 +21,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allGalleryItems = response.data;
             renderGallery('all');
+            populateHeroFeaturedEvent();
         })
         .catch(() => showError('Failed to connect to gallery database.'));
+
+    function populateHeroFeaturedEvent() {
+        if (!allGalleryItems || allGalleryItems.length === 0) return;
+        const featured = allGalleryItems[0];
+
+        const heroImg = document.getElementById('heroFeaturedImg');
+        const heroTitle = document.getElementById('heroFeaturedTitle');
+        const heroCaption = document.getElementById('heroFeaturedCaption');
+        const heroClub = document.getElementById('heroFeaturedClubBadge');
+        const heroCategory = document.getElementById('heroFeaturedCategory');
+
+        if (heroImg && featured.media_url) heroImg.src = esc(featured.media_url);
+        if (heroTitle && featured.caption) heroTitle.textContent = featured.caption;
+        if (heroCaption && featured.caption) heroCaption.textContent = `${featured.caption} — Captured live during student chapter event at United Institute of Technology.`;
+        if (heroClub && featured.club_name) heroClub.textContent = featured.club_name;
+        if (heroCategory && featured.category_name) {
+            heroCategory.innerHTML = `<i class="bi bi-tag-fill me-1 text-primary"></i> ${esc(featured.category_name)}`;
+        }
+    }
 
     // Filter pill listener
     filterPills.forEach(pill => {
