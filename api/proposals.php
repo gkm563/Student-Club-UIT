@@ -4,6 +4,7 @@
  */
 
 require_once __DIR__ . '/../includes/auth.php';
+require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../config/database.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -13,7 +14,13 @@ try {
     $db = Database::getConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        // Read either JSON body or POST form data
+        $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
+        if (str_contains($contentType, 'application/json')) {
+            $input = json_decode(file_get_contents('php://input'), true) ?? [];
+        } else {
+            $input = $_POST;
+        }
 
         $type            = trim($input['proposal_type'] ?? 'new_club');
         $applicantName   = trim($input['applicant_name'] ?? '');
@@ -23,6 +30,22 @@ try {
         $objective       = trim($input['objective'] ?? '');
         $facultyMentor   = trim($input['faculty_mentor'] ?? '');
 
+        // UIT College Student Verification Fields
+        $isUitStudent    = isset($input['is_uit_student']) && ($input['is_uit_student'] == '1' || $input['is_uit_student'] == 'true') ? 1 : 0;
+        $studentIdNumber = trim($input['student_id_number'] ?? '');
+        $departmentBranch= trim($input['department_branch'] ?? '');
+        $academicYear    = trim($input['academic_year'] ?? '');
+        $currentSemester = trim($input['current_semester'] ?? '');
+
+        // Handle Upload for Student ID Photo
+        $studentIdPhoto = '';
+        if ($isUitStudent && isset($_FILES['student_id_photo']) && $_FILES['student_id_photo']['error'] === UPLOAD_ERR_OK) {
+            $studentIdPhoto = upload_image_file($_FILES['student_id_photo'], 'proposals');
+        } elseif (isset($input['student_id_photo_url'])) {
+            $studentIdPhoto = trim($input['student_id_photo_url']);
+        }
+
+        // Basic validation
         if (empty($applicantName) || empty($applicantEmail) || empty($proposedTitle) || empty($objective)) {
             echo json_encode([
                 'status' => 'error',
@@ -31,16 +54,32 @@ try {
             exit;
         }
 
+        // Student validation if toggle is ON
+        if ($isUitStudent) {
+            if (empty($studentIdNumber) || empty($departmentBranch) || empty($academicYear) || empty($currentSemester)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'As a registered UIT student, College ID Number, Department, Academic Year, and Semester are mandatory.'
+                ]);
+                exit;
+            }
+        }
+
         $id = 'prop_' . bin2hex(random_bytes(6));
         $stmt = $db->prepare("
-            INSERT INTO club_proposals (id, proposal_type, applicant_name, applicant_email, applicant_phone, proposed_title, objective, faculty_mentor, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+            INSERT INTO club_proposals (
+                id, proposal_type, applicant_name, applicant_email, applicant_phone, proposed_title, objective, faculty_mentor,
+                is_uit_student, student_id_number, student_id_photo, department_branch, academic_year, current_semester, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
         ");
-        $stmt->execute([$id, $type, $applicantName, $applicantEmail, $applicantPhone, $proposedTitle, $objective, $facultyMentor]);
+        $stmt->execute([
+            $id, $type, $applicantName, $applicantEmail, $applicantPhone, $proposedTitle, $objective, $facultyMentor,
+            $isUitStudent, $studentIdNumber, $studentIdPhoto, $departmentBranch, $academicYear, $currentSemester
+        ]);
 
         echo json_encode([
             'status' => 'success',
-            'message' => 'Proposal submitted successfully to the Dean Student Welfare & Management Committee.'
+            'message' => 'Official proposal submitted successfully! The Dean of Student Welfare & Advisory Committee will review your application.'
         ]);
         exit;
     }

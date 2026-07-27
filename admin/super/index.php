@@ -431,8 +431,27 @@ $pendingProposals = $db->query("
                                     </td>
                                     <td class="fw-bold text-dark"><?= htmlspecialchars($prop['proposed_title']) ?></td>
                                     <td>
-                                        <div><?= htmlspecialchars($prop['applicant_name']) ?></div>
+                                        <div class="fw-bold text-dark"><?= htmlspecialchars($prop['applicant_name']) ?></div>
                                         <div class="text-muted small" style="font-size:0.7rem;"><?= htmlspecialchars($prop['applicant_email']) ?></div>
+                                        <?php if (!empty($prop['is_uit_student'])): ?>
+                                            <div class="mt-1">
+                                                <span class="badge bg-purple-subtle text-purple border border-purple-subtle rounded-pill px-2 py-0.5" style="background:#f5f3ff; color:#7c3aed; font-size:0.65rem;">
+                                                    <i class="bi bi-mortarboard-fill me-1"></i> UIT Student (ID: <?= htmlspecialchars($prop['student_id_number'] ?: 'N/A') ?>)
+                                                </span>
+                                            </div>
+                                            <div class="text-secondary small mt-0.5" style="font-size:0.68rem;">
+                                                <?= htmlspecialchars($prop['department_branch'] ?? '') ?> • <?= htmlspecialchars($prop['academic_year'] ?? '') ?> (<?= htmlspecialchars($prop['current_semester'] ?? '') ?>)
+                                            </div>
+                                            <?php if (!empty($prop['student_id_photo'])): ?>
+                                                <div class="mt-1">
+                                                    <a href="../../<?= htmlspecialchars($prop['student_id_photo']) ?>" target="_blank" class="badge bg-light text-primary border text-decoration-none" style="font-size:0.65rem;">
+                                                        <i class="bi bi-card-image me-1"></i> View ID Card
+                                                    </a>
+                                                </div>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <span class="badge bg-light text-secondary border rounded-pill px-2 py-0.5 mt-1" style="font-size:0.65rem;">External Applicant</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td><?= htmlspecialchars($prop['faculty_mentor'] ?: 'N/A') ?></td>
                                     <td><?= date('d M Y', strtotime($prop['created_at'])) ?></td>

@@ -19,28 +19,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Official Proposal Form Submission Handler
+    // Official Proposal Form Submission & Student Verification Toggle Handler
     const proposalForm = document.getElementById('proposalForm');
     const proposalAlert = document.getElementById('proposalAlert');
+    const isUitStudentToggle = document.getElementById('isUitStudentToggle');
+    const uitStudentFieldsPanel = document.getElementById('uitStudentFieldsPanel');
+
+    const studentInputs = [
+        document.getElementById('studentIdNumber'),
+        document.getElementById('studentIdPhoto'),
+        document.getElementById('departmentBranch'),
+        document.getElementById('academicYear'),
+        document.getElementById('currentSemester')
+    ];
+
+    if (isUitStudentToggle && uitStudentFieldsPanel) {
+        isUitStudentToggle.addEventListener('change', () => {
+            if (isUitStudentToggle.checked) {
+                uitStudentFieldsPanel.classList.remove('d-none');
+                studentInputs.forEach(el => { if (el) el.setAttribute('required', 'required'); });
+            } else {
+                uitStudentFieldsPanel.classList.add('d-none');
+                studentInputs.forEach(el => { if (el) el.removeAttribute('required'); });
+            }
+        });
+    }
 
     if (proposalForm) {
         proposalForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const payload = {
-                proposal_type: document.getElementById('propType').value,
-                applicant_name: document.getElementById('propName').value,
-                applicant_email: document.getElementById('propEmail').value,
-                applicant_phone: document.getElementById('propPhone').value,
-                proposed_title: document.getElementById('propTitle').value,
-                faculty_mentor: document.getElementById('propMentor').value,
-                objective: document.getElementById('propObjective').value
-            };
+            const formData = new FormData(proposalForm);
+            formData.append('is_uit_student', isUitStudentToggle && isUitStudentToggle.checked ? '1' : '0');
 
             fetch('api/proposals.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: formData
             })
             .then(res => res.json())
             .then(data => {
@@ -51,6 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (data.status === 'success') {
                     proposalForm.reset();
+                    if (isUitStudentToggle) {
+                        isUitStudentToggle.checked = false;
+                        isUitStudentToggle.dispatchEvent(new Event('change'));
+                    }
                 }
             })
             .catch(() => {

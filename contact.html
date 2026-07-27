@@ -224,38 +224,119 @@
 
             <div id="proposalAlert" class="alert alert-success d-none rounded-3 small mb-4"></div>
 
-            <form id="proposalForm">
+            <form id="proposalForm" enctype="multipart/form-data">
                 <div class="row g-3">
+                    
+                    <!-- Toggle Switch: UIT Student Check (Default OFF) -->
+                    <div class="col-12 mb-1">
+                        <div class="p-3.5 p-md-4 rounded-4 border bg-light d-flex align-items-center justify-content-between flex-wrap gap-3" style="border: 1px solid #ddd6fe !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="p-2.5 rounded-circle text-white d-flex align-items-center justify-content-center shadow-xs" style="background: linear-gradient(135deg, #7c3aed, #4f46e5); width: 44px; height: 44px; flex-shrink: 0;">
+                                    <i class="bi bi-mortarboard-fill fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0">Are you a registered UIT College Student?</h6>
+                                    <small class="text-secondary">Turn <strong>ON</strong> if you are a currently enrolled student at UIT to attach your college ID verification.</small>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch fs-4 mb-0">
+                                <input class="form-check-input" type="checkbox" id="isUitStudentToggle" role="switch" style="cursor: pointer;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic UIT Student Information Panel (Hidden by Default) -->
+                    <div class="col-12 d-none" id="uitStudentFieldsPanel">
+                        <div class="card p-4 rounded-4 border shadow-xs" style="background: #faf5ff; border: 1.5px solid #c084fc !important;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2">
+                                <h6 class="fw-bold mb-0" style="color: #6b21a8;">
+                                    <i class="bi bi-shield-lock-fill me-2"></i> UIT Student Verification Details (Compulsory)
+                                </h6>
+                                <span class="badge bg-purple text-white rounded-pill px-3 py-1 small" style="background: #7c3aed;">COMPULSORY FOR UIT STUDENTS</span>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-dark">College Student ID Number *</label>
+                                    <input type="text" id="studentIdNumber" name="student_id_number" class="form-control rounded-3 border py-2.5" placeholder="e.g. UIT20241042">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small text-dark">Upload College ID Card Photo *</label>
+                                    <input type="file" id="studentIdPhoto" name="student_id_photo" class="form-control rounded-3 border py-2" accept="image/*,.pdf">
+                                    <small class="text-muted d-block mt-1" style="font-size:0.75rem;">Upload clear photo/scan of physical UIT student ID card (JPG, PNG, WEBP, PDF).</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-dark">Department / Branch *</label>
+                                    <select id="departmentBranch" name="department_branch" class="form-select rounded-3 border py-2.5">
+                                        <option value="">Select Department / Branch</option>
+                                        <option value="Computer Science & Engineering (CSE)">Computer Science & Engineering (CSE)</option>
+                                        <option value="Information Technology (IT)">Information Technology (IT)</option>
+                                        <option value="Electronics & Communication (ECE)">Electronics & Communication (ECE)</option>
+                                        <option value="Mechanical Engineering (ME)">Mechanical Engineering (ME)</option>
+                                        <option value="Civil Engineering (CE)">Civil Engineering (CE)</option>
+                                        <option value="Bachelor of Computer Applications (BCA)">Bachelor of Computer Applications (BCA)</option>
+                                        <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
+                                        <option value="Management / MBA">Management / MBA</option>
+                                        <option value="Other Department">Other Department</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-dark">Academic Year *</label>
+                                    <select id="academicYear" name="academic_year" class="form-select rounded-3 border py-2.5">
+                                        <option value="">Select Academic Year</option>
+                                        <option value="1st Year">1st Year</option>
+                                        <option value="2nd Year">2nd Year</option>
+                                        <option value="3rd Year">3rd Year</option>
+                                        <option value="4th Year / Final Year">4th Year / Final Year</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold small text-dark">Current Semester *</label>
+                                    <select id="currentSemester" name="current_semester" class="form-select rounded-3 border py-2.5">
+                                        <option value="">Select Semester</option>
+                                        <option value="Semester 1">Semester 1</option>
+                                        <option value="Semester 2">Semester 2</option>
+                                        <option value="Semester 3">Semester 3</option>
+                                        <option value="Semester 4">Semester 4</option>
+                                        <option value="Semester 5">Semester 5</option>
+                                        <option value="Semester 6">Semester 6</option>
+                                        <option value="Semester 7">Semester 7</option>
+                                        <option value="Semester 8">Semester 8</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Proposal Type *</label>
-                        <select id="propType" class="form-select rounded-3 border py-2.5" style="border-color:#e2e8f0;" required>
+                        <select id="propType" name="proposal_type" class="form-select rounded-3 border py-2.5" style="border-color:#e2e8f0;" required>
                             <option value="new_club">Establish New Student Club</option>
                             <option value="new_event">Host Official Campus Event</option>
                         </select>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Applicant Name *</label>
-                        <input type="text" id="propName" class="form-control rounded-3 border py-2.5" placeholder="Your full name" style="border-color:#e2e8f0;" required>
+                        <input type="text" id="propName" name="applicant_name" class="form-control rounded-3 border py-2.5" placeholder="Your full name" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Email Address *</label>
-                        <input type="email" id="propEmail" class="form-control rounded-3 border py-2.5" placeholder="student@uit.edu" style="border-color:#e2e8f0;" required>
+                        <input type="email" id="propEmail" name="applicant_email" class="form-control rounded-3 border py-2.5" placeholder="student@uit.edu" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Contact Phone</label>
-                        <input type="text" id="propPhone" class="form-control rounded-3 border py-2.5" placeholder="+91 98765 00000" style="border-color:#e2e8f0;">
+                        <input type="text" id="propPhone" name="applicant_phone" class="form-control rounded-3 border py-2.5" placeholder="+91 98765 00000" style="border-color:#e2e8f0;">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Proposed Title / Club Name *</label>
-                        <input type="text" id="propTitle" class="form-control rounded-3 border py-2.5" placeholder="e.g. AI & Robotics Club UIT" style="border-color:#e2e8f0;" required>
+                        <input type="text" id="propTitle" name="proposed_title" class="form-control rounded-3 border py-2.5" placeholder="e.g. AI & Robotics Club UIT" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-dark">Faculty Mentor (Optional)</label>
-                        <input type="text" id="propMentor" class="form-control rounded-3 border py-2.5" placeholder="Faculty Mentor Name" style="border-color:#e2e8f0;">
+                        <input type="text" id="propMentor" name="faculty_mentor" class="form-control rounded-3 border py-2.5" placeholder="Faculty Mentor Name" style="border-color:#e2e8f0;">
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-bold small text-dark">Objectives, Vision & Expected Beneficiaries *</label>
-                        <textarea id="propObjective" class="form-control rounded-3 border py-2.5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." style="border-color:#e2e8f0;" required></textarea>
+                        <textarea id="propObjective" name="objective" class="form-control rounded-3 border py-2.5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." style="border-color:#e2e8f0;" required></textarea>
                     </div>
                     <div class="col-12 pt-2">
                         <button type="submit" class="btn btn-dark rounded-pill px-5 py-2.5 fw-bold shadow-sm" style="background:#0f172a;">
