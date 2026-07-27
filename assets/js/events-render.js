@@ -113,10 +113,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const ongoingBadge = document.getElementById('ongoingCountBadge');
         const upcomingBadge = document.getElementById('upcomingCountBadge');
         const pastBadge = document.getElementById('pastCountBadge');
+        const heroOngoing = document.getElementById('heroOngoingCount');
+        const heroUpcoming = document.getElementById('heroUpcomingCount');
 
         if (ongoingBadge) ongoingBadge.textContent = `${ongoingList.length} Live`;
         if (upcomingBadge) upcomingBadge.textContent = `${upcomingList.length} Scheduled`;
         if (pastBadge) pastBadge.textContent = `${pastList.length} Completed`;
+        if (heroOngoing) heroOngoing.textContent = `${ongoingList.length}`;
+        if (heroUpcoming) heroUpcoming.textContent = `${upcomingList.length}`;
 
         // Section Containers
         const ongoingSec = document.getElementById('ongoingEventsSection');
