@@ -3,12 +3,12 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-require_login();
+require_login('../club-login.php');
 
-// Redirect Super Admin (Dean Sir) to Dean Dashboard (/admin/dashboard.php)
+// Redirect Super Admin (Dean Sir) to Dean Dashboard
 $userRole = get_current_user_role();
 if ($userRole === 'super_admin') {
-    header('Location: ../admin/dashboard.php');
+    header('Location: ../admin/super/index.php');
     exit;
 }
 
@@ -125,7 +125,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= e($club['name']) ?> | Club Lead Portal | ClubHub UIT</title>
+    <title><?= e($club['name']) ?> | Executive Lead Portal | ClubHub UIT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -135,52 +135,131 @@ try {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
         }
-        .stat-card {
-            border: none;
+
+        /* Hero Banner Glassmorphism */
+        .club-hero-card {
+            background: linear-gradient(135deg, #064e3b 0%, #047857 45%, #059669 80%, #10b981 100%);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 16px 40px rgba(5,150,105,0.22);
+        }
+        .club-hero-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Stat Card Aesthetics */
+        .stat-card-pro {
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             background: #ffffff;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+        .stat-card-pro:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.08) !important;
+            border-color: rgba(16,185,129,0.3);
         }
-        .stat-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
+        .stat-card-icon-wrapper {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.45rem;
+            transition: transform 0.25s ease;
         }
-        .quick-action-btn {
+        .stat-card-pro:hover .stat-card-icon-wrapper {
+            transform: scale(1.08) rotate(3deg);
+        }
+
+        /* Quick Action Shortcut Tile */
+        .action-tile {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 16px 12px;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            background: #fff;
+            justify-content: center;
+            padding: 18px 14px;
+            border-radius: 18px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
             text-decoration: none;
-            color: #334155;
-            transition: all 0.2s ease;
-            font-size: 0.82rem;
-            font-weight: 600;
+            color: #1e293b;
+            font-size: 0.84rem;
+            font-weight: 700;
+            transition: all 0.22s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
-        .quick-action-btn:hover {
+        .action-tile:hover {
             border-color: #10b981;
-            background: #f0fdf4;
-            color: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(16,185,129,0.12);
+            background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+            color: #047857;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(16,185,129,0.14);
         }
-        .quick-action-btn i { font-size: 1.5rem; }
-        .task-item { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
-        .task-item:last-child { border-bottom: none; }
-        .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0; }
-        .countdown-badge { font-size: 0.7rem; background: #f0fdf4; color: #065f46; border: 1px solid #bbf7d0; border-radius: 20px; padding: 2px 10px; }
+        .action-tile-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+            transition: background 0.2s ease;
+        }
+
+        /* Task Checkbox List */
+        .task-row {
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+        }
+        .task-row:hover {
+            background: #ffffff;
+            border-color: #cbd5e1;
+            transform: translateX(3px);
+        }
+
+        /* Activity Feed Timeline */
+        .activity-timeline-item {
+            position: relative;
+            padding-left: 24px;
+            border-left: 2px dashed #cbd5e1;
+            padding-bottom: 16px;
+        }
+        .activity-timeline-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+        .activity-timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.25);
+        }
+
+        .table-custom-hover tbody tr {
+            transition: background-color 0.15s ease;
+        }
+        .table-custom-hover tbody tr:hover {
+            background-color: #f1f5f9 !important;
+        }
     </style>
 </head>
 <body>
@@ -192,91 +271,135 @@ try {
     <!-- Main Content Body -->
     <main class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
 
+        <!-- Recruitment Alert Banner -->
         <?php if (!empty($club['recruitment_open'])): ?>
-        <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-3" role="alert">
-            <i class="bi bi-megaphone-fill me-2"></i> <strong>Recruitment is OPEN!</strong> Your chapter is currently accepting new members.
+        <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4 d-flex align-items-center gap-3 p-3 bg-success bg-opacity-10 text-success" role="alert">
+            <div class="p-2 bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
+                <i class="bi bi-megaphone-fill fs-5"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="fw-bold">Student Recruitment Drive is Currently LIVE!</div>
+                <div class="small opacity-85">Your chapter is actively receiving student membership applications. Manage settings in <a href="recruitment.php" class="fw-bold text-success text-decoration-underline">Recruitment Setup &rarr;</a></div>
+            </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         <?php endif; ?>
 
-        <!-- Top Executive Welcome Banner -->
-        <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4 text-white" style="background: linear-gradient(135deg, #059669 0%, #10b981 50%, #047857 100%);">
-            <div class="row align-items-center g-3">
-                <div class="col-md-8">
-                    <span class="badge bg-white text-success rounded-pill px-3 py-1 fw-bold mb-2 small"><i class="bi bi-shield-check me-1"></i> OFFICIAL CHAPTER PORTAL</span>
-                    <h2 class="fw-bold mb-2">Welcome back, <?= e($firstName) ?>! 👋</h2>
-                    <p class="text-white-80 mb-0">Managing <strong><?= e($club['name']) ?></strong> campus activities, hackathons, and core student leadership roster.</p>
-                    <div class="mt-3 d-flex flex-wrap gap-2">
-                        <span style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.45); color: #fff; border-radius: 30px; padding: 5px 14px; font-size: 0.82rem; font-weight: 600; display:inline-flex; align-items:center; gap:6px;">
-                            <i class="bi bi-calendar-check"></i> This Month: <?= $eventsThisMonth ?> events
-                            <?php if ($eventsThisMonth > $eventsLastMonth): ?>
-                                <span>↑</span>
-                            <?php elseif ($eventsThisMonth < $eventsLastMonth): ?>
-                                <span>↓</span>
-                            <?php endif; ?>
+        <!-- Executive Hero Banner -->
+        <div class="card p-4 p-md-5 club-hero-card mb-4 text-white">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8 position-relative z-1">
+                    <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                        <span class="badge bg-white bg-opacity-20 border border-white-10 text-white rounded-pill px-3 py-1-5 fw-bold small text-uppercase" style="backdrop-filter: blur(8px);">
+                            <i class="bi bi-patch-check-fill text-warning me-1"></i> Official Chapter Portal
                         </span>
-                        <span style="background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.45); color: #fff; border-radius: 30px; padding: 5px 14px; font-size: 0.82rem; font-weight: 600; display:inline-flex; align-items:center; gap:6px;">
-                            <i class="bi bi-bar-chart"></i> Last Month: <?= $eventsLastMonth ?> events
+                        <span class="badge bg-black bg-opacity-25 text-white rounded-pill px-3 py-1-5 fw-semibold small">
+                            <?= e($club['category_name'] ?? 'Student Club') ?>
                         </span>
                     </div>
+
+                    <h1 class="fw-bold text-white mb-2 display-6">Welcome back, <?= e($firstName) ?>! 👋</h1>
+                    <p class="text-white-80 mb-4 fs-6" style="max-width: 620px; line-height: 1.6;">
+                        Directing <strong><?= e($club['name']) ?></strong> campus operations, upcoming workshops, media recaps, and annual student leadership.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 align-items-center">
+                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" style="background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.2); font-size: 0.82rem;">
+                            <i class="bi bi-calendar-event text-warning"></i>
+                            <span>This Month: <strong><?= $eventsThisMonth ?> events</strong></span>
+                            <?php if ($eventsThisMonth > $eventsLastMonth): ?>
+                                <span class="badge bg-success-subtle text-success rounded-pill px-1.5 py-0.5" style="font-size:0.68rem;">+<?= $eventsThisMonth - $eventsLastMonth ?></span>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-pill" style="background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.2); font-size: 0.82rem;">
+                            <i class="bi bi-person-badge text-info"></i>
+                            <span>Roster Leaders: <strong><?= $totalLeaders ?> members</strong></span>
+                        </div>
+
+                        <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3 py-2 font-monospace fw-bold ms-auto d-none d-md-inline-block">
+                            <i class="bi bi-box-arrow-up-right me-1"></i> Preview Chapter Page
+                        </a>
+                    </div>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <a href="create-event.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-success shadow-sm">
-                        <i class="bi bi-plus-lg me-1"></i> Post New Event
-                    </a>
+
+                <div class="col-lg-4 text-lg-end position-relative z-1">
+                    <div class="bg-white bg-opacity-10 backdrop-blur rounded-4 p-4 border border-white-10 text-start text-lg-start">
+                        <div class="text-white-50 small font-monospace text-uppercase fw-bold mb-1">CHAPTER HEALTH SCORE</div>
+                        <div class="d-flex align-items-baseline gap-2 mb-2">
+                            <span class="display-5 fw-bold text-white mb-0"><?= $healthScore ?></span>
+                            <span class="text-white-50 fs-5">/ 100</span>
+                            <span class="badge bg-<?= $healthBadge[1] ?> text-white ms-auto rounded-pill px-3 py-1 fw-bold"><?= $healthBadge[0] ?></span>
+                        </div>
+                        <div class="progress bg-black bg-opacity-30 rounded-pill" style="height: 8px;">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $healthScore ?>%;" aria-valuenow="<?= $healthScore ?>"></div>
+                        </div>
+                        <span class="d-block text-white-50 small mt-2" style="font-size:0.75rem;">Keep profiles, leaders & upcoming events active for maximum score.</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 4 Quick Stat Cards -->
+        <!-- 4 Key Performance Metrics Grid -->
         <div class="row g-3 g-md-4 mb-4">
+            <!-- Metric 1: Total Events -->
             <div class="col-6 col-xl-3">
-                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                <div class="card stat-card-pro p-3.5 p-md-4 shadow-xs h-100">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="text-secondary small fw-semibold d-block mb-1">Total Events</span>
-                            <h3 class="fw-bold text-dark mb-0"><?= $totalEvents ?></h3>
+                            <span class="text-secondary small fw-bold text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">TOTAL EVENTS</span>
+                            <h2 class="fw-bold text-dark mb-0"><?= $totalEvents ?></h2>
+                            <span class="text-success small fw-semibold mt-1 d-inline-block"><i class="bi bi-check-circle-fill me-1"></i><?= $totalCompleted ?> Concluded</span>
                         </div>
-                        <div class="stat-icon bg-primary-subtle text-primary">
+                        <div class="stat-card-icon-wrapper bg-primary-subtle text-primary">
                             <i class="bi bi-calendar-event-fill"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Metric 2: Upcoming Activities -->
             <div class="col-6 col-xl-3">
-                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                <div class="card stat-card-pro p-3.5 p-md-4 shadow-xs h-100">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="text-secondary small fw-semibold d-block mb-1">Upcoming</span>
-                            <h3 class="fw-bold text-success mb-0"><?= $totalUpcoming ?></h3>
+                            <span class="text-secondary small fw-bold text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">UPCOMING EVENTS</span>
+                            <h2 class="fw-bold text-success mb-0"><?= $totalUpcoming ?></h2>
+                            <span class="text-secondary small mt-1 d-inline-block">Scheduled live</span>
                         </div>
-                        <div class="stat-icon bg-success-subtle text-success">
+                        <div class="stat-card-icon-wrapper bg-success-subtle text-success">
                             <i class="bi bi-clock-history"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Metric 3: Core Roster Leaders -->
             <div class="col-6 col-xl-3">
-                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                <div class="card stat-card-pro p-3.5 p-md-4 shadow-xs h-100">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="text-secondary small fw-semibold d-block mb-1">Core Leaders</span>
-                            <h3 class="fw-bold text-info mb-0"><?= $totalLeaders ?></h3>
+                            <span class="text-secondary small fw-bold text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">CORE LEADERS</span>
+                            <h2 class="fw-bold text-info mb-0"><?= $totalLeaders ?></h2>
+                            <span class="text-info small fw-semibold mt-1 d-inline-block">Executive Roster</span>
                         </div>
-                        <div class="stat-icon bg-info-subtle text-info">
+                        <div class="stat-card-icon-wrapper bg-info-subtle text-info">
                             <i class="bi bi-people-fill"></i>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Metric 4: Gallery Photos -->
             <div class="col-6 col-xl-3">
-                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                <div class="card stat-card-pro p-3.5 p-md-4 shadow-xs h-100">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <span class="text-secondary small fw-semibold d-block mb-1">Moments</span>
-                            <h3 class="fw-bold text-warning mb-0"><?= $totalGallery ?></h3>
+                            <span class="text-secondary small fw-bold text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.5px;">MOMENTS & PHOTOS</span>
+                            <h2 class="fw-bold text-warning mb-0"><?= $totalGallery ?></h2>
+                            <span class="text-warning small fw-semibold mt-1 d-inline-block">Official Gallery</span>
                         </div>
-                        <div class="stat-icon bg-warning-subtle text-warning">
+                        <div class="stat-card-icon-wrapper bg-warning-subtle text-warning">
                             <i class="bi bi-images"></i>
                         </div>
                     </div>
@@ -284,84 +407,121 @@ try {
             </div>
         </div>
 
-        <!-- Quick Action Shortcuts Row -->
-        <div class="row g-3 mb-4">
-            <div class="col-3 col-sm-3">
-                <a href="create-event.php" class="quick-action-btn w-100">
-                    <i class="bi bi-calendar-plus text-success"></i>
+        <!-- Quick Action Shortcuts Grid (5 Action Buttons) -->
+        <div class="row g-2 g-md-3 mb-4">
+            <div class="col-6 col-sm-4 col-md-2.4 col-lg">
+                <a href="create-event.php" class="action-tile">
+                    <div class="action-tile-icon bg-success-subtle text-success">
+                        <i class="bi bi-calendar-plus-fill"></i>
+                    </div>
                     <span>Post Event</span>
                 </a>
             </div>
-            <div class="col-3 col-sm-3">
-                <a href="profile.php" class="quick-action-btn w-100">
-                    <i class="bi bi-person-plus text-primary"></i>
+            <div class="col-6 col-sm-4 col-md-2.4 col-lg">
+                <a href="profile.php" class="action-tile">
+                    <div class="action-tile-icon bg-primary-subtle text-primary">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
                     <span>Add Leader</span>
                 </a>
             </div>
-            <div class="col-3 col-sm-3">
-                <a href="gallery.php" class="quick-action-btn w-100">
-                    <i class="bi bi-camera text-warning"></i>
+            <div class="col-6 col-sm-4 col-md-2.4 col-lg">
+                <a href="gallery.php" class="action-tile">
+                    <div class="action-tile-icon bg-warning-subtle text-warning">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                    </div>
                     <span>Upload Photo</span>
                 </a>
             </div>
-            <div class="col-3 col-sm-3">
-                <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="quick-action-btn w-100">
-                    <i class="bi bi-box-arrow-up-right text-info"></i>
+            <div class="col-6 col-sm-4 col-md-2.4 col-lg">
+                <a href="recruitment.php" class="action-tile">
+                    <div class="action-tile-icon bg-info-subtle text-info">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+                    <span>Recruitment</span>
+                </a>
+            </div>
+            <div class="col-12 col-sm-4 col-md-2.4 col-lg">
+                <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="action-tile">
+                    <div class="action-tile-icon bg-dark-subtle text-dark">
+                        <i class="bi bi-globe"></i>
+                    </div>
                     <span>Public Page</span>
                 </a>
             </div>
         </div>
 
         <div class="row g-4">
-            <!-- Recent Events List Table -->
+            <!-- Left Column: Recent Events Directory Table -->
             <div class="col-lg-8">
-                <div class="card p-3 p-md-4 border-0 shadow-sm rounded-4 bg-white">
+                <div class="card border-0 shadow-sm rounded-4 bg-white p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div>
-                            <h5 class="fw-bold mb-0 text-dark">Recent Club Events</h5>
-                            <span class="text-secondary small">Latest workshops & tech jams</span>
+                            <h5 class="fw-bold mb-0 text-dark"><i class="bi bi-calendar-range text-primary me-2"></i>Recent Chapter Events</h5>
+                            <span class="text-secondary small">Manage workshops, hackathons & coding jams</span>
                         </div>
-                        <a href="events.php" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold">View All &rarr;</a>
+                        <a href="events.php" class="btn btn-sm btn-primary rounded-pill px-3.5 py-1.5 fw-bold shadow-xs">
+                            View All Events <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
                     </div>
 
                     <?php if (empty($eventsList)): ?>
-                        <div class="text-center py-4 text-muted bg-light rounded-3">
-                            <i class="bi bi-calendar-x fs-2 mb-2 d-block text-secondary"></i>
-                            No events added yet. Click <strong>Post New Event</strong> to publish your first chapter activity.
+                        <div class="text-center py-5 text-muted bg-light rounded-4 border">
+                            <i class="bi bi-calendar-x fs-1 mb-2 d-block text-secondary"></i>
+                            <h6 class="fw-bold text-dark">No Events Published Yet</h6>
+                            <p class="small text-secondary mb-3">Publish your first workshop or competition to display on your chapter portal.</p>
+                            <a href="create-event.php" class="btn btn-sm btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-xs">
+                                <i class="bi bi-plus-lg me-1"></i> Post New Event
+                            </a>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0">
+                            <table class="table table-custom-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr class="small text-secondary">
-                                        <th>EVENT TITLE</th>
-                                        <th>DATE</th>
+                                        <th style="border-top-left-radius: 10px;">EVENT TITLE</th>
+                                        <th>DATE & TIME</th>
                                         <th>STATUS</th>
-                                        <th class="text-end">ACTION</th>
+                                        <th class="text-end" style="border-top-right-radius: 10px;">ACTIONS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($eventsList as $ev): ?>
                                         <tr>
                                             <td class="fw-bold text-dark">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <img src="<?= e($ev['banner'] ?: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=200&auto=format&fit=crop') ?>" class="rounded-2" style="width: 40px; height: 40px; object-fit: cover;" alt="">
-                                                    <span class="text-truncate" style="max-width: 200px;"><?= e($ev['title']) ?></span>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <img src="<?= e($ev['banner'] ?: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=200&auto=format&fit=crop') ?>" 
+                                                         class="rounded-3 border shadow-xs" style="width: 48px; height: 38px; object-fit: cover;" alt="">
+                                                    <div class="overflow-hidden me-2">
+                                                        <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="text-decoration-none text-dark fw-bold text-truncate d-block" style="max-width: 220px;" title="<?= e($ev['title']) ?>">
+                                                            <?= e($ev['title']) ?>
+                                                        </a>
+                                                        <span class="small text-muted d-block" style="font-size: 0.73rem;"><i class="bi bi-geo-alt me-1 text-danger"></i><?= e($ev['venue']) ?></span>
+                                                    </div>
                                                 </div>
                                             </td>
-                                            <td class="small text-secondary"><?= date('d M Y', strtotime($ev['event_date'])) ?></td>
+                                            <td class="small text-secondary">
+                                                <div class="fw-semibold text-dark"><?= date('d M Y', strtotime($ev['event_date'])) ?></div>
+                                                <span class="text-muted" style="font-size:0.73rem;"><?= date('h:i A', strtotime($ev['event_date'])) ?></span>
+                                            </td>
                                             <td>
                                                 <?php if ($ev['status'] === 'completed'): ?>
-                                                    <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 small">Concluded</span>
-                                                <?php elseif ($ev['status'] === 'published'): ?>
-                                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small">Active</span>
+                                                    <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-2.5 py-1 small"><i class="bi bi-check2-all me-1"></i>Completed</span>
+                                                <?php elseif ($ev['status'] === 'upcoming' || $ev['status'] === 'published'): ?>
+                                                    <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small"><i class="bi bi-circle-fill text-success me-1" style="font-size:0.5rem;"></i>Active</span>
+                                                <?php elseif ($ev['status'] === 'ongoing'): ?>
+                                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 small"><i class="bi bi-lightning-fill me-1"></i>Live Now</span>
                                                 <?php else: ?>
-                                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 small"><?= ucfirst($ev['status']) ?></span>
+                                                    <span class="badge bg-light text-dark border rounded-pill px-2.5 py-1 small"><?= ucfirst($ev['status']) ?></span>
                                                 <?php endif; ?>
                                             </td>
                                             <td class="text-end">
-                                                <a href="../event-detail.html?id=<?= e($ev['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Event"><i class="bi bi-eye text-primary"></i></a>
-                                                <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="btn btn-sm btn-light rounded-circle ms-1" title="Manage Event"><i class="bi bi-pencil-square text-success"></i></a>
+                                                <a href="../event-detail.html?id=<?= e($ev['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle shadow-xs" title="View Public Page">
+                                                    <i class="bi bi-eye text-primary"></i>
+                                                </a>
+                                                <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="btn btn-sm btn-light rounded-circle shadow-xs ms-1" title="Edit Event Details">
+                                                    <i class="bi bi-pencil-square text-success"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -372,98 +532,90 @@ try {
                 </div>
             </div>
 
-            <!-- Sidebar: Club Health + Tasks + Activity -->
+            <!-- Right Column: Pending Tasks & Activity Log -->
             <div class="col-lg-4">
 
-                <!-- Club Health Score Card -->
-                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white mb-4">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-heart-pulse-fill text-danger me-2"></i>Club Health Score</h6>
-                        <span class="badge bg-<?= $healthBadge[1] ?>-subtle text-<?= $healthBadge[1] ?> border rounded-pill px-2.5 py-1 small"><?= $healthBadge[0] ?></span>
-                    </div>
-                    <div class="d-flex align-items-end gap-2 mb-2">
-                        <h2 class="fw-bold text-dark mb-0"><?= $healthScore ?></h2>
-                        <span class="text-secondary mb-1">/ 100</span>
-                    </div>
-                    <div class="progress rounded-pill" style="height: 10px;">
-                        <div class="progress-bar bg-<?= $healthBadge[1] ?>" role="progressbar" style="width: <?= $healthScore ?>%;" aria-valuenow="<?= $healthScore ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <p class="text-secondary small mt-2 mb-0">Based on events, gallery, leadership & upcoming activities.</p>
-                </div>
-
-                <!-- Pending Tasks Checklist -->
+                <!-- Pending Tasks Panel -->
                 <?php if (!empty($pendingTasks)): ?>
                 <div class="card p-4 border-0 shadow-sm rounded-4 bg-white mb-4">
-                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-check2-circle text-warning me-2"></i>Pending Tasks <span class="badge bg-warning-subtle text-warning ms-1"><?= count($pendingTasks) ?></span></h6>
-                    <?php foreach ($pendingTasks as $task): ?>
-                    <div class="task-item d-flex align-items-center gap-3">
-                        <i class="bi <?= $task[1] ?> text-warning fs-5"></i>
-                        <a href="<?= $task[2] ?>" class="small text-dark text-decoration-none flex-grow-1"><?= $task[0] ?></a>
-                        <i class="bi bi-arrow-right text-secondary small"></i>
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-dark mb-0"><i class="bi bi-check2-square text-warning me-2"></i>Pending Setup Tasks</h6>
+                        <span class="badge bg-warning text-dark rounded-pill px-2.5 py-1 small fw-bold"><?= count($pendingTasks) ?> pending</span>
                     </div>
+                    <?php foreach ($pendingTasks as $task): ?>
+                        <div class="task-row d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-2.5 overflow-hidden">
+                                <i class="bi <?= $task[1] ?> text-warning fs-5 flex-shrink-0"></i>
+                                <span class="small fw-semibold text-dark text-truncate"><?= $task[0] ?></span>
+                            </div>
+                            <a href="<?= $task[2] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-2.5 py-1 text-nowrap small ms-2">
+                                Fix <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
                     <?php endforeach; ?>
                 </div>
                 <?php endif; ?>
 
-                <!-- Secretariat Info -->
+                <!-- Secretariat Location Card -->
                 <div class="card p-4 border-0 shadow-sm rounded-4 bg-white mb-4">
-                    <h6 class="fw-bold text-dark mb-3">Chapter Secretariat Info</h6>
-                    <ul class="list-unstyled text-secondary small mb-0">
-                        <li class="mb-3 d-flex align-items-center gap-2">
-                            <i class="bi bi-building text-primary fs-5"></i>
-                            <div><strong class="d-block text-dark">Office Location</strong><?= e($club['office_location'] ?: 'Student Activity Center, UIT') ?></div>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center gap-2">
-                            <i class="bi bi-clock text-success fs-5"></i>
-                            <div><strong class="d-block text-dark">Meeting Schedule</strong><?= e($club['meeting_time'] ?: 'Wednesdays 04:00 PM') ?></div>
-                        </li>
-                        <li class="d-flex align-items-center gap-2">
-                            <i class="bi bi-envelope text-info fs-5"></i>
-                            <div><strong class="d-block text-dark">Official Email</strong><?= e($club['email'] ?: 'club@uit.edu') ?></div>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Recent Activity Feed -->
-                <?php if (!empty($activityFeed)): ?>
-                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white">
-                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-lightning-charge-fill text-primary me-2"></i>Recent Activity</h6>
-                    <div class="d-flex flex-column gap-3">
-                        <?php foreach ($activityFeed as $act): ?>
-                        <div class="d-flex align-items-start gap-2">
-                            <div class="activity-dot mt-1"></div>
+                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-building-gear text-primary me-2"></i>Chapter Secretariat Info</h6>
+                    <div class="d-flex flex-column gap-3 text-secondary small">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2.5 bg-primary-subtle text-primary rounded-3">
+                                <i class="bi bi-geo-alt-fill fs-5"></i>
+                            </div>
                             <div>
-                                <div class="fw-semibold small text-dark font-monospace" style="font-size: 0.75rem;"><?= e($act['action']) ?></div>
-                                <div class="text-secondary" style="font-size: 0.72rem;"><?= e(mb_substr($act['details'] ?? '', 0, 55)) ?><?= strlen($act['details'] ?? '') > 55 ? '...' : '' ?></div>
-                                <div class="text-muted mt-1" style="font-size: 0.68rem;"><?= date('M j, g:i A', strtotime($act['created_at'])) ?></div>
+                                <strong class="d-block text-dark">Office Location</strong>
+                                <?= e($club['office_location'] ?: 'Student Activity Center, UIT') ?>
                             </div>
                         </div>
-                        <?php endforeach; ?>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2.5 bg-success-subtle text-success rounded-3">
+                                <i class="bi bi-clock-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <strong class="d-block text-dark">Regular Meetings</strong>
+                                <?= e($club['meeting_time'] ?: 'Wednesdays 04:00 PM') ?>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="p-2.5 bg-info-subtle text-info rounded-3">
+                                <i class="bi bi-envelope-at-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <strong class="d-block text-dark">Official Chapter Email</strong>
+                                <?= e($club['email'] ?: 'club@uit.edu') ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <?php endif; ?>
+
+                <!-- Live Activity Feed Log -->
+                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white">
+                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-activity text-primary me-2"></i>Recent Activity Feed</h6>
+                    <?php if (empty($activityFeed)): ?>
+                        <div class="text-muted small py-3 text-center">No recent activity logged for your account.</div>
+                    <?php else: ?>
+                        <div class="d-flex flex-column pt-1">
+                            <?php foreach ($activityFeed as $act): ?>
+                                <div class="activity-timeline-item">
+                                    <div class="activity-timeline-dot"></div>
+                                    <div class="fw-bold small text-dark font-monospace" style="font-size: 0.78rem;"><?= e($act['action']) ?></div>
+                                    <div class="text-secondary small mt-0.5" style="font-size: 0.74rem;"><?= e(mb_substr($act['details'] ?? '', 0, 60)) ?></div>
+                                    <span class="text-muted d-block mt-1" style="font-size: 0.68rem;"><?= date('M j, g:i A', strtotime($act['created_at'])) ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
             </div>
         </div>
     </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Countdown timers for upcoming events
-    function updateCountdowns() {
-        document.querySelectorAll('[data-countdown]').forEach(el => {
-            const target = new Date(el.dataset.countdown);
-            const now = new Date();
-            const diff = target - now;
-            if (diff <= 0) { el.textContent = 'Today!'; return; }
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            el.textContent = d > 0 ? `${d}d ${h}h` : `${h}h ${m}m`;
-        });
-    }
-    updateCountdowns();
-    setInterval(updateCountdowns, 60000);
-</script>
 </body>
 </html>
