@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | ClubHub - United Institute of Technology</title>
-    <meta name="description" content="Get in touch with student club leads, Dean of Student Affairs, or submit queries to ClubHub at United Institute of Technology.">
+    <title>Contact Us & Proposal Portal | Student Activity Center - UIT</title>
+    <meta name="description" content="Get in touch with student club leads, Dean of Student Affairs, or submit official club and event proposals at United Institute of Technology.">
     
     <!-- OpenGraph SEO Tags -->
-    <meta property="og:title" content="Contact Us | ClubHub UIT">
-    <meta property="og:description" content="Reach out to student affairs or individual campus club leads at UIT.">
+    <meta property="og:title" content="Contact Us & Proposal Portal | SAC UIT">
+    <meta property="og:description" content="Reach out to student affairs, individual campus club leads, or submit official event proposals at UIT.">
     <meta property="og:type" content="website">
 
     <!-- Bootstrap 5 CSS -->
@@ -23,89 +23,175 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Vibrant Hero Section -->
-<section class="hero-clubhub py-5">
-    <div class="container py-4">
-        <span class="badge bg-light text-primary border rounded-pill px-3 py-1-5 mb-3 fw-bold small">CONTACT US</span>
-        <h1 class="hero-headline mb-3">
-            We'd Love to<br>
-            <span class="hero-headline-highlight">Hear</span> From You!
-        </h1>
-        <p class="hero-subtitle mb-4">
-            Have a question, suggestion, or want to collaborate with student clubs at United Institute of Technology? We are here to help.
-        </p>
+<!-- Executive Apple/Google Style Hero Section -->
+<section class="contact-hero-light position-relative overflow-hidden py-5">
+    <div class="about-hero-light-bg-accent"></div>
+
+    <div class="container position-relative z-2 py-3">
+        <!-- Top Breadcrumbs & SAC Help Desk Badge -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+                <i class="bi bi-house-door-fill text-primary"></i>
+                <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
+                <span class="text-muted">/</span>
+                <span class="text-dark fw-bold">Contact & Proposal Portal</span>
+            </div>
+
+            <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
+                <i class="bi bi-headset text-primary fs-6"></i>
+                <span>Official SAC Help Desk 2026</span>
+            </div>
+        </div>
+
+        <div class="row align-items-center justify-content-between g-4 g-lg-5">
+            <!-- Left Hero Text & Quick Action Badges -->
+            <div class="col-lg-7">
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background:#eff6ff; border:1px solid #bfdbfe; color:#1d4ed8; font-size:0.8rem; font-weight:700;">
+                    <i class="bi bi-chat-left-dots-fill text-primary"></i>
+                    <span>Student Affairs & SAC Secretariat</span>
+                </div>
+
+                <h1 class="contact-hero-title">
+                    Connect with Student Leadership & <span class="about-hero-gradient">SAC Secretariat.</span>
+                </h1>
+                
+                <p class="about-hero-desc">
+                    Have questions about joining a chapter, seeking event permissions, or submitting an official proposal to Dean Student Welfare? We are here to support your journey.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#contact-form-section" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                        Send Message <i class="bi bi-arrow-down ms-1"></i>
+                    </a>
+                    <a href="#proposal" class="btn btn-outline-purple rounded-pill px-4 py-2.5 fw-bold" style="border-color:#7c3aed; color:#7c3aed;">
+                        Submit Club / Event Proposal <i class="bi bi-file-earmark-plus ms-1"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Side Quick Helpline Card -->
+            <div class="col-lg-5 col-xl-4">
+                <div class="clubs-hero-card-image text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2.5 mb-4 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <div class="clubs-card-icon-box-image">
+                            <i class="bi bi-telephone-inbound-fill fs-5"></i>
+                        </div>
+                        <span class="fw-black text-dark fs-6" style="color: #0f172a !important; font-weight: 900;">Direct Help & Advisory</span>
+                    </div>
+
+                    <div class="text-start space-y-3 mb-4">
+                        <div class="d-flex align-items-center gap-3 p-2.5 rounded-3 mb-2" style="background: #f8fafc; border: 1px solid #f1f5f9;">
+                            <i class="bi bi-clock-fill text-primary fs-5"></i>
+                            <div>
+                                <span class="d-block fw-extrabold text-dark small">Office Hours</span>
+                                <span class="small text-muted">Mon - Sat: 9:00 AM - 5:00 PM</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3 p-2.5 rounded-3 mb-2" style="background: #f8fafc; border: 1px solid #f1f5f9;">
+                            <i class="bi bi-lightning-charge-fill text-warning fs-5"></i>
+                            <div>
+                                <span class="d-block fw-extrabold text-dark small">Response SLA</span>
+                                <span class="small text-muted">Within 24 Hours Guaranteed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center gap-2 pt-3 border-top text-muted small" style="border-color: #f1f5f9 !important;">
+                        <i class="bi bi-patch-check-fill text-success fs-6"></i>
+                        <span class="fw-extrabold text-dark">Verified SAC Support Desk</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- Contact Form & Info Cards Section -->
-<section class="py-5 bg-body-tertiary">
-    <div class="container">
-        <div class="row g-5">
+<!-- Contact Form & Official Info Cards Section -->
+<section id="contact-form-section" class="py-5" style="background: #f8fafc;">
+    <div class="container py-3">
+        <div class="row g-4 g-lg-5">
             <!-- Left Info Cards -->
             <div class="col-lg-5">
-                <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-primary-subtle text-primary rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-geo-alt-fill fs-4"></i>
+                <div class="mb-4">
+                    <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
+                        Reach Out Directly
+                    </span>
+                    <h2 class="fw-black text-dark mb-2" style="font-weight: 900; letter-spacing: -0.5px;">Contact Information</h2>
+                    <p class="text-secondary small mb-0">Visit our official office or connect with student affairs coordinators.</p>
+                </div>
+
+                <div class="about-card-elevated p-4 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="about-pillar-icon mb-0 flex-shrink-0" style="background: #eff6ff; color: #2563eb;">
+                            <i class="bi bi-geo-alt-fill"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-0 text-dark">Office Location</h6>
-                            <p class="text-secondary small mb-0">Student Activity Center, UIT Campus, Prayagraj 211010</p>
+                            <h6 class="fw-black text-dark mb-1" style="font-weight: 900;">Office Location</h6>
+                            <p class="text-secondary small mb-1">Student Activity Center (SAC Secretariat), Ground Floor, UIT Campus</p>
+                            <span class="small text-primary fw-extrabold">Prayagraj, Uttar Pradesh 211010</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card p-4 border-0 shadow-sm rounded-4 mb-4">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-danger-subtle text-danger rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-envelope-fill fs-4"></i>
+                <div class="about-card-elevated p-4 mb-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="about-pillar-icon mb-0 flex-shrink-0" style="background: #f5f3ff; color: #7c3aed;">
+                            <i class="bi bi-envelope-fill"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-0 text-dark">Email Support</h6>
-                            <p class="text-secondary small mb-0">dsw@uit.edu / hello@clubhub.edu</p>
+                            <h6 class="fw-black text-dark mb-1" style="font-weight: 900;">Email Support Desk</h6>
+                            <p class="text-secondary small mb-1">sac@uit.edu / dsw@uit.edu</p>
+                            <span class="small text-purple fw-extrabold" style="color: #7c3aed;">Official Communication Channel</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="card p-4 border-0 shadow-sm rounded-4">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-success-subtle text-success rounded-circle p-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-telephone-fill fs-4"></i>
+                <div class="about-card-elevated p-4">
+                    <div class="d-flex align-items-start gap-3">
+                        <div class="about-pillar-icon mb-0 flex-shrink-0" style="background: #ecfdf5; color: #10b981;">
+                            <i class="bi bi-telephone-fill"></i>
                         </div>
                         <div>
-                            <h6 class="fw-bold mb-0 text-dark">Phone Helpline</h6>
-                            <p class="text-secondary small mb-0">+91 98765 43210 (Mon-Fri 9:00 AM - 5:00 PM)</p>
+                            <h6 class="fw-black text-dark mb-1" style="font-weight: 900;">Phone Helpline</h6>
+                            <p class="text-secondary small mb-1">+91 98765 00000 / +91 98765 11111</p>
+                            <span class="small text-success fw-extrabold">Student Affairs Desk</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Contact Form -->
+            <!-- Right Message Form -->
             <div class="col-lg-7">
-                <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 bg-white">
-                    <h4 class="fw-bold mb-1 text-dark">Send Us a Message</h4>
-                    <p class="text-secondary small mb-4">Fill out the form below and our student affairs team will respond shortly.</p>
+                <div class="about-card-elevated p-4 p-md-5 bg-white">
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+                        <div>
+                            <h4 class="fw-black text-dark mb-1" style="font-weight: 900;">Send Message to Secretariat</h4>
+                            <p class="text-secondary small mb-0">Fill out the form below and our team will get back to you shortly.</p>
+                        </div>
+                        <i class="bi bi-send-fill fs-3 text-primary"></i>
+                    </div>
 
                     <form id="contactForm">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small text-secondary">Full Name</label>
-                                <input type="text" class="form-control bg-light border-0 py-2-5" placeholder="Enter your full name" required>
+                                <label class="form-label fw-bold small text-dark">Full Name *</label>
+                                <input type="text" class="form-control rounded-3 border py-2.5" placeholder="Enter your full name" style="border-color:#e2e8f0;" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold small text-secondary">Email Address</label>
-                                <input type="email" class="form-control bg-light border-0 py-2-5" placeholder="name@college.edu" required>
+                                <label class="form-label fw-bold small text-dark">Email Address *</label>
+                                <input type="email" class="form-control rounded-3 border py-2.5" placeholder="student@uit.edu" style="border-color:#e2e8f0;" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-bold small text-secondary">Subject</label>
-                                <input type="text" class="form-control bg-light border-0 py-2-5" placeholder="Subject of your message" required>
+                                <label class="form-label fw-bold small text-dark">Subject *</label>
+                                <input type="text" class="form-control rounded-3 border py-2.5" placeholder="Subject of your query or feedback" style="border-color:#e2e8f0;" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label fw-bold small text-secondary">Message</label>
-                                <textarea class="form-control bg-light border-0 py-2-5" rows="4" placeholder="Write your message here..." required></textarea>
+                                <label class="form-label fw-bold small text-dark">Message Details *</label>
+                                <textarea class="form-control rounded-3 border py-2.5" rows="4" placeholder="Write your query, suggestion, or feedback here..." style="border-color:#e2e8f0;" required></textarea>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold text-white shadow-sm w-100">
+                            <div class="col-12 pt-2">
+                                <button type="submit" class="btn btn-primary rounded-pill px-5 py-2.5 fw-bold text-white shadow-sm w-100">
                                     Send Message <i class="bi bi-send ms-1"></i>
                                 </button>
                             </div>
@@ -119,55 +205,60 @@
 
 <!-- Official Proposal Submission Form Section -->
 <section id="proposal" class="py-5 bg-white">
-    <div class="container">
-        <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5" style="border-top: 5px solid var(--vibrant-purple) !important;">
-            <div class="row align-items-center mb-4">
+    <div class="container py-3">
+        <div class="about-card-elevated p-4 p-md-5" style="border-top: 5px solid #7c3aed !important;">
+            <div class="row align-items-center mb-4 pb-3 border-bottom">
                 <div class="col-md-8">
-                    <span class="badge bg-purple-subtle text-purple fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2" style="background:#f5f3ff; color:#7c3aed; font-size: 0.75rem;">
+                    <span class="badge rounded-pill px-3 py-1.5 fw-bold text-uppercase mb-2" style="background:#f5f3ff; color:#7c3aed; font-size: 0.78rem; border: 1px solid #ddd6fe;">
                         Official Institutional Portal
                     </span>
-                    <h3 class="fw-bold text-dark mb-1">Submit Club or Event Proposal</h3>
-                    <p class="text-secondary small mb-0">Are you interested in establishing a new Student Club or hosting an official campus event? Submit your proposal for Dean Student Welfare & Management Committee review.</p>
+                    <h3 class="fw-black text-dark mb-1" style="font-weight: 900;">Submit Club or Event Proposal</h3>
+                    <p class="text-secondary small mb-0">Are you interested in establishing a new Student Club or hosting an official campus event? Submit your proposal for Dean Student Welfare & Advisory Committee review.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-2 fw-bold small">
+                        <i class="bi bi-check-circle-fill me-1"></i> SAC Official Review Enabled
+                    </span>
                 </div>
             </div>
 
-            <div id="proposalAlert" class="alert alert-success d-none rounded-3 small"></div>
+            <div id="proposalAlert" class="alert alert-success d-none rounded-3 small mb-4"></div>
 
             <form id="proposalForm">
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Proposal Type</label>
-                        <select id="propType" class="form-select bg-light border-0 py-2-5" required>
+                        <label class="form-label fw-bold small text-dark">Proposal Type *</label>
+                        <select id="propType" class="form-select rounded-3 border py-2.5" style="border-color:#e2e8f0;" required>
                             <option value="new_club">Establish New Student Club</option>
                             <option value="new_event">Host Official Campus Event</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Applicant Name</label>
-                        <input type="text" id="propName" class="form-control bg-light border-0 py-2-5" placeholder="Your full name" required>
+                        <label class="form-label fw-bold small text-dark">Applicant Name *</label>
+                        <input type="text" id="propName" class="form-control rounded-3 border py-2.5" placeholder="Your full name" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Email Address</label>
-                        <input type="email" id="propEmail" class="form-control bg-light border-0 py-2-5" placeholder="student@uit.edu" required>
+                        <label class="form-label fw-bold small text-dark">Email Address *</label>
+                        <input type="email" id="propEmail" class="form-control rounded-3 border py-2.5" placeholder="student@uit.edu" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Contact Phone</label>
-                        <input type="text" id="propPhone" class="form-control bg-light border-0 py-2-5" placeholder="+91 98765 00000">
+                        <label class="form-label fw-bold small text-dark">Contact Phone</label>
+                        <input type="text" id="propPhone" class="form-control rounded-3 border py-2.5" placeholder="+91 98765 00000" style="border-color:#e2e8f0;">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Proposed Title / Club Name</label>
-                        <input type="text" id="propTitle" class="form-control bg-light border-0 py-2-5" placeholder="e.g. AI & Robotics Club UIT" required>
+                        <label class="form-label fw-bold small text-dark">Proposed Title / Club Name *</label>
+                        <input type="text" id="propTitle" class="form-control rounded-3 border py-2.5" placeholder="e.g. AI & Robotics Club UIT" style="border-color:#e2e8f0;" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold small text-secondary">Faculty Mentor (Optional)</label>
-                        <input type="text" id="propMentor" class="form-control bg-light border-0 py-2-5" placeholder="Faculty Mentor Name">
+                        <label class="form-label fw-bold small text-dark">Faculty Mentor (Optional)</label>
+                        <input type="text" id="propMentor" class="form-control rounded-3 border py-2.5" placeholder="Faculty Mentor Name" style="border-color:#e2e8f0;">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-bold small text-secondary">Objectives, Vision & Expected Beneficiaries</label>
-                        <textarea id="propObjective" class="form-control bg-light border-0 py-2-5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." required></textarea>
+                        <label class="form-label fw-bold small text-dark">Objectives, Vision & Expected Beneficiaries *</label>
+                        <textarea id="propObjective" class="form-control rounded-3 border py-2.5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." style="border-color:#e2e8f0;" required></textarea>
                     </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-dark rounded-pill px-5 py-2-5 fw-bold shadow-sm">
+                    <div class="col-12 pt-2">
+                        <button type="submit" class="btn btn-dark rounded-pill px-5 py-2.5 fw-bold shadow-sm" style="background:#0f172a;">
                             Submit Official Proposal <i class="bi bi-file-earmark-check ms-1"></i>
                         </button>
                     </div>
@@ -186,3 +277,4 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
