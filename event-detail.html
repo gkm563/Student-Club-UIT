@@ -175,68 +175,98 @@
                     </div>
                 </div>
 
-                <!-- About Event Description Card -->
-                <div class="about-card-elevated p-4 p-md-5 mb-4">
-                    <h4 class="fw-black text-dark mb-3" style="font-weight: 900;">About This Event</h4>
-                    <p class="text-secondary mb-4" id="detailDescription" style="line-height: 1.75; font-size: 1.02rem;">
+                <!-- Redesigned About Event Description & Takeaways Card -->
+                <div class="about-card-elevated p-4 p-md-5 mb-4 shadow-sm position-relative overflow-hidden">
+                    <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 bg-primary-subtle text-primary p-2 d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                                <i class="bi bi-info-circle-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="fw-black text-dark mb-0" style="font-weight: 900; letter-spacing: -0.02em;">About This Event</h4>
+                                <span class="text-muted small" style="font-size: 0.8rem;">Overview & Event Highlights</span>
+                            </div>
+                        </div>
+                        <span class="badge bg-light text-secondary border rounded-pill px-3 py-1.5 fw-semibold small d-none d-sm-inline-block">
+                            <i class="bi bi-shield-check text-success me-1"></i> SAC Sanctioned
+                        </span>
+                    </div>
+
+                    <p class="text-secondary mb-5" id="detailDescription" style="line-height: 1.85; font-size: 1.02rem; font-weight: 450;">
                         Detailed description loading...
                     </p>
 
-                    <h5 class="fw-black text-dark mb-3" style="font-weight: 900;">What You Will Gain</h5>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
-                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="text-dark d-block small">Hands-on Technical Mastery</strong>
-                                    <span class="small text-secondary">Solve live competitive problems & build real projects.</span>
-                                </div>
-                            </div>
+                    <!-- 🎯 What You Will Gain Section -->
+                    <div class="pt-2">
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <div class="bg-primary rounded-pill" style="width: 4px; height: 22px;"></div>
+                            <h5 class="fw-black text-dark mb-0" style="font-weight: 900; letter-spacing: -0.01em;">What You Will Gain</h5>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-0.5 ms-auto fw-bold" style="font-size: 0.72rem;">
+                                Key Takeaways
+                            </span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
-                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="text-dark d-block small">Mentorship & Peer Guidance</strong>
-                                    <span class="small text-secondary">Interact directly with senior domain leads & mentors.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
-                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="text-dark d-block small">Verified SAC Certificates</strong>
-                                    <span class="small text-secondary">Get official SAC verified participation certificates.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
-                                <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
-                                <div>
-                                    <strong class="text-dark d-block small">Chapter Swags & Goodies</strong>
-                                    <span class="small text-secondary">Win exclusive chapter swags, t-shirts & stickers.</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Organizing Chapter Info Card -->
-                <div class="about-card-elevated p-4">
-                    <h5 class="fw-black text-dark mb-3" style="font-weight: 900;">Organized By</h5>
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="assets/United Logo.webp" id="detailClubLogo" class="rounded-circle bg-light p-1 border" style="width: 58px; height: 58px; object-fit: cover;" alt="Club Logo" onerror="this.src='assets/United Logo.webp'">
-                            <div>
-                                <h5 class="fw-bold text-dark mb-0" id="detailClubName">Organizing Club</h5>
-                                <span class="small text-secondary d-block" id="detailClubShort">Official Student Society • SAC Governed</span>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="gain-card-item p-3.5 rounded-4 bg-white border shadow-xs h-100 d-flex align-items-start gap-3">
+                                    <div class="gain-icon-box bg-primary-subtle text-primary flex-shrink-0">
+                                        <i class="bi bi-code-slash"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center justify-content-between mb-1">
+                                            <strong class="text-dark d-block fw-bold" style="font-size: 0.92rem;">Hands-on Technical Mastery</strong>
+                                            <i class="bi bi-check-circle-fill text-success small"></i>
+                                        </div>
+                                        <p class="small text-secondary mb-0" style="line-height: 1.5; font-size: 0.82rem;">Solve live competitive problems & build production-ready projects.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="gain-card-item p-3.5 rounded-4 bg-white border shadow-xs h-100 d-flex align-items-start gap-3">
+                                    <div class="gain-icon-box bg-info-subtle text-info flex-shrink-0">
+                                        <i class="bi bi-people-fill"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center justify-content-between mb-1">
+                                            <strong class="text-dark d-block fw-bold" style="font-size: 0.92rem;">Mentorship & Peer Guidance</strong>
+                                            <i class="bi bi-check-circle-fill text-success small"></i>
+                                        </div>
+                                        <p class="small text-secondary mb-0" style="line-height: 1.5; font-size: 0.82rem;">Interact directly with senior domain leads, alumni & industry mentors.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="gain-card-item p-3.5 rounded-4 bg-white border shadow-xs h-100 d-flex align-items-start gap-3">
+                                    <div class="gain-icon-box bg-success-subtle text-success flex-shrink-0">
+                                        <i class="bi bi-award-fill"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center justify-content-between mb-1">
+                                            <strong class="text-dark d-block fw-bold" style="font-size: 0.92rem;">Verified SAC Certificates</strong>
+                                            <i class="bi bi-check-circle-fill text-success small"></i>
+                                        </div>
+                                        <p class="small text-secondary mb-0" style="line-height: 1.5; font-size: 0.82rem;">Get official Dean Student Welfare (SAC) verified participation certificates.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="gain-card-item p-3.5 rounded-4 bg-white border shadow-xs h-100 d-flex align-items-start gap-3">
+                                    <div class="gain-icon-box bg-warning-subtle text-warning-emphasis flex-shrink-0">
+                                        <i class="bi bi-gift-fill"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex align-items-center justify-content-between mb-1">
+                                            <strong class="text-dark d-block fw-bold" style="font-size: 0.92rem;">Chapter Swags & Goodies</strong>
+                                            <i class="bi bi-check-circle-fill text-success small"></i>
+                                        </div>
+                                        <p class="small text-secondary mb-0" style="line-height: 1.5; font-size: 0.82rem;">Win exclusive community swags, t-shirts, stickers & tech gadgets.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <a href="clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold">
-                            <i class="bi bi-collection me-1"></i> View Club Profile
-                        </a>
                     </div>
                 </div>
             </div>
