@@ -2856,6 +2856,74 @@ body {
     }
 }
 
+/* ==========================================================================
+   📱 MOBILE & RESPONSIVE ENGINE (Zero Overlap & Zero Zoom Bug)
+   ========================================================================== */
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+@media (max-width: 576px) {
+    .footer-clubhub {
+        padding: 45px 0 25px;
+    }
+
+    .footer-newsletter-card {
+        padding: 22px 18px;
+        margin-bottom: 35px;
+        border-radius: 18px;
+    }
+
+    .footer-title {
+        font-size: 0.95rem;
+        margin-bottom: 14px;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        font-size: 0.8rem;
+        gap: 4px;
+    }
+
+    .footer-links a i.bi-chevron-right {
+        font-size: 0.62rem;
+    }
+}
+
+
 
 
 
