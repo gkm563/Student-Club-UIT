@@ -89,7 +89,7 @@ if (!function_exists('run_campus_security_firewall')) {
                                 <div><strong>Category:</strong> <?= htmlspecialchars(strtoupper($attackCategory)) ?></div>
                                 <div><strong>Timestamp:</strong> <?= date('Y-m-d H:i:s T') ?></div>
                             </div>
-                            <a href="/index.html" class="btn btn-primary rounded-pill px-4 fw-bold">Return to Main Portal</a>
+                            <a href="index.html" class="btn btn-primary rounded-pill px-4 fw-bold">Return to Main Portal</a>
                         </div>
                     </body>
                     </html>

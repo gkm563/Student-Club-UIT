@@ -423,7 +423,7 @@ $pendingProposals = $db->query("
                                 <h6 class="fw-bold mb-0 text-dark">Upcoming Events</h6>
                                 <p class="text-muted mb-0" style="font-size:0.72rem;"><?= $upcomingEvents ?> events scheduled</p>
                             </div>
-                            <a href="/admin/super/clubs.php" class="text-primary small fw-semibold text-decoration-none">View Calendar →</a>
+                            <a href="clubs.php" class="text-primary small fw-semibold text-decoration-none">View Calendar →</a>
                         </div>
                         <div class="p-4">
                             <?php if(empty($nextEvents)): ?>
@@ -492,13 +492,13 @@ $pendingProposals = $db->query("
                     <div class="content-card">
                         <div class="card-header-custom d-flex justify-content-between align-items-center">
                             <h6 class="fw-bold mb-0 text-dark">Recently Registered Clubs</h6>
-                            <a href="/admin/super/clubs.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
+                            <a href="clubs.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
                         </div>
                         <?php if(empty($recentClubs)): ?>
                             <div class="p-4 text-center text-muted small">
                                 <i class="bi bi-folder-plus d-block fs-2 mb-2 opacity-50"></i>
                                 No clubs registered yet.
-                                <a href="/admin/super/clubs.php" class="fw-bold text-primary">Add first club →</a>
+                                <a href="clubs.php" class="fw-bold text-primary">Add first club →</a>
                             </div>
                         <?php else: ?>
                         <div class="table-responsive">
@@ -516,9 +516,9 @@ $pendingProposals = $db->query("
                                     <tr>
                                         <td class="ps-4 py-3">
                                             <div class="d-flex align-items-center gap-2">
-                                                <img src="<?= htmlspecialchars($rc['logo'] ?? '/assets/United Logo.webp') ?>" alt=""
+                                                <img src="<?= htmlspecialchars($rc['logo'] ?? '../../assets/United Logo.webp') ?>" alt=""
                                                      style="width:32px;height:32px;border-radius:8px;object-fit:cover;border:1px solid #e2e8f0;"
-                                                     onerror="this.src='/assets/United Logo.webp'">
+                                                     onerror="this.src='../../assets/United Logo.webp'">
                                                 <div class="fw-semibold text-dark" style="font-size:0.82rem;"><?= htmlspecialchars($rc['name']) ?></div>
                                             </div>
                                         </td>
@@ -530,7 +530,7 @@ $pendingProposals = $db->query("
                                             <span class="badge bg-<?= $sc2 ?>-subtle text-<?= $sc2 ?> border border-<?= $sc2 ?>-subtle rounded-pill px-2 py-1" style="font-size:0.65rem;"><?= ucfirst($rc['status']) ?></span>
                                         </td>
                                         <td class="py-3 text-end pe-4">
-                                            <a href="/admin/super/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold" style="font-size:0.72rem;">Manage</a>
+                                            <a href="clubs.php" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold" style="font-size:0.72rem;">Manage</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -546,7 +546,7 @@ $pendingProposals = $db->query("
                     <div class="content-card">
                         <div class="card-header-custom d-flex justify-content-between align-items-center">
                             <h6 class="fw-bold mb-0 text-dark">Recent Activities</h6>
-                            <a href="/admin/super/logs.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
+                            <a href="audit-logs.php" class="text-primary small fw-semibold text-decoration-none">View All →</a>
                         </div>
                         <div class="p-4">
                             <?php if(empty($recentActivity)): ?>
@@ -582,37 +582,37 @@ $pendingProposals = $db->query("
                         <div class="p-3">
                             <div class="row g-2">
                                 <div class="col-6">
-                                    <a href="/admin/super/clubs.php" class="qa-btn">
+                                    <a href="clubs.php" class="qa-btn">
                                         <i class="bi bi-plus-circle-fill text-primary"></i>
                                         <span>Create New Club</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/super/categories.php" class="qa-btn">
+                                    <a href="categories.php" class="qa-btn">
                                         <i class="bi bi-grid-3x3-gap-fill text-success"></i>
                                         <span>Add Category</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/super/messages.php" class="qa-btn">
+                                    <a href="messages.php" class="qa-btn">
                                         <i class="bi bi-megaphone-fill text-warning"></i>
                                         <span>Announcement</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/super/audit-logs.php" class="qa-btn">
+                                    <a href="audit-logs.php" class="qa-btn">
                                         <i class="bi bi-bar-chart-fill text-purple" style="color:#a855f7!important;"></i>
                                         <span>Generate Report</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/super/users.php" class="qa-btn">
+                                    <a href="users.php" class="qa-btn">
                                         <i class="bi bi-person-plus-fill text-info"></i>
                                         <span>Manage Users</span>
                                     </a>
                                 </div>
                                 <div class="col-6">
-                                    <a href="/admin/super/clubs.php" class="qa-btn">
+                                    <a href="clubs.php" class="qa-btn">
                                         <i class="bi bi-calendar-check-fill text-danger"></i>
                                         <span>View All Events</span>
                                     </a>

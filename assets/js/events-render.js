@@ -512,7 +512,7 @@ function renderEmptyState(container, title, subtitle = '') {
             <h5 class="fw-bold text-dark mb-1">${escapeHtml(title)}</h5>
             ${subtitle ? `<p class="text-secondary small mb-0">${escapeHtml(subtitle)}</p>` : ''}
             <div class="mt-4">
-                <a href="/clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                <a href="clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
                     <i class="bi bi-collection me-1"></i> Explore Student Clubs
                 </a>
             </div>
