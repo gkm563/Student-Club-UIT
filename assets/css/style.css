@@ -2840,7 +2840,8 @@ body {
     background: #ffffff;
     border-radius: 18px;
     border: 1px solid #e2e8f0;
-    padding: 20px 22px;
+    padding: 22px 24px;
+    gap: 20px !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
     position: relative;
@@ -2855,13 +2856,13 @@ body {
 }
 
 .event-spec-icon-box {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
     transition: transform 0.3s ease;
 }
@@ -3019,7 +3020,8 @@ html, body {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 18px;
-    padding: 20px 22px;
+    padding: 22px 24px;
+    gap: 20px !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
@@ -3033,13 +3035,13 @@ html, body {
 }
 
 .gain-icon-box {
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
     transition: transform 0.3s ease;
 }
