@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ticketHeaderBadge = document.getElementById('ticketHeaderBadge');
         const ticketHeaderTitle = document.getElementById('ticketHeaderTitle');
         const ticketHeaderSub = document.getElementById('ticketHeaderSub');
+        const heroActionBtnText = document.getElementById('heroActionBtnText');
 
         const completedGallerySection = document.getElementById('completedGallerySection');
         const completedWinnersSection = document.getElementById('completedWinnersSection');
@@ -79,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 detailStatusBadge.className = 'badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1.5 fw-bold';
                 detailStatusBadge.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> Completed Session`;
             }
+            if (heroActionBtnText) heroActionBtnText.textContent = 'View Event Recap & Photos';
             if (rsvpForm) rsvpForm.classList.add('d-none');
             if (concludedNotice) concludedNotice.classList.remove('d-none');
 
@@ -90,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (ticketHeaderTitle) ticketHeaderTitle.textContent = 'Event Completed';
             if (ticketHeaderSub) ticketHeaderSub.textContent = 'Registrations for this session have ended.';
         } else {
+            if (heroActionBtnText) heroActionBtnText.textContent = 'Register for Event';
             if (rsvpForm) rsvpForm.classList.remove('d-none');
             if (concludedNotice) concludedNotice.classList.add('d-none');
 
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Club Badge
         const detailClubBadge = document.getElementById('detailClubBadge');
         if (detailClubBadge) {
-            detailClubBadge.innerHTML = `<i class="bi bi-shield-fill text-info me-1"></i> ${escapeHtml(event.club_short_name || event.club_name)}`;
+            detailClubBadge.innerHTML = `<i class="bi bi-shield-fill text-primary me-1"></i> ${escapeHtml(event.club_short_name || event.club_name)}`;
         }
 
         // Cover Banner Image
@@ -120,12 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const detailBannerImg = document.getElementById('detailBannerImg');
         if (detailBannerImg) detailBannerImg.src = bannerUrl;
 
-        // Date Pill
+        // Date Pill & Specs
         const detailDay = document.getElementById('detailDay');
         if (detailDay) detailDay.textContent = day;
 
         const detailMonthYear = document.getElementById('detailMonthYear');
         if (detailMonthYear) detailMonthYear.textContent = `${month} '${String(year).slice(-2)}`;
+
+        const detailTimingSpec = document.getElementById('detailTimingSpec');
+        if (detailTimingSpec) detailTimingSpec.textContent = `${fullDateStr} • ${timeStr}`;
+
+        const detailVenueSpec = document.getElementById('detailVenueSpec');
+        if (detailVenueSpec) detailVenueSpec.textContent = event.venue || 'Seminar Hall, UIT';
 
         // Rewards & Outcomes
         const detailOutcomes = document.getElementById('detailOutcomes');
@@ -159,10 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => {
                 if (res.status === 'success' && res.data && res.data.length > 0) {
                     renderEventGallery(res.data);
+                    if (completedGallerySection) completedGallerySection.classList.remove('d-none');
                 }
             })
             .catch(err => console.error('Gallery fetch error:', err));
     }
+
 
     function renderEventGallery(photos) {
         const galleryGrid = document.getElementById('eventGalleryGrid');

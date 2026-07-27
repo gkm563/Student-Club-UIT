@@ -1,64 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Details | ClubHub UIT</title>
-    <meta name="description" content="View complete event details, agenda, venue, rewards, and RSVP for student club events at United Institute of Technology.">
+    <title>Event Details | Student Activity Center - UIT</title>
+    <meta name="description" content="View complete event details, agenda, venue, eligibility, organizing club, rewards, and RSVP for student club events at United Institute of Technology.">
+    
+    <!-- OpenGraph SEO Tags -->
+    <meta property="og:title" content="Event Details | SAC UIT">
+    <meta property="og:description" content="Detailed schedule, eligibility, organizing club, and RSVP for campus events at UIT.">
+    <meta property="og:type" content="website">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <!-- Google Fonts: Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Custom Design CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom Vibrant Design System -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-body-tertiary">
 
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Event Detail Hero Header -->
-<section class="py-5 google-meta-hero">
-    <div class="google-mesh-orb-1"></div>
-    <div class="google-mesh-orb-2"></div>
+<!-- Executive Apple/Google Style Hero Section -->
+<section class="event-detail-hero-light position-relative overflow-hidden py-5">
+    <div class="about-hero-light-bg-accent"></div>
 
-    <div class="container py-3 position-relative" style="z-index: 2;">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="mb-3">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium"><i class="bi bi-house-door-fill me-1"></i> Home</a></li>
-                <li class="breadcrumb-item"><a href="events.html" class="text-white-80 text-decoration-none fw-medium">Events</a></li>
-                <li class="breadcrumb-item active text-white fw-bold" id="eventBreadcrumbTitle" aria-current="page">Event Details</li>
-            </ol>
-        </nav>
+    <div class="container position-relative z-2 py-2">
+        <!-- Top Breadcrumbs & SAC Accreditation Badge -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+                <i class="bi bi-house-door-fill text-primary"></i>
+                <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
+                <span class="text-muted">/</span>
+                <a href="events.html" class="text-primary text-decoration-none fw-semibold">Events</a>
+                <span class="text-muted">/</span>
+                <span class="text-dark fw-bold" id="eventBreadcrumbTitle">Event Details</span>
+            </div>
+
+            <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
+                <i class="bi bi-shield-check text-primary fs-6"></i>
+                <span>SAC Verified Campus Event</span>
+            </div>
+        </div>
 
         <div class="row align-items-center justify-content-between g-4">
             <div class="col-lg-8">
+                <!-- Status & Club Badges -->
                 <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
-                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold" id="detailStatusBadge"><i class="bi bi-calendar-event me-1"></i> Upcoming Event</span>
-                    <span class="badge bg-white-10 text-white border border-white-20 rounded-pill px-3 py-1.5 fw-bold backdrop-blur" id="detailClubBadge"><i class="bi bi-shield-fill text-info me-1"></i> Student Chapter</span>
+                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold" id="detailStatusBadge">
+                        <i class="bi bi-calendar-event me-1"></i> Upcoming Event
+                    </span>
+                    <span class="badge bg-white text-dark border rounded-pill px-3 py-1.5 fw-bold shadow-xs" id="detailClubBadge">
+                        <i class="bi bi-shield-fill text-primary me-1"></i> Student Chapter
+                    </span>
+                    <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1.5 fw-bold">
+                        <i class="bi bi-person-check-fill me-1"></i> Open to All Students
+                    </span>
                 </div>
 
-                <h1 class="fw-extrabold text-white mb-3 display-4" id="detailTitle" style="letter-spacing: -1.2px; line-height: 1.15;">
-                    Loading Session Title...
+                <h1 class="event-detail-hero-title" id="detailTitle">
+                    Loading Event Title...
                 </h1>
 
-                <!-- Specs Meta Row -->
-                <div class="d-flex flex-wrap align-items-center gap-4 text-white-80 small fw-medium">
-                    <span><i class="bi bi-geo-alt-fill text-danger me-1.5 fs-6"></i> <strong class="text-white" id="detailVenue">Venue Loading...</strong></span>
-                    <span><i class="bi bi-calendar3 text-info me-1.5 fs-6"></i> <strong class="text-white" id="detailDateTime">Date Loading...</strong></span>
-                    <span><i class="bi bi-people-fill text-warning me-1.5 fs-6"></i> <strong class="text-white" id="detailRsvpCount">0+ Coders RSVP'd</strong></span>
+                <!-- Specs Quick Summary Bar -->
+                <div class="d-flex flex-wrap align-items-center gap-4 text-dark small fw-semibold mt-3">
+                    <div class="d-flex align-items-center gap-1.5">
+                        <i class="bi bi-geo-alt-fill text-danger fs-6"></i>
+                        <span id="detailVenue">Venue Loading...</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-1.5">
+                        <i class="bi bi-calendar3 text-primary fs-6"></i>
+                        <span id="detailDateTime">Date Loading...</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-1.5">
+                        <i class="bi bi-people-fill text-success fs-6"></i>
+                        <span id="detailRsvpCount">0+ Coders Registered</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Quick Action Top Card -->
+            <!-- Quick Jump Button -->
             <div class="col-lg-4 text-lg-end">
-                <a href="#rsvpFormSection" class="btn btn-light rounded-pill px-4 py-3 fw-bold text-primary shadow-lg d-inline-flex align-items-center gap-2">
-                    <span>Jump to Registration</span>
-                    <i class="bi bi-arrow-down-short fs-4"></i>
+                <a href="#rsvpFormSection" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+                    <span id="heroActionBtnText">Register for Event</span>
+                    <i class="bi bi-arrow-down-short fs-5"></i>
                 </a>
             </div>
         </div>
@@ -67,53 +94,93 @@
 
 <!-- Main Event Detail Content Section -->
 <section class="py-5">
-    <div class="container">
+    <div class="container py-2">
         <div class="row g-4">
-            <!-- Left Main Column (8 Cols): Cover, About, Rewards, Agenda, Organizers -->
+            <!-- Left Main Column (8 Cols): Cover, Specs, About, Gallery, Organizers -->
             <div class="col-lg-8">
-                <!-- Event Cover Image Banner -->
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <!-- Cover Image Banner Card -->
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white">
                     <div class="position-relative" style="height: 380px;">
                         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" id="detailBannerImg" class="w-100 h-100 object-fit-cover" alt="Event Cover Banner">
-                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.65) 100%);"></div>
+                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.05) 0%, rgba(15,23,42,0.55) 100%);"></div>
 
-                        <!-- Floating Date Pill -->
+                        <!-- Date Badge Pill -->
                         <div class="position-absolute top-0 start-0 m-4 z-2">
-                            <div class="google-date-badge text-center shadow-lg px-3 py-2" style="min-width: 65px;">
-                                <span class="d-block fw-extrabold text-primary lh-1" id="detailDay" style="font-size: 1.5rem;">01</span>
-                                <span class="small fw-bold text-dark text-uppercase" id="detailMonthYear" style="font-size: 0.72rem;">MAY '26</span>
+                            <div class="bg-white text-center rounded-4 shadow-md px-3 py-2 border" style="min-width: 70px;">
+                                <span class="d-block fw-black text-primary lh-1" id="detailDay" style="font-size: 1.6rem; font-weight: 900;">01</span>
+                                <span class="small fw-extrabold text-dark text-uppercase d-block" id="detailMonthYear" style="font-size: 0.72rem; letter-spacing: 0.5px;">MAY '26</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Rewards & Perks Highlight Card -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white border-start border-4 border-warning" id="detailRewardsCard">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-circle bg-warning-subtle text-warning p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px;">
-                            <i class="bi bi-trophy-fill fs-4"></i>
+                <!-- 4 Quick Specs Grid Card (What, Where, Who, Perks) -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6 col-6">
+                        <div class="event-spec-card h-100">
+                            <div class="d-flex align-items-center gap-2.5 mb-1">
+                                <i class="bi bi-clock-fill text-primary fs-5"></i>
+                                <span class="fw-bold text-dark small">Timing & Schedule</span>
+                            </div>
+                            <span class="small text-secondary d-block" id="detailTimingSpec">Wednesdays 04:00 PM Onwards</span>
                         </div>
-                        <div>
-                            <h6 class="fw-bold text-dark mb-1">Rewards, Swags & Certificates</h6>
-                            <p class="text-secondary small mb-0 fs-6" id="detailOutcomes">Laptop Bags, GFG Goodies & Swags, Certificates for all participants.</p>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <div class="event-spec-card h-100">
+                            <div class="d-flex align-items-center gap-2.5 mb-1">
+                                <i class="bi bi-geo-alt-fill text-danger fs-5"></i>
+                                <span class="fw-bold text-dark small">Official Venue</span>
+                            </div>
+                            <span class="small text-secondary d-block" id="detailVenueSpec">Seminar Hall, Ground Floor, UIT</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <div class="event-spec-card h-100">
+                            <div class="d-flex align-items-center gap-2.5 mb-1">
+                                <i class="bi bi-person-check-fill text-success fs-5"></i>
+                                <span class="fw-bold text-dark small">Eligibility</span>
+                            </div>
+                            <span class="small text-secondary d-block">All B.Tech / BCA / MCA / Diploma Students</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-6">
+                        <div class="event-spec-card h-100">
+                            <div class="d-flex align-items-center gap-2.5 mb-1">
+                                <i class="bi bi-gift-fill text-warning fs-5"></i>
+                                <span class="fw-bold text-dark small">Fee & Perks</span>
+                            </div>
+                            <span class="small text-secondary d-block">100% FREE • SAC E-Certificates & Swags</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- About Event Description -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
-                    <h4 class="fw-bold text-dark mb-3">About This Event</h4>
+                <!-- Rewards & Swags Banner Card -->
+                <div class="about-card-elevated p-4 mb-4" style="border-left: 5px solid #f59e0b !important;">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; background:#fffbeb; color:#d97706;">
+                            <i class="bi bi-trophy-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-black text-dark mb-1" style="font-weight: 900;">Rewards, Swags & Certificates</h6>
+                            <div class="text-secondary small mb-0" id="detailOutcomes">Laptop Bags, GFG Goodies & Swags, Verified Certificates for all attendees.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Event Description Card -->
+                <div class="about-card-elevated p-4 p-md-5 mb-4">
+                    <h4 class="fw-black text-dark mb-3" style="font-weight: 900;">About This Event</h4>
                     <p class="text-secondary mb-4" id="detailDescription" style="line-height: 1.75; font-size: 1.02rem;">
                         Detailed description loading...
                     </p>
 
-                    <h5 class="fw-bold text-dark mb-3">What You Will Gain</h5>
-                    <div class="row g-3 mb-4">
+                    <h5 class="fw-black text-dark mb-3" style="font-weight: 900;">What You Will Gain</h5>
+                    <div class="row g-3">
                         <div class="col-md-6">
                             <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
                                 <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-dark d-block small">Hands-on Technical Practice</strong>
+                                    <strong class="text-dark d-block small">Hands-on Technical Mastery</strong>
                                     <span class="small text-secondary">Solve live competitive problems & build real projects.</span>
                                 </div>
                             </div>
@@ -122,7 +189,7 @@
                             <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
                                 <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-dark d-block small">Mentorship & Guidance</strong>
+                                    <strong class="text-dark d-block small">Mentorship & Peer Guidance</strong>
                                     <span class="small text-secondary">Interact directly with senior domain leads & mentors.</span>
                                 </div>
                             </div>
@@ -131,7 +198,7 @@
                             <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
                                 <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-dark d-block small">Certificates & Credentials</strong>
+                                    <strong class="text-dark d-block small">Verified SAC Certificates</strong>
                                     <span class="small text-secondary">Get official SAC verified participation certificates.</span>
                                 </div>
                             </div>
@@ -140,119 +207,52 @@
                             <div class="p-3 rounded-3 bg-light border d-flex align-items-start gap-2.5">
                                 <i class="bi bi-check-circle-fill text-success fs-5 flex-shrink-0 mt-0.5"></i>
                                 <div>
-                                    <strong class="text-dark d-block small">Swags & Cash Prizes</strong>
-                                    <span class="small text-secondary">Win exclusive chapter swags, t-shirts & goodies.</span>
+                                    <strong class="text-dark d-block small">Chapter Swags & Goodies</strong>
+                                    <span class="small text-secondary">Win exclusive chapter swags, t-shirts & stickers.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 📸 Event Photo Gallery & Event Recap (Shown for Completed Events) -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white d-none" id="completedGallerySection">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
+                <!-- 📸 Event Photo Gallery & Memories (Shown for Completed & Past Events) -->
+                <div class="about-card-elevated p-4 p-md-5 mb-4 d-none" id="completedGallerySection">
+                    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
                         <div>
-                            <h4 class="fw-bold text-dark mb-1"><i class="bi bi-images text-primary me-2"></i> Event Recap & Photo Gallery</h4>
-                            <p class="text-secondary small mb-0">High-resolution photos uploaded by chapter leads & coordinators.</p>
+                            <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Event Recap & Memory Gallery</h4>
+                            <p class="text-secondary small mb-0">High-resolution photos & glimpses captured during this event session.</p>
                         </div>
-                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold">4 Official Photos</span>
+                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold">Official Event Photos</span>
                     </div>
 
                     <div class="row g-3" id="eventGalleryGrid">
                         <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
-                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 1">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Keynote Presentation</div>
+                            <div class="rounded-4 overflow-hidden border position-relative" style="height: 200px;">
+                                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Event Moment 1">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white">Keynote Presentation</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
-                                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 2">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Live Coding Session</div>
+                            <div class="rounded-4 overflow-hidden border position-relative" style="height: 200px;">
+                                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Event Moment 2">
+                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white">Live Coding Session</div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
-                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 3">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Team Collaboration</div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-6">
-                            <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 190px;">
-                                <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=800&auto=format&fit=crop" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="Event Moment 4">
-                                <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">Prize & Certificate Ceremony</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 🏆 Event Winners & Leaderboard Spotlight (Shown for Completed Contests) -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white d-none" id="completedWinnersSection">
-                    <h4 class="fw-bold text-dark mb-3"><i class="bi bi-trophy-fill text-warning me-2"></i> Official Leaderboard & Winners</h4>
-                    <p class="text-secondary small mb-4">Congratulations to the top performers of this session!</p>
-
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <div class="p-3.5 rounded-4 text-center border border-warning bg-warning-subtle h-100 position-relative overflow-hidden">
-                                <span class="badge bg-warning text-white rounded-pill px-3 py-1 fw-bold mb-2">🥇 1st Rank</span>
-                                <h5 class="fw-extrabold text-dark mb-1">Aarav Sharma</h5>
-                                <span class="small text-secondary d-block fw-semibold mb-2">CSE 3rd Year • 980 Pts</span>
-                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹15,000 + Trophy</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-3.5 rounded-4 text-center border border-secondary bg-light h-100">
-                                <span class="badge bg-secondary text-white rounded-pill px-3 py-1 fw-bold mb-2">🥈 2nd Rank</span>
-                                <h5 class="fw-extrabold text-dark mb-1">Priya Verma</h5>
-                                <span class="small text-secondary d-block fw-semibold mb-2">IT 2nd Year • 940 Pts</span>
-                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹10,000 + Goodies</span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-3.5 rounded-4 text-center border border-danger-subtle bg-danger-subtle h-100">
-                                <span class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold mb-2">🥉 3rd Rank</span>
-                                <h5 class="fw-extrabold text-dark mb-1">Rohan Gupta</h5>
-                                <span class="small text-secondary d-block fw-semibold mb-2">CSE 4th Year • 910 Pts</span>
-                                <span class="badge bg-white text-dark border rounded-pill px-3 py-1 fs-7">Prize: ₹5,000 + Swags</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ⏰ Session Schedule & Timeline Card -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-clock-history text-primary me-2"></i> Session Schedule & Timeline</h5>
-                    <div class="ps-3 border-start border-3 border-primary space-y-4">
-                        <div class="mb-3">
-                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold small mb-1">Phase 1 • 08:30 PM</span>
-                            <h6 class="fw-bold text-dark mb-1">Welcome Address & Registration Check-in</h6>
-                            <p class="small text-secondary mb-0">Overview of rules, problem statements, and mentor introductions.</p>
-                        </div>
-                        <div class="mb-3">
-                            <span class="badge bg-info-subtle text-info rounded-pill px-3 py-1 fw-bold small mb-1">Phase 2 • 08:45 PM</span>
-                            <h6 class="fw-bold text-dark mb-1">Live Hands-on Coding / Workshop Challenge</h6>
-                            <p class="small text-secondary mb-0">90 minutes of focused building and live solution submission.</p>
-                        </div>
-                        <div>
-                            <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1 fw-bold small mb-1">Phase 3 • 10:15 PM</span>
-                            <h6 class="fw-bold text-dark mb-1">Evaluation & Certificate Distribution</h6>
-                            <p class="small text-secondary mb-0">Closing keynote, winner announcement, and certificate distribution.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Organizing Chapter Info Card -->
-                <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-                    <h5 class="fw-bold text-dark mb-3">Organized By</h5>
+                <div class="about-card-elevated p-4">
+                    <h5 class="fw-black text-dark mb-3" style="font-weight: 900;">Organized By</h5>
                     <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="assets/images/clubs/gfg.png" id="detailClubLogo" class="rounded-circle bg-light p-1 border shadow-xs" style="width: 58px; height: 58px; object-fit: cover;" alt="Club Logo">
+                            <img src="assets/United Logo.webp" id="detailClubLogo" class="rounded-circle bg-light p-1 border" style="width: 58px; height: 58px; object-fit: cover;" alt="Club Logo" onerror="this.src='assets/United Logo.webp'">
                             <div>
                                 <h5 class="fw-bold text-dark mb-0" id="detailClubName">Organizing Club</h5>
-                                <span class="small text-secondary" id="detailClubShort">Official Student Society • SAC Governed</span>
+                                <span class="small text-secondary d-block" id="detailClubShort">Official Student Society • SAC Governed</span>
                             </div>
                         </div>
-                        <a href="clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                        <a href="clubs.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold">
                             <i class="bi bi-collection me-1"></i> View Club Profile
                         </a>
                     </div>
@@ -261,30 +261,30 @@
 
             <!-- Right Column (4 Cols): Sticky RSVP Registration Ticket Card -->
             <div class="col-lg-4">
-                <div class="sticky-top" style="top: 80px; z-index: 1050;" id="rsvpFormSection">
-                    <div class="card border-0 shadow-xl rounded-4 overflow-hidden bg-white">
+                <div class="sticky-top" style="top: 80px; z-index: 100;" id="rsvpFormSection">
+                    <div class="about-card-elevated p-0 overflow-hidden bg-white">
                         <div class="p-4 text-white" id="ticketHeader" style="background: linear-gradient(135deg, #1d4ed8, #0284c7) !important;">
                             <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-2" id="ticketHeaderBadge">Registration Ticket</span>
-                            <h4 class="fw-bold text-white mb-1" id="ticketHeaderTitle">Confirm Your RSVP</h4>
-                            <p class="small text-white-80 mb-0" id="ticketHeaderSub">Fill out your details to secure your seat for this session.</p>
+                            <h4 class="fw-black text-white mb-1" id="ticketHeaderTitle" style="font-weight: 900;">Confirm Your Seat</h4>
+                            <p class="small text-white-80 mb-0" id="ticketHeaderSub">Fill out your details to secure your pass for this session.</p>
                         </div>
 
-                        <div class="card-body p-4">
+                        <div class="p-4">
                             <!-- Active Registration Form (Shown for Upcoming / Ongoing Events) -->
                             <form id="eventRsvpForm">
                                 <div class="mb-3">
                                     <label for="rsvpName" class="form-label small fw-bold text-dark">Full Name *</label>
-                                    <input type="text" class="form-control rounded-3 py-2 fs-6" id="rsvpName" placeholder="Enter your full name" required>
+                                    <input type="text" class="form-control rounded-3 py-2 fs-6 border" id="rsvpName" placeholder="Enter your full name" style="border-color:#e2e8f0;" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="rsvpStudentId" class="form-label small fw-bold text-dark">College Roll No. / Student ID *</label>
-                                    <input type="text" class="form-control rounded-3 py-2 fs-6" id="rsvpStudentId" placeholder="e.g. 2301040100..." required>
+                                    <input type="text" class="form-control rounded-3 py-2 fs-6 border" id="rsvpStudentId" placeholder="e.g. 2301040100..." style="border-color:#e2e8f0;" required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="rsvpBranch" class="form-label small fw-bold text-dark">Branch & Year *</label>
-                                    <select class="form-select rounded-3 py-2 fs-6" id="rsvpBranch" required>
+                                    <select class="form-select rounded-3 py-2 fs-6 border" id="rsvpBranch" style="border-color:#e2e8f0;" required>
                                         <option value="">Select Branch / Year</option>
                                         <option value="CSE 1st Year">CSE - 1st Year</option>
                                         <option value="CSE 2nd Year">CSE - 2nd Year</option>
@@ -297,27 +297,27 @@
 
                                 <div class="mb-3">
                                     <label for="rsvpEmail" class="form-label small fw-bold text-dark">Email Address *</label>
-                                    <input type="email" class="form-control rounded-3 py-2 fs-6" id="rsvpEmail" placeholder="yourname@uit.ac.in" required>
+                                    <input type="email" class="form-control rounded-3 py-2 fs-6 border" id="rsvpEmail" placeholder="yourname@uit.ac.in" style="border-color:#e2e8f0;" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="rsvpPhone" class="form-label small fw-bold text-dark">WhatsApp Number *</label>
-                                    <input type="tel" class="form-control rounded-3 py-2 fs-6" id="rsvpPhone" placeholder="+91 9876543210" required>
+                                    <input type="tel" class="form-control rounded-3 py-2 fs-6 border" id="rsvpPhone" placeholder="+91 9876543210" style="border-color:#e2e8f0;" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary rounded-pill w-100 py-3 fw-bold text-white shadow-md d-flex align-items-center justify-content-center gap-2" id="rsvpSubmitBtn" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none;">
+                                <button type="submit" class="btn btn-primary rounded-pill w-100 py-3 fw-bold text-white shadow-sm d-flex align-items-center justify-content-center gap-2" id="rsvpSubmitBtn">
                                     <span>Confirm My RSVP Now</span>
                                     <i class="bi bi-arrow-right-short fs-5"></i>
                                 </button>
                             </form>
 
-                            <!-- Concluded Notice (Shown for Past Events) -->
+                            <!-- Concluded Notice (Shown for Past & Completed Events) -->
                             <div id="concludedEventNotice" class="text-center py-3 d-none">
                                 <div class="rounded-circle bg-secondary-subtle text-secondary p-3 mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 58px; height: 58px;">
                                     <i class="bi bi-check-circle-fill fs-3 text-secondary"></i>
                                 </div>
-                                <h5 class="fw-bold text-dark mb-2">Registration Closed</h5>
-                                <p class="small text-secondary mb-4" style="line-height: 1.6;">This campus event has concluded. Registrations are now closed. Check upcoming events to participate!</p>
+                                <h5 class="fw-bold text-dark mb-2">Event Successfully Concluded</h5>
+                                <p class="small text-secondary mb-4" style="line-height: 1.6;">This campus event has completed successfully. Registrations are now closed. Check upcoming events to participate!</p>
                                 <a href="events.html" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white shadow-sm">
                                     <i class="bi bi-calendar-event me-1"></i> View Upcoming Contests
                                 </a>
@@ -329,7 +329,7 @@
                             </div>
                         </div>
 
-                        <div class="card-footer bg-light p-3 text-center border-top">
+                        <div class="bg-light p-3 text-center border-top">
                             <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i> Verified SAC Event • Free Registration</span>
                         </div>
                     </div>
@@ -349,3 +349,4 @@
 <script src="assets/js/event-detail.js"></script>
 </body>
 </html>
+

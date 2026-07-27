@@ -2814,6 +2814,49 @@ body {
     margin-bottom: 18px;
 }
 
+/* ==========================================================================
+   Redesigned Apple/Google Style Event Detail Page (event-detail.html)
+   ========================================================================== */
+
+.event-detail-hero-light {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 40%, #eff6ff 75%, #f5f3ff 100%);
+    position: relative;
+    overflow: hidden;
+    color: #0f172a;
+    padding: 50px 0 65px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.event-detail-hero-title {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -1.2px;
+    color: #0f172a;
+    margin-bottom: 16px;
+}
+
+.event-spec-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+@media (max-width: 991.98px) {
+    .event-detail-hero-title {
+        font-size: 2.3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .event-detail-hero-title {
+        font-size: 1.9rem;
+    }
+}
+
+
 
 
 
