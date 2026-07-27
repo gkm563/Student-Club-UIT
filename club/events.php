@@ -220,10 +220,10 @@ $kpiArchived = count(array_filter($events, fn($e) => $e['status'] === 'archived'
                 <h2 class="fw-bold mb-1 mt-2">Events & Hackathons Management</h2>
                 <p class="text-secondary small mb-0">Create, schedule, hide/publish, and manage all chapter activities.</p>
             </div>
-            <button class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold shadow-sm text-white d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createEventModal">
+            <a href="create-event.php" class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold shadow-sm text-white d-flex align-items-center gap-2">
                 <i class="bi bi-calendar-plus-fill fs-5"></i>
                 <span>Create New Event</span>
-            </button>
+            </a>
         </div>
 
         <?php if (!empty($success)): ?>
@@ -366,7 +366,12 @@ $kpiArchived = count(array_filter($events, fn($e) => $e['status'] === 'archived'
                                 <tr>
                                     <td colspan="6" class="text-center py-5 text-muted">
                                         <i class="bi bi-calendar-x fs-1 d-block mb-2 text-primary"></i>
-                                        No events created yet. Click <strong>"Create New Event"</strong> to publish your first workshop or competition!
+                                        No events created yet. Click <a href="create-event.php" class="fw-bold text-primary text-decoration-none">Create New Event</a> to publish your first workshop or competition!
+                                        <div class="mt-3">
+                                            <a href="create-event.php" class="btn btn-sm btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-xs">
+                                                <i class="bi bi-plus-lg me-1"></i> Create New Event
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -447,142 +452,6 @@ $kpiArchived = count(array_filter($events, fn($e) => $e['status'] === 'archived'
             </div>
         </form>
 
-    </div>
-</div>
-
-<!-- Modal: Advanced Create Event -->
-<div class="modal fade" id="createEventModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content rounded-4 border-0 shadow-2xl overflow-hidden">
-            <div class="p-4 text-white" style="background: linear-gradient(135deg, #1e1b4b, #312e81, #1d4ed8) !important;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <span class="badge bg-white text-primary rounded-pill px-3 py-1 fw-bold mb-1 small text-uppercase">ADVANCED CREATOR PORTAL</span>
-                        <h4 class="fw-bold text-white mb-0"><i class="bi bi-calendar-plus-fill me-2"></i> Publish New Campus Event</h4>
-                    </div>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-            </div>
-
-            <form action="events.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="action_create" value="1">
-                <div class="modal-body p-4 p-md-5 bg-light" style="max-height: 72vh; overflow-y: auto;">
-                    
-                    <!-- Section 1: Core Info -->
-                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
-                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-info-circle text-primary me-2"></i> 1. Core Event Info</h6>
-                        <div class="row g-3">
-                            <div class="col-md-8">
-                                <label class="form-label small fw-bold text-dark">Event Title *</label>
-                                <input type="text" name="title" class="form-control rounded-3" placeholder="e.g. Build with AI (Virtual Conference)" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-dark">Event Category / Type *</label>
-                                <select name="event_type" class="form-select rounded-3">
-                                    <option value="Hands-on Workshop" selected>🛠️ Hands-on Workshop</option>
-                                    <option value="Competitive Hackathon">🏆 Competitive Hackathon</option>
-                                    <option value="Tech Talk / Webinar">🎙️ Tech Talk / Webinar</option>
-                                    <option value="Coding Contest">💻 Coding Contest</option>
-                                    <option value="Orientation Session">🚀 Orientation Session</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label small fw-bold text-dark">Event Subtitle / Tagline</label>
-                                <input type="text" name="tagline" class="form-control rounded-3" placeholder="e.g. Winning Strategies & Solution Challenge Briefing 2026">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 2: Schedule & Location -->
-                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
-                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-clock-history text-primary me-2"></i> 2. Schedule, Status & Venue</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Date & Time *</label>
-                                <input type="datetime-local" name="event_date" class="form-control rounded-3" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Publication Status *</label>
-                                <select name="status" class="form-select rounded-3">
-                                    <option value="upcoming" selected>📅 Upcoming (Registration Open)</option>
-                                    <option value="ongoing">🔴 Live Now (Ongoing Session)</option>
-                                    <option value="completed">🏆 Completed (Past Session)</option>
-                                    <option value="draft">🔒 Draft (Private)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Venue / Hall Location *</label>
-                                <input type="text" name="venue" class="form-control rounded-3" placeholder="e.g. Induction Hall, 1st Floor, UIT / Virtual Bevy Stage" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Target Audience / Eligibility</label>
-                                <input type="text" name="target_audience" class="form-control rounded-3" placeholder="e.g. Open to CSE, IT & All Departments (1st-4th Year)" value="All UIT Departments & Years">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 3: Cover Poster -->
-                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
-                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-image text-primary me-2"></i> 3. Cover Banner Poster</h6>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Upload Poster (From PC) *</label>
-                                <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Or Image URL</label>
-                                <input type="url" name="banner" class="form-control rounded-3" placeholder="https://images.unsplash.com/photo-...">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Rewards & Speaker Info -->
-                    <div class="card border-0 shadow-xs rounded-4 p-4 mb-4 bg-white">
-                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-award text-primary me-2"></i> 4. Swags, Rewards & Keynote Speaker</h6>
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <label class="form-label small fw-bold text-dark">Outcomes, Swags & Cash Prizes</label>
-                                <input type="text" name="outcomes_summary" class="form-control rounded-3" placeholder="e.g. ₹15,000 Cash Prize, GFG Trophy, Laptop Bags & SAC Verified Certificates">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Key Speaker / Mentor Name</label>
-                                <input type="text" name="speaker_name" class="form-control rounded-3" placeholder="e.g. Krishna Aute">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-bold text-dark">Speaker Designation / Achievement</label>
-                                <input type="text" name="speaker_designation" class="form-control rounded-3" placeholder="e.g. Global Solution Challenge Top 3 Winner">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 5: Description & Phase Agenda -->
-                    <div class="card border-0 shadow-xs rounded-4 p-4 bg-white">
-                        <h6 class="fw-bold text-dark mb-3 border-bottom pb-2"><i class="bi bi-journal-text text-primary me-2"></i> 5. Detailed Writeup, Timeline & Registration</h6>
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <label class="form-label small fw-bold text-dark">Full Event Description</label>
-                                <textarea name="description" class="form-control rounded-3" rows="4" placeholder="Comprehensive writeup of topics, prerequisites, key takeaways, and session highlights..."></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label small fw-bold text-dark">Session Agenda Timeline</label>
-                                <textarea name="agenda_timeline" class="form-control rounded-3" rows="3" placeholder="Phase 1 (08:30 PM): Registration & Keynote&#10;Phase 2 (08:45 PM): Live Coding Challenge&#10;Phase 3 (10:15 PM): Evaluation & Certificate Ceremony"></textarea>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label small fw-bold text-dark">External Registration / Contact Link</label>
-                                <input type="text" name="registration_link" class="form-control rounded-3" value="contact.html">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer bg-white border-top p-3.5 d-flex align-items-center justify-content-between">
-                    <button type="button" class="btn btn-light rounded-pill px-4 py-2 fw-semibold" data-bs-dismiss="modal">Discard</button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-5 py-2.5 fw-bold text-white shadow-md" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none;">
-                        <span>Publish Advanced Event →</span>
-                    </button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 
