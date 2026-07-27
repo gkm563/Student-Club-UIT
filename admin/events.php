@@ -305,7 +305,7 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                             <?php foreach ($events as $ev): ?>
                                 <tr data-title="<?= e($ev['title']) ?>" data-venue="<?= e($ev['venue']) ?>" data-status="<?= e($ev['status']) ?>" data-date="<?= e($ev['event_date']) ?>">
                                     <td>
-                                        <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3">
+                                        <a href="event-detail.php?id=<?= $ev['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3">
                                             <img src="<?= htmlspecialchars($ev['banner']) ?>" class="rounded-3 border" style="width: 54px; height: 38px; object-fit: cover;">
                                             <div>
                                                 <h6 class="fw-bold mb-0 text-dark hover-primary"><?= htmlspecialchars($ev['title']) ?></h6>
@@ -327,17 +327,17 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <!-- Frequently Used Action 1: Edit Details -->
-                                            <a href="/admin/event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" title="Edit Event">
+                                            <a href="event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" title="Edit Event">
                                                 <i class="bi bi-pencil-square me-1"></i> Edit
                                             </a>
 
                                             <!-- Frequently Used Action 2: Quick Hide / Publish Toggle -->
                                             <?php if ($ev['status'] === 'hidden'): ?>
-                                                <a href="/admin/events.php?set_status=upcoming&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-success rounded-pill px-2-5 py-1 fw-semibold" title="Publish / Make Public">
+                                                <a href="events.php?set_status=upcoming&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-success rounded-pill px-2-5 py-1 fw-semibold" title="Publish / Make Public">
                                                     <i class="bi bi-eye me-1"></i> Publish
                                                 </a>
                                             <?php else: ?>
-                                                <a href="/admin/events.php?set_status=hidden&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-2-5 py-1 fw-semibold" title="Hide / Make Private">
+                                                <a href="events.php?set_status=hidden&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-2-5 py-1 fw-semibold" title="Hide / Make Private">
                                                     <i class="bi bi-eye-slash me-1"></i> Hide
                                                 </a>
                                             <?php endif; ?>
@@ -349,27 +349,27 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end rounded-3 shadow border-0 small">
                                                     <li>
-                                                        <a class="dropdown-item py-1-5" href="/admin/events.php?duplicate=<?= $ev['id'] ?>">
+                                                        <a class="dropdown-item py-1-5" href="events.php?duplicate=<?= $ev['id'] ?>">
                                                             <i class="bi bi-copy text-info me-2"></i> Duplicate Event
                                                         </a>
                                                     </li>
                                                     <?php if ($ev['status'] !== 'draft'): ?>
                                                         <li>
-                                                            <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=draft&id=<?= $ev['id'] ?>">
+                                                            <a class="dropdown-item py-1-5" href="events.php?set_status=draft&id=<?= $ev['id'] ?>">
                                                                 <i class="bi bi-file-earmark-lock text-secondary me-2"></i> Save as Draft
                                                             </a>
                                                         </li>
                                                     <?php endif; ?>
                                                     <?php if ($ev['status'] !== 'archived'): ?>
                                                         <li>
-                                                            <a class="dropdown-item py-1-5" href="/admin/events.php?set_status=archived&id=<?= $ev['id'] ?>">
+                                                            <a class="dropdown-item py-1-5" href="events.php?set_status=archived&id=<?= $ev['id'] ?>">
                                                                 <i class="bi bi-archive text-warning me-2"></i> Archive Event
                                                             </a>
                                                         </li>
                                                     <?php endif; ?>
                                                     <li><hr class="dropdown-divider"></li>
                                                     <li>
-                                                        <a class="dropdown-item py-1-5 text-danger" href="/admin/events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Permanently delete this event?');">
+                                                        <a class="dropdown-item py-1-5 text-danger" href="events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Permanently delete this event?');">
                                                             <i class="bi bi-trash me-2"></i> Delete Event
                                                         </a>
                                                     </li>

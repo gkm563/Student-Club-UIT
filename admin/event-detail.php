@@ -8,7 +8,7 @@ require_login('/admin/club-login.php');
 
 $userRole = get_current_user_role();
 if ($userRole === 'super_admin') {
-    header('Location: /admin/super/index.php');
+    header('Location: super/index.php');
     exit;
 }
 
@@ -33,7 +33,7 @@ if (!$club) {
 
 $eventId = $_GET['id'] ?? '';
 if (empty($eventId)) {
-    header('Location: /admin/events.php');
+    header('Location: events.php');
     exit;
 }
 
@@ -43,7 +43,7 @@ $evtStmt->execute([$eventId, $club['id']]);
 $event = $evtStmt->fetch();
 
 if (!$event) {
-    header('Location: /admin/events.php?error=Event+not+found');
+    header('Location: events.php?error=Event+not+found');
     exit;
 }
 
@@ -130,7 +130,7 @@ if (isset($_GET['delete_photo'])) {
     $photoId = $_GET['delete_photo'];
     $dpStmt = $db->prepare("DELETE FROM gallery_items WHERE id = ? AND club_id = ?");
     $dpStmt->execute([$photoId, $club['id']]);
-    header('Location: /admin/event-detail.php?id=' . urlencode($eventId) . '&msg=Photo+deleted');
+    header('Location: event-detail.php?id=' . urlencode($eventId) . '&msg=Photo+deleted');
     exit;
 }
 
@@ -391,7 +391,7 @@ if (!empty($event['event_date'])) {
                             <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold text-white shadow-sm">
                                 Save Changes & Audit Log
                             </button>
-                            <a href="admin/events.php" class="btn btn-light rounded-pill px-4 py-2-5">Cancel</a>
+                            <a href="events.php" class="btn btn-light rounded-pill px-4 py-2-5">Cancel</a>
                         </div>
                     </form>
                 </div>
