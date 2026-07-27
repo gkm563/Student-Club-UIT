@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../config/database.php';
 
 // Auth Check for Super Admin (Dean Sir)
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
-    header('Location: /admin/dean-login.php');
+    header('Location: ../dean-login.php');
     exit;
 }
 
@@ -38,7 +38,7 @@ if (isset($_GET['delete_cat'])) {
     try {
         $stmt = $db->prepare("DELETE FROM categories WHERE id = ?");
         $stmt->execute([$catId]);
-        header('Location: /admin/super/categories.php?msg=Category+deleted');
+        header('Location: categories.php?msg=Category+deleted');
         exit;
     } catch (Exception $e) {
         $error = 'Error deleting category: ' . $e->getMessage();
@@ -85,19 +85,8 @@ $categories = $db->query("
     <!-- Sidebar -->
     <?php require_once __DIR__ . '/../../includes/super_sidebar.php'; ?>
 
-        <nav class="d-flex flex-column gap-2">
-            <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Overview</a>
-            <a href="/admin/super/clubs.php" class="admin-nav-link"><i class="bi bi-trophy"></i> Manage Clubs</a>
-            <a href="/admin/super/categories.php" class="admin-nav-link active"><i class="bi bi-tags"></i> Categories</a>
-            <a href="/admin/super/logs.php" class="admin-nav-link"><i class="bi bi-journal-text"></i> Audit Logs</a>
-            <a href="/admin/super/messages.php" class="admin-nav-link"><i class="bi bi-envelope"></i> Messages</a>
-            <a href="/admin/super/users.php" class="admin-nav-link"><i class="bi bi-shield-lock"></i> Dean Profile</a>
-            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
-        </nav>
-    </div>
-
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4 p-md-5">
+    <div class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">DEAN PORTAL</span>

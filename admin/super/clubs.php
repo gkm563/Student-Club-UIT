@@ -89,7 +89,7 @@ if (isset($_GET['toggle_status']) && isset($_GET['club_id'])) {
     
     $stmt = $db->prepare("UPDATE clubs SET status = ? WHERE id = ?");
     $stmt->execute([$newStatus, $clubId]);
-    header('Location: /admin/super/clubs.php?msg=Status+updated');
+    header('Location: clubs.php?msg=Status+updated');
     exit;
 }
 
@@ -97,7 +97,7 @@ if (isset($_GET['delete_club'])) {
     $clubId = $_GET['delete_club'];
     $stmt = $db->prepare("DELETE FROM clubs WHERE id = ?");
     $stmt->execute([$clubId]);
-    header('Location: /admin/super/clubs.php?msg=Club+deleted');
+    header('Location: clubs.php?msg=Club+deleted');
     exit;
 }
 
@@ -147,16 +147,8 @@ $registeredClubs = $clubsStmt->fetchAll();
     <!-- Sidebar -->
     <?php require_once __DIR__ . '/../../includes/super_sidebar.php'; ?>
 
-        <nav class="d-flex flex-column gap-2">
-            <a href="/admin/super/index.php" class="admin-nav-link"><i class="bi bi-speedometer2"></i> Overview</a>
-            <a href="/admin/super/clubs.php" class="admin-nav-link active"><i class="bi bi-trophy"></i> Manage Clubs</a>
-            <a href="/admin/super/users.php" class="admin-nav-link"><i class="bi bi-shield-lock"></i> Dean Profile</a>
-            <a href="/admin/logout.php" class="admin-nav-link text-danger mt-4"><i class="bi bi-box-arrow-right"></i> Logout</a>
-        </nav>
-    </div>
-
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4 p-md-5">
+    <div class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">SUPER ADMIN / DEAN PORTAL</span>
