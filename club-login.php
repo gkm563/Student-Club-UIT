@@ -131,7 +131,7 @@ require_once __DIR__ . '/includes/header.php';
 
                 <div class="pt-3 border-top mt-3 small text-muted">
                     <span>Dean Sir or Faculty Admin?</span>
-                    <a href="/admin/login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Dean Admin Login &rarr;</a>
+                    <a href="/admin/dean-login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Dean Admin Login &rarr;</a>
                 </div>
             </div>
         </div>

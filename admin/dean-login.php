@@ -104,7 +104,7 @@ require_once __DIR__ . '/../includes/navbar.php';
 
                 <div class="pt-3 border-top mt-3 small text-muted">
                     <span>Are you a Club Lead?</span>
-                    <a href="/admin/login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Club Lead Login &rarr;</a>
+                    <a href="/club-login.php" class="fw-bold text-success text-decoration-none ms-1">Go to Club Lead Login &rarr;</a>
                 </div>
             </div>
         </div>
