@@ -243,24 +243,31 @@ $latestDate = !empty($galleryItems) ? date('d M Y', strtotime($galleryItems[0]['
         </div>
 
         <!-- Info Callout Banner (Guidance for Event-Specific Photos vs General Club Gallery) -->
-        <div class="card border-0 rounded-4 p-4 mb-4 info-callout-banner shadow-sm">
-            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+        <div class="card border-0 rounded-4 p-4 mb-4 info-callout-banner shadow-sm" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e4ed8 100%); color: #fff;">
+            <div class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-4">
                 <div class="d-flex gap-3 align-items-start">
-                    <div class="p-3 bg-primary text-white rounded-3 flex-shrink-0 d-none d-sm-block">
-                        <i class="bi bi-info-circle-fill fs-4"></i>
+                    <div class="p-3 bg-white bg-opacity-10 text-white rounded-4 flex-shrink-0 d-none d-sm-flex align-items-center justify-content-center" style="width: 54px; height: 54px;">
+                        <i class="bi bi-camera-reels-fill fs-3 text-warning"></i>
                     </div>
                     <div>
-                        <h6 class="fw-bold text-dark mb-1">📸 Official Chapter Gallery vs. Event Recap Photos</h6>
-                        <p class="text-secondary small mb-0" style="line-height: 1.5;">
-                            Ye section aapke <strong><?= htmlspecialchars($club['name']) ?></strong> chapter ki overall general photos, awards, leadership moments aur Orientation highlights ke liye hai.
-                            <br class="d-none d-md-block">
-                            Agar aap kisi <strong>Specific Event</strong> (jaise <em>Hackathon 2026</em> ya <em>Workshop</em>) ki photos submit karna chahte hain, to 
-                            <a href="events.php" class="fw-bold text-primary text-decoration-underline">Manage Events Page</a> par jayein aur respective event ka <strong>"Edit Event & Gallery"</strong> open karein.
+                        <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                            <span class="badge bg-warning text-dark font-monospace fw-bold rounded-pill px-2.5 py-1 text-uppercase" style="font-size:0.68rem;">MEDIA DIRECTORY GUIDELINE</span>
+                            <h5 class="fw-bold text-white mb-0">Official Chapter Gallery vs. Event Photo Recaps</h5>
+                        </div>
+                        <p class="text-white-50 small mb-0" style="line-height: 1.6; max-width: 820px;">
+                            This gallery is dedicated to <strong><?= htmlspecialchars($club['name']) ?></strong>'s general brand assets — executive leadership portraits, annual orientation highlights, prestigious awards, and core chapter milestones.
                         </p>
+                        <div class="mt-2.5 pt-2 border-top border-white-10 text-white-80 small d-flex flex-wrap align-items-center gap-2" style="font-size: 0.82rem;">
+                            <i class="bi bi-info-circle text-info"></i>
+                            <span>Looking to upload photos for a <strong>specific workshop, hackathon, or competition</strong>?</span>
+                            <a href="events.php" class="text-warning fw-bold text-decoration-none hover-underline">
+                                Go to Manage Events <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <a href="events.php" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 fw-semibold text-nowrap flex-shrink-0">
-                    <i class="bi bi-calendar-event me-1"></i> Go to Manage Events
+                <a href="events.php" class="btn btn-light rounded-pill px-4 py-2.5 fw-bold text-indigo shadow-sm text-nowrap flex-shrink-0">
+                    <i class="bi bi-calendar-event me-1"></i> Manage Events
                 </a>
             </div>
         </div>
