@@ -4,7 +4,7 @@
  */
 if (!isset($assetPrefix)) {
     $script = $_SERVER['SCRIPT_NAME'] ?? '';
-    if (str_contains($script, '/admin/') || (str_contains($script, '/club/') && !str_contains($script, 'club-login'))) {
+    if (preg_match('#/(admin|club)/#i', $script)) {
         $assetPrefix = '../';
     } else {
         $assetPrefix = '';
