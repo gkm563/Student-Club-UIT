@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             detailDescription.textContent = event.description || 'Join us for an immersive technical session organized by student chapter leads. Gain hands-on practice, network with domain mentors, and showcase your problem-solving capabilities.';
         }
 
-        // Club Info Box
+        // Club Info Box & Right Sidebar Mini Profile Card
         const detailClubLogo = document.getElementById('detailClubLogo');
         if (detailClubLogo && event.club_logo) detailClubLogo.src = escapeHtml(event.club_logo);
 
@@ -171,6 +171,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const detailClubShort = document.getElementById('detailClubShort');
         if (detailClubShort) detailClubShort.textContent = `${event.club_short_name || 'Student Club'} • Official SAC Society`;
+
+        const miniClubLogo = document.getElementById('miniClubLogo');
+        if (miniClubLogo && event.club_logo) miniClubLogo.src = escapeHtml(event.club_logo);
+
+        const miniClubName = document.getElementById('miniClubName');
+        if (miniClubName) miniClubName.textContent = event.club_name;
+
+        const miniClubCategory = document.getElementById('miniClubCategory');
+        if (miniClubCategory) miniClubCategory.textContent = event.club_short_name || 'Student Chapter';
+
+        const miniClubTagline = document.getElementById('miniClubTagline');
+        if (miniClubTagline) {
+            miniClubTagline.textContent = event.club_tagline || `Official Student Chapter under Dean Student Welfare Advisory Committee, United Institute of Technology Prayagraj.`;
+        }
+
+        const miniClubProfileBtn = document.getElementById('miniClubProfileBtn');
+        if (miniClubProfileBtn && event.club_id) {
+            miniClubProfileBtn.href = `clubs.html`;
+        }
 
         // Fetch Uploaded Event Photos from Gallery API
         fetch(getApiUrl(`gallery.php?event_id=${encodeURIComponent(event.id)}`))

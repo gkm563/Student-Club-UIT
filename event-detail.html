@@ -299,7 +299,14 @@
                                     <i class="bi bi-check-circle-fill fs-3 text-secondary"></i>
                                 </div>
                                 <h5 class="fw-bold text-dark mb-2">Event Successfully Concluded</h5>
-                                <p class="small text-secondary mb-4" style="line-height: 1.6;">This campus event has completed successfully. Registrations are now closed. Check upcoming events to participate!</p>
+                                <p class="small text-secondary mb-3" style="line-height: 1.6;">This campus event has completed successfully. Registrations are now closed. Check upcoming events to participate!</p>
+                                
+                                <div class="mb-4">
+                                    <div class="text-white small fw-bold bg-dark bg-opacity-75 px-4 py-2 rounded-pill border border-secondary d-inline-block shadow-xs" id="concludedEventBadge">
+                                        <i class="bi bi-award-fill text-warning me-1"></i> Session Concluded & Archived
+                                    </div>
+                                </div>
+
                                 <a href="events.html" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white shadow-sm">
                                     <i class="bi bi-calendar-event me-1"></i> View Upcoming Contests
                                 </a>
@@ -313,6 +320,54 @@
 
                         <div class="bg-light p-3 text-center border-top">
                             <span class="small text-muted"><i class="bi bi-shield-check text-success me-1"></i> Verified SAC Event • Free Registration</span>
+                        </div>
+                    </div>
+
+                    <!-- 🔰 Organizing Club Mini Profile Card -->
+                    <div class="about-card-elevated p-4 mt-4 bg-white">
+                        <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-3">
+                            <div class="d-flex align-items-center gap-2.5">
+                                <img src="assets/United Logo.webp" id="miniClubLogo" class="rounded-circle bg-light p-1 border shadow-xs" style="width: 46px; height: 46px; object-fit: cover;" alt="Club Logo" onerror="this.src='assets/United Logo.webp'">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0" id="miniClubName">Organizing Club</h6>
+                                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-0.5 mt-1" style="font-size: 0.65rem;" id="miniClubCategory">Student Chapter</span>
+                                </div>
+                            </div>
+                            <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 fw-bold small">
+                                <i class="bi bi-patch-check-fill me-1"></i> Verified
+                            </span>
+                        </div>
+
+                        <!-- Quick Mini Stats Grid -->
+                        <div class="row g-2 text-center mb-3">
+                            <div class="col-4">
+                                <div class="p-2 rounded-3 bg-light border">
+                                    <div class="fw-black text-primary lh-1" id="miniClubEventCount" style="font-size: 1.1rem; font-weight: 900;">12+</div>
+                                    <div class="text-muted mt-1" style="font-size: 0.65rem;">Events Held</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-2 rounded-3 bg-light border">
+                                    <div class="fw-black text-success lh-1" id="miniClubMembersCount" style="font-size: 1.1rem; font-weight: 900;">250+</div>
+                                    <div class="text-muted mt-1" style="font-size: 0.65rem;">Members</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-2 rounded-3 bg-light border">
+                                    <div class="fw-black text-warning lh-1" style="font-size: 1.1rem; font-weight: 900;">SAC</div>
+                                    <div class="text-muted mt-1" style="font-size: 0.65rem;">Governed</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-secondary small mb-3" id="miniClubTagline" style="font-size: 0.8rem; line-height: 1.55;">
+                            Official Student Society under Dean Student Welfare Governance, United Institute of Technology Prayagraj.
+                        </p>
+
+                        <div class="d-flex align-items-center gap-2">
+                            <a href="clubs.html" class="btn btn-outline-primary rounded-pill w-100 py-2.5 fw-bold small" id="miniClubProfileBtn">
+                                <i class="bi bi-box-arrow-up-right me-1"></i> View Full Club Profile
+                            </a>
                         </div>
                     </div>
                 </div>
