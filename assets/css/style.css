@@ -2016,3 +2016,463 @@ body {
         padding: 20px 16px;
     }
 }
+
+/* ==========================================================================
+   Redesigned Clean White Executive Hero Section (clubs.html)
+   ========================================================================== */
+
+.clubs-hero-light {
+    background: #ffffff;
+    position: relative;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.clubs-hero-light-bg-accent {
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(29, 78, 216, 0.05) 0%, rgba(2, 132, 199, 0.04) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.clubs-hero-light-title {
+    font-size: 2.75rem;
+    line-height: 1.16;
+    letter-spacing: -1px;
+    color: #0f172a;
+}
+
+.clubs-hero-light-gradient {
+    background: linear-gradient(120deg, #1d4ed8 0%, #0284c7 50%, #4338ca 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 850;
+}
+
+.clubs-hero-light-search-container {
+    max-width: 540px;
+    background: #ffffff;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 50px;
+    padding: 4px 6px 4px 18px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    transition: all 0.25s ease;
+}
+
+.clubs-hero-light-search-container:focus-within,
+.clubs-hero-light-search-container:hover {
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 10px 28px rgba(29, 78, 216, 0.15);
+    transform: translateY(-1px);
+}
+
+.clubs-hero-light-search-btn {
+    background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+    color: #ffffff !important;
+    border: none;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
+    transition: all 0.25s ease;
+}
+
+.clubs-hero-light-search-btn:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #0369a1 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(29, 78, 216, 0.45);
+}
+
+/* Colorful Tag Chips */
+.hero-chip-pill.chip-amber {
+    background: #fffbeb !important;
+    border: 1px solid #fde68a !important;
+    color: #b45309 !important;
+}
+
+.hero-chip-pill.chip-purple {
+    background: #f5f3ff !important;
+    border: 1px solid #ddd6fe !important;
+    color: #6d28d9 !important;
+}
+
+.hero-chip-pill.chip-cyan {
+    background: #f0f9ff !important;
+    border: 1px solid #bae6fd !important;
+    color: #0369a1 !important;
+}
+
+.hero-chip-pill.chip-pink {
+    background: #fdf2f8 !important;
+    border: 1px solid #fbcfe8 !important;
+    color: #be185d !important;
+}
+
+.hero-chip-btn {
+    transition: all 0.25s ease;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.hero-chip-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* Executive Light Stat Card */
+.clubs-hero-light-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+    transition: all 0.3s ease;
+}
+
+.clubs-hero-light-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+    border-color: #cbd5e1 !important;
+}
+
+@media (max-width: 991.98px) {
+    .clubs-hero-light-title {
+        font-size: 2.15rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .clubs-hero-light-title {
+        font-size: 1.8rem;
+    }
+    .clubs-hero-light-search-container {
+        border-radius: 30px;
+        padding: 4px;
+    }
+    .clubs-hero-light-search-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================================================================
+   Redesigned Clean White Events Hero Section (events.html)
+   ========================================================================== */
+
+.events-hero-light {
+    background: #ffffff;
+    position: relative;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.events-hero-light-bg-accent {
+    position: absolute;
+    top: -30%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, rgba(2, 132, 199, 0.04) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.events-hero-light-title {
+    font-size: 2.75rem;
+    line-height: 1.16;
+    letter-spacing: -1px;
+    color: #0f172a;
+}
+
+.events-hero-light-gradient {
+    background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #0284c7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 850;
+}
+
+.events-hero-light-search-container {
+    max-width: 560px;
+    background: #ffffff;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 50px;
+    padding: 4px 6px 4px 18px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    transition: all 0.25s ease;
+}
+
+.events-hero-light-search-container:focus-within,
+.events-hero-light-search-container:hover {
+    border-color: #2563eb !important;
+    box-shadow: 0 10px 28px rgba(37, 99, 235, 0.15);
+    transform: translateY(-1px);
+}
+
+.events-hero-light-search-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    color: #ffffff !important;
+    border: none;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    transition: all 0.25s ease;
+}
+
+.events-hero-light-search-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.45);
+}
+
+.events-hero-light-stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+    transition: all 0.3s ease;
+}
+
+.events-hero-light-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);
+    border-color: #cbd5e1 !important;
+}
+
+@media (max-width: 991.98px) {
+    .events-hero-light-title {
+        font-size: 2.15rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .events-hero-light-title {
+        font-size: 1.8rem;
+    }
+    .events-hero-light-search-container {
+        border-radius: 30px;
+        padding: 4px;
+    }
+    .events-hero-light-search-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ==========================================================================
+   Exact Match Hero Section Design with Light Background Option (clubs.html)
+   ========================================================================== */
+
+.clubs-hero-image-styled {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 40%, #eff6ff 75%, #f5f3ff 100%);
+    position: relative;
+    overflow: hidden;
+    color: #0f172a;
+    padding: 55px 0 70px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.clubs-hero-image-styled .hero-mesh-glow {
+    position: absolute;
+    top: -20%;
+    right: 10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.06) 45%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.clubs-top-pill-breadcrumb {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid #e2e8f0;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #475569;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.clubs-top-pill-badge {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    box-shadow: 0 2px 10px rgba(29, 78, 216, 0.1);
+}
+
+.clubs-hero-headline-image {
+    font-size: 3.3rem;
+    font-weight: 800;
+    line-height: 1.14;
+    letter-spacing: -1.5px;
+    color: #0f172a;
+    margin-bottom: 18px;
+}
+
+.clubs-gradient-highlight-image {
+    background: linear-gradient(120deg, #1d4ed8 0%, #0284c7 45%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.clubs-hero-desc-image {
+    color: #475569;
+    font-size: 1.08rem;
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.clubs-hero-search-pill-image {
+    max-width: 560px;
+    background: #ffffff;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 50px;
+    padding: 6px 8px 6px 22px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clubs-hero-search-pill-image:focus-within,
+.clubs-hero-search-pill-image:hover {
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 14px 38px rgba(29, 78, 216, 0.18);
+    transform: translateY(-2px);
+}
+
+.clubs-hero-search-btn-image {
+    background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+    color: #ffffff !important;
+    border: none;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.35);
+    transition: all 0.25s ease;
+}
+
+.clubs-hero-search-btn-image:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #0369a1 100%);
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(29, 78, 216, 0.5);
+}
+
+/* Light Mode Colorful Chip Buttons */
+.chip-green-glow {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    color: #047857 !important;
+}
+
+.chip-purple-glow {
+    background: #f5f3ff !important;
+    border: 1px solid #ddd6fe !important;
+    color: #6d28d9 !important;
+}
+
+.chip-cyan-glow {
+    background: #f0f9ff !important;
+    border: 1px solid #bae6fd !important;
+    color: #0369a1 !important;
+}
+
+.chip-orange-glow {
+    background: #fff7ed !important;
+    border: 1px solid #ffedd5 !important;
+    color: #c2410c !important;
+}
+
+.hero-chip-btn-image {
+    transition: all 0.25s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.hero-chip-btn-image:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+/* Right White Floating Executive Card */
+.clubs-hero-card-image {
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 16px 45px rgba(15, 23, 42, 0.09);
+    padding: 32px 28px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.clubs-hero-card-image:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 55px rgba(15, 23, 42, 0.13);
+}
+
+.clubs-card-icon-box-image {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clubs-stat-circle-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+}
+
+.clubs-hero-big-btn-image {
+    background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+    color: #ffffff !important;
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-weight: 700;
+    font-size: 0.98rem;
+    border: none;
+    box-shadow: 0 8px 24px rgba(29, 78, 216, 0.35);
+    transition: all 0.25s ease;
+}
+
+.clubs-hero-big-btn-image:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #0369a1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(29, 78, 216, 0.5);
+}
+
+@media (max-width: 991.98px) {
+    .clubs-hero-headline-image {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .clubs-hero-headline-image {
+        font-size: 2.1rem;
+    }
+    .clubs-hero-search-pill-image {
+        border-radius: 30px;
+        padding: 4px 6px 4px 14px;
+    }
+    .clubs-hero-search-btn-image {
+        padding: 8px 18px;
+        font-size: 0.85rem;
+    }
+}
+
+
+
+
+

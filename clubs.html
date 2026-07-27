@@ -23,62 +23,99 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Clean & Premium Executive Hero Section -->
-<section class="py-5 position-relative bg-white border-bottom">
-    <div class="container py-3">
-        <!-- Top Breadcrumb -->
-        <nav aria-label="breadcrumb" class="mb-3">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a></li>
-                <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">Campus Clubs Directory</li>
-            </ol>
-        </nav>
+<!-- Exact Match Hero Section Design from Reference Image -->
+<section class="clubs-hero-image-styled position-relative py-5">
+    <div class="hero-mesh-glow"></div>
 
-        <div class="row align-items-center justify-content-between g-4">
-            <!-- Left Hero Text & Search -->
+    <div class="container position-relative z-2 py-2">
+        <!-- Top Breadcrumbs & SAC Official Pill Badge Bar -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+                <i class="bi bi-house-door-fill text-primary"></i>
+                <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
+                <span class="text-muted">/</span>
+                <span class="text-dark fw-bold">Campus Clubs Directory</span>
+            </div>
+
+            <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
+                <i class="bi bi-patch-check-fill text-primary fs-6"></i>
+                <span>Official SAC Directory 2026</span>
+            </div>
+        </div>
+
+        <div class="row align-items-center justify-content-between g-4 g-lg-5">
+            <!-- Left Hero Headline, Subtitle, Search & Chips -->
             <div class="col-lg-7">
-                <h1 class="fw-extrabold text-dark mb-2" style="font-size: 2.8rem; letter-spacing: -1px; line-height: 1.15;">
-                    Explore Campus <span class="text-primary">Societies & Chapters</span>
+                <h1 class="clubs-hero-headline-image">
+                    Discover. Connect.<br>Grow <span class="clubs-gradient-highlight-image">Together.</span>
                 </h1>
-                <p class="text-secondary mb-4 fs-6 fw-medium" style="max-width: 580px;">
-                    Find active student clubs across technical coding, AI innovation, cultural arts, and athletics at United Institute of Technology.
+                
+                <p class="clubs-hero-desc-image">
+                    Explore vibrant student clubs and chapters at United Institute of Technology and be part of something <span class="fw-bold text-dark">extraordinary</span>.
                 </p>
 
-                <!-- Clean Search Input -->
-                <div class="card p-1.5 border rounded-pill mb-3 bg-white hero-search-pill-container" style="border: 2px solid #cbd5e1 !important; max-width: 540px;">
+                <!-- Clean White Pill Search Bar Container -->
+                <div class="clubs-hero-search-pill-image mb-4">
                     <div class="input-group align-items-center">
-                        <span class="input-group-text bg-transparent border-0 text-primary ps-3 pe-2"><i class="bi bi-search fs-5"></i></span>
-                        <input type="text" id="heroDirectorySearchInput" class="form-control bg-transparent border-0 text-dark fw-medium" placeholder="Search clubs by name, AI, tech..." style="font-size: 0.95rem; outline: none; box-shadow: none;">
-                        <button id="heroSearchTriggerBtn" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" style="font-size: 0.88rem;">
+                        <span class="input-group-text bg-transparent border-0 text-primary ps-2 pe-2"><i class="bi bi-search fs-5"></i></span>
+                        <input type="text" id="heroDirectorySearchInput" class="form-control bg-transparent border-0 text-dark fw-medium" placeholder="Search clubs by name, category, or keywords..." style="outline: none; box-shadow: none; font-size: 0.96rem;">
+                        <span class="input-group-text bg-transparent border-0 text-primary pe-3 d-none d-sm-inline-block"><i class="bi bi-stars fs-5" style="color: #8b5cf6;"></i></span>
+                        <button id="heroSearchTriggerBtn" class="btn clubs-hero-search-btn-image rounded-pill">
                             Search
                         </button>
                     </div>
                 </div>
 
-                <!-- Clean Search Tags -->
+                <!-- Popular Trending Chips -->
                 <div class="d-flex align-items-center gap-2 flex-wrap text-secondary small">
-                    <span class="fw-bold text-dark me-1">Popular:</span>
-                    <button class="btn btn-sm rounded-pill px-3 py-1 text-dark bg-white fw-semibold hero-chip-btn hero-chip-pill" data-chip="GeeksforGeeks">⚡ GeeksforGeeks</button>
-                    <button class="btn btn-sm rounded-pill px-3 py-1 text-dark bg-white fw-semibold hero-chip-btn hero-chip-pill" data-chip="Gemini Builders">🤖 Gemini Builders</button>
-                    <button class="btn btn-sm rounded-pill px-3 py-1 text-dark bg-white fw-semibold hero-chip-btn hero-chip-pill" data-chip="GDG">☁️ GDG Cloud</button>
+                    <span class="fw-bold text-dark me-1" style="font-size: 0.85rem;">🔥 Popular:</span>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn hero-chip-pill hero-chip-btn-image chip-green-glow" data-chip="GeeksforGeeks">⚡ GeeksforGeeks</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn hero-chip-pill hero-chip-btn-image chip-purple-glow" data-chip="Gemini Builders">🤖 Gemini Builders</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn hero-chip-pill hero-chip-btn-image chip-cyan-glow" data-chip="GDG">☁️ GDG Cloud</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn hero-chip-pill hero-chip-btn-image chip-orange-glow" data-chip="Cultural">🔥 Cultural</button>
                 </div>
             </div>
 
-            <!-- Right Clean Stat Card -->
-            <div class="col-lg-4">
-                <div class="card p-4 rounded-4 text-center hero-stat-card-executive">
-                    <div class="row g-3">
-                        <div class="col-6 border-end">
-                            <h2 class="fw-extrabold text-primary mb-0" id="heroDirectoryCount">11+</h2>
-                            <span class="small text-secondary fw-bold">Active Clubs</span>
+            <!-- Right Side Clean White Floating Executive Stat Card -->
+            <div class="col-lg-5 col-xl-4">
+                <div class="clubs-hero-card-image text-center">
+                    <!-- Top Institutional Header -->
+                    <div class="d-flex align-items-center justify-content-center gap-2.5 mb-4 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <div class="clubs-card-icon-box-image">
+                            <i class="bi bi-building-fill fs-5"></i>
                         </div>
-                        <div class="col-6">
-                            <h2 class="fw-extrabold text-success mb-0">600+</h2>
-                            <span class="small text-secondary fw-bold">Members</span>
+                        <span class="fw-extrabold text-dark fs-6" style="color: #1e1b4b !important;">United Institute of Technology</span>
+                    </div>
+
+                    <!-- 3-Column Stat Counter Grid -->
+                    <div class="row g-2 text-center my-2">
+                        <div class="col-4 border-end" style="border-color: #f1f5f9 !important;">
+                            <div class="clubs-stat-circle-box" style="background: #eff6ff; color: #3b82f6;">
+                                <i class="bi bi-people-fill fs-5"></i>
+                            </div>
+                            <h2 class="fw-extrabold text-dark mb-0" style="font-size: 1.8rem;" id="heroDirectoryCount">11+</h2>
+                            <span class="small text-secondary fw-semibold" style="font-size: 0.72rem;">Active Clubs</span>
+                        </div>
+                        <div class="col-4 border-end" style="border-color: #f1f5f9 !important;">
+                            <div class="clubs-stat-circle-box" style="background: #e0f2fe; color: #0284c7;">
+                                <i class="bi bi-person-workspace fs-5"></i>
+                            </div>
+                            <h2 class="fw-extrabold mb-0" style="color: #2563eb !important; font-size: 1.8rem;">600+</h2>
+                            <span class="small text-secondary fw-semibold" style="font-size: 0.72rem;">Members</span>
+                        </div>
+                        <div class="col-4">
+                            <div class="clubs-stat-circle-box" style="background: #ecfdf5; color: #10b981;">
+                                <i class="bi bi-star-fill fs-5"></i>
+                            </div>
+                            <h2 class="fw-extrabold text-dark mb-0" style="font-size: 1.8rem;">15+</h2>
+                            <span class="small text-secondary fw-bold" style="font-size: 0.72rem;">Categories</span>
                         </div>
                     </div>
-                    <a href="#clubsGrid" class="btn btn-outline-primary rounded-pill mt-3 py-2 fw-bold small">
-                        Browse All Chapters ↓
+
+                    <!-- Big Gradient Browse Action Button -->
+                    <a href="#clubsGrid" class="btn clubs-hero-big-btn-image w-100 mt-4 d-flex align-items-center justify-content-center gap-2">
+                        <span>Browse All Chapters</span>
+                        <i class="bi bi-arrow-right fs-5"></i>
                     </a>
                 </div>
             </div>

@@ -123,62 +123,92 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Full-Width Executive Google/Meta Tech Events Hero -->
-<section class="py-5 google-meta-hero">
-    <!-- Ambient Radial Mesh Glow Orbs -->
-    <div class="google-mesh-orb-1"></div>
-    <div class="google-mesh-orb-2"></div>
+<!-- Reference Image Styled Events Hero Section -->
+<section class="clubs-hero-image-styled position-relative py-5">
+    <div class="hero-mesh-glow"></div>
 
-    <div class="container py-4 position-relative" style="z-index: 2;">
-        <!-- Top Breadcrumb & Live Ticker -->
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none fw-medium"><i class="bi bi-house-door-fill me-1"></i> Home</a></li>
-                    <li class="breadcrumb-item active text-white fw-bold" aria-current="page">Campus Events Directory</li>
-                </ol>
-            </nav>
+    <div class="container position-relative z-2 py-2">
+        <!-- Top Breadcrumbs & Live Badge Bar -->
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+                <i class="bi bi-house-door-fill text-primary"></i>
+                <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
+                <span class="text-muted">/</span>
+                <span class="text-dark fw-bold">Campus Events Directory</span>
+            </div>
 
-            <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white backdrop-blur shadow-sm">
-                <span class="pulse-dot-green"></span>
-                <span class="small fw-bold text-white">Google & Meta Tech Chapter Hub</span>
+            <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
+                <i class="bi bi-calendar2-check-fill text-primary fs-6"></i>
+                <span>Official SAC Events Hub 2026</span>
             </div>
         </div>
 
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-9">
-                <div class="d-inline-flex align-items-center gap-2 px-3.5 py-1.5 rounded-pill bg-white-10 border border-white-20 text-white fw-bold small mb-3">
-                    <i class="bi bi-cpu-fill text-warning fs-6"></i>
-                    <span>Official Student Activity Centre (SAC) Events Hub</span>
-                </div>
-
-                <h1 class="fw-extrabold text-white mb-3 display-4" style="letter-spacing: -1.4px; line-height: 1.15;">
-                    Discover, Filter & Experience <span style="background: linear-gradient(90deg, #38bdf8 0%, #60a5fa 50%, #c084fc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Campus Tech Fests.</span>
+        <div class="row align-items-center justify-content-between g-4 g-lg-5">
+            <!-- Left Hero Headline, Subtitle, Search Deck & Chips -->
+            <div class="col-lg-7">
+                <h1 class="clubs-hero-headline-image">
+                    Campus Events & <span class="clubs-gradient-highlight-image">Tech Contests</span>
                 </h1>
-
-                <p class="text-white-80 mb-4 fs-5" style="max-width: 720px; margin: 0 auto; line-height: 1.6;">
-                    Explore Google Developer Student Clubs, GeeksforGeeks SC, and Gemini AI bootcamps. Search hackathons, mentorship sessions, and DSA contests across UIT.
+                
+                <p class="clubs-hero-desc-image">
+                    Discover hackathons, AI workshops, coding battles, and cultural fests hosted by student chapters at United Institute of Technology.
                 </p>
 
-                <!-- Google / Meta Glass Search Deck -->
-                <div class="google-search-deck mb-4 mx-auto" style="max-width: 680px;">
+                <!-- Clean White Pill Search Bar Container -->
+                <div class="clubs-hero-search-pill-image mb-4">
                     <div class="input-group align-items-center">
-                        <span class="input-group-text bg-transparent border-0 text-info ps-3 pe-2"><i class="bi bi-search fs-4 text-cyan"></i></span>
-                        <input type="text" id="eventsSearchInput" class="form-control hero-search-input bg-transparent border-0 text-white fw-medium placeholder-white-60" placeholder="Search by event title, GFG, Gemini AI, GDG, Hackathon, or venue..." style="font-size: 1rem; outline: none; box-shadow: none;">
-                        <button id="eventsSearchBtn" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-lg d-flex align-items-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
-                            <span>Search Events</span>
-                            <i class="bi bi-arrow-right-short fs-5"></i>
+                        <span class="input-group-text bg-transparent border-0 text-primary ps-2 pe-2"><i class="bi bi-search fs-5"></i></span>
+                        <input type="text" id="eventsSearchInput" class="form-control hero-search-input bg-transparent border-0 text-dark fw-medium" placeholder="Search hackathons, GFG, Gemini AI, workshops..." style="outline: none; box-shadow: none; font-size: 0.96rem;">
+                        <span class="input-group-text bg-transparent border-0 text-primary pe-3 d-none d-sm-inline-block"><i class="bi bi-stars fs-5" style="color: #8b5cf6;"></i></span>
+                        <button id="eventsSearchBtn" class="btn clubs-hero-search-btn-image rounded-pill">
+                            Search Events
                         </button>
                     </div>
                 </div>
 
-                <!-- Popular Filter Chips -->
-                <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap text-white-80 small">
-                    <span class="fw-semibold text-white me-1" style="font-size: 0.8rem;"><i class="bi bi-fire text-warning me-1"></i> Trending:</span>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="GeeksforGeeks" style="font-size: 0.78rem;">⚡ GFG SC UIT</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="Gemini" style="font-size: 0.78rem;">🤖 Gemini AI</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="GDG" style="font-size: 0.78rem;">☁️ GDGOC Cloud</button>
-                    <button class="btn btn-xs rounded-pill px-3 py-1.5 google-chip-pill event-chip-btn" data-chip="Hackathon" style="font-size: 0.78rem;">🏆 Hackathons</button>
+                <!-- Trending Event Chips -->
+                <div class="d-flex align-items-center gap-2 flex-wrap text-secondary small">
+                    <span class="fw-bold text-dark me-1" style="font-size: 0.85rem;">🔥 Trending:</span>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn event-chip-btn hero-chip-pill hero-chip-btn-image chip-green-glow" data-chip="GeeksforGeeks">⚡ GFG Contests</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn event-chip-btn hero-chip-pill hero-chip-btn-image chip-purple-glow" data-chip="Gemini">🤖 Gemini AI</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn event-chip-btn hero-chip-pill hero-chip-btn-image chip-cyan-glow" data-chip="GDG">☁️ GDG Cloud Jam</button>
+                    <button class="btn btn-sm rounded-pill px-3 py-1.5 hero-chip-btn event-chip-btn hero-chip-pill hero-chip-btn-image chip-orange-glow" data-chip="Hackathon">🏆 Hackathons</button>
+                </div>
+            </div>
+
+            <!-- Right Side Clean White Floating Stat Card -->
+            <div class="col-lg-5 col-xl-4">
+                <div class="clubs-hero-card-image text-center">
+                    <!-- Top Institutional Header -->
+                    <div class="d-flex align-items-center justify-content-center gap-2.5 mb-4 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <div class="clubs-card-icon-box-image">
+                            <i class="bi bi-calendar-event-fill fs-5"></i>
+                        </div>
+                        <span class="fw-extrabold text-dark fs-6" style="color: #1e1b4b !important;">United Campus Events Portal</span>
+                    </div>
+
+                    <!-- 2-Column Stat Counter Grid -->
+                    <div class="row g-2 text-center my-2">
+                        <div class="col-6 border-end" style="border-color: #f1f5f9 !important;">
+                            <div class="clubs-stat-circle-box" style="background: #eff6ff; color: #3b82f6;">
+                                <i class="bi bi-lightning-charge-fill fs-5"></i>
+                            </div>
+                            <h2 class="fw-extrabold mb-0" style="color: #2563eb !important; font-size: 1.8rem;" id="ongoingCountBadge">11+</h2>
+                            <span class="small text-secondary fw-semibold" style="font-size: 0.75rem;">Live Events</span>
+                        </div>
+                        <div class="col-6">
+                            <div class="clubs-stat-circle-box" style="background: #f5f3ff; color: #7c3aed;">
+                                <i class="bi bi-calendar-check-fill fs-5"></i>
+                            </div>
+                            <h2 class="fw-extrabold mb-0" style="color: #7c3aed !important; font-size: 1.8rem;" id="upcomingCountBadge">25+</h2>
+                            <span class="small text-secondary fw-bold" style="font-size: 0.75rem;">Scheduled</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center gap-2 mt-4 pt-3 border-top text-muted small" style="border-color: #f1f5f9 !important;">
+                        <i class="bi bi-patch-check-fill text-success fs-6"></i>
+                        <span class="fw-semibold text-dark">100% SAC Verified Certificates</span>
+                    </div>
                 </div>
             </div>
         </div>
