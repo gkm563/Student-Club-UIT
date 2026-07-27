@@ -130,47 +130,10 @@ try {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        :root {
-            --sidebar-width: 270px;
-        }
         body {
             background-color: #f8fafc;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             overflow-x: hidden;
-        }
-        .club-sidebar {
-            width: var(--sidebar-width);
-            background: linear-gradient(180deg, #0f172a 0%, #064e3b 100%);
-            min-height: 100vh;
-            transition: all 0.3s ease;
-        }
-        .admin-nav-link {
-            color: rgba(255,255,255,0.75);
-            padding: 12px 16px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            margin-bottom: 4px;
-        }
-        .admin-nav-link i {
-            font-size: 1.15rem;
-            width: 22px;
-            text-align: center;
-        }
-        .admin-nav-link:hover {
-            background: rgba(255,255,255,0.12);
-            color: #ffffff;
-            transform: translateX(3px);
-        }
-        .admin-nav-link.active {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
         }
         .stat-card {
             border: none;
@@ -218,109 +181,13 @@ try {
         .task-item:last-child { border-bottom: none; }
         .activity-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0; }
         .countdown-badge { font-size: 0.7rem; background: #f0fdf4; color: #065f46; border: 1px solid #bbf7d0; border-radius: 20px; padding: 2px 10px; }
-        @media (max-width: 991.98px) {
-            .club-sidebar {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                z-index: 1050;
-                height: 100vh;
-            }
-            .club-sidebar.show {
-                left: 0;
-            }
-            .sidebar-backdrop {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(15, 23, 42, 0.5);
-                backdrop-filter: blur(4px);
-                z-index: 1040;
-                display: none;
-            }
-            .sidebar-backdrop.show {
-                display: block;
-            }
-        }
     </style>
 </head>
 <body>
 
-<!-- Mobile Header Bar (< 992px) -->
-<header class="d-lg-none bg-dark text-white p-3 d-flex align-items-center justify-content-between shadow-sm sticky-top" style="background: #0f172a !important;">
-    <div class="d-flex align-items-center gap-2">
-        <button class="btn btn-outline-light btn-sm rounded-circle p-2" type="button" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
-            <i class="bi bi-list fs-5"></i>
-        </button>
-        <div class="d-flex align-items-center gap-2">
-            <img src="<?= e($club['logo'] ?: '../assets/United Logo.webp') ?>" class="rounded-2 bg-white p-1" style="width: 32px; height: 32px; object-fit: cover;" alt="">
-            <span class="fw-bold text-white small text-truncate" style="max-width: 160px;"><?= e($club['short_name'] ?: $club['name']) ?></span>
-        </div>
-    </div>
-    <span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small">CLUB LEAD</span>
-</header>
-
-<!-- Mobile Sidebar Backdrop Overlay -->
-<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-
 <div class="d-flex min-vh-100">
-    <!-- Sidebar Drawer (Responsive Desktop & Mobile Offcanvas) -->
-    <aside class="club-sidebar p-3 p-md-4 d-flex flex-column justify-content-between flex-shrink-0 shadow-lg" id="clubSidebar">
-        <div>
-            <!-- Club Brand Header -->
-            <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-white-10">
-                <div class="d-flex align-items-center gap-3">
-                    <img src="<?= e($club['logo'] ?: '../assets/United Logo.webp') ?>" class="rounded-3 bg-white p-1 shadow-sm" style="width: 44px; height: 44px; object-fit: cover;" alt="<?= e($club['name']) ?>">
-                    <div class="text-truncate">
-                        <h6 class="fw-bold mb-0 text-white text-truncate" style="max-width: 140px;"><?= e($club['short_name'] ?: $club['name']) ?></h6>
-                        <span class="badge bg-success-subtle text-success border rounded-pill px-2 py-0-5 small" style="font-size: 0.65rem;">OFFICIAL LEAD PORTAL</span>
-                    </div>
-                </div>
-                <button type="button" class="btn-close btn-close-white d-lg-none" id="sidebarCloseBtn" aria-label="Close"></button>
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="nav flex-column gap-1">
-                <a href="dashboard.php" class="admin-nav-link active">
-                    <i class="bi bi-grid-fill"></i> Dashboard Overview
-                </a>
-                <a href="../admin/events.php" class="admin-nav-link">
-                    <i class="bi bi-calendar-event"></i> Manage Events
-                    <span class="badge bg-success rounded-pill ms-auto small"><?= $totalEvents ?></span>
-                </a>
-                <a href="../admin/create-event.php" class="admin-nav-link">
-                    <i class="bi bi-plus-circle"></i> Create New Event
-                </a>
-                <a href="../admin/recruitment.php" class="admin-nav-link">
-                    <i class="bi bi-person-badge"></i> Core Leadership
-                </a>
-                <a href="../admin/gallery.php" class="admin-nav-link">
-                    <i class="bi bi-images"></i> Club Photo Gallery
-                </a>
-                <a href="../club-detail.html?id=<?= e($club['id']) ?>" target="_blank" class="admin-nav-link text-info">
-                    <i class="bi bi-box-arrow-up-right"></i> Public Chapter Page
-                </a>
-            </nav>
-        </div>
-
-        <!-- Footer User Profile Deck -->
-        <div class="pt-3 border-top border-white-10 mt-4">
-            <div class="d-flex align-items-center gap-2.5 mb-3">
-                <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 38px; height: 38px; font-size: 0.95rem;">
-                    <?= strtoupper(substr($firstName, 0, 1)) ?>
-                </div>
-                <div class="text-truncate">
-                    <span class="d-block fw-semibold text-white small text-truncate" style="max-width: 140px;"><?= e($adminName) ?></span>
-                    <span class="small text-white-50 d-block text-truncate" style="font-size: 0.72rem; max-width: 140px;"><?= e($_SESSION['email']) ?></span>
-                </div>
-            </div>
-            <a href="../admin/logout.php" class="btn btn-outline-danger btn-sm w-100 rounded-pill fw-bold">
-                <i class="bi bi-box-arrow-right me-1"></i> Sign Out
-            </a>
-        </div>
-    </aside>
+    <!-- Universal Club Sidebar -->
+    <?php require_once __DIR__ . '/../includes/club_sidebar.php'; ?>
 
     <!-- Main Content Body -->
     <main class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
@@ -582,18 +449,6 @@ try {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const toggleBtn = document.getElementById('sidebarToggleBtn');
-    const closeBtn = document.getElementById('sidebarCloseBtn');
-    const sidebar = document.getElementById('clubSidebar');
-    const backdrop = document.getElementById('sidebarBackdrop');
-
-    function openSidebar() { sidebar.classList.add('show'); backdrop.classList.add('show'); }
-    function closeSidebar() { sidebar.classList.remove('show'); backdrop.classList.remove('show'); }
-
-    if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
-    if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
-    if (backdrop) backdrop.addEventListener('click', closeSidebar);
-
     // Countdown timers for upcoming events
     function updateCountdowns() {
         document.querySelectorAll('[data-countdown]').forEach(el => {

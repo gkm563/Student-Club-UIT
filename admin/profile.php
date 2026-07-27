@@ -259,7 +259,7 @@ $profileGalleryCount = count($clubPhotos ?? []);
 
 <div class="d-flex">
     <!-- Master Sidebar -->
-    <?php require_once __DIR__ . '/../includes/admin_sidebar.php'; ?>
+    <?php require_once __DIR__ . '/../includes/club_sidebar.php'; ?>
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-4 p-md-5">
