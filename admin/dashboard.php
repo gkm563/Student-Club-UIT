@@ -11,42 +11,40 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
 }
 
 $db = Database::getConnection();
-$deanName  = $_SESSION['full_name'] ?? 'Dean Sir';
+$deanName  = $_SESSION['full_name'] ?? 'Prof. Sanjay Srivastava';
 $firstName = explode(' ', trim($deanName))[0];
 
-// ── Quick Stats ────────────────────────────────────────
-$totalClubs   = $db->query("SELECT COUNT(*) FROM clubs")->fetchColumn();
-$activeClubs  = $db->query("SELECT COUNT(*) FROM clubs WHERE status = 'active'")->fetchColumn();
-$inactiveClubs= $totalClubs - $activeClubs;
-$totalEvents  = $db->query("SELECT COUNT(*) FROM events")->fetchColumn();
-$totalLeaders = $db->query("SELECT COUNT(*) FROM leadership")->fetchColumn();
-$totalGallery = $db->query("SELECT COUNT(*) FROM gallery_items")->fetchColumn();
-$totalUsers   = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$totalCats    = $db->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+// ── Quick Stats Queries ──────────────────────────────────────
+$totalClubs    = $db->query("SELECT COUNT(*) FROM clubs")->fetchColumn();
+$activeClubs   = $db->query("SELECT COUNT(*) FROM clubs WHERE status = 'active'")->fetchColumn();
+$totalEvents   = $db->query("SELECT COUNT(*) FROM events")->fetchColumn();
+$totalLeaders  = $db->query("SELECT COUNT(*) FROM leadership")->fetchColumn();
+$totalGallery  = $db->query("SELECT COUNT(*) FROM gallery_items")->fetchColumn();
+$totalUsers    = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
+$totalCats     = $db->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+$unreadMsgs    = $db->query("SELECT COUNT(*) FROM contact_messages WHERE is_read = 0")->fetchColumn();
 
 // Upcoming events count
 $upcomingEvents = $db->query("SELECT COUNT(*) FROM events WHERE event_date >= NOW() AND status NOT IN ('draft','hidden','archived','cancelled')")->fetchColumn();
 
-// ── Recent Clubs ───────────────────────────────────────
+// ── Recent Registered Clubs ──────────────────────────────────
 $recentClubs = $db->query("
-    SELECT c.*, cat.name as category_name
+    SELECT c.*, cat.name as category_name, u.email as admin_email, u.full_name as admin_name
     FROM clubs c
     JOIN categories cat ON c.category_id = cat.id
-    ORDER BY c.created_at DESC LIMIT 5
+    LEFT JOIN club_admins ca ON ca.club_id = c.id
+    LEFT JOIN users u ON ca.user_id = u.id
+    ORDER BY c.created_at DESC LIMIT 6
 ")->fetchAll();
 
-// ── Upcoming Events ────────────────────────────────────
-$nextEvents = $db->query("
-    SELECT e.*, c.name as club_name
-    FROM events e
-    JOIN clubs c ON e.club_id = c.id
-    WHERE e.event_date >= NOW() AND e.status NOT IN ('draft','hidden','archived','cancelled')
-    ORDER BY e.event_date ASC LIMIT 5
-")->fetchAll();
-
-// ── Pending Proposals ──────────────────────────────────
+// ── Pending Proposals ────────────────────────────────────────
 $pendingProposals = $db->query("
     SELECT * FROM club_proposals ORDER BY created_at DESC LIMIT 5
+")->fetchAll();
+
+// ── Recent Security Logs ─────────────────────────────────────
+$recentLogs = $db->query("
+    SELECT * FROM audit_logs ORDER BY created_at DESC LIMIT 5
 ")->fetchAll();
 ?>
 <!DOCTYPE html>
@@ -54,45 +52,85 @@ $pendingProposals = $db->query("
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dean Sir Super Admin Portal | ClubHub UIT</title>
+    <title>Executive Overview | Dean Sir Portal | ClubHub UIT</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        * { box-sizing: border-box; }
-        body { background: #f8fafc; font-family: 'Inter', system-ui, -apple-system, sans-serif; overflow-x: hidden; }
-
-        /* ── Sidebar ── */
+        :root {
+            --dean-sidebar-width: 270px;
+            --dean-primary: #4f46e5;
+            --dean-bg: #f8fafc;
+        }
+        body {
+            background-color: var(--dean-bg);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
         .super-sidebar {
-            width: 265px; min-height: 100vh; flex-shrink: 0;
+            width: var(--dean-sidebar-width);
             background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%);
-            color: #fff; display: flex; flex-direction: column;
-            position: sticky; top: 0; overflow-y: auto;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.3);
+            min-height: 100vh;
             transition: all 0.3s ease;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.3);
         }
         .admin-nav-link {
-            color: rgba(255,255,255,0.7); padding: 11px 15px; border-radius: 12px;
-            display: flex; align-items: center; gap: 11px; text-decoration: none;
-            font-weight: 500; font-size: 0.88rem; transition: all 0.2s ease; margin-bottom: 2px;
+            color: rgba(255,255,255,0.72);
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin-bottom: 3px;
         }
-        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; flex-shrink: 0; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.12); color: #fff; transform: translateX(3px); }
-        .admin-nav-link.active { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 14px rgba(99,102,241,0.4); }
-        .sidebar-section-label { color: rgba(255,255,255,0.4); font-size: 0.65rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; padding: 0 14px; margin: 16px 0 6px; }
-        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-
-        /* ── Stat Cards ── */
-        .stat-card { border: none; border-radius: 20px; padding: 22px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; background: #fff; }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.08); }
-        .stat-icon-box { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
-        .stat-trend { font-size: 0.75rem; font-weight: 600; }
-        .trend-up { color: #22c55e; }
-
-        /* ── Content cards ── */
-        .content-card { border: none; border-radius: 20px; box-shadow: 0 2px 14px rgba(0,0,0,0.04); background: #fff; }
-        .content-card .card-header-custom { padding: 20px 24px 14px; border-bottom: 1px solid #f1f5f9; }
-
+        .admin-nav-link i {
+            font-size: 1.15rem;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .admin-nav-link:hover {
+            background: rgba(255,255,255,0.12);
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+        .admin-nav-link.active {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+        }
+        .sidebar-section-label {
+            color: rgba(255,255,255,0.38);
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0 14px;
+            margin: 18px 0 6px;
+        }
+        .stat-card {
+            border: none;
+            border-radius: 20px;
+            background: #ffffff;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.06);
+        }
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
         @media (max-width: 991.98px) {
             .super-sidebar {
                 position: fixed;
@@ -130,7 +168,7 @@ $pendingProposals = $db->query("
             <i class="bi bi-list fs-5"></i>
         </button>
         <div class="d-flex align-items-center gap-2">
-            <img src="../assets/United Logo.webp" style="height: 28px; width: auto;" alt="">
+            <img src="../assets/United Logo.webp" style="height: 28px; width: auto;" alt="United Logo">
             <span class="fw-bold text-white small">Dean Sir Portal</span>
         </div>
     </div>
@@ -139,15 +177,15 @@ $pendingProposals = $db->query("
 
 <div class="sidebar-backdrop" id="deanSidebarBackdrop"></div>
 
-<div class="d-flex" style="min-height:100vh;">
+<div class="d-flex min-vh-100">
 
-    <!-- SIDEBAR -->
-    <aside class="super-sidebar p-3 p-md-4 d-flex flex-column justify-content-between shadow-lg" id="deanSidebar">
+    <!-- SIDEBAR DRAWER -->
+    <aside class="super-sidebar p-3 p-md-4 d-flex flex-column justify-content-between flex-shrink-0 shadow-lg" id="deanSidebar">
         <div>
             <!-- Brand Header -->
-            <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom border-white-10">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-white-10">
                 <div class="d-flex align-items-center gap-3">
-                    <img src="../assets/United Logo.webp" alt="ClubHub" style="height:32px; width:auto; object-fit:contain;">
+                    <img src="../assets/United Logo.webp" alt="ClubHub" style="height:34px; width:auto; object-fit:contain;">
                     <div>
                         <div class="fw-bold text-white lh-1" style="font-size:0.95rem;">ClubHub UIT</div>
                         <div class="text-white-50" style="font-size:0.6rem;letter-spacing:1.5px;">DEAN SIR PORTAL</div>
@@ -156,7 +194,7 @@ $pendingProposals = $db->query("
                 <button type="button" class="btn-close btn-close-white d-lg-none" id="deanSidebarClose" aria-label="Close"></button>
             </div>
 
-            <!-- Navigation -->
+            <!-- Navigation Links -->
             <nav class="nav flex-column gap-1">
                 <a href="dashboard.php" class="admin-nav-link active">
                     <i class="bi bi-speedometer2"></i> Executive Overview
@@ -165,28 +203,39 @@ $pendingProposals = $db->query("
                 <div class="sidebar-section-label">Campus Governance</div>
                 <a href="super/clubs.php" class="admin-nav-link">
                     <i class="bi bi-trophy"></i> Manage Clubs
+                    <span class="badge bg-primary rounded-pill ms-auto small"><?= $totalClubs ?></span>
                 </a>
                 <a href="super/categories.php" class="admin-nav-link">
                     <i class="bi bi-grid-3x3-gap"></i> Categories
+                    <span class="badge bg-secondary rounded-pill ms-auto small"><?= $totalCats ?></span>
                 </a>
                 <a href="super/users.php" class="admin-nav-link">
                     <i class="bi bi-person-gear"></i> Club Accounts
+                    <span class="badge bg-info text-dark rounded-pill ms-auto small"><?= $totalUsers ?></span>
                 </a>
 
                 <div class="sidebar-section-label">Supervision & Audit</div>
                 <a href="super/messages.php" class="admin-nav-link">
                     <i class="bi bi-inbox-fill"></i> Help Desk Messages
+                    <?php if ($unreadMsgs > 0): ?>
+                        <span class="badge bg-danger rounded-pill ms-auto small"><?= $unreadMsgs ?></span>
+                    <?php endif; ?>
                 </a>
                 <a href="super/audit-logs.php" class="admin-nav-link">
                     <i class="bi bi-journal-text"></i> Security Audit Logs
                 </a>
+
+                <div class="sidebar-section-label">Quick Links</div>
+                <a href="../index.html" target="_blank" class="admin-nav-link text-info">
+                    <i class="bi bi-box-arrow-up-right"></i> View Campus Website
+                </a>
             </nav>
         </div>
 
-        <!-- User Profile footer -->
+        <!-- User Profile Footer -->
         <div class="pt-3 border-top border-white-10 mt-4">
             <div class="d-flex align-items-center gap-2.5 mb-3">
-                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width:38px;height:38px;font-size:0.9rem;background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+                <div class="rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width:38px;height:38px;font-size:0.95rem;background:linear-gradient(135deg,#6366f1,#a855f7);">
                     D
                 </div>
                 <div class="overflow-hidden text-truncate">
@@ -201,162 +250,191 @@ $pendingProposals = $db->query("
     </aside>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow-1 d-flex flex-column min-w-0">
-
-        <!-- Top Header Bar -->
-        <header class="bg-white border-bottom px-4 py-3 d-none d-lg-flex align-items-center justify-content-between sticky-top z-3">
-            <div>
-                <h5 class="fw-bold mb-0 text-dark">Dean Sir Super Admin Portal</h5>
-                <span class="text-muted small">United Institute of Technology – Student Affairs Directorate</span>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-                <a href="../index.html" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" target="_blank">
-                    <i class="bi bi-globe me-1"></i> Public Site
-                </a>
-            </div>
-        </header>
-
-        <!-- Main Body -->
-        <div class="p-3 p-md-4 p-xl-5 flex-grow-1">
-
-            <!-- Hero Welcome Card -->
-            <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);">
-                <div class="row align-items-center g-3">
-                    <div class="col-md-8">
-                        <span class="badge bg-indigo text-white rounded-pill px-3 py-1 fw-bold mb-2 small" style="background:#6366f1;"><i class="bi bi-shield-check me-1"></i> DEAN OF STUDENT AFFAIRS</span>
-                        <h2 class="fw-bold mb-2">Welcome, <?= e($firstName) ?>! 👑</h2>
-                        <p class="text-white-80 mb-0">Overseeing <strong><?= $totalClubs ?> Active Chapters</strong>, campus events, funding proposals, and leadership appointments.</p>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <a href="super/clubs.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-dark shadow-sm">
-                            <i class="bi bi-gear-fill me-1"></i> Governance Portal
-                        </a>
-                    </div>
+    <main class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
+        <!-- Top Executive Welcome Banner -->
+        <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 mb-4 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);">
+            <div class="row align-items-center g-3">
+                <div class="col-md-8">
+                    <span class="badge bg-indigo text-white rounded-pill px-3 py-1 fw-bold mb-2 small" style="background:#6366f1;"><i class="bi bi-shield-check me-1"></i> DIRECTORATE OF STUDENT AFFAIRS</span>
+                    <h2 class="fw-bold mb-2">Welcome, <?= e($firstName) ?>! 👑</h2>
+                    <p class="text-white-80 mb-0">Supervising <strong><?= $totalClubs ?> Active Student Chapters</strong>, campus fests, student proposals, and chapter leadership credentials.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="super/clubs.php" class="btn btn-light rounded-pill px-4 py-2-5 fw-bold text-dark shadow-sm">
+                        <i class="bi bi-plus-lg me-1"></i> Add New Club
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <!-- Stats Grid -->
-            <div class="row g-3 mb-4">
-                <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white h-100">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="text-secondary small fw-semibold">ACTIVE CLUBS</span>
-                            <div class="stat-icon-box bg-primary-subtle text-primary"><i class="bi bi-trophy-fill"></i></div>
+        <!-- 4 Quick Stat Cards -->
+        <div class="row g-3 g-md-4 mb-4">
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-secondary small fw-semibold d-block mb-1">Active Clubs</span>
+                            <h3 class="fw-bold text-dark mb-0"><?= $totalClubs ?></h3>
                         </div>
-                        <h3 class="fw-bold text-dark mb-1"><?= $totalClubs ?></h3>
-                        <span class="stat-trend trend-up"><i class="bi bi-check-circle-fill me-1"></i>100% Verified</span>
-                    </div>
-                </div>
-
-                <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white h-100">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="text-secondary small fw-semibold">TOTAL EVENTS</span>
-                            <div class="stat-icon-box bg-success-subtle text-success"><i class="bi bi-calendar-event-fill"></i></div>
+                        <div class="stat-icon bg-primary-subtle text-primary">
+                            <i class="bi bi-trophy-fill"></i>
                         </div>
-                        <h3 class="fw-bold text-dark mb-1"><?= $totalEvents ?></h3>
-                        <span class="stat-trend text-success"><i class="bi bi-calendar-check me-1"></i><?= $upcomingEvents ?> Upcoming</span>
-                    </div>
-                </div>
-
-                <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white h-100">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="text-secondary small fw-semibold">CORE LEADERS</span>
-                            <div class="stat-icon-box bg-purple-subtle text-purple"><i class="bi bi-person-badge-fill"></i></div>
-                        </div>
-                        <h3 class="fw-bold text-dark mb-1"><?= $totalLeaders ?></h3>
-                        <span class="stat-trend text-primary"><i class="bi bi-people-fill me-1"></i>11 Chapters</span>
-                    </div>
-                </div>
-
-                <div class="col-6 col-xl-3">
-                    <div class="stat-card bg-white h-100">
-                        <div class="d-flex align-items-center justify-content-between mb-2">
-                            <span class="text-secondary small fw-semibold">PROPOSALS</span>
-                            <div class="stat-icon-box bg-warning-subtle text-warning"><i class="bi bi-inbox-fill"></i></div>
-                        </div>
-                        <h3 class="fw-bold text-dark mb-1"><?= count($pendingProposals) ?></h3>
-                        <span class="stat-trend text-warning"><i class="bi bi-clock me-1"></i>Pending Review</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Clubs & Proposals Grid -->
-            <div class="row g-4 mb-4">
-                <div class="col-lg-7">
-                    <div class="content-card">
-                        <div class="card-header-custom d-flex align-items-center justify-content-between">
-                            <div>
-                                <h6 class="fw-bold mb-0 text-dark">Institutional Chapters Overview</h6>
-                                <span class="text-muted small">Registered student clubs & lead accounts</span>
-                            </div>
-                            <a href="super/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill fw-bold">View All</a>
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-secondary small fw-semibold d-block mb-1">Campus Events</span>
+                            <h3 class="fw-bold text-success mb-0"><?= $totalEvents ?></h3>
                         </div>
-                        <div class="p-3">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
-                                    <thead class="table-light">
-                                        <tr class="small text-secondary">
-                                            <th>CHAPTER NAME</th>
-                                            <th>CATEGORY</th>
-                                            <th>STATUS</th>
-                                            <th class="text-end">ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($recentClubs as $rc): ?>
-                                            <tr>
-                                                <td class="fw-bold text-dark">
-                                                    <div class="d-flex align-items-center gap-2">
-                                                        <img src="<?= e($rc['logo'] ?: '../assets/United Logo.webp') ?>" class="rounded-2" style="width:32px;height:32px;object-fit:cover;" alt="">
-                                                        <span><?= e($rc['name']) ?></span>
-                                                    </div>
-                                                </td>
-                                                <td class="small text-secondary"><?= e($rc['category_name']) ?></td>
-                                                <td><span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small">Active</span></td>
-                                                <td class="text-end">
-                                                    <a href="../club-detail.html?id=<?= e($rc['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Page"><i class="bi bi-eye text-primary"></i></a>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="stat-icon bg-success-subtle text-success">
+                            <i class="bi bi-calendar-event-fill"></i>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-5">
-                    <div class="content-card">
-                        <div class="card-header-custom d-flex align-items-center justify-content-between">
-                            <div>
-                                <h6 class="fw-bold mb-0 text-dark">Pending Proposals</h6>
-                                <span class="text-muted small">New event & club requests</span>
-                            </div>
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-secondary small fw-semibold d-block mb-1">Core Leaders</span>
+                            <h3 class="fw-bold text-info mb-0"><?= $totalLeaders ?></h3>
                         </div>
-                        <div class="p-3">
-                            <?php if (empty($pendingProposals)): ?>
-                                <div class="text-center py-4 text-muted small">
-                                    <i class="bi bi-check-circle fs-3 text-success d-block mb-1"></i>
-                                    No pending proposals requiring review.
-                                </div>
-                            <?php else: ?>
-                                <?php foreach ($pendingProposals as $prop): ?>
-                                    <div class="p-3 border rounded-3 mb-2 bg-light">
-                                        <div class="fw-bold text-dark small mb-1"><?= e($prop['proposed_title']) ?></div>
-                                        <div class="d-flex justify-content-between align-items-center text-muted small">
-                                            <span>By: <?= e($prop['applicant_name']) ?></span>
-                                            <span class="badge bg-warning text-dark rounded-pill">Pending</span>
-                                        </div>
-                                    </div>
+                        <div class="stat-icon bg-info-subtle text-info">
+                            <i class="bi bi-person-badge-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-xl-3">
+                <div class="card stat-card p-3 p-md-4 shadow-sm h-100">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-secondary small fw-semibold d-block mb-1">Proposals</span>
+                            <h3 class="fw-bold text-warning mb-0"><?= count($pendingProposals) ?></h3>
+                        </div>
+                        <div class="stat-icon bg-warning-subtle text-warning">
+                            <i class="bi bi-inbox-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <!-- Institutional Chapters Overview Table -->
+            <div class="col-lg-8">
+                <div class="card p-3 p-md-4 border-0 shadow-sm rounded-4 bg-white">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div>
+                            <h5 class="fw-bold mb-0 text-dark">Institutional Chapters Overview</h5>
+                            <span class="text-secondary small">Registered student clubs & leadership credentials</span>
+                        </div>
+                        <a href="super/clubs.php" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold">Manage All &rarr;</a>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr class="small text-secondary">
+                                    <th>CHAPTER NAME</th>
+                                    <th>CATEGORY</th>
+                                    <th>LEAD EMAIL</th>
+                                    <th>STATUS</th>
+                                    <th class="text-end">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($recentClubs as $rc): ?>
+                                    <tr>
+                                        <td class="fw-bold text-dark">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <img src="<?= e($rc['logo'] ?: '../assets/United Logo.webp') ?>" class="rounded-2" style="width:34px;height:34px;object-fit:cover;" alt="">
+                                                <span class="text-truncate" style="max-width: 170px;"><?= e($rc['name']) ?></span>
+                                            </div>
+                                        </td>
+                                        <td class="small text-secondary"><?= e($rc['category_name']) ?></td>
+                                        <td class="small font-monospace text-secondary"><?= e($rc['admin_email'] ?: 'Unassigned') ?></td>
+                                        <td><span class="badge bg-success-subtle text-success border rounded-pill px-2.5 py-1 small">Active</span></td>
+                                        <td class="text-end">
+                                            <a href="../club-detail.html?id=<?= e($rc['id']) ?>" target="_blank" class="btn btn-sm btn-light rounded-circle" title="View Public Page"><i class="bi bi-eye text-primary"></i></a>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
-                            <?php endif; ?>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
 
+            <!-- Pending Proposals Section -->
+            <div class="col-lg-4">
+                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white mb-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h5 class="fw-bold text-dark mb-0">Pending Proposals</h5>
+                        <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 small"><?= count($pendingProposals) ?> Review</span>
+                    </div>
+
+                    <?php if (empty($pendingProposals)): ?>
+                        <div class="text-center py-4 text-muted small">
+                            <i class="bi bi-check-circle fs-3 text-success d-block mb-1"></i>
+                            No pending proposals requiring review.
+                        </div>
+                    <?php else: ?>
+                        <div class="d-flex flex-column gap-2.5">
+                            <?php foreach ($pendingProposals as $prop): ?>
+                                <div class="p-3 border rounded-3 bg-light">
+                                    <div class="fw-bold text-dark small mb-1"><?= e($prop['proposed_title']) ?></div>
+                                    <div class="d-flex justify-content-between align-items-center text-muted small mb-2" style="font-size:0.75rem;">
+                                        <span>By: <?= e($prop['applicant_name']) ?></span>
+                                        <span class="badge bg-warning text-dark rounded-pill"><?= ucfirst(e($prop['status'])) ?></span>
+                                    </div>
+                                    <p class="small text-secondary mb-0 text-truncate" style="font-size: 0.76rem; max-width: 240px;"><?= e($prop['objective']) ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Audit Trail Logs -->
+        <div class="card p-3 p-md-4 border-0 shadow-sm rounded-4 bg-white">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <h5 class="fw-bold text-dark mb-0">Recent Security & Governance Logs</h5>
+                    <span class="text-secondary small">Real-time audit trail of administrative activities</span>
+                </div>
+                <a href="super/audit-logs.php" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold">Full Logs &rarr;</a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle small mb-0">
+                    <thead class="table-light">
+                        <tr class="small text-secondary">
+                            <th>TIMESTAMP</th>
+                            <th>USER / ACTOR</th>
+                            <th>ACTION</th>
+                            <th>DETAILS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($recentLogs as $log): ?>
+                            <tr>
+                                <td class="text-muted" style="font-size:0.78rem;"><?= date('M j, Y - g:i A', strtotime($log['created_at'])) ?></td>
+                                <td class="fw-bold text-dark"><?= e($log['user_name']) ?></td>
+                                <td><span class="badge bg-secondary-subtle text-secondary rounded-pill font-monospace"><?= e($log['action']) ?></span></td>
+                                <td class="text-secondary"><?= e($log['details']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 </div>

@@ -170,7 +170,7 @@ $registeredClubs = $clubsStmt->fetchAll();
                     </div>
                 </div>
                 <div class="bg-white p-3 rounded-3 border mt-2 font-monospace small">
-                    <div><strong>Login URL:</strong> <a href="/admin/login.php" target="_blank">http://localhost:8000/admin/login.php</a></div>
+                    <div><strong>Login URL:</strong> <a href="../../club-login.php" target="_blank">http://localhost/UIT/club-login.php</a></div>
                     <div><strong>Admin Email:</strong> <code><?= htmlspecialchars($newCredentials['email']) ?></code></div>
                     <div><strong>Initial Password:</strong> <code><?= htmlspecialchars($newCredentials['password']) ?></code></div>
                 </div>

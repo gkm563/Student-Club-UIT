@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 // Auth Check for Super Admin (Dean Sir)
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
@@ -31,19 +32,7 @@ $messages = $db->query("SELECT * FROM contact_messages ORDER BY created_at DESC"
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <style>
-                body { background: #f1f5f9; }
-        .admin-nav-link {
-            color: rgba(255,255,255,0.65); padding: 10px 14px; border-radius: 10px;
-            display: flex; align-items: center; gap: 11px; text-decoration: none;
-            font-weight: 500; font-size: 0.82rem; transition: all 0.2s ease; margin-bottom: 1px;
-        }
-        .admin-nav-link i { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(2px); }
-        .admin-nav-link.active { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
-        .sidebar-section-label { color: rgba(255,255,255,0.35); font-size: 0.6rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; padding: 0 14px; margin: 14px 0 6px; }
-        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-        .super-sidebar::-webkit-scrollbar { width: 4px; }
-        .super-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+        body { background: #f1f5f9; font-family: 'Inter', system-ui, sans-serif; }
     </style>
 </head>
 <body>
@@ -54,30 +43,39 @@ $messages = $db->query("SELECT * FROM contact_messages ORDER BY created_at DESC"
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-3 p-md-4 p-xl-5 overflow-y-auto">
-        <div class="mb-4">
-            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">INQUIRIES</span>
-            <h2 class="fw-bold mb-1">Student & Visitor Messages</h2>
-            <p class="text-secondary small mb-0">Review inquiries and contact messages submitted through the website.</p>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <div>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">HELP DESK & INQUIRIES</span>
+                <h2 class="fw-bold mb-1">Student & Visitor Messages</h2>
+                <p class="text-secondary small mb-0">Review student inquiries, proposal notes, and helpdesk tickets submitted through the portal.</p>
+            </div>
+            <span class="badge bg-indigo text-white rounded-pill px-3 py-2 fw-bold" style="background:#6366f1;">
+                <i class="bi bi-inbox-fill me-1"></i> Total Messages: <?= count($messages) ?>
+            </span>
         </div>
 
-        <!-- Messages Table -->
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <?php if (isset($_GET['msg'])): ?>
+            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> Message record updated successfully!</div>
+        <?php endif; ?>
+
+        <!-- Messages Table Card -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
-                        <tr>
-                            <th>Sender</th>
-                            <th>Subject</th>
-                            <th>Message</th>
-                            <th>Date</th>
-                            <th>Actions</th>
+                        <tr class="small text-secondary">
+                            <th>SENDER</th>
+                            <th>SUBJECT</th>
+                            <th>MESSAGE PREVIEW</th>
+                            <th>DATE & TIME</th>
+                            <th class="text-end">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (empty($messages)): ?>
                             <tr>
                                 <td colspan="5" class="text-center py-5 text-muted">
-                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                    <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
                                     No contact messages received yet.
                                 </td>
                             </tr>
@@ -86,13 +84,22 @@ $messages = $db->query("SELECT * FROM contact_messages ORDER BY created_at DESC"
                                 <tr>
                                     <td>
                                         <strong class="text-dark d-block"><?= htmlspecialchars($m['name']) ?></strong>
-                                        <span class="small text-muted"><?= htmlspecialchars($m['email']) ?></span>
+                                        <span class="small font-monospace text-muted"><?= htmlspecialchars($m['email']) ?></span>
                                     </td>
-                                    <td><span class="fw-semibold text-dark"><?= htmlspecialchars($m['subject']) ?></span></td>
-                                    <td><span class="small text-secondary"><?= htmlspecialchars(substr($m['message'], 0, 70)) ?>...</span></td>
-                                    <td><span class="small text-muted"><?= date('d M Y', strtotime($m['created_at'])) ?></span></td>
                                     <td>
-                                        <a href="/admin/super/messages.php?delete_msg=<?= $m['id'] ?>" onclick="return confirm('Delete message?');" class="btn btn-sm btn-outline-danger rounded-circle">
+                                        <span class="fw-semibold text-dark"><?= htmlspecialchars($m['subject']) ?></span>
+                                    </td>
+                                    <td>
+                                        <span class="small text-secondary"><?= htmlspecialchars(substr($m['message'], 0, 75)) ?>...</span>
+                                    </td>
+                                    <td>
+                                        <span class="small text-muted"><?= date('M j, Y - g:i A', strtotime($m['created_at'])) ?></span>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="mailto:<?= urlencode($m['email']) ?>?subject=Re:%20<?= urlencode($m['subject']) ?>" class="btn btn-sm btn-light rounded-circle me-1" title="Reply via Email">
+                                            <i class="bi bi-reply-fill text-primary"></i>
+                                        </a>
+                                        <a href="messages.php?delete_msg=<?= $m['id'] ?>" onclick="return confirm('Delete this message permanently?');" class="btn btn-sm btn-light text-danger rounded-circle" title="Delete">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
