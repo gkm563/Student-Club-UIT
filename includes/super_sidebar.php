@@ -193,9 +193,9 @@ if (class_exists('Database')) {
                         <img src="../../assets/United Logo.webp" alt="United Logo" style="max-height: 28px; width: auto; object-fit: contain;">
                     </div>
                     <div>
-                        <div class="fw-bold text-white lh-1" style="font-size: 0.95rem; letter-spacing: -0.2px;">ClubHub UIT</div>
-                        <span class="badge bg-warning bg-opacity-20 text-warning border border-warning-10 rounded-pill px-2 py-0.5 mt-1" style="font-size: 0.58rem; letter-spacing: 0.8px;">
-                            DEAN GOVERNANCE
+                        <div class="fw-bold text-white lh-1 mb-1" style="font-size: 0.96rem; letter-spacing: -0.2px;">ClubHub UIT</div>
+                        <span class="badge rounded-pill px-2.5 py-1 text-uppercase fw-bold shadow-xs" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f172a; font-size: 0.62rem; letter-spacing: 0.8px; font-weight: 800;">
+                            <i class="bi bi-shield-fill-check me-1"></i> DEAN GOVERNANCE
                         </span>
                     </div>
                 </div>
