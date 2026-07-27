@@ -273,9 +273,6 @@ function renderEventGallery(photos) {
         <div class="col-6 col-sm-4 col-md-3 col-lg-3">
             <div class="gallery-card-item rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 220px; cursor: pointer;" onclick="openGalleryLightbox(${index})">
                 <img src="${escapeHtml(photo.media_url)}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(photo.caption || 'Event Recap Photo')}">
-                <div class="position-absolute bottom-0 start-0 w-100 p-2 text-truncate bg-dark bg-opacity-75 text-white small" style="backdrop-filter: blur(4px);">
-                    <i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photo.caption || 'Event Moment')}
-                </div>
             </div>
         </div>
     `).join('');
@@ -308,14 +305,18 @@ function updateLightboxView() {
     const lightboxCaption = document.getElementById('lightboxCaption');
     const lightboxBottomCaption = document.getElementById('lightboxBottomCaption');
 
+    const photoCaption = photo.caption && photo.caption.trim() !== '' ? photo.caption : 'Event Recap Moment';
+
     if (modalImg) {
         modalImg.style.transform = 'scale(0.96)';
         modalImg.src = photo.media_url;
         setTimeout(() => { modalImg.style.transform = 'scale(1)'; }, 50);
     }
     if (lightboxCounter) lightboxCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${galleryPhotosList.length}`;
-    if (lightboxCaption) lightboxCaption.textContent = photo.caption || 'Event Recap Moment';
-    if (lightboxBottomCaption) lightboxBottomCaption.textContent = photo.caption || 'Event Moment';
+    if (lightboxCaption) lightboxCaption.textContent = photoCaption;
+    if (lightboxBottomCaption) {
+        lightboxBottomCaption.innerHTML = `<i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photoCaption)}`;
+    }
 }
 
 function showNextPhoto() {
