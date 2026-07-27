@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // 5. Handle Delete Official Club Gallery Photo
 if (isset($_GET['delete_photo'])) {
     $photoId = $_GET['delete_photo'];
-    $dpStmt = $db->prepare("DELETE FROM gallery_items WHERE id = ? AND club_id = ? AND event_id IS NULL");
+    $dpStmt = $db->prepare("DELETE FROM gallery_items WHERE id = ? AND club_id = ?");
     $dpStmt->execute([$photoId, $club['id']]);
     header('Location: profile.php?msg=Photo+deleted');
     exit;
@@ -196,7 +196,7 @@ $leadStmt->execute([$club['id']]);
 $roster = $leadStmt->fetchAll();
 
 // Fetch official club gallery photos
-$clubGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? AND event_id IS NULL ORDER BY created_at DESC");
+$clubGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? ORDER BY created_at DESC");
 $clubGalStmt->execute([$club['id']]);
 $clubPhotos = $clubGalStmt->fetchAll();
 
