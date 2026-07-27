@@ -73,6 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
                 $event_type, $outcomes_summary, $speaker_name, $speaker_designation, $agenda_timeline, $target_audience
             ]);
             $success = "Advanced Event '$title' created and published successfully!";
+
+            // Audit Log
+            try {
+                $logStmt = $db->prepare("INSERT INTO audit_logs (id, user_id, user_name, action, details, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+                $logStmt->execute(['log_' . bin2hex(random_bytes(4)), $_SESSION['user_id'] ?? '', $_SESSION['full_name'] ?? 'Club Lead', 'EVENT_CREATED', "Created event: $title for club: {$club['name']}"]);
+            } catch (Exception $le) { /* Audit log failure is non-critical */ }
         } catch (Exception $e) {
             $error = "Failed to create event: " . $e->getMessage();
         }
@@ -126,6 +132,13 @@ if (isset($_GET['delete'])) {
 $stmtEv = $db->prepare("SELECT * FROM events WHERE club_id = ? ORDER BY event_date DESC");
 $stmtEv->execute([$club['id']]);
 $events = $stmtEv->fetchAll();
+
+// KPI Counts
+$kpiTotal    = count($events);
+$kpiUpcoming = count(array_filter($events, fn($e) => $e['status'] === 'upcoming'));
+$kpiCompleted= count(array_filter($events, fn($e) => $e['status'] === 'completed'));
+$kpiDraft    = count(array_filter($events, fn($e) => $e['status'] === 'draft'));
+$kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled'));
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
@@ -185,6 +198,46 @@ $events = $stmtEv->fetchAll();
         <?php if (!empty($error)): ?>
             <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
+
+        <?php if (isset($_GET['msg'])): ?>
+            <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($_GET['msg']) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <?php endif; ?>
+
+        <!-- KPI Cards -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div><span class="text-secondary small fw-semibold d-block">TOTAL EVENTS</span><h3 class="fw-bold mb-0"><?= $kpiTotal ?></h3></div>
+                        <div class="rounded-3 p-2 bg-primary-subtle text-primary fs-4"><i class="bi bi-calendar-event-fill"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div><span class="text-secondary small fw-semibold d-block">UPCOMING</span><h3 class="fw-bold mb-0 text-success"><?= $kpiUpcoming ?></h3></div>
+                        <div class="rounded-3 p-2 bg-success-subtle text-success fs-4"><i class="bi bi-clock-history"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div><span class="text-secondary small fw-semibold d-block">COMPLETED</span><h3 class="fw-bold mb-0 text-secondary"><?= $kpiCompleted ?></h3></div>
+                        <div class="rounded-3 p-2 bg-secondary-subtle text-secondary fs-4"><i class="bi bi-check2-all"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div><span class="text-secondary small fw-semibold d-block">DRAFTS</span><h3 class="fw-bold mb-0 text-warning"><?= $kpiDraft ?></h3></div>
+                        <div class="rounded-3 p-2 bg-warning-subtle text-warning fs-4"><i class="bi bi-pencil-square"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Events Search & Sorting Controls -->
         <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">

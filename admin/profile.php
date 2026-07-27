@@ -199,6 +199,29 @@ $roster = $leadStmt->fetchAll();
 $clubGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? AND event_id IS NULL ORDER BY created_at DESC");
 $clubGalStmt->execute([$club['id']]);
 $clubPhotos = $clubGalStmt->fetchAll();
+
+// Profile Completion Score
+$profileFields = [
+    'tagline'         => !empty($club['tagline']),
+    'description'     => !empty($club['description']),
+    'mission'         => !empty($club['mission']),
+    'vision'          => !empty($club['vision']),
+    'logo'            => !empty($club['logo']),
+    'cover_image'     => !empty($club['cover_image']),
+    'email'           => !empty($club['email']),
+    'instagram'       => !empty($club['instagram']),
+];
+$profileScore = round(array_sum($profileFields) / count($profileFields) * 100);
+$profileBadge = $profileScore >= 80 ? ['Complete', 'success'] : ($profileScore >= 50 ? ['In Progress', 'warning'] : ['Incomplete', 'danger']);
+
+// Quick Stats counts
+try {
+    $evtCountStmt = $db->prepare("SELECT COUNT(*) FROM events WHERE club_id = ?");
+    $evtCountStmt->execute([$club['id']]);
+    $profileEventCount = $evtCountStmt->fetchColumn();
+} catch (Exception $e) { $profileEventCount = 0; }
+$profileLeaderCount = count($roster ?? []);
+$profileGalleryCount = count($clubPhotos ?? []);
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
@@ -257,6 +280,59 @@ $clubPhotos = $clubGalStmt->fetchAll();
 
         <?php if (!empty($error)): ?>
             <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['msg'])): ?>
+            <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($_GET['msg']) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+        <?php endif; ?>
+
+        <!-- Profile Completion Progress Row -->
+        <div class="row g-3 mb-4">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 p-3 p-md-4 bg-white">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <div class="fw-bold text-dark"><i class="bi bi-graph-up-arrow text-primary me-2"></i>Profile Completion</div>
+                        <span class="badge bg-<?= $profileBadge[1] ?>-subtle text-<?= $profileBadge[1] ?> border rounded-pill px-3 py-1"><?= $profileScore ?>% — <?= $profileBadge[0] ?></span>
+                    </div>
+                    <div class="progress rounded-pill mb-2" style="height: 12px;">
+                        <div class="progress-bar bg-<?= $profileBadge[1] ?>" style="width: <?= $profileScore ?>%;" role="progressbar"></div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <?php foreach ($profileFields as $field => $filled): ?>
+                            <span class="badge <?= $filled ? 'bg-success-subtle text-success' : 'bg-light text-muted' ?> border rounded-pill small px-2">
+                                <i class="bi bi-<?= $filled ? 'check-circle-fill' : 'circle' ?> me-1"></i><?= ucfirst(str_replace('_', ' ', $field)) ?>
+                            </span>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
+                    <h6 class="fw-bold text-dark mb-3"><i class="bi bi-bar-chart-fill text-info me-2"></i>Quick Stats</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-secondary small">Total Events</span>
+                        <span class="fw-bold text-dark"><?= $profileEventCount ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-secondary small">Leadership Members</span>
+                        <span class="fw-bold text-dark"><?= $profileLeaderCount ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-secondary small">Gallery Photos</span>
+                        <span class="fw-bold text-dark"><?= $profileGalleryCount ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cover Image Preview Banner -->
+        <?php if (!empty($club['cover_image'])): ?>
+        <div class="position-relative rounded-4 overflow-hidden shadow-sm mb-4" style="height: 180px;">
+            <img src="<?= e($club['cover_image']) ?>" alt="Club Cover" style="width:100%; height:180px; object-fit:cover; display:block;">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-end p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);">
+                <h5 class="fw-bold text-white mb-0"><?= e($club['name']) ?></h5>
+            </div>
+        </div>
         <?php endif; ?>
 
         <div class="row g-4">
