@@ -6,6 +6,7 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 require_once __DIR__ . '/../includes/auth.php';
 
+$assetPrefix = '../';
 $error = $_GET['error'] ?? '';
 $success = '';
 
@@ -22,14 +23,21 @@ if (is_logged_in()) {
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
-    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
-        $error = "Security token invalid. Please try again.";
-    } else {
-        $email    = trim($_POST['email'] ?? '');
-        $password = $_POST['password'] ?? '';
+    $captchaInput = $_POST['captcha_code'] ?? '';
+    $email        = trim($_POST['email'] ?? '');
+    $password     = $_POST['password'] ?? '';
 
+    $rateLimitError = check_login_rate_limit($email);
+
+    if ($rateLimitError) {
+        $error = $rateLimitError;
+    } elseif (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $error = "Security token invalid. Please refresh the page and try again.";
+    } elseif (!verify_captcha_code($captchaInput)) {
+        $error = "Incorrect verification code (CAPTCHA). Please enter the code shown in the image.";
+    } else {
         if (empty($email) || empty($password)) {
-            $error = "Please enter Dean Sir credentials.";
+            $error = "Please enter Dean Sir email address and password.";
         } else {
             $db = Database::getConnection();
             $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin' AND status = 'active'");
@@ -38,6 +46,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 
             if ($user && password_verify($password, $user['password_hash'])) {
                 session_regenerate_id(true);
+                reset_login_rate_limit($email);
 
                 $_SESSION['user_id']   = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
@@ -51,7 +60,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 header("Location: /admin/dashboard.php");
                 exit;
             } else {
-                $error = "Invalid Dean Sir credentials or insufficient administrator privileges.";
+                record_failed_login_attempt($email);
+                $error = "Invalid email address or password. Please verify your Dean Sir credentials and try again.";
             }
         }
     }
@@ -77,7 +87,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
                 <?php endif; ?>
 
-                <form action="/admin/dean-login.php" method="POST" class="text-start">
+                <form action="dean-login.php" method="POST" class="text-start">
                     <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
 
                     <div class="mb-3">
@@ -88,12 +98,24 @@ require_once __DIR__ . '/../includes/header.php';
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label small fw-semibold">Password</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0"><i class="bi bi-lock text-secondary"></i></span>
                             <input type="password" name="password" class="form-control border-start-0" placeholder="••••••••" required>
                         </div>
+                    </div>
+
+                    <!-- Secured Verification Code (CAPTCHA) -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Security Verification (CAPTCHA)</label>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <img id="captchaImg" src="<?= $assetPrefix ?>api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='<?= $assetPrefix ?>api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                                <i class="bi bi-arrow-clockwise fs-6"></i>
+                            </button>
+                        </div>
+                        <input type="text" name="captcha_code" class="form-control text-uppercase font-monospace fw-bold" placeholder="ENTER CODE" maxlength="6" autocomplete="off" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-3">
@@ -103,7 +125,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                 <div class="pt-3 border-top mt-3 small text-muted">
                     <span>Are you a Club Lead?</span>
-                    <a href="/club-login.php" class="fw-bold text-success text-decoration-none ms-1">Go to Club Lead Login &rarr;</a>
+                    <a href="<?= $assetPrefix ?>club-login.php" class="fw-bold text-success text-decoration-none ms-1">Go to Club Lead Login &rarr;</a>
                 </div>
             </div>
         </div>
