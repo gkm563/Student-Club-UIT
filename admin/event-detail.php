@@ -115,8 +115,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_upload_event_p
     } else {
         try {
             $galId = 'gal_' . bin2hex(random_bytes(4));
-            $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, event_id, media_url, caption) VALUES (?, ?, ?, ?, ?)");
-            $gStmt->execute([$galId, $club['id'], $eventId, $finalUrl, $caption]);
+            $eventCaption = trim($caption ? $caption . ' [' . ($event['title'] ?? '') . ']' : ($event['title'] ?? 'Event Photo'));
+            $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, media_url, caption) VALUES (?, ?, ?, ?)");
+            $gStmt->execute([$galId, $club['id'], $finalUrl, $eventCaption]);
             $success = "Event photo uploaded successfully!";
         } catch (Exception $e) {
             $error = "Failed to upload photo: " . $e->getMessage();
@@ -133,9 +134,9 @@ if (isset($_GET['delete_photo'])) {
     exit;
 }
 
-// Fetch event gallery items
-$eventGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE event_id = ? ORDER BY created_at DESC");
-$eventGalStmt->execute([$eventId]);
+// Fetch event gallery items (all club gallery items — event_id column doesn't exist in schema)
+$eventGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? ORDER BY created_at DESC LIMIT 20");
+$eventGalStmt->execute([$club['id']]);
 $eventPhotos = $eventGalStmt->fetchAll();
 
 // Format date for datetime-local input

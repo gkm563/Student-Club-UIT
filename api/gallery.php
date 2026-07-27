@@ -29,7 +29,7 @@ try {
             SELECT g.*, c.name as club_name, c.short_name as club_short_name
             FROM gallery_items g
             LEFT JOIN clubs c ON g.club_id = c.id
-            WHERE g.club_id = ? AND g.event_id IS NULL
+            WHERE g.club_id = ?
             ORDER BY g.created_at DESC
         ");
         $stmt->execute([$clubId]);

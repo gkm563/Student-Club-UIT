@@ -701,18 +701,42 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <!-- Official Club Photo Gallery Section -->
                                     ${(club.gallery && club.gallery.length > 0) ? `
                                         <div class="about-card-elevated p-4 p-md-5 mb-4">
-                                            <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Official Chapter Photo Gallery</h4>
+                                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                                <h4 class="fw-black text-dark mb-0" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Official Chapter Photo Gallery</h4>
+                                                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold">${club.gallery.length} Photos</span>
+                                            </div>
                                             <p class="text-secondary small mb-4">Highlights, orientation sessions, and team moments from ${escapeHtml(club.name)}</p>
-                                            <div class="row g-3">
-                                                ${club.gallery.map(g => `
-                                                    <div class="col-6 col-md-4">
-                                                        <div class="rounded-4 overflow-hidden border shadow-xs position-relative" style="height: 160px;">
-                                                            <img src="${escapeHtml(g.media_url)}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(g.caption || 'Club Photo')}" onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop'">
-                                                            ${g.caption ? `<div class="position-absolute bottom-0 inset-x-0 p-2 text-white bg-dark bg-opacity-75 small text-truncate fw-semibold" style="font-size:0.75rem;">${escapeHtml(g.caption)}</div>` : ''}
+                                            <div class="row g-3" id="clubGalleryGrid">
+                                                ${club.gallery.map((g, idx) => `
+                                                    <div class="col-6 col-md-4 col-lg-3 club-gallery-item" style="${idx >= 8 ? 'display:none;' : ''}">
+                                                        <div class="rounded-4 overflow-hidden shadow-sm position-relative gallery-thumb-wrap" style="height: 170px; cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                                                             onclick="openGalleryLightbox('${escapeHtml(g.media_url)}','${escapeHtml(g.caption || '')}')"
+                                                             onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.18)';"
+                                                             onmouseout="this.style.transform='scale(1)';this.style.boxShadow='';">
+                                                            <img src="${escapeHtml(g.media_url)}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(g.caption || 'Club Photo')}"
+                                                                 loading="lazy"
+                                                                 onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=400&auto=format&fit=crop'">
+                                                            <div class="position-absolute inset-0 d-flex align-items-center justify-content-center opacity-0 hover-overlay" style="background:rgba(0,0,0,0.35);transition:opacity 0.2s;border-radius:1rem;">
+                                                                <i class="bi bi-zoom-in text-white fs-4"></i>
+                                                            </div>
+                                                            ${g.caption ? `<div class="position-absolute bottom-0 start-0 end-0 px-2 py-1 text-white fw-semibold text-truncate" style="background:linear-gradient(transparent,rgba(0,0,0,0.7));font-size:0.72rem;border-radius:0 0 1rem 1rem;">${escapeHtml(g.caption)}</div>` : ''}
                                                         </div>
                                                     </div>
                                                 `).join('')}
                                             </div>
+                                            ${club.gallery.length > 8 ? `
+                                            <div class="text-center mt-4">
+                                                <button class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold" onclick="toggleGalleryItems()">
+                                                    <i class="bi bi-plus-circle me-1"></i> Show All ${club.gallery.length} Photos
+                                                </button>
+                                            </div>` : ''}
+                                        </div>
+
+                                        <!-- Lightbox Modal -->
+                                        <div id="galleryLightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:12px;" onclick="this.style.display='none'">
+                                            <img id="galleryLightboxImg" src="" style="max-width:90vw;max-height:80vh;border-radius:12px;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.5);" alt="">
+                                            <div id="galleryLightboxCaption" style="color:#fff;font-size:0.95rem;font-weight:600;text-align:center;max-width:600px;padding:0 20px;"></div>
+                                            <button onclick="document.getElementById('galleryLightbox').style.display='none'" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -789,3 +813,40 @@ function escapeHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
+// Gallery Lightbox
+function openGalleryLightbox(src, caption) {
+    const lb = document.getElementById('galleryLightbox');
+    const img = document.getElementById('galleryLightboxImg');
+    const cap = document.getElementById('galleryLightboxCaption');
+    if (!lb || !img) return;
+    img.src = src;
+    if (cap) cap.textContent = caption || '';
+    lb.style.display = 'flex';
+    event.stopPropagation();
+}
+
+// Toggle show all gallery items
+function toggleGalleryItems() {
+    const hidden = document.querySelectorAll('.club-gallery-item[style*="display:none"]');
+    const btn = event.target.closest('button');
+    if (hidden.length > 0) {
+        hidden.forEach(el => el.style.display = '');
+        if (btn) btn.innerHTML = '<i class="bi bi-dash-circle me-1"></i> Show Less';
+    } else {
+        let idx = 0;
+        document.querySelectorAll('.club-gallery-item').forEach(el => {
+            if (idx >= 8) el.style.display = 'none';
+            idx++;
+        });
+        if (btn) btn.innerHTML = '<i class="bi bi-plus-circle me-1"></i> Show All Photos';
+    }
+}
+
+// Close lightbox on Escape key
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        const lb = document.getElementById('galleryLightbox');
+        if (lb) lb.style.display = 'none';
+    }
+});

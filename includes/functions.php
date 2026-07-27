@@ -81,22 +81,24 @@ if (!function_exists('upload_image_file')) {
             }
         }
 
-        $uploadDir = __DIR__ . '/../public/uploads/' . $subFolder . '/';
+        // Save to /UIT/uploads/<subfolder>/ — directly accessible under localhost/UIT/uploads/
+        $uploadDir = __DIR__ . '/../uploads/' . $subFolder . '/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
 
-        // Generate Security .htaccess in uploads directory disabling PHP execution
-        $htaccessPath = __DIR__ . '/../public/uploads/.htaccess';
+        // Security: disable PHP execution in uploads
+        $htaccessPath = __DIR__ . '/../uploads/.htaccess';
         if (!file_exists($htaccessPath)) {
-            @file_put_contents($htaccessPath, "php_flag engine off\nSetHandler default-handler\n<FilesMatch \"\.(php|phtml|php5|py|sh|pl|cgi)$\">\n    Order allow,deny\n    Deny from all\n</FilesMatch>\n");
+            @file_put_contents($htaccessPath, "php_flag engine off\nOptions -Indexes\nSetHandler default-handler\n<FilesMatch \"\.(php|phtml|php5|py|sh|pl|cgi)$\">\n    Order allow,deny\n    Deny from all\n</FilesMatch>\n");
         }
 
         $newFilename = 'img_' . time() . '_' . bin2hex(random_bytes(6)) . '.' . $ext;
         $targetFilePath = $uploadDir . $newFilename;
 
         if (move_uploaded_file($fileArray['tmp_name'], $targetFilePath)) {
-            return '/uploads/' . $subFolder . '/' . $newFilename;
+            // Return URL relative to site root — works under localhost/UIT/
+            return '/UIT/uploads/' . $subFolder . '/' . $newFilename;
         }
 
         return $fallbackUrl;

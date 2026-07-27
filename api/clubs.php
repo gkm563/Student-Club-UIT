@@ -49,11 +49,11 @@ try {
         $eventStmt->execute([$club['id']]);
         $club['events'] = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Fetch Gallery Media Items
+        // Fetch Gallery Media Items (all club photos)
         $galStmt = $db->prepare("
             SELECT * FROM gallery_items 
             WHERE club_id = ? 
-            ORDER BY created_at DESC LIMIT 12
+            ORDER BY created_at DESC LIMIT 24
         ");
         $galStmt->execute([$club['id']]);
         $club['gallery'] = $galStmt->fetchAll(PDO::FETCH_ASSOC);

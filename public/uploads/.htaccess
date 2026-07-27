@@ -1,0 +1,6 @@
+php_flag engine off
+SetHandler default-handler
+<FilesMatch "\.(php|phtml|php5|py|sh|pl|cgi)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
