@@ -2588,20 +2588,123 @@ body {
     font-weight: 600;
 }
 
-@media (max-width: 991.98px) {
-    .gallery-hero-title {
-        font-size: 2.4rem;
+/* ==========================================================================
+   Tinder-Style Swipeable Event Card Stack (gallery.html)
+   ========================================================================== */
+
+.tinder-card-deck-wrapper {
+    max-width: 460px;
+    margin: 0 auto;
+    perspective: 1000px;
+}
+
+.tinder-card-stack {
+    height: 440px;
+    position: relative;
+}
+
+.tinder-event-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 28px;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+    cursor: grab;
+}
+
+.tinder-event-card:active {
+    cursor: grabbing;
+}
+
+/* Card Stack Positioning & Depth Layers */
+.tinder-event-card.tinder-card-top {
+    z-index: 10;
+    transform: translateY(0) scale(1) rotate(0deg);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tinder-event-card.tinder-card-next-1 {
+    z-index: 8;
+    transform: translateY(14px) scale(0.95) rotate(1.5deg);
+    opacity: 0.88;
+    pointer-events: none;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+}
+
+.tinder-event-card.tinder-card-next-2 {
+    z-index: 6;
+    transform: translateY(28px) scale(0.90) rotate(-1.5deg);
+    opacity: 0.65;
+    pointer-events: none;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.tinder-event-card.tinder-card-hidden {
+    z-index: 2;
+    transform: translateY(40px) scale(0.85) rotate(0deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Tinder Swipe Animations */
+.tinder-event-card.swipe-right-anim {
+    animation: swipeRight 0.5s forwards ease-in-out;
+}
+
+.tinder-event-card.swipe-left-anim {
+    animation: swipeLeft 0.5s forwards ease-in-out;
+}
+
+@keyframes swipeRight {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
     }
-    .gallery-featured-img-container {
-        height: 210px;
+    100% {
+        transform: translateX(120%) rotate(25deg);
+        opacity: 0;
     }
 }
 
-@media (max-width: 576px) {
-    .gallery-hero-title {
-        font-size: 2rem;
+@keyframes swipeLeft {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-120%) rotate(-25deg);
+        opacity: 0;
     }
 }
+
+.tinder-btn {
+    transition: all 0.25s ease;
+}
+
+.tinder-btn:hover {
+    transform: scale(1.08);
+}
+
+.tinder-btn-swipe:hover {
+    background-color: #dc2626;
+    color: #ffffff !important;
+    border-color: #dc2626;
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.35) !important;
+}
+
+@media (max-width: 576px) {
+    .tinder-card-stack {
+        height: 420px;
+    }
+}
+
 
 
 

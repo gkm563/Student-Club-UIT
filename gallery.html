@@ -82,50 +82,184 @@
                 </div>
             </div>
 
-            <!-- Right Side Featured Event Main Photo & Caption Showcase Card -->
+            <!-- Right Side Tinder-Style Interactive Event Card Stack Deck -->
             <div class="col-lg-6 col-xl-5">
-                <div class="gallery-hero-featured-card" id="heroFeaturedEventCard">
-                    <div class="gallery-featured-img-container">
-                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" id="heroFeaturedImg" alt="GFG SyntaxClash 2026">
+                <div class="tinder-card-deck-wrapper position-relative">
+                    
+                    <!-- Stack Container -->
+                    <div class="tinder-card-stack" id="tinderCardStack">
                         
-                        <!-- Floating Badges Overlay -->
-                        <div class="position-absolute top-0 start-0 m-3 z-2">
-                            <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
-                                <i class="bi bi-shield-check text-warning"></i>
-                                <span id="heroFeaturedClubBadge">GeeksforGeeks Chapter</span>
-                            </span>
+                        <!-- Card 1: GFG -->
+                        <div class="tinder-event-card tinder-card-top" data-index="0">
+                            <div class="gallery-featured-img-container">
+                                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" alt="GFG SyntaxClash 2026">
+                                <div class="position-absolute top-0 start-0 m-3 z-2">
+                                    <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                        <i class="bi bi-shield-check text-warning"></i> GeeksforGeeks Chapter
+                                    </span>
+                                </div>
+                                <div class="position-absolute top-0 end-0 m-3 z-2">
+                                    <span class="badge bg-danger rounded-pill px-3 py-1.5 text-white fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
+                                        <span class="clubs-pulse-dot-green"></span> Featured #1
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gallery-featured-caption-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="gallery-hero-meta-badge"><i class="bi bi-code-slash me-1 text-primary"></i> Technical Contest</span>
+                                    <span class="small text-muted fw-semibold"><i class="bi bi-calendar3 me-1 text-secondary"></i> March 20, 2026</span>
+                                </div>
+                                <h5 class="gallery-featured-title">SyntaxClash 2026 - Algorithmic Coding Battle</h5>
+                                <p class="gallery-featured-desc mb-3">Inter-branch competitive programming battle hosted by GeeksforGeeks Student Chapter at UIT computer labs featuring 120+ coders.</p>
+                                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
+                                    <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Computer Lab 2, UIT</span>
+                                    <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 fw-bold">120+ Coders</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="position-absolute top-0 end-0 m-3 z-2">
-                            <span class="badge bg-danger rounded-pill px-3 py-1.5 text-white fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
-                                <span class="clubs-pulse-dot-green"></span>
-                                Featured Event Photo
-                            </span>
+                        <!-- Card 2: Gemini AI -->
+                        <div class="tinder-event-card tinder-card-next-1" data-index="1">
+                            <div class="gallery-featured-img-container">
+                                <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" alt="Gemini AI Bootcamp">
+                                <div class="position-absolute top-0 start-0 m-3 z-2">
+                                    <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                        <i class="bi bi-robot text-info"></i> Gemini AI Builders
+                                    </span>
+                                </div>
+                                <div class="position-absolute top-0 end-0 m-3 z-2">
+                                    <span class="badge rounded-pill px-3 py-1.5 text-white fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem; background: #7c3aed;">
+                                        <span class="clubs-pulse-dot-green"></span> Featured #2
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gallery-featured-caption-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="gallery-hero-meta-badge"><i class="bi bi-cpu me-1" style="color: #7c3aed;"></i> AI & LLM Workshop</span>
+                                    <span class="small text-muted fw-semibold"><i class="bi bi-calendar3 me-1 text-secondary"></i> April 05, 2026</span>
+                                </div>
+                                <h5 class="gallery-featured-title">Build with Gemini API: AI Hackathon 2026</h5>
+                                <p class="gallery-featured-desc mb-3">Hands-on Generative AI bootcamp exploring LLMs, multimodal prompt engineering, and live project demos with Gemini API.</p>
+                                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
+                                    <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Seminar Hall 1, UIT</span>
+                                    <span class="badge rounded-pill px-2.5 py-1 fw-bold" style="background:#f5f3ff; color:#7c3aed;">85+ Builders</span>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Card 3: GDG Cloud -->
+                        <div class="tinder-event-card tinder-card-next-2" data-index="2">
+                            <div class="gallery-featured-img-container">
+                                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" alt="GDG Cloud Jam">
+                                <div class="position-absolute top-0 start-0 m-3 z-2">
+                                    <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                        <i class="bi bi-cloud-check-fill text-primary"></i> GDG Cloud Chapter
+                                    </span>
+                                </div>
+                                <div class="position-absolute top-0 end-0 m-3 z-2">
+                                    <span class="badge bg-info rounded-pill px-3 py-1.5 text-white fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
+                                        <span class="clubs-pulse-dot-green"></span> Featured #3
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gallery-featured-caption-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="gallery-hero-meta-badge"><i class="bi bi-cloud-arrow-up me-1 text-info"></i> Cloud & Kubernetes</span>
+                                    <span class="small text-muted fw-semibold"><i class="bi bi-calendar3 me-1 text-secondary"></i> Feb 18, 2026</span>
+                                </div>
+                                <h5 class="gallery-featured-title">Google Cloud Jam & Solution Challenge</h5>
+                                <p class="gallery-featured-desc mb-3">Google Cloud Platform hands-on lab, Firebase cloud backend architecture, and Solution Challenge project mentoring session.</p>
+                                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
+                                    <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Induction Hall, UIT</span>
+                                    <span class="badge bg-info-subtle text-info rounded-pill px-2.5 py-1 fw-bold">150+ Attendees</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Rotaract -->
+                        <div class="tinder-event-card tinder-card-hidden" data-index="3">
+                            <div class="gallery-featured-img-container">
+                                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" alt="Rotaract Project Smile">
+                                <div class="position-absolute top-0 start-0 m-3 z-2">
+                                    <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                        <i class="bi bi-heart-fill text-danger"></i> Rotaract Club UIT
+                                    </span>
+                                </div>
+                                <div class="position-absolute top-0 end-0 m-3 z-2">
+                                    <span class="badge bg-success rounded-pill px-3 py-1.5 text-white fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
+                                        <span class="clubs-pulse-dot-green"></span> Featured #4
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gallery-featured-caption-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="gallery-hero-meta-badge"><i class="bi bi-people-fill me-1 text-success"></i> Social Outreach</span>
+                                    <span class="small text-muted fw-semibold"><i class="bi bi-calendar3 me-1 text-secondary"></i> Jan 12, 2026</span>
+                                </div>
+                                <h5 class="gallery-featured-title">Project Smile: Campus Health & Outreach</h5>
+                                <p class="gallery-featured-desc mb-3">Community service & health awareness drive organized by Rotaract Club UIT in collaboration with Prayagraj Blood Bank.</p>
+                                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
+                                    <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> SAC Complex, UIT</span>
+                                    <span class="badge bg-success-subtle text-success rounded-pill px-2.5 py-1 fw-bold">200+ Donors</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: E-Cell PitchFest -->
+                        <div class="tinder-event-card tinder-card-hidden" data-index="4">
+                            <div class="gallery-featured-img-container">
+                                <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop" class="gallery-featured-img" alt="E-Cell PitchFest">
+                                <div class="position-absolute top-0 start-0 m-3 z-2">
+                                    <span class="badge bg-dark bg-opacity-75 backdrop-blur text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.78rem;">
+                                        <i class="bi bi-rocket-takeoff-fill text-warning"></i> E-Cell UIT
+                                    </span>
+                                </div>
+                                <div class="position-absolute top-0 end-0 m-3 z-2">
+                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size: 0.75rem;">
+                                        <span class="clubs-pulse-dot-green"></span> Featured #5
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="gallery-featured-caption-box">
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <span class="gallery-hero-meta-badge"><i class="bi bi-lightbulb-fill me-1 text-warning"></i> Startup Pitch</span>
+                                    <span class="small text-muted fw-semibold"><i class="bi bi-calendar3 me-1 text-secondary"></i> March 28, 2026</span>
+                                </div>
+                                <h5 class="gallery-featured-title">E-Cell PitchFest & Angel Investor Summit</h5>
+                                <p class="gallery-featured-desc mb-3">Student startup pitch competition with prototype seed grants up to ₹1,00,000 for top innovative ideas.</p>
+                                <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
+                                    <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Seminar Hall 2, UIT</span>
+                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-2.5 py-1 fw-bold">₹1 Lakh Fund</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- Caption & Event Details Box -->
-                    <div class="gallery-featured-caption-box">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <span class="gallery-hero-meta-badge" id="heroFeaturedCategory"><i class="bi bi-code-slash me-1 text-primary"></i> Technical Contest</span>
-                            <span class="small text-muted fw-semibold" id="heroFeaturedDate"><i class="bi bi-calendar3 me-1 text-secondary"></i> March 2026</span>
-                        </div>
+                    <!-- Tinder Swipe Controls Bar Below Card Stack -->
+                    <div class="d-flex align-items-center justify-content-center gap-3 mt-4 pt-2">
+                        <button class="btn btn-light rounded-circle shadow-sm d-flex align-items-center justify-content-center tinder-btn tinder-btn-prev" id="tinderPrevBtn" title="Previous Event Card" style="width: 48px; height: 48px; border: 1px solid #e2e8f0;">
+                            <i class="bi bi-arrow-left fs-5 text-dark"></i>
+                        </button>
 
-                        <h5 class="gallery-featured-title" id="heroFeaturedTitle">
-                            SyntaxClash 2026 - Algorithmic Coding Championship
-                        </h5>
+                        <button class="btn btn-outline-danger rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2 tinder-btn tinder-btn-swipe" id="tinderSwipeBtn">
+                            <i class="bi bi-suit-heart-fill fs-5 text-danger"></i>
+                            <span>Swipe Next Event</span>
+                            <i class="bi bi-arrow-right fs-5 ms-1"></i>
+                        </button>
 
-                        <p class="gallery-featured-desc mb-3" id="heroFeaturedCaption">
-                            Inter-branch competitive programming battle hosted by GeeksforGeeks Student Chapter at UIT computer labs featuring 120+ student coders.
-                        </p>
-
-                        <div class="d-flex align-items-center justify-content-between pt-2 border-top border-light">
-                            <span class="small text-muted"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Main Computer Lab, UIT</span>
-                            <a href="#galleryGrid" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1.5 fw-bold">
-                                Browse All Photos ↓
-                            </a>
-                        </div>
+                        <button class="btn btn-light rounded-circle shadow-sm d-flex align-items-center justify-content-center tinder-btn tinder-btn-next" id="tinderNextBtn" title="Next Event Card" style="width: 48px; height: 48px; border: 1px solid #e2e8f0;">
+                            <i class="bi bi-arrow-right fs-5 text-dark"></i>
+                        </button>
                     </div>
+
+                    <!-- Pagination Indicator Pill -->
+                    <div class="text-center mt-2">
+                        <span class="badge rounded-pill px-3 py-1 text-muted fw-bold" style="background:#e2e8f0; font-size:0.75rem;" id="tinderStackIndicator">
+                            Card 1 of 5 • Tap heart or swipe to browse moments
+                        </span>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -21,9 +21,109 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allGalleryItems = response.data;
             renderGallery('all');
-            populateHeroFeaturedEvent();
+            initTinderCardStack();
         })
         .catch(() => showError('Failed to connect to gallery database.'));
+
+    initTinderCardStack();
+
+    function initTinderCardStack() {
+        const stack = document.getElementById('tinderCardStack');
+        if (!stack) return;
+
+        const cards = Array.from(stack.querySelectorAll('.tinder-event-card'));
+        if (cards.length === 0) return;
+
+        let currentIndex = 0;
+        const totalCards = cards.length;
+
+        const swipeBtn = document.getElementById('tinderSwipeBtn');
+        const prevBtn = document.getElementById('tinderPrevBtn');
+        const nextBtn = document.getElementById('tinderNextBtn');
+        const indicator = document.getElementById('tinderStackIndicator');
+
+        function updateStackClasses() {
+            cards.forEach((card, i) => {
+                card.classList.remove('tinder-card-top', 'tinder-card-next-1', 'tinder-card-next-2', 'tinder-card-hidden', 'swipe-right-anim', 'swipe-left-anim');
+
+                const diff = (i - currentIndex + totalCards) % totalCards;
+
+                if (diff === 0) {
+                    card.classList.add('tinder-card-top');
+                } else if (diff === 1) {
+                    card.classList.add('tinder-card-next-1');
+                } else if (diff === 2) {
+                    card.classList.add('tinder-card-next-2');
+                } else {
+                    card.classList.add('tinder-card-hidden');
+                }
+            });
+
+            if (indicator) {
+                indicator.textContent = `Card ${currentIndex + 1} of ${totalCards} • Tap heart or swipe to browse moments`;
+            }
+        }
+
+        function swipeNext() {
+            const topCard = cards[currentIndex];
+            topCard.classList.add('swipe-right-anim');
+
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % totalCards;
+                updateStackClasses();
+            }, 300);
+        }
+
+        function swipePrev() {
+            currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            updateStackClasses();
+        }
+
+        if (swipeBtn) swipeBtn.addEventListener('click', swipeNext);
+        if (nextBtn) nextBtn.addEventListener('click', swipeNext);
+        if (prevBtn) prevBtn.addEventListener('click', swipePrev);
+
+        // Add Touch & Drag Swipe functionality for top card
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        stack.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            currentX = e.clientX - startX;
+            const topCard = cards[currentIndex];
+            if (topCard) {
+                const rotate = currentX * 0.05;
+                topCard.style.transform = `translateX(${currentX}px) rotate(${rotate}deg)`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const topCard = cards[currentIndex];
+            if (!topCard) return;
+
+            if (Math.abs(currentX) > 90) {
+                if (currentX > 0) {
+                    swipeNext();
+                } else {
+                    topCard.classList.add('swipe-left-anim');
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % totalCards;
+                        updateStackClasses();
+                    }, 300);
+                }
+            }
+            topCard.style.transform = '';
+            currentX = 0;
+        });
+    }
 
     function populateHeroFeaturedEvent() {
         if (!allGalleryItems || allGalleryItems.length === 0) return;
