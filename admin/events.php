@@ -124,8 +124,31 @@ if (isset($_GET['delete'])) {
     $delId = $_GET['delete'];
     $stmtDel = $db->prepare("DELETE FROM events WHERE id = ? AND club_id = ?");
     $stmtDel->execute([$delId, $club['id']]);
-    header('Location: events.php?msg=Event+deleted');
+    header('Location: events.php?msg=Event+deleted+successfully');
     exit;
+}
+
+// Handle Bulk Actions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_bulk_events'])) {
+    $bulkAction = $_POST['bulk_action'] ?? '';
+    $selectedIds = $_POST['selected_events'] ?? [];
+
+    if (!empty($selectedIds) && is_array($selectedIds)) {
+        $placeholders = implode(',', array_fill(0, count($selectedIds), '?'));
+        if ($bulkAction === 'delete') {
+            $params = array_merge($selectedIds, [$club['id']]);
+            $bStmt = $db->prepare("DELETE FROM events WHERE id IN ($placeholders) AND club_id = ?");
+            $bStmt->execute($params);
+            header('Location: events.php?msg=' . count($selectedIds) . '+events+deleted+successfully');
+            exit;
+        } elseif (in_array($bulkAction, ['upcoming', 'hidden', 'archived', 'draft', 'completed', 'cancelled'])) {
+            $params = array_merge([$bulkAction], $selectedIds, [$club['id']]);
+            $bStmt = $db->prepare("UPDATE events SET status = ? WHERE id IN ($placeholders) AND club_id = ?");
+            $bStmt->execute($params);
+            header('Location: events.php?msg=' . count($selectedIds) . '+events+updated+to+' . urlencode($bulkAction));
+            exit;
+        }
+    }
 }
 
 // Fetch Events
@@ -138,7 +161,8 @@ $kpiTotal    = count($events);
 $kpiUpcoming = count(array_filter($events, fn($e) => $e['status'] === 'upcoming'));
 $kpiCompleted= count(array_filter($events, fn($e) => $e['status'] === 'completed'));
 $kpiDraft    = count(array_filter($events, fn($e) => $e['status'] === 'draft'));
-$kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled'));
+$kpiHidden   = count(array_filter($events, fn($e) => $e['status'] === 'hidden'));
+$kpiArchived = count(array_filter($events, fn($e) => $e['status'] === 'archived'));
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
@@ -151,25 +175,31 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         body { background: #f8fafc; }
-        .admin-sidebar { width: 260px; min-height: 100vh; background: #0b0f19; color: #fff; }
-        .admin-nav-link {
-            color: rgba(255,255,255,0.65);
-            padding: 11px 16px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            margin-bottom: 2px;
+        .sticky-bulk-bar {
+            position: sticky;
+            top: 70px;
+            z-index: 1020;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            display: none;
         }
-        .admin-nav-link i { font-size: 1.1rem; width: 20px; text-align: center; }
-        .admin-nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; transform: translateX(3px); }
-        .admin-nav-link.active { background: linear-gradient(135deg, #6366f1, #4f46e5); color: #fff; box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
-        .border-white-10 { border-color: rgba(255,255,255,0.1) !important; }
-        .admin-nav-link:hover, .admin-nav-link.active { background: #6366f1; color: #fff; }
+        .sticky-bulk-bar.active { display: flex; }
+        .action-btn-pill {
+            padding: 5px 12px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            transition: all 0.18s ease;
+        }
+        .action-btn-pill:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
     </style>
 </head>
 <body>
@@ -179,37 +209,42 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
     <?php require_once __DIR__ . '/../includes/club_sidebar.php'; ?>
 
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4 p-md-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="flex-grow-1 p-3 p-md-4 p-xl-5">
+
+        <!-- Header -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
             <div>
-                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small"><?= htmlspecialchars($club['name']) ?></span>
-                <h2 class="fw-bold mb-1">Manage Events & Workshops</h2>
-                <p class="text-secondary small mb-0">Create, schedule, and manage events organized by your club.</p>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">
+                    <i class="bi bi-patch-check-fill me-1"></i><?= htmlspecialchars($club['name']) ?>
+                </span>
+                <h2 class="fw-bold mb-1 mt-2">Events & Hackathons Management</h2>
+                <p class="text-secondary small mb-0">Create, schedule, hide/publish, and manage all chapter activities.</p>
             </div>
-            <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#createEventModal">
-                <i class="bi bi-plus-lg me-1"></i> Create Event
+            <button class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold shadow-sm text-white d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#createEventModal">
+                <i class="bi bi-calendar-plus-fill fs-5"></i>
+                <span>Create New Event</span>
             </button>
         </div>
 
         <?php if (!empty($success)): ?>
-            <div class="alert alert-success rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($success) ?></div>
+            <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($success) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         <?php endif; ?>
 
         <?php if (!empty($error)): ?>
-            <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> <?= htmlspecialchars($error) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         <?php endif; ?>
 
         <?php if (isset($_GET['msg'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4"><i class="bi bi-check-circle-fill me-2"></i> <?= htmlspecialchars($_GET['msg']) ?><button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
         <?php endif; ?>
 
-        <!-- KPI Cards -->
+        <!-- KPI Cards Row -->
         <div class="row g-3 mb-4">
             <div class="col-6 col-md-3">
                 <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div><span class="text-secondary small fw-semibold d-block">TOTAL EVENTS</span><h3 class="fw-bold mb-0"><?= $kpiTotal ?></h3></div>
-                        <div class="rounded-3 p-2 bg-primary-subtle text-primary fs-4"><i class="bi bi-calendar-event-fill"></i></div>
+                        <div><span class="text-secondary small fw-semibold d-block">TOTAL EVENTS</span><h3 class="fw-bold mb-0 text-dark"><?= $kpiTotal ?></h3></div>
+                        <div class="rounded-3 p-2.5 bg-primary-subtle text-primary fs-4"><i class="bi bi-calendar-event-fill"></i></div>
                     </div>
                 </div>
             </div>
@@ -217,7 +252,7 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                 <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
                     <div class="d-flex align-items-center justify-content-between">
                         <div><span class="text-secondary small fw-semibold d-block">UPCOMING</span><h3 class="fw-bold mb-0 text-success"><?= $kpiUpcoming ?></h3></div>
-                        <div class="rounded-3 p-2 bg-success-subtle text-success fs-4"><i class="bi bi-clock-history"></i></div>
+                        <div class="rounded-3 p-2.5 bg-success-subtle text-success fs-4"><i class="bi bi-clock-history"></i></div>
                     </div>
                 </div>
             </div>
@@ -225,27 +260,27 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                 <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
                     <div class="d-flex align-items-center justify-content-between">
                         <div><span class="text-secondary small fw-semibold d-block">COMPLETED</span><h3 class="fw-bold mb-0 text-secondary"><?= $kpiCompleted ?></h3></div>
-                        <div class="rounded-3 p-2 bg-secondary-subtle text-secondary fs-4"><i class="bi bi-check2-all"></i></div>
+                        <div class="rounded-3 p-2.5 bg-secondary-subtle text-secondary fs-4"><i class="bi bi-check2-all"></i></div>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
                 <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div><span class="text-secondary small fw-semibold d-block">DRAFTS</span><h3 class="fw-bold mb-0 text-warning"><?= $kpiDraft ?></h3></div>
-                        <div class="rounded-3 p-2 bg-warning-subtle text-warning fs-4"><i class="bi bi-pencil-square"></i></div>
+                        <div><span class="text-secondary small fw-semibold d-block">HIDDEN / DRAFTS</span><h3 class="fw-bold mb-0 text-warning"><?= $kpiHidden + $kpiDraft ?></h3></div>
+                        <div class="rounded-3 p-2.5 bg-warning-subtle text-warning fs-4"><i class="bi bi-eye-slash-fill"></i></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Events Search & Sorting Controls -->
+        <!-- Events Search & Filters -->
         <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
             <div class="row g-3 align-items-center">
                 <div class="col-md-6 col-lg-7">
                     <div class="input-group">
                         <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-secondary"></i></span>
-                        <input type="text" id="eventSearchInput" class="form-control border-start-0" placeholder="Search events by title, venue, or description...">
+                        <input type="text" id="eventSearchInput" class="form-control border-start-0" placeholder="Search events by title, venue, or details...">
                     </div>
                 </div>
                 <div class="col-md-3 col-lg-3">
@@ -254,8 +289,8 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
                         <option value="upcoming">Upcoming Only</option>
                         <option value="ongoing">Ongoing Only</option>
                         <option value="completed">Completed Only</option>
-                        <option value="draft">Drafted Only</option>
                         <option value="hidden">Hidden / Private Only</option>
+                        <option value="draft">Drafted Only</option>
                         <option value="archived">Archived Only</option>
                     </select>
                 </div>
@@ -269,121 +304,151 @@ $kpiCancelled= count(array_filter($events, fn($e) => $e['status'] === 'cancelled
             </div>
         </div>
 
-        <!-- Events List Table -->
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-            <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0">Published Club Events (<span id="eventCountBadge"><?= count($events) ?></span>)</h6>
+        <!-- Sticky Bulk Operations Bar -->
+        <form action="events.php" method="POST" id="bulkEventsForm">
+            <input type="hidden" name="action_bulk_events" value="1">
+            <input type="hidden" name="bulk_action" id="bulkEventsActionInput" value="">
+
+            <div class="card rounded-4 p-3 mb-4 sticky-bulk-bar align-items-center justify-content-between" id="bulkEventsBar">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-primary text-white rounded-pill px-3 py-2 fs-6" id="bulkEventCountBadge">0 Selected</span>
+                    <span class="small text-white-50 d-none d-md-inline">Perform batch actions on selected event records.</span>
+                </div>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="btn btn-sm btn-success rounded-pill px-3 fw-bold" onclick="submitBulkEventAction('upcoming')">
+                        <i class="bi bi-eye me-1"></i> Publish Selected
+                    </button>
+                    <button type="button" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold" onclick="submitBulkEventAction('hidden')">
+                        <i class="bi bi-eye-slash me-1"></i> Hide Selected
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary rounded-pill px-3 fw-bold" onclick="submitBulkEventAction('archived')">
+                        <i class="bi bi-archive me-1"></i> Archive Selected
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 fw-bold" onclick="submitBulkEventAction('delete')">
+                        <i class="bi bi-trash-fill me-1"></i> Delete Selected
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-light rounded-circle" onclick="clearBulkEventsSelection()" title="Clear Selection">
+                        ✕
+                    </button>
+                </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" id="eventsTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="title">
-                                Event Details <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
-                            </th>
-                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="venue">
-                                Venue / Location <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
-                            </th>
-                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="date">
-                                Date & Time <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
-                            </th>
-                            <th style="cursor: pointer;" class="sortable-header" data-sort-key="status">
-                                Status <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($events)): ?>
+
+            <!-- Events List Table -->
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden bg-white">
+                <div class="card-header bg-white py-3 border-0 d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="checkbox" class="form-check-input" id="selectAllEventsChk" onchange="toggleSelectAllEvents()">
+                        <h6 class="fw-bold mb-0">Events Directory (<span id="eventCountBadge"><?= count($events) ?></span>)</h6>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="eventsTable">
+                        <thead class="table-light">
                             <tr>
-                                <td colspan="5" class="text-center py-5 text-muted">
-                                    <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>
-                                    No events created yet. Click "Create Event" to publish your first workshop or competition!
-                                </td>
+                                <th style="width: 40px;"></th>
+                                <th style="cursor: pointer;" class="sortable-header" data-sort-key="title">
+                                    Event Details <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                                </th>
+                                <th style="cursor: pointer;" class="sortable-header" data-sort-key="venue">
+                                    Venue / Location <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                                </th>
+                                <th style="cursor: pointer;" class="sortable-header" data-sort-key="date">
+                                    Date & Time <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                                </th>
+                                <th style="cursor: pointer;" class="sortable-header" data-sort-key="status">
+                                    Status <i class="bi bi-arrow-down-up text-muted ms-1 small"></i>
+                                </th>
+                                <th>Actions</th>
                             </tr>
-                        <?php else: ?>
-                            <?php foreach ($events as $ev): ?>
-                                <tr data-title="<?= e($ev['title']) ?>" data-venue="<?= e($ev['venue']) ?>" data-status="<?= e($ev['status']) ?>" data-date="<?= e($ev['event_date']) ?>">
-                                    <td>
-                                        <a href="event-detail.php?id=<?= $ev['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3">
-                                            <img src="<?= htmlspecialchars($ev['banner']) ?>" class="rounded-3 border" style="width: 54px; height: 38px; object-fit: cover;">
-                                            <div>
-                                                <h6 class="fw-bold mb-0 text-dark hover-primary"><?= htmlspecialchars($ev['title']) ?></h6>
-                                                <span class="small text-muted"><?= htmlspecialchars(substr($ev['description'] ?? '', 0, 50)) ?>...</span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                    <td><span class="text-dark fw-medium"><i class="bi bi-geo-alt me-1 text-danger"></i> <?= htmlspecialchars($ev['venue']) ?></span></td>
-                                    <td><span class="small text-muted"><i class="bi bi-clock me-1"></i> <?= date('d M Y, h:i A', strtotime($ev['event_date'])) ?></span></td>
-                                    <td>
-                                        <?php if ($ev['status'] === 'upcoming'): ?>
-                                            <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1">Upcoming</span>
-                                        <?php elseif ($ev['status'] === 'completed'): ?>
-                                            <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1">Completed</span>
-                                        <?php else: ?>
-                                            <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1"><?= ucfirst($ev['status']) ?></span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <!-- Frequently Used Action 1: Edit Details -->
-                                            <a href="event-detail.php?id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-bold" title="Edit Event">
-                                                <i class="bi bi-pencil-square me-1"></i> Edit
-                                            </a>
-
-                                            <!-- Frequently Used Action 2: Quick Hide / Publish Toggle -->
-                                            <?php if ($ev['status'] === 'hidden'): ?>
-                                                <a href="events.php?set_status=upcoming&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-success rounded-pill px-2-5 py-1 fw-semibold" title="Publish / Make Public">
-                                                    <i class="bi bi-eye me-1"></i> Publish
-                                                </a>
-                                            <?php else: ?>
-                                                <a href="events.php?set_status=hidden&id=<?= $ev['id'] ?>" class="btn btn-sm btn-outline-secondary rounded-pill px-2-5 py-1 fw-semibold" title="Hide / Make Private">
-                                                    <i class="bi bi-eye-slash me-1"></i> Hide
-                                                </a>
-                                            <?php endif; ?>
-
-                                            <!-- Rarely Used Actions: Triple Dot Dropdown -->
-                                            <div class="dropdown">
-                                                <button class="btn btn-sm btn-light border rounded-circle d-flex align-items-center justify-content-center p-1" style="width: 32px; height: 32px;" type="button" data-bs-toggle="dropdown" title="More Actions">
-                                                    <i class="bi bi-three-dots-vertical fs-6 text-secondary"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end rounded-3 shadow border-0 small">
-                                                    <li>
-                                                        <a class="dropdown-item py-1-5" href="events.php?duplicate=<?= $ev['id'] ?>">
-                                                            <i class="bi bi-copy text-info me-2"></i> Duplicate Event
-                                                        </a>
-                                                    </li>
-                                                    <?php if ($ev['status'] !== 'draft'): ?>
-                                                        <li>
-                                                            <a class="dropdown-item py-1-5" href="events.php?set_status=draft&id=<?= $ev['id'] ?>">
-                                                                <i class="bi bi-file-earmark-lock text-secondary me-2"></i> Save as Draft
-                                                            </a>
-                                                        </li>
-                                                    <?php endif; ?>
-                                                    <?php if ($ev['status'] !== 'archived'): ?>
-                                                        <li>
-                                                            <a class="dropdown-item py-1-5" href="events.php?set_status=archived&id=<?= $ev['id'] ?>">
-                                                                <i class="bi bi-archive text-warning me-2"></i> Archive Event
-                                                            </a>
-                                                        </li>
-                                                    <?php endif; ?>
-                                                    <li><hr class="dropdown-divider"></li>
-                                                    <li>
-                                                        <a class="dropdown-item py-1-5 text-danger" href="events.php?delete=<?= $ev['id'] ?>" onclick="return confirm('Permanently delete this event?');">
-                                                            <i class="bi bi-trash me-2"></i> Delete Event
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($events)): ?>
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="bi bi-calendar-x fs-1 d-block mb-2 text-primary"></i>
+                                        No events created yet. Click <strong>"Create New Event"</strong> to publish your first workshop or competition!
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
+                            <?php else: ?>
+                                <?php foreach ($events as $ev): ?>
+                                    <tr data-title="<?= e($ev['title']) ?>" data-venue="<?= e($ev['venue']) ?>" data-status="<?= e($ev['status']) ?>" data-date="<?= e($ev['event_date']) ?>">
+                                        <td>
+                                            <input type="checkbox" name="selected_events[]" value="<?= e($ev['id']) ?>" class="form-check-input event-chk" onchange="updateBulkEventsBarState()">
+                                        </td>
+                                        <td>
+                                            <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="text-decoration-none d-flex align-items-center gap-3">
+                                                <img src="<?= e($ev['banner']) ?>" class="rounded-3 border flex-shrink-0" style="width: 58px; height: 42px; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=300&auto=format&fit=crop'">
+                                                <div>
+                                                    <h6 class="fw-bold mb-0 text-dark hover-primary"><?= e($ev['title']) ?></h6>
+                                                    <span class="small text-muted"><?= e(substr($ev['description'] ?? '', 0, 55)) ?>...</span>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td><span class="text-dark fw-medium small"><i class="bi bi-geo-alt me-1 text-danger"></i> <?= e($ev['venue']) ?></span></td>
+                                        <td><span class="small text-muted"><i class="bi bi-clock me-1"></i> <?= date('d M Y, h:i A', strtotime($ev['event_date'])) ?></span></td>
+                                        <td>
+                                            <?php if ($ev['status'] === 'upcoming'): ?>
+                                                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill"><i class="bi bi-calendar-check me-1"></i>Upcoming</span>
+                                            <?php elseif ($ev['status'] === 'ongoing'): ?>
+                                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill"><i class="bi bi-lightning-fill me-1"></i>Ongoing</span>
+                                            <?php elseif ($ev['status'] === 'completed'): ?>
+                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-1 rounded-pill"><i class="bi bi-check2-all me-1"></i>Completed</span>
+                                            <?php elseif ($ev['status'] === 'hidden'): ?>
+                                                <span class="badge bg-dark-subtle text-dark border px-3 py-1 rounded-pill"><i class="bi bi-eye-slash-fill me-1"></i>Hidden (Private)</span>
+                                            <?php elseif ($ev['status'] === 'archived'): ?>
+                                                <span class="badge bg-info-subtle text-info border px-3 py-1 rounded-pill"><i class="bi bi-archive-fill me-1"></i>Archived</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-light text-dark border px-3 py-1 rounded-pill"><i class="bi bi-file-earmark-lock me-1"></i><?= e(ucfirst($ev['status'])) ?></span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <!-- Action Pills Row -->
+                                            <div class="d-flex align-items-center gap-1.5 flex-wrap">
+                                                <!-- Edit Event Details & Gallery -->
+                                                <a href="event-detail.php?id=<?= e($ev['id']) ?>" class="btn btn-sm btn-primary action-btn-pill text-white" title="Edit Event Details & Photos">
+                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                </a>
+
+                                                <!-- Duplicate Event -->
+                                                <a href="events.php?duplicate=<?= e($ev['id']) ?>" class="btn btn-sm btn-outline-info action-btn-pill" title="Duplicate Event as Draft">
+                                                    <i class="bi bi-copy"></i> Duplicate
+                                                </a>
+
+                                                <!-- Hide / Publish Live Toggle -->
+                                                <?php if ($ev['status'] === 'hidden'): ?>
+                                                    <a href="events.php?set_status=upcoming&id=<?= e($ev['id']) ?>" class="btn btn-sm btn-success action-btn-pill text-white" title="Publish to Live Website">
+                                                        <i class="bi bi-eye-fill"></i> Publish
+                                                    </a>
+                                                <?php else: ?>
+                                                    <a href="events.php?set_status=hidden&id=<?= e($ev['id']) ?>" class="btn btn-sm btn-outline-secondary action-btn-pill" title="Hide from Live Website">
+                                                        <i class="bi bi-eye-slash"></i> Hide
+                                                    </a>
+                                                <?php endif; ?>
+
+                                                <!-- Archive Event -->
+                                                <?php if ($ev['status'] !== 'archived'): ?>
+                                                    <a href="events.php?set_status=archived&id=<?= e($ev['id']) ?>" class="btn btn-sm btn-outline-warning action-btn-pill" title="Archive Event Record">
+                                                        <i class="bi bi-archive"></i> Archive
+                                                    </a>
+                                                <?php endif; ?>
+
+                                                <!-- Delete Event -->
+                                                <a href="events.php?delete=<?= e($ev['id']) ?>" onclick="return confirm('Are you sure you want to permanently delete this event?');" class="btn btn-sm btn-outline-danger action-btn-pill" title="Delete Event">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </form>
+
+    </div>
+</div>
     </div>
 </div>
 
@@ -572,7 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-append sorted rows
         tableBody.innerHTML = '';
         if (visibleRows.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted">No events matching your search or filter.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No events matching your search or filter criteria.</td></tr>`;
         } else {
             visibleRows.forEach(row => tableBody.appendChild(row));
         }
@@ -614,6 +679,47 @@ document.addEventListener('DOMContentLoaded', () => {
         filterAndSort();
     });
 });
+
+// Bulk Selection Functions for Events Table
+function updateBulkEventsBarState() {
+    const checked = document.querySelectorAll('.event-chk:checked');
+    const bulkBar = document.getElementById('bulkEventsBar');
+    const badge = document.getElementById('bulkEventCountBadge');
+
+    if (checked.length > 0) {
+        if (bulkBar) bulkBar.classList.add('active');
+        if (badge) badge.textContent = checked.length + ' Selected';
+    } else {
+        if (bulkBar) bulkBar.classList.remove('active');
+    }
+}
+
+function toggleSelectAllEvents() {
+    const mainChk = document.getElementById('selectAllEventsChk');
+    const chks = document.querySelectorAll('.event-chk');
+    chks.forEach(c => c.checked = mainChk ? mainChk.checked : false);
+    updateBulkEventsBarState();
+}
+
+function clearBulkEventsSelection() {
+    document.querySelectorAll('.event-chk').forEach(c => c.checked = false);
+    const mainChk = document.getElementById('selectAllEventsChk');
+    if (mainChk) mainChk.checked = false;
+    updateBulkEventsBarState();
+}
+
+function submitBulkEventAction(actionType) {
+    const checked = document.querySelectorAll('.event-chk:checked');
+    if (checked.length === 0) return;
+    
+    let confirmMsg = `Are you sure you want to apply '${actionType}' to ${checked.length} selected events?`;
+    if (actionType === 'delete') confirmMsg = `Are you sure you want to PERMANENTLY DELETE ${checked.length} selected events? This cannot be undone.`;
+    
+    if (confirm(confirmMsg)) {
+        document.getElementById('bulkEventsActionInput').value = actionType;
+        document.getElementById('bulkEventsForm').submit();
+    }
+}
 </script>
 </body>
 </html>
