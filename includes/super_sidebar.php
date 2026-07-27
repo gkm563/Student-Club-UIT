@@ -206,7 +206,7 @@ if (class_exists('Database')) {
         <!-- Navigation Menu -->
         <nav class="nav flex-column">
 
-            <a href="../dashboard.php"
+            <a href="index.php"
                class="admin-nav-link <?= (str_contains($currentSuperUri, 'dashboard.php') || str_contains($currentSuperUri, 'index.php')) ? 'active' : '' ?>">
                 <i class="bi bi-speedometer2"></i>
                 <span>Executive Dashboard</span>
