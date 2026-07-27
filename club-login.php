@@ -12,10 +12,10 @@ $success = '';
 if (is_logged_in()) {
     $role = get_current_user_role();
     if ($role === 'super_admin') {
-        header("Location: admin/super/index.php");
+        header("Location: /admin/dashboard.php");
         exit;
     } else {
-        header("Location: admin/dashboard.php");
+        header("Location: /club/dashboard.php");
         exit;
     }
 }
@@ -62,11 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 log_audit($db, $user['id'], $user['full_name'], 'CLUB_ADMIN_LOGIN', 'user', $user['id'], "Club admin logged in");
 
-                header("Location: admin/dashboard.php");
+                header("Location: /club/dashboard.php");
                 exit;
             } else {
                 record_failed_login_attempt($email);
-                $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/login.php portal.";
+                $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/dean-login.php portal.";
             }
         }
     }

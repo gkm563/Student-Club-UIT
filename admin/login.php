@@ -12,10 +12,10 @@ $success = '';
 if (is_logged_in()) {
     $role = get_current_user_role();
     if ($role === 'super_admin') {
-        header("Location: /admin/super/index.php");
+        header("Location: /admin/dashboard.php");
         exit;
     } else {
-        header("Location: /admin/dashboard.php");
+        header("Location: /club/dashboard.php");
         exit;
     }
 }
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 log_audit($db, $user['id'], $user['full_name'], 'SUPER_ADMIN_LOGIN', 'user', $user['id'], "Dean Sir logged into Super Admin Portal");
 
-                header("Location: /admin/super/index.php");
+                header("Location: /admin/dashboard.php");
                 exit;
             } else {
                 record_failed_login_attempt($email);
