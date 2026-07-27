@@ -24,6 +24,25 @@ try {
             ORDER BY g.created_at DESC
         ");
         $stmt->execute([$eventId]);
+        $items = $stmt->fetchAll();
+
+        // Fallback: If no event-specific photos found, fetch organizing club's photos
+        if (empty($items)) {
+            $evtStmt = $db->prepare("SELECT club_id FROM events WHERE id = ?");
+            $evtStmt->execute([$eventId]);
+            $evt = $evtStmt->fetch();
+            if ($evt && !empty($evt['club_id'])) {
+                $stmt = $db->prepare("
+                    SELECT g.*, c.name as club_name, c.short_name as club_short_name
+                    FROM gallery_items g
+                    LEFT JOIN clubs c ON g.club_id = c.id
+                    WHERE g.club_id = ?
+                    ORDER BY g.created_at DESC
+                ");
+                $stmt->execute([$evt['club_id']]);
+                $items = $stmt->fetchAll();
+            }
+        }
     } else if ($clubId) {
         $stmt = $db->prepare("
             SELECT g.*, c.name as club_name, c.short_name as club_short_name
@@ -33,6 +52,7 @@ try {
             ORDER BY g.created_at DESC
         ");
         $stmt->execute([$clubId]);
+        $items = $stmt->fetchAll();
     } else {
         $stmt = $db->query("
             SELECT g.*, c.name as club_name, c.short_name as club_short_name, cat.slug as category_slug, cat.name as category_name
@@ -41,8 +61,8 @@ try {
             LEFT JOIN categories cat ON c.category_id = cat.id
             ORDER BY g.created_at DESC
         ");
+        $items = $stmt->fetchAll();
     }
-    $items = $stmt->fetchAll();
 
     echo json_encode([
         'status' => 'success',

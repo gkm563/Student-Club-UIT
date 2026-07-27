@@ -39,7 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
         const year = eventDate.getFullYear();
         const fullDateStr = eventDate.toLocaleString('default', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
-        const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
+        
+        let hours = eventDate.getHours();
+        const minutes = String(eventDate.getMinutes()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // convert 0 to 12
+        const formattedHours = String(hours).padStart(2, '0');
+        const timeStr = `${formattedHours}:${minutes} ${ampm}`;
 
         document.title = `${event.title} | ClubHub UIT`;
 
@@ -52,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailTitle) detailTitle.textContent = event.title;
 
         const detailVenue = document.getElementById('detailVenue');
-        if (detailVenue) detailVenue.textContent = event.venue;
+        if (detailVenue) detailVenue.textContent = event.venue || 'United Institute Of Technology, NH 2, Naini, Prayagraj 211010';
 
         const detailDateTime = document.getElementById('detailDateTime');
         if (detailDateTime) detailDateTime.textContent = `${fullDateStr} at ${timeStr}`;
@@ -131,10 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (detailMonthYear) detailMonthYear.textContent = `${month} '${String(year).slice(-2)}`;
 
         const detailTimingSpec = document.getElementById('detailTimingSpec');
-        if (detailTimingSpec) detailTimingSpec.textContent = `${fullDateStr} • ${timeStr}`;
+        if (detailTimingSpec) detailTimingSpec.textContent = `${fullDateStr} at ${timeStr}`;
 
         const detailVenueSpec = document.getElementById('detailVenueSpec');
-        if (detailVenueSpec) detailVenueSpec.textContent = event.venue || 'Seminar Hall, UIT';
+        if (detailVenueSpec) detailVenueSpec.textContent = event.venue || 'United Institute Of Technology, NH 2, Naini, Prayagraj 211010';
 
         // Rewards & Outcomes
         const detailOutcomes = document.getElementById('detailOutcomes');
@@ -174,16 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Gallery fetch error:', err));
     }
 
-
     function renderEventGallery(photos) {
         const galleryGrid = document.getElementById('eventGalleryGrid');
         if (!galleryGrid) return;
 
         galleryGrid.innerHTML = photos.map(photo => `
-            <div class="col-6 col-md-6">
-                <div class="rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 200px;">
+            <div class="col-6 col-sm-6 col-md-4 col-lg-4">
+                <div class="gallery-card-item rounded-4 overflow-hidden shadow-xs border position-relative" style="height: 180px; cursor: pointer;" onclick="openGalleryLightbox('${escapeHtml(photo.media_url)}', '${escapeHtml(photo.caption || 'Event Recap Photo')}')">
                     <img src="${escapeHtml(photo.media_url)}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(photo.caption || 'Event Recap Photo')}">
-                    <div class="position-absolute bottom-0 start-0 m-2 badge bg-dark bg-opacity-75 text-white backdrop-blur">${escapeHtml(photo.caption || 'Event Recap Moment')}</div>
+                    <div class="position-absolute bottom-0 start-0 w-100 p-2 text-truncate bg-dark bg-opacity-75 text-white small" style="backdrop-filter: blur(4px);">
+                        <i class="bi bi-camera-fill me-1 text-primary"></i> ${escapeHtml(photo.caption || 'Event Moment')}
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -220,6 +228,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function openGalleryLightbox(url, caption) {
+    const modalImg = document.getElementById('lightboxModalImg');
+    const modalCaption = document.getElementById('lightboxModalCaption');
+    if (modalImg) modalImg.src = url;
+    if (modalCaption) modalCaption.textContent = caption || 'Event Moment';
+
+    const modalEl = document.getElementById('eventGalleryModal');
+    if (modalEl && window.bootstrap) {
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    }
+}
 
 function escapeHtml(str) {
     if (!str) return '';
