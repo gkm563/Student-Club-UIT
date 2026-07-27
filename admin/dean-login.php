@@ -21,7 +21,7 @@ if (is_logged_in()) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         $error = "Security token invalid. Please try again.";
     } else {
