@@ -236,7 +236,19 @@
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
             color: #ffffff !important;
             border-color: #ef4444 !important;
-            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.35) !important;
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4) !important;
+        }
+
+        .event-status-tab.active[data-status-tab="ongoing"] .pulse-dot-red {
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8) !important;
+            animation: pulseDotWhite 1.6s infinite !important;
+        }
+
+        @keyframes pulseDotWhite {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
         .event-status-tab.active[data-status-tab="upcoming"] {
@@ -475,7 +487,7 @@
                     <i class="bi bi-grid-fill me-1"></i> All Events
                 </button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">
-                    <i class="bi bi-record-circle-fill me-1 text-danger"></i> Live Now
+                    <span class="pulse-dot-red me-1.5"></span> Live Now
                 </button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">
                     <i class="bi bi-calendar-check-fill me-1"></i> Upcoming
