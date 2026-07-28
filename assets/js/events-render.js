@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Filter Logic & Render Across 3 Sections (Ongoing, Upcoming, Past)
+    // Filter Logic & Render Unified Event Stream (1st: Ongoing, 2nd: Upcoming, 3rd: Past)
     function applyFiltersAndRender() {
         const query = currentSearch.toLowerCase().trim();
         const now = new Date();
@@ -105,85 +105,49 @@ document.addEventListener('DOMContentLoaded', () => {
             return matchesQuery && matchesClub;
         });
 
-        const ongoingList = filtered.filter(e => e.status === 'ongoing');
-        const upcomingList = filtered.filter(e => new Date(e.event_date) >= now && e.status !== 'completed' && e.status !== 'ongoing');
-        const pastList = filtered.filter(e => new Date(e.event_date) < now || e.status === 'completed');
+        // 3 Category Lists
+        const ongoingList = filtered.filter(e => e.status === 'ongoing' || e.status === 'live');
+        const upcomingList = filtered.filter(e => (new Date(e.event_date) >= now || e.status === 'upcoming') && e.status !== 'completed' && e.status !== 'ongoing' && e.status !== 'live');
+        const pastList = filtered.filter(e => (new Date(e.event_date) < now || e.status === 'completed') && e.status !== 'ongoing' && e.status !== 'live');
 
-        // Update Section Badges
-        const ongoingBadge = document.getElementById('ongoingCountBadge');
-        const upcomingBadge = document.getElementById('upcomingCountBadge');
-        const pastBadge = document.getElementById('pastCountBadge');
+        // Master Priority List: 1st Ongoing, 2nd Upcoming, 3rd Past
+        const masterPriorityList = [...ongoingList, ...upcomingList, ...pastList];
+
+        // Update Counter Badges
         const heroOngoing = document.getElementById('heroOngoingCount');
         const heroUpcoming = document.getElementById('heroUpcomingCount');
+        const streamCountBadge = document.getElementById('streamCountBadge');
 
-        if (ongoingBadge) ongoingBadge.textContent = `${ongoingList.length} Live`;
-        if (upcomingBadge) upcomingBadge.textContent = `${upcomingList.length} Scheduled`;
-        if (pastBadge) pastBadge.textContent = `${pastList.length} Completed`;
         if (heroOngoing) heroOngoing.textContent = `${ongoingList.length}`;
         if (heroUpcoming) heroUpcoming.textContent = `${upcomingList.length}`;
 
-        // Section Containers
-        const ongoingSec = document.getElementById('ongoingEventsSection');
-        const upcomingSec = document.getElementById('upcomingEventsSection');
-        const pastSec = document.getElementById('pastEventsSection');
-
-        const ongoingContainer = document.getElementById('ongoingEventsList');
-        const upcomingContainer = document.getElementById('upcomingEventsList');
-        const pastContainer = document.getElementById('pastEventsList');
-
-        // Status Tab visibility toggle
+        // Select Stream Display List Based on Selected Status Tab
+        let displayList = masterPriorityList;
         if (currentStatusTab === 'ongoing') {
-            if (ongoingSec) ongoingSec.classList.remove('d-none');
-            if (upcomingSec) upcomingSec.classList.add('d-none');
-            if (pastSec) pastSec.classList.add('d-none');
+            displayList = ongoingList;
         } else if (currentStatusTab === 'upcoming') {
-            if (ongoingSec) ongoingSec.classList.add('d-none');
-            if (upcomingSec) upcomingSec.classList.remove('d-none');
-            if (pastSec) pastSec.classList.add('d-none');
+            displayList = upcomingList;
         } else if (currentStatusTab === 'past') {
-            if (ongoingSec) ongoingSec.classList.add('d-none');
-            if (upcomingSec) upcomingSec.classList.add('d-none');
-            if (pastSec) pastSec.classList.remove('d-none');
-        } else {
-            // 'all' tab -> show ongoing if >0, show upcoming, show past
-            if (ongoingSec) {
-                if (ongoingList.length > 0) ongoingSec.classList.remove('d-none');
-                else ongoingSec.classList.add('d-none');
-            }
-            if (upcomingSec) upcomingSec.classList.remove('d-none');
-            if (pastSec) pastSec.classList.remove('d-none');
+            displayList = pastList;
         }
 
-        // Render Ongoing List
-        if (ongoingContainer) {
-            if (ongoingList.length === 0) {
-                ongoingContainer.innerHTML = `<div class="col-12 text-center py-4 text-muted small bg-white rounded-4 border p-4">No live ongoing events at this moment. Check upcoming schedule below.</div>`;
-            } else {
-                ongoingContainer.innerHTML = ongoingList.map(e => renderFloatingEventCard(e, false)).join('');
-            }
-        }
+        if (streamCountBadge) streamCountBadge.textContent = `${displayList.length} Events Total`;
 
-        // Render Upcoming List
-        if (upcomingContainer) {
-            if (upcomingList.length === 0) {
-                upcomingContainer.innerHTML = `
+        const mainContainer = document.getElementById('mainEventsListContainer');
+        if (mainContainer) {
+            if (displayList.length === 0) {
+                mainContainer.innerHTML = `
                     <div class="col-12 text-center py-5 bg-white rounded-4 shadow-sm border p-4">
                         <i class="bi bi-calendar-x fs-1 text-primary d-block mb-2"></i>
-                        <h6 class="fw-bold mb-1">No Scheduled Contests Found</h6>
-                        <p class="small text-muted mb-0">Try clearing your search query or switching club filters.</p>
+                        <h6 class="fw-bold mb-1">No Events Found</h6>
+                        <p class="small text-muted mb-0">No matching events for the selected filter. Try switching tabs or clearing your search.</p>
                     </div>
                 `;
             } else {
-                upcomingContainer.innerHTML = upcomingList.map(e => renderFloatingEventCard(e, false)).join('');
-            }
-        }
-
-        // Render Past List
-        if (pastContainer) {
-            if (pastList.length === 0) {
-                pastContainer.innerHTML = `<div class="col-12 text-center py-4 text-muted small bg-white rounded-4 border p-4">No completed events found for the selected club filter.</div>`;
-            } else {
-                pastContainer.innerHTML = pastList.map(e => renderFloatingEventCard(e, true)).join('');
+                mainContainer.innerHTML = displayList.map(e => {
+                    const isPast = (new Date(e.event_date) < now) || (e.status === 'completed');
+                    return renderFloatingEventCard(e, isPast);
+                }).join('');
             }
         }
 

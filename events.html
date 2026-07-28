@@ -323,48 +323,22 @@
     </div>
 </section>
 
-<!-- Main Events Split 3-Part Section -->
+<!-- Unified Campus Events Directory & Stream Section -->
 <section class="py-5" style="background: #f8fafc;">
     <div class="container">
-        <!-- Part 1: Live Now / Ongoing Events -->
-        <div id="ongoingEventsSection" class="mb-5 d-none">
-            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="pulse-dot-green"></span>
-                    <h4 class="fw-bold mb-0 text-dark">Live Now & Ongoing Events</h4>
-                </div>
-                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1 fw-bold small" id="ongoingCountBadge">0 Live</span>
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-calendar-event-fill fs-5 text-primary"></i>
+                <h4 class="fw-bold mb-0 text-dark">Campus Events Directory & Activity Stream</h4>
             </div>
-            <div id="ongoingEventsList" class="row g-4"></div>
+            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1.5 fw-bold small" id="streamCountBadge">Loading...</span>
         </div>
 
-        <!-- Part 2: Upcoming & Scheduled Events -->
-        <div id="upcomingEventsSection" class="mb-5">
-            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
-                <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-calendar-event-fill fs-5 text-primary"></i>
-                    <h4 class="fw-bold mb-0 text-dark">Upcoming & Scheduled Contests</h4>
-                </div>
-                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small" id="upcomingCountBadge">1 Scheduled</span>
+        <div id="mainEventsListContainer" class="row g-4">
+            <div class="col-12 text-center py-5 text-muted">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 small">Loading campus events from database...</p>
             </div>
-            <div id="upcomingEventsList" class="row g-4">
-                <div class="col-12 text-center py-5 text-muted">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="mt-2 small">Loading events from database...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Part 3: Completed & Past Events -->
-        <div id="pastEventsSection">
-            <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
-                <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-check-circle-fill fs-5 text-success"></i>
-                    <h4 class="fw-bold mb-0 text-dark">Completed Campus Sessions & Workshops</h4>
-                </div>
-                <span class="badge bg-secondary-subtle text-secondary border rounded-pill px-3 py-1 fw-bold small" id="pastCountBadge">10 Completed</span>
-            </div>
-            <div id="pastEventsList" class="row g-4"></div>
         </div>
     </div>
 </section>
