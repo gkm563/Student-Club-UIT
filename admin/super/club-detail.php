@@ -245,7 +245,12 @@ $galleryCount       = (int)$db->query("SELECT COUNT(*) FROM gallery_items WHERE 
                 <i class="bi bi-arrow-left me-1"></i> Back to Campus Roster
             </a>
 
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <!-- See Chapter Live on Public Website Button -->
+                <a href="../../club-detail.php?id=<?= $club['id'] ?>" target="_blank" class="btn btn-sm btn-outline-dark rounded-pill px-3.5 py-2 fw-bold shadow-sm" title="View live public student page for this chapter">
+                    <i class="bi bi-globe me-1 text-primary"></i> See Chapter Live on Public Website <i class="bi bi-box-arrow-up-right ms-1" style="font-size:0.7rem;"></i>
+                </a>
+
                 <!-- View Chapter Analytics Button -->
                 <a href="analytics.php?club_id=<?= $club['id'] ?>" class="btn btn-sm btn-purple rounded-pill px-3.5 py-2 fw-bold text-white shadow-sm" style="background:linear-gradient(135deg,#7c3aed,#4f46e5); border:none;" title="View Chapter Deep Analytics">
                     <i class="bi bi-bar-chart-line-fill me-1"></i> Chapter Analytics &rarr;
