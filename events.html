@@ -229,19 +229,19 @@
         .club-select-filter-box {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: #f8fafc;
-            border: 1px solid #cbd5e1;
+            border: 1.5px solid #cbd5e1;
             border-radius: 50rem;
-            padding: 4px 5px 4px 16px;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-            margin: 2px 0;
+            padding: 5px 6px 5px 18px;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+            margin: 4px 0;
         }
 
         .club-select-filter-box .club-filter-label {
-            font-size: 0.76rem;
+            font-size: 0.78rem;
             font-weight: 800;
-            color: #475569;
+            color: #334155;
             letter-spacing: 0.5px;
             white-space: nowrap;
             text-transform: uppercase;
@@ -249,21 +249,31 @@
 
         .club-select-dropdown {
             background-color: #ffffff !important;
-            border: 1px solid #cbd5e1 !important;
+            border: 1.5px solid #cbd5e1 !important;
             border-radius: 50rem !important;
-            padding: 6px 36px 6px 14px !important;
-            font-size: 0.84rem !important;
+            padding: 8px 38px 8px 16px !important;
+            font-size: 0.86rem !important;
             font-weight: 700 !important;
             color: #0f172a !important;
             cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
             outline: none !important;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.4 !important;
         }
 
         .club-select-dropdown:hover, .club-select-dropdown:focus {
             border-color: #2563eb !important;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18) !important;
+            background-color: #ffffff !important;
+        }
+
+        .club-select-dropdown option {
+            padding: 10px 16px !important;
+            font-size: 0.88rem !important;
+            font-weight: 600 !important;
+            color: #0f172a !important;
+            background: #ffffff !important;
         }
     </style>
 </head>
