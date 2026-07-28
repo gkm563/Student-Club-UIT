@@ -81,6 +81,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Official Contact Secretariat Form Handler
+    const contactForm = document.getElementById('contactForm');
+    const contactAlert = document.getElementById('contactAlert');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+
+            fetch('api/contact.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (contactAlert) {
+                    contactAlert.className = `alert ${data.status === 'success' ? 'alert-success' : 'alert-danger'} rounded-3 small`;
+                    contactAlert.textContent = data.message;
+                    contactAlert.classList.remove('d-none');
+                }
+                if (data.status === 'success') {
+                    contactForm.reset();
+                }
+            })
+            .catch(() => {
+                if (contactAlert) {
+                    contactAlert.className = 'alert alert-danger rounded-3 small';
+                    contactAlert.textContent = 'Failed to send message. Please check your network connection.';
+                    contactAlert.classList.remove('d-none');
+                }
+            });
+        });
+    }
+
     // Hero Campus Carousel Desktop Mouse Drag Swipe Handler
     const heroCarousel = document.getElementById('heroCampusCarousel');
     if (heroCarousel) {

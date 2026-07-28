@@ -246,6 +246,11 @@ $galleryCount       = (int)$db->query("SELECT COUNT(*) FROM gallery_items WHERE 
             </a>
 
             <div class="d-flex align-items-center gap-2">
+                <!-- View Chapter Analytics Button -->
+                <a href="analytics.php?club_id=<?= $club['id'] ?>" class="btn btn-sm btn-purple rounded-pill px-3.5 py-2 fw-bold text-white shadow-sm" style="background:linear-gradient(135deg,#7c3aed,#4f46e5); border:none;" title="View Chapter Deep Analytics">
+                    <i class="bi bi-bar-chart-line-fill me-1"></i> Chapter Analytics &rarr;
+                </a>
+
                 <!-- Status Toggle Action Button -->
                 <a href="club-detail.php?id=<?= $club['id'] ?>&action=toggle_status" 
                    class="btn btn-sm <?= ($club['status'] === 'active') ? 'btn-outline-danger' : 'btn-success' ?> rounded-pill px-3.5 py-2 fw-bold shadow-sm">

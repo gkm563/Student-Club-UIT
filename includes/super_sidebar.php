@@ -225,6 +225,12 @@ if (class_exists('Database')) {
                 <span>Events Governance</span>
             </a>
 
+            <a href="analytics.php"
+               class="admin-nav-link <?= str_contains($currentSuperUri, 'analytics.php') ? 'active' : '' ?>">
+                <i class="bi bi-bar-chart-line-fill"></i>
+                <span>Campus Analytics</span>
+            </a>
+
             <a href="categories.php"
                class="admin-nav-link <?= str_contains($currentSuperUri, 'categories.php') ? 'active' : '' ?>">
                 <i class="bi bi-grid-3x3-gap-fill"></i>

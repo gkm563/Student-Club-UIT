@@ -190,12 +190,28 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
             <div class="card-header bg-white border-bottom p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
                 <h5 class="fw-bold text-dark mb-0"><i class="bi bi-journal-check text-primary me-2"></i>Submitted Proposal Submissions</h5>
 
-                <!-- Search & Filters -->
+                <!-- Search & Advanced Filters Bar -->
                 <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <input type="text" id="proposalSearchInput" class="form-control form-control-sm rounded-pill px-3" placeholder="Search applicant, title, ID..." style="width: 220px;">
-                    <select id="statusFilter" class="form-select form-select-sm rounded-pill px-3" style="width: 140px;">
+                    <input type="text" id="proposalSearchInput" class="form-control form-control-sm rounded-pill px-3" placeholder="Search applicant, title, ID..." style="width: 200px;">
+                    
+                    <!-- Filter 1: Proposal Type -->
+                    <select id="typeFilter" class="form-select form-select-sm rounded-pill px-3" style="width: 150px;">
+                        <option value="all">All Types</option>
+                        <option value="new_club">New Club</option>
+                        <option value="new_event">Campus Event</option>
+                    </select>
+
+                    <!-- Filter 2: Applicant Affiliation (College Student vs External Outsider) -->
+                    <select id="affiliationFilter" class="form-select form-select-sm rounded-pill px-3" style="width: 160px;">
+                        <option value="all">All Applicants</option>
+                        <option value="student">UIT College Students</option>
+                        <option value="outsider">External / Outsiders</option>
+                    </select>
+
+                    <!-- Filter 3: Status -->
+                    <select id="statusFilter" class="form-select form-select-sm rounded-pill px-3" style="width: 130px;">
                         <option value="all">All Status</option>
-                        <option value="pending" selected>Pending Only</option>
+                        <option value="pending" selected>Pending</option>
                         <option value="approved">Approved</option>
                         <option value="rejected">Rejected</option>
                     </select>
@@ -222,7 +238,12 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
                         </thead>
                         <tbody>
                             <?php foreach ($proposals as $prop): ?>
-                                <tr data-title="<?= e($prop['proposed_title']) ?>" data-applicant="<?= e($prop['applicant_name']) ?>" data-status="<?= e($prop['status']) ?>" data-id="<?= e($prop['student_id_number']) ?>">
+                                <tr data-title="<?= e($prop['proposed_title']) ?>" 
+                                    data-applicant="<?= e($prop['applicant_name']) ?>" 
+                                    data-status="<?= e($prop['status']) ?>" 
+                                    data-type="<?= e($prop['proposal_type']) ?>"
+                                    data-student="<?= !empty($prop['is_uit_student']) ? 'student' : 'outsider' ?>"
+                                    data-id="<?= e($prop['student_id_number']) ?>">
                                     <td>
                                         <div class="mb-1">
                                             <?php if ($prop['proposal_type'] === 'new_club'): ?>
@@ -360,10 +381,25 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
                                                 </div>
                                                 <?php endif; ?>
 
-                                                <div class="card p-4 border-0 shadow-xs rounded-4 bg-white">
+                                                <div class="card p-4 border-0 shadow-xs rounded-4 bg-white mb-3">
                                                     <h6 class="fw-bold text-dark mb-2 border-bottom pb-2"><i class="bi bi-card-text text-primary me-2"></i>Objectives, Vision & Scope</h6>
                                                     <p class="small text-secondary mb-0" style="white-space: pre-wrap; line-height: 1.6;"><?= e($prop['objective']) ?></p>
                                                 </div>
+
+                                                <?php if (!empty($prop['proposal_pdf'])): ?>
+                                                    <div class="card p-3 border-0 shadow-xs rounded-4 bg-white d-flex flex-row align-items-center justify-content-between">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <i class="bi bi-file-earmark-pdf-fill text-danger fs-3"></i>
+                                                            <div>
+                                                                <div class="fw-bold text-dark small mb-0">Official Proposal PDF / Attachment</div>
+                                                                <span class="text-muted font-monospace" style="font-size:0.7rem;">Document Presentation</span>
+                                                            </div>
+                                                        </div>
+                                                        <a href="../../<?= e($prop['proposal_pdf']) ?>" target="_blank" class="btn btn-sm btn-danger rounded-pill px-3.5 fw-bold">
+                                                            <i class="bi bi-eye-fill me-1"></i> View / Download Document
+                                                        </a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="modal-footer bg-white border-top p-3 d-flex align-items-center justify-content-between">
                                                 <span class="small text-muted">Submitted on <?= date('d M Y, h:i A', strtotime($prop['created_at'])) ?></span>
@@ -406,27 +442,37 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('proposalSearchInput');
     const statusFilter = document.getElementById('statusFilter');
+    const typeFilter = document.getElementById('typeFilter');
+    const affiliationFilter = document.getElementById('affiliationFilter');
     const rows = document.querySelectorAll('#proposalsTable tbody tr');
 
     function filterTable() {
-        const query = (searchInput.value || '').toLowerCase();
-        const status = statusFilter.value;
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        const status = statusFilter ? statusFilter.value : 'all';
+        const type = typeFilter ? typeFilter.value : 'all';
+        const affiliation = affiliationFilter ? affiliationFilter.value : 'all';
 
         rows.forEach(row => {
-            const title = row.dataset.title.toLowerCase();
-            const applicant = row.dataset.applicant.toLowerCase();
-            const rowStatus = row.dataset.status;
+            const title = (row.dataset.title || '').toLowerCase();
+            const applicant = (row.dataset.applicant || '').toLowerCase();
+            const rowStatus = row.dataset.status || '';
+            const rowType = row.dataset.type || '';
+            const rowStudent = row.dataset.student || '';
             const idNum = (row.dataset.id || '').toLowerCase();
 
-            const matchesQuery = title.includes(query) || applicant.includes(query) || idNum.includes(query);
+            const matchesQuery = !query || title.includes(query) || applicant.includes(query) || idNum.includes(query);
             const matchesStatus = status === 'all' || rowStatus === status;
+            const matchesType = type === 'all' || rowType === type;
+            const matchesAffiliation = affiliation === 'all' || rowStudent === affiliation;
 
-            row.style.display = (matchesQuery && matchesStatus) ? '' : 'none';
+            row.style.display = (matchesQuery && matchesStatus && matchesType && matchesAffiliation) ? '' : 'none';
         });
     }
 
     if (searchInput) searchInput.addEventListener('input', filterTable);
     if (statusFilter) statusFilter.addEventListener('change', filterTable);
+    if (typeFilter) typeFilter.addEventListener('change', filterTable);
+    if (affiliationFilter) affiliationFilter.addEventListener('change', filterTable);
     filterTable();
 });
 </script>

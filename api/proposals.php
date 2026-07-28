@@ -45,6 +45,25 @@ try {
             $studentIdPhoto = trim($input['student_id_photo_url']);
         }
 
+        // Handle Upload for Proposal PDF Document
+        $proposalPdf = '';
+        if (isset($_FILES['proposal_pdf']) && $_FILES['proposal_pdf']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['proposal_pdf'];
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $allowed = ['pdf', 'doc', 'docx', 'jpg', 'png', 'webp'];
+            if (in_array($ext, $allowed)) {
+                $uploadDir = __DIR__ . '/../uploads/proposals/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+                $filename = 'doc_' . bin2hex(random_bytes(6)) . '.' . $ext;
+                $target = $uploadDir . $filename;
+                if (move_uploaded_file($file['tmp_name'], $target)) {
+                    $proposalPdf = 'uploads/proposals/' . $filename;
+                }
+            }
+        }
+
         // Basic validation
         if (empty($applicantName) || empty($applicantEmail) || empty($proposedTitle) || empty($objective)) {
             echo json_encode([
@@ -69,12 +88,12 @@ try {
         $stmt = $db->prepare("
             INSERT INTO club_proposals (
                 id, proposal_type, applicant_name, applicant_email, applicant_phone, proposed_title, objective, faculty_mentor,
-                is_uit_student, student_id_number, student_id_photo, department_branch, academic_year, current_semester, status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+                is_uit_student, student_id_number, student_id_photo, department_branch, academic_year, current_semester, proposal_pdf, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
         ");
         $stmt->execute([
             $id, $type, $applicantName, $applicantEmail, $applicantPhone, $proposedTitle, $objective, $facultyMentor,
-            $isUitStudent, $studentIdNumber, $studentIdPhoto, $departmentBranch, $academicYear, $currentSemester
+            $isUitStudent, $studentIdNumber, $studentIdPhoto, $departmentBranch, $academicYear, $currentSemester, $proposalPdf
         ]);
 
         echo json_encode([

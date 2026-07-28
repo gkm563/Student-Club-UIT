@@ -318,6 +318,9 @@ $searchIndexData = array_merge($clubsSearch, $usersSearch, $propsSearch, $events
                 </div>
 
                 <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <a href="analytics.php" class="btn btn-purple text-white fw-bold rounded-pill px-3.5 py-2 small shadow-sm" style="background:linear-gradient(135deg,#7c3aed,#4f46e5); border:none;" title="View Campus Power BI Analytics Suite">
+                        <i class="bi bi-bar-chart-line-fill me-1"></i> Campus Analytics &rarr;
+                    </a>
                     <a href="proposals.php" class="btn btn-warning text-dark fw-bold rounded-pill px-3.5 py-2 small shadow-sm position-relative">
                         <i class="bi bi-hourglass-split me-1"></i> Pending Proposals
                         <?php if ($pendingProposalsCount > 0): ?>
