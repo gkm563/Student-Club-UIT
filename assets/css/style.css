@@ -2438,28 +2438,41 @@ body {
     box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
 }
 
+.clubs-hero-left-glass {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    padding: 38px 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
 .clubs-hero-headline-image {
-    font-size: 3.3rem;
-    font-weight: 800;
-    line-height: 1.14;
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.15;
     letter-spacing: -1.5px;
-    color: #ffffff;
+    color: #ffffff !important;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
     margin-bottom: 18px;
 }
 
 .clubs-gradient-highlight-image {
-    background: linear-gradient(120deg, #60a5fa 0%, #38bdf8 45%, #c084fc 100%);
+    background: linear-gradient(120deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
 .clubs-hero-desc-image {
-    color: #e2e8f0;
+    color: #f1f5f9 !important;
     font-size: 1.08rem;
     max-width: 580px;
-    line-height: 1.6;
+    line-height: 1.65;
     margin-bottom: 30px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .clubs-hero-search-pill-image {
@@ -2468,69 +2481,73 @@ body {
     border: 2px solid #cbd5e1 !important;
     border-radius: 50px;
     padding: 6px 8px 6px 22px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .clubs-hero-search-pill-image:focus-within,
 .clubs-hero-search-pill-image:hover {
-    border-color: #1d4ed8 !important;
-    box-shadow: 0 14px 38px rgba(29, 78, 216, 0.18);
+    border-color: #38bdf8 !important;
+    box-shadow: 0 14px 40px rgba(56, 189, 248, 0.4);
     transform: translateY(-2px);
 }
 
 .clubs-hero-search-btn-image {
-    background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
     color: #ffffff !important;
     border: none;
     font-size: 0.95rem;
     border-radius: 50px;
     padding: 10px 30px;
     font-weight: 700;
-    box-shadow: 0 6px 20px rgba(29, 78, 216, 0.35);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     transition: all 0.25s ease;
 }
 
 .clubs-hero-search-btn-image:hover {
-    background: linear-gradient(135deg, #1e40af 0%, #0369a1 100%);
+    background: linear-gradient(135deg, #1d4ed8 0%, #0369a1 100%);
     transform: translateY(-1px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(29, 78, 216, 0.5);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.6);
 }
 
-/* Light Mode Colorful Chip Buttons */
+/* Glassmorphic Dark-Mode Chips for Hero Section */
 .chip-green-glow {
-    background: #ecfdf5 !important;
-    border: 1px solid #a7f3d0 !important;
-    color: #047857 !important;
+    background: rgba(16, 185, 129, 0.22) !important;
+    border: 1px solid rgba(52, 211, 153, 0.5) !important;
+    color: #a7f3d0 !important;
+    backdrop-filter: blur(8px);
 }
 
 .chip-purple-glow {
-    background: #f5f3ff !important;
-    border: 1px solid #ddd6fe !important;
-    color: #6d28d9 !important;
+    background: rgba(139, 92, 246, 0.22) !important;
+    border: 1px solid rgba(167, 139, 250, 0.5) !important;
+    color: #ddd6fe !important;
+    backdrop-filter: blur(8px);
 }
 
 .chip-cyan-glow {
-    background: #f0f9ff !important;
-    border: 1px solid #bae6fd !important;
-    color: #0369a1 !important;
+    background: rgba(14, 165, 233, 0.22) !important;
+    border: 1px solid rgba(56, 189, 248, 0.5) !important;
+    color: #bae6fd !important;
+    backdrop-filter: blur(8px);
 }
 
 .chip-orange-glow {
-    background: #fff7ed !important;
-    border: 1px solid #ffedd5 !important;
-    color: #c2410c !important;
+    background: rgba(249, 115, 22, 0.22) !important;
+    border: 1px solid rgba(251, 146, 60, 0.5) !important;
+    color: #fed7aa !important;
+    backdrop-filter: blur(8px);
 }
 
 .hero-chip-btn-image {
     transition: all 0.25s ease;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .hero-chip-btn-image:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Right White Floating Executive Card */
