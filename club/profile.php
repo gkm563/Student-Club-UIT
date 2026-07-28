@@ -208,19 +208,11 @@ $clubGalStmt = $db->prepare("SELECT * FROM gallery_items WHERE club_id = ? ORDER
 $clubGalStmt->execute([$club['id']]);
 $clubPhotos = $clubGalStmt->fetchAll();
 
-// Profile Completion Score
-$profileFields = [
-    'tagline'         => !empty($club['tagline']),
-    'description'     => !empty($club['description']),
-    'mission'         => !empty($club['mission']),
-    'vision'          => !empty($club['vision']),
-    'logo'            => !empty($club['logo']),
-    'cover_image'     => !empty($club['cover_image']),
-    'email'           => !empty($club['email']),
-    'instagram'       => !empty($club['instagram']),
-];
-$profileScore = round(array_sum($profileFields) / count($profileFields) * 100);
-$profileBadge = $profileScore >= 80 ? ['Complete', 'success'] : ($profileScore >= 50 ? ['In Progress', 'warning'] : ['Incomplete', 'danger']);
+// Profile Completion Score (100% Dynamic Calculation)
+$health = calculate_club_profile_health($club, $db);
+$profileScore = $health['score'];
+$profileBadge = [$health['status'], $health['badge_class']];
+$profileFields = $health['fields'];
 
 // Quick Stats counts
 try {

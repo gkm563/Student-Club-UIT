@@ -397,12 +397,38 @@ $categoriesCount   = count($categories);
                 <div class="stat-chip-card">
                     <div class="chip-icon-box bg-purple-subtle text-purple" style="background:#f5f3ff; color:#7c3aed;"><i class="bi bi-grid-3x3-gap-fill"></i></div>
                     <div>
-                        <div class="fw-bold text-dark lh-1" style="font-size:1.35rem;"><?= $categoriesCount ?></div>
-                        <div class="text-secondary small fw-semibold mt-1" style="font-size:0.75rem;">Domain Categories</div>
+<?php
+// Calculate profile setup health scores for all clubs
+$incompleteClubsList = [];
+foreach ($registeredClubs as $cCheck) {
+    $hCheck = calculate_club_profile_health($cCheck, $db);
+    if ($hCheck['score'] < 85) {
+        $cCheck['health'] = $hCheck;
+        $incompleteClubsList[] = $cCheck;
+    }
+}
+?>
+
+        <?php if (!empty($incompleteClubsList)): ?>
+            <div class="alert alert-warning border-0 shadow-sm rounded-4 p-4 mb-4">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-warning text-white p-2.5 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                            <i class="bi bi-exclamation-triangle-fill fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="fw-bold text-dark mb-1"><i class="bi bi-shield-alert me-1"></i> <?= count($incompleteClubsList) ?> Student Chapter(s) Need Profile Setup Completion</h6>
+                            <p class="small text-secondary mb-0">The following clubs have low profile completion scores (&lt; 85%): 
+                                <strong class="text-dark"><?= implode(', ', array_column($incompleteClubsList, 'name')) ?></strong>.
+                            </p>
+                        </div>
                     </div>
+                    <button type="button" class="btn btn-sm btn-dark rounded-pill px-4 py-2 fw-bold shadow-xs" onclick="document.getElementById('clubStatusFilter').value='incomplete'; document.getElementById('clubStatusFilter').dispatchEvent(new Event('change'));">
+                        <i class="bi bi-funnel-fill me-1"></i> Filter Incomplete Clubs
+                    </button>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
 
         <!-- Clubs Filter & Search Toolbar -->
         <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
@@ -418,6 +444,7 @@ $categoriesCount   = count($categories);
                         <option value="all">Filter by Status: All Chapters</option>
                         <option value="active">Active Only</option>
                         <option value="inactive">Inactive Only</option>
+                        <option value="incomplete">Needs Profile Setup (< 85%)</option>
                     </select>
                 </div>
                 <div class="col-md-3 text-md-end d-flex align-items-center justify-content-end gap-2">
@@ -447,6 +474,7 @@ $categoriesCount   = count($categories);
                         <tr class="small text-secondary">
                             <th>CLUB & CODE</th>
                             <th>CATEGORY</th>
+                            <th>PROFILE SETUP HEALTH</th>
                             <th>PRESIDENT / LEAD EMAIL</th>
                             <th>STATUS (PUBLIC VISIBILITY)</th>
                             <th class="text-end">ACTIONS</th>
@@ -454,11 +482,13 @@ $categoriesCount   = count($categories);
                     </thead>
                     <tbody>
                         <?php foreach ($registeredClubs as $club): ?>
+                            <?php $health = calculate_club_profile_health($club, $db); ?>
                             <tr data-name="<?= htmlspecialchars($club['name']) ?>" 
                                 data-short="<?= htmlspecialchars($club['short_name']) ?>" 
                                 data-category="<?= htmlspecialchars($club['category_name']) ?>" 
                                 data-email="<?= htmlspecialchars($club['admin_email'] ?? '') ?>" 
-                                data-status="<?= htmlspecialchars($club['status']) ?>">
+                                data-status="<?= htmlspecialchars($club['status']) ?>"
+                                data-health="<?= $health['score'] ?>">
                                 <td>
                                     <a href="club-detail.php?id=<?= $club['id'] ?>" class="text-decoration-none d-flex align-items-center gap-3" title="View Executive Club Overview">
                                         <img src="<?= htmlspecialchars($club['logo'] ?: '../../assets/United Logo.webp') ?>" class="rounded-3 border shadow-sm flex-shrink-0" style="width:40px;height:40px;object-fit:cover;" alt="">
@@ -470,6 +500,17 @@ $categoriesCount   = count($categories);
                                 </td>
                                 <td>
                                     <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small"><?= htmlspecialchars($club['category_name']) ?></span>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge bg-<?= $health['badge_class'] ?>-subtle text-<?= $health['badge_class'] ?> border rounded-pill px-2.5 py-1 fw-bold" style="font-size: 0.78rem;">
+                                            <i class="bi bi-heart-pulse-fill me-1"></i><?= $health['score'] ?>% <?= $health['status'] ?>
+                                        </span>
+                                    </div>
+                                    <div class="progress rounded-pill mt-1" style="height: 5px; width: 110px;">
+                                        <div class="progress-bar bg-<?= $health['badge_class'] ?>" style="width: <?= $health['score'] ?>%;"></div>
+                                    </div>
+                                    <span class="text-muted small" style="font-size:0.68rem;"><?= $health['filled_count'] ?>/<?= $health['total_fields'] ?> criteria completed</span>
                                 </td>
                                 <td>
                                     <?php if ($club['admin_email']): ?>
@@ -689,9 +730,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = (row.dataset.category || '').toLowerCase();
             const email = (row.dataset.email || '').toLowerCase();
             const status = (row.dataset.status || '').toLowerCase();
+            const healthScore = parseInt(row.dataset.health || '0', 10);
 
             const matchesQuery = !query || name.includes(query) || shortName.includes(query) || category.includes(query) || email.includes(query);
-            const matchesStatus = (selectedStatus === 'all') || (status === selectedStatus);
+            
+            let matchesStatus = (selectedStatus === 'all');
+            if (selectedStatus === 'active') matchesStatus = (status === 'active');
+            if (selectedStatus === 'inactive') matchesStatus = (status === 'inactive');
+            if (selectedStatus === 'incomplete') matchesStatus = (healthScore < 85);
 
             if (matchesQuery && matchesStatus) {
                 row.style.display = '';

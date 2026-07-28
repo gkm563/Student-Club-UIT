@@ -498,6 +498,7 @@ $searchIndexData = array_merge($clubsSearch, $usersSearch, $propsSearch, $events
                         <div class="p-3">
                             <div class="d-flex flex-column gap-2">
                                 <?php foreach ($recentClubs as $rc): ?>
+                                    <?php $rcHealth = calculate_club_profile_health($rc, $db); ?>
                                     <a href="club-detail.php?id=<?= $rc['id'] ?>" class="p-2.5 rounded-3 border d-flex align-items-center justify-content-between text-decoration-none text-dark hover-bg-light" style="transition: background 0.2s ease;">
                                         <div class="d-flex align-items-center gap-3">
                                             <img src="<?= htmlspecialchars($rc['logo'] ?: '../../assets/United Logo.webp') ?>" class="rounded-2 border" style="width:36px;height:36px;object-fit:cover;" alt="">
@@ -506,9 +507,14 @@ $searchIndexData = array_merge($clubsSearch, $usersSearch, $propsSearch, $events
                                                 <span class="text-secondary small" style="font-size:0.75rem;"><?= htmlspecialchars($rc['category_name']) ?></span>
                                             </div>
                                         </div>
-                                        <span class="badge <?= ($rc['status'] === 'active') ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' ?> rounded-pill px-2.5 py-1 small">
-                                            <?= ($rc['status'] === 'active') ? 'Active' : 'Private' ?>
-                                        </span>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-<?= $rcHealth['badge_class'] ?>-subtle text-<?= $rcHealth['badge_class'] ?> border rounded-pill px-2.5 py-1 small">
+                                                <i class="bi bi-heart-pulse me-1"></i><?= $rcHealth['score'] ?>% Health
+                                            </span>
+                                            <span class="badge <?= ($rc['status'] === 'active') ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' ?> rounded-pill px-2.5 py-1 small">
+                                                <?= ($rc['status'] === 'active') ? 'Active' : 'Private' ?>
+                                            </span>
+                                        </div>
                                     </a>
                                 <?php endforeach; ?>
                             </div>

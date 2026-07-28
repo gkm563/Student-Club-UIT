@@ -98,10 +98,81 @@ if (!function_exists('upload_image_file')) {
 
         if (move_uploaded_file($fileArray['tmp_name'], $targetFilePath)) {
             // Return URL relative to site root — works under localhost/UIT/
-            return '/UIT/uploads/' . $subFolder . '/' . $newFilename;
+            return '../uploads/' . $subFolder . '/' . $newFilename;
         }
 
         return $fallbackUrl;
+    }
+}
+
+if (!function_exists('calculate_club_profile_health')) {
+    function calculate_club_profile_health(array $club, PDO $db): array {
+        $clubId = $club['id'] ?? '';
+        
+        $rosterCount = 0;
+        $galleryCount = 0;
+        $eventsCount = 0;
+        
+        if (!empty($clubId)) {
+            try {
+                $rStmt = $db->prepare("SELECT COUNT(*) FROM leadership WHERE club_id = ?");
+                $rStmt->execute([$clubId]);
+                $rosterCount = (int)$rStmt->fetchColumn();
+            } catch (Exception $e) {}
+
+            try {
+                $gStmt = $db->prepare("SELECT COUNT(*) FROM gallery_items WHERE club_id = ?");
+                $gStmt->execute([$clubId]);
+                $galleryCount = (int)$gStmt->fetchColumn();
+            } catch (Exception $e) {}
+
+            try {
+                $eStmt = $db->prepare("SELECT COUNT(*) FROM events WHERE club_id = ?");
+                $eStmt->execute([$clubId]);
+                $eventsCount = (int)$eStmt->fetchColumn();
+            } catch (Exception $e) {}
+        }
+
+        $fields = [
+            'Tagline'             => !empty(trim($club['tagline'] ?? '')),
+            'Description'         => !empty(trim($club['description'] ?? '')),
+            'Mission Statement'   => !empty(trim($club['mission'] ?? '')),
+            'Vision Statement'    => !empty(trim($club['vision'] ?? '')),
+            'Club Logo'           => !empty(trim($club['logo'] ?? '')),
+            'Cover Banner'        => !empty(trim($club['cover_image'] ?? '')),
+            'Contact Email'       => !empty(trim($club['email'] ?? '')),
+            'Meeting Schedule'    => !empty(trim($club['meeting_time'] ?? '')),
+            'Office / Location'   => (!empty(trim($club['office_location'] ?? '')) || !empty(trim($club['meeting_location'] ?? ''))),
+            'Social Media Links'  => (!empty(trim($club['instagram'] ?? '')) || !empty(trim($club['linkedin'] ?? '')) || !empty(trim($club['website'] ?? ''))),
+            'Leadership Roster'   => $rosterCount > 0,
+            'Portfolio Gallery'   => $galleryCount > 0,
+        ];
+
+        $filledCount = array_sum($fields);
+        $totalFields = count($fields);
+        $score = (int)round(($filledCount / $totalFields) * 100);
+
+        $status = 'Incomplete';
+        $badgeClass = 'danger';
+        if ($score >= 85) {
+            $status = 'Complete';
+            $badgeClass = 'success';
+        } elseif ($score >= 50) {
+            $status = 'In Progress';
+            $badgeClass = 'warning';
+        }
+
+        return [
+            'score'        => $score,
+            'filled_count' => $filledCount,
+            'total_fields' => $totalFields,
+            'status'       => $status,
+            'badge_class'  => $badgeClass,
+            'fields'       => $fields,
+            'roster_count' => $rosterCount,
+            'gallery_count'=> $galleryCount,
+            'events_count' => $eventsCount
+        ];
     }
 }
 
