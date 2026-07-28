@@ -17,7 +17,7 @@ try {
         SELECT e.*, c.name as club_name, c.short_name as club_short_name, c.logo as club_logo, c.id as club_id
         FROM events e
         JOIN clubs c ON e.club_id = c.id
-        WHERE c.status != 'suspended' AND e.status NOT IN ('draft', 'hidden', 'archived')
+        WHERE c.status = 'active' AND e.status NOT IN ('draft', 'hidden', 'archived')
         ORDER BY e.event_date ASC
     ");
     $allEvents = $stmt->fetchAll();

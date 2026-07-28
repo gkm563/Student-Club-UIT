@@ -17,7 +17,7 @@ try {
         SELECT c.id, c.name, c.short_name, c.slug, c.tagline, cat.name AS category_name
         FROM clubs c
         JOIN categories cat ON c.category_id = cat.id
-        WHERE c.deleted_at IS NULL
+        WHERE c.deleted_at IS NULL AND c.status = 'active'
           AND (c.name LIKE ? OR c.short_name LIKE ? OR c.tagline LIKE ? OR cat.name LIKE ?)
         LIMIT 8
     ");

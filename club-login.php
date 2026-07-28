@@ -35,38 +35,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Incorrect CAPTCHA verification code. Please enter the code shown in the image.";
     } else {
         if (empty($email) || empty($password)) {
-            $error = "Please enter your club credentials.";
+            $error = "Please enter your email address and password.";
         } else {
             $db = Database::getConnection();
-            // Prepared Statement preventing SQL Injection & Auth Bypass
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'club_admin' AND status = 'active'");
+            // Fetch user by email and role
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'club_admin'");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
             // Password Hash Verification using BCRYPT
             if ($user && password_verify($password, $user['password_hash'])) {
-                session_regenerate_id(true);
-                reset_login_rate_limit($email);
+                if (($user['status'] ?? 'active') !== 'active') {
+                    $error = "Account Suspended: Your access has been suspended by the Dean of Student Affairs. Please contact SAC governance.";
+                } else {
+                    session_regenerate_id(true);
+                    reset_login_rate_limit($email);
 
-                $_SESSION['user_id']   = $user['id'];
-                $_SESSION['user_name'] = $user['full_name'];
-                $_SESSION['full_name'] = $user['full_name'];
-                $_SESSION['email']     = $user['email'];
-                $_SESSION['user_role'] = $user['role'];
-                $_SESSION['role']      = $user['role'];
+                    $_SESSION['user_id']   = $user['id'];
+                    $_SESSION['user_name'] = $user['full_name'];
+                    $_SESSION['full_name'] = $user['full_name'];
+                    $_SESSION['email']     = $user['email'];
+                    $_SESSION['user_role'] = $user['role'];
+                    $_SESSION['role']      = $user['role'];
 
-                // Fetch assigned club ID safely using prepared statement
-                $stmtClub = $db->prepare("SELECT club_id FROM club_admins WHERE user_id = ?");
-                $stmtClub->execute([$user['id']]);
-                $_SESSION['assigned_club_id'] = $stmtClub->fetchColumn() ?: null;
+                    // Fetch assigned club ID safely using prepared statement
+                    $stmtClub = $db->prepare("SELECT club_id FROM club_admins WHERE user_id = ?");
+                    $stmtClub->execute([$user['id']]);
+                    $_SESSION['assigned_club_id'] = $stmtClub->fetchColumn() ?: null;
 
-                log_audit($db, $user['id'], $user['full_name'], 'CLUB_ADMIN_LOGIN', 'user', $user['id'], "Club admin logged in");
+                    log_audit($db, $user['id'], $user['full_name'], 'CLUB_ADMIN_LOGIN', 'user', $user['id'], "Club admin logged in");
 
-                header("Location: club/dashboard.php");
-                exit;
+                    header("Location: club/dashboard.php");
+                    exit;
+                }
             } else {
                 record_failed_login_attempt($email);
-                $error = "Invalid club email or password. If you are Dean Sir, please use the /admin/dean-login.php portal.";
+                $error = "Invalid email address or password. Please try again.";
             }
         }
     }
@@ -124,15 +128,10 @@ require_once __DIR__ . '/includes/header.php';
                         <input type="text" name="captcha_code" class="form-control text-uppercase font-monospace fw-bold" placeholder="ENTER CODE" maxlength="6" autocomplete="off" required>
                     </div>
 
-                    <button type="submit" class="btn btn-success rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-3">
+                    <button type="submit" class="btn btn-success rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-0">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Log In as Club Lead
                     </button>
                 </form>
-
-                <div class="pt-3 border-top mt-3 small text-muted">
-                    <span>Dean Sir or Faculty Admin?</span>
-                    <a href="admin/dean-login.php" class="fw-bold text-primary text-decoration-none ms-1">Go to Dean Admin Login &rarr;</a>
-                </div>
             </div>
         </div>
     </div>

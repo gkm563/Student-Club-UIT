@@ -59,6 +59,7 @@ try {
             FROM gallery_items g
             JOIN clubs c ON g.club_id = c.id
             LEFT JOIN categories cat ON c.category_id = cat.id
+            WHERE c.status = 'active'
             ORDER BY g.created_at DESC
         ");
         $items = $stmt->fetchAll();

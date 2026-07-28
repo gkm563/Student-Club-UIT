@@ -16,6 +16,7 @@ try {
         SELECT l.*, c.name as club_name, c.short_name as club_short_name, c.slug as club_slug
         FROM leadership l
         JOIN clubs c ON l.club_id = c.id
+        WHERE c.status = 'active'
         ORDER BY l.order_index ASC, l.name ASC
     ");
     $leaders = $stmt->fetchAll();

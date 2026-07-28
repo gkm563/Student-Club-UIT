@@ -13,10 +13,10 @@ try {
     $db = Database::getConnection();
 
     // Real DB Counts
-    $clubsCount = (int)$db->query("SELECT COUNT(*) FROM clubs WHERE status != 'suspended'")->fetchColumn();
-    $leadersCount = (int)$db->query("SELECT COUNT(*) FROM leadership")->fetchColumn();
-    $eventsCount = (int)$db->query("SELECT COUNT(*) FROM events")->fetchColumn();
-    $activitiesCount = (int)$db->query("SELECT COUNT(*) FROM events WHERE status = 'completed'")->fetchColumn();
+    $clubsCount = (int)$db->query("SELECT COUNT(*) FROM clubs WHERE status = 'active'")->fetchColumn();
+    $leadersCount = (int)$db->query("SELECT COUNT(*) FROM leadership l JOIN clubs c ON l.club_id = c.id WHERE c.status = 'active'")->fetchColumn();
+    $eventsCount = (int)$db->query("SELECT COUNT(*) FROM events e JOIN clubs c ON e.club_id = c.id WHERE c.status = 'active'")->fetchColumn();
+    $activitiesCount = (int)$db->query("SELECT COUNT(*) FROM events e JOIN clubs c ON e.club_id = c.id WHERE e.status = 'completed' AND c.status = 'active'")->fetchColumn();
 
     echo json_encode([
         'status' => 'success',

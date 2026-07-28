@@ -37,31 +37,35 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         $error = "Incorrect verification code (CAPTCHA). Please enter the code shown in the image.";
     } else {
         if (empty($email) || empty($password)) {
-            $error = "Please enter Dean Sir email address and password.";
+            $error = "Please enter your email address and password.";
         } else {
             $db = Database::getConnection();
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin' AND status = 'active'");
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin'");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password_hash'])) {
-                session_regenerate_id(true);
-                reset_login_rate_limit($email);
+                if (($user['status'] ?? 'active') !== 'active') {
+                    $error = "Account Suspended: Your admin access has been suspended.";
+                } else {
+                    session_regenerate_id(true);
+                    reset_login_rate_limit($email);
 
-                $_SESSION['user_id']   = $user['id'];
-                $_SESSION['user_name'] = $user['full_name'];
-                $_SESSION['full_name'] = $user['full_name'];
-                $_SESSION['email']     = $user['email'];
-                $_SESSION['user_role'] = $user['role'];
-                $_SESSION['role']      = $user['role'];
+                    $_SESSION['user_id']   = $user['id'];
+                    $_SESSION['user_name'] = $user['full_name'];
+                    $_SESSION['full_name'] = $user['full_name'];
+                    $_SESSION['email']     = $user['email'];
+                    $_SESSION['user_role'] = $user['role'];
+                    $_SESSION['role']      = $user['role'];
 
-                log_audit($db, $user['id'], $user['full_name'], 'SUPER_ADMIN_LOGIN', 'user', $user['id'], "Dean Sir logged into Super Admin Portal");
+                    log_audit($db, $user['id'], $user['full_name'], 'SUPER_ADMIN_LOGIN', 'user', $user['id'], "Main Admin logged into Super Admin Portal");
 
-                header("Location: dashboard.php");
-                exit;
+                    header("Location: dashboard.php");
+                    exit;
+                }
             } else {
                 record_failed_login_attempt($email);
-                $error = "Invalid email address or password. Please verify your Dean Sir credentials and try again.";
+                $error = "Invalid email address or password. Please try again.";
             }
         }
     }

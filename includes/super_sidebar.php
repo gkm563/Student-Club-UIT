@@ -28,42 +28,42 @@ if (class_exists('Database')) {
     
     .super-sidebar {
         width: var(--super-sidebar-width);
-        background: linear-gradient(180deg, #090d16 0%, #0f172a 35%, #181537 75%, #090c15 100%);
+        background: #ffffff;
         min-height: 100vh;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 6px 0 32px rgba(0,0,0,0.45);
+        box-shadow: 4px 0 24px rgba(15, 23, 42, 0.05);
         z-index: 1050;
-        border-right: 1px solid rgba(255, 255, 255, 0.07);
+        border-right: 1px solid #e2e8f0;
     }
     
     .super-sidebar-brand {
-        padding: 6px 8px 18px 8px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 4px 4px 16px 4px;
+        border-bottom: 1px solid #f1f5f9;
     }
 
     .brand-logo-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         border-radius: 16px;
         padding: 10px 12px;
-        backdrop-filter: blur(10px);
-        transition: transform 0.2s ease;
+        transition: all 0.2s ease;
     }
     .brand-logo-card:hover {
-        background: rgba(255, 255, 255, 0.08);
+        background: #f1f5f9;
+        border-color: #cbd5e1;
     }
 
     .admin-nav-link {
-        color: rgba(255, 255, 255, 0.75);
+        color: #475569;
         padding: 11px 15px;
         border-radius: 14px;
         display: flex;
         align-items: center;
         gap: 12px;
         text-decoration: none;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 0.88rem;
-        transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         margin-bottom: 4px;
         position: relative;
         border: 1px solid transparent;
@@ -73,46 +73,36 @@ if (class_exists('Database')) {
         width: 24px;
         text-align: center;
         flex-shrink: 0;
+        color: #64748b;
         transition: transform 0.2s ease, color 0.2s ease;
     }
     
     .admin-nav-link:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: #ffffff;
+        background: #f1f5f9;
+        color: #0f172a;
         transform: translateX(4px);
-        border-color: rgba(255, 255, 255, 0.1);
+        border-color: #e2e8f0;
     }
     .admin-nav-link:hover i {
-        color: #818cf8;
-        transform: scale(1.1);
+        color: #4f46e5;
+        transform: scale(1.12);
     }
     
     .admin-nav-link.active {
-        background: linear-gradient(135deg, rgba(99,102,241,0.25) 0%, rgba(168,85,247,0.2) 100%);
-        color: #ffffff;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        color: #ffffff !important;
         font-weight: 700;
-        border: 1px solid rgba(168,85,247,0.4);
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.25);
-    }
-    .admin-nav-link.active::before {
-        content: '';
-        position: absolute;
-        left: -12px;
-        top: 20%;
-        bottom: 20%;
-        width: 4px;
-        border-radius: 4px;
-        background: linear-gradient(180deg, #818cf8 0%, #c084fc 100%);
-        box-shadow: 0 0 10px #c084fc;
+        box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
+        border-color: transparent;
     }
     .admin-nav-link.active i {
-        color: #a855f7;
+        color: #ffffff !important;
     }
 
     .sidebar-section-label {
-        color: rgba(255, 255, 255, 0.4);
+        color: #94a3b8;
         font-size: 0.65rem;
-        letter-spacing: 1.6px;
+        letter-spacing: 1.5px;
         font-weight: 800;
         text-transform: uppercase;
         padding: 0 12px;
@@ -128,11 +118,10 @@ if (class_exists('Database')) {
     }
 
     .dean-footer-card {
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(255,255,255,0.1);
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
         border-radius: 18px;
         padding: 12px;
-        backdrop-filter: blur(8px);
     }
 
     @media (max-width: 991.98px) {
@@ -151,8 +140,8 @@ if (class_exists('Database')) {
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(9, 13, 22, 0.7);
-            backdrop-filter: blur(6px);
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
             z-index: 1040;
             display: none;
         }
@@ -163,20 +152,20 @@ if (class_exists('Database')) {
 </style>
 
 <!-- Mobile Header Bar (< 992px) -->
-<header class="d-lg-none text-white p-3 d-flex align-items-center justify-content-between shadow-sm sticky-top w-100" style="background: #090d16 !important; z-index:1030; border-bottom: 1px solid rgba(255,255,255,0.1);">
+<header class="d-lg-none text-dark p-3 d-flex align-items-center justify-content-between shadow-sm sticky-top w-100 bg-white border-bottom" style="z-index:1030;">
     <div class="d-flex align-items-center gap-2.5">
-        <button class="btn btn-outline-light btn-sm rounded-circle p-2" type="button" id="superSidebarToggleBtn" aria-label="Toggle Sidebar">
+        <button class="btn btn-outline-dark btn-sm rounded-circle p-2" type="button" id="superSidebarToggleBtn" aria-label="Toggle Sidebar">
             <i class="bi bi-list fs-5"></i>
         </button>
         <div class="d-flex align-items-center gap-2">
             <img src="../../assets/United Logo.webp" style="height: 28px; width: auto;" alt="United Logo">
             <div>
-                <div class="fw-bold text-white small lh-1">Dean Sir Portal</div>
-                <div class="text-white-50" style="font-size:0.6rem;">UNITED INSTITUTE</div>
+                <div class="fw-bold text-dark small lh-1">Dean Portal</div>
+                <div class="text-muted" style="font-size:0.6rem;">UNITED INSTITUTE</div>
             </div>
         </div>
     </div>
-    <span class="badge bg-purple-subtle text-purple border rounded-pill px-2.5 py-1 small" style="background:#f5f3ff; color:#7c3aed;">EXECUTIVE GOVERNANCE</span>
+    <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small">EXECUTIVE GOVERNANCE</span>
 </header>
 
 <!-- Mobile Sidebar Overlay Backdrop -->
@@ -189,17 +178,17 @@ if (class_exists('Database')) {
         <div class="super-sidebar-brand mb-3">
             <div class="brand-logo-card d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-2.5">
-                    <div class="bg-white rounded-3 p-1.5 shadow-xs d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; flex-shrink: 0;">
-                        <img src="../../assets/United Logo.webp" alt="United Logo" style="max-height: 28px; width: auto; object-fit: contain;">
+                    <div class="bg-white rounded-3 p-1.5 shadow-xs d-flex align-items-center justify-content-center border" style="width: 38px; height: 38px; flex-shrink: 0;">
+                        <img src="../../assets/United Logo.webp" alt="United Logo" style="max-height: 26px; width: auto; object-fit: contain;">
                     </div>
                     <div>
-                        <div class="fw-bold text-white lh-1 mb-1" style="font-size: 0.96rem; letter-spacing: -0.2px;">ClubHub UIT</div>
-                        <span class="badge rounded-pill px-2.5 py-1 text-uppercase fw-bold shadow-xs" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #0f172a; font-size: 0.62rem; letter-spacing: 0.8px; font-weight: 800;">
+                        <div class="fw-bold text-dark lh-1 mb-1" style="font-size: 0.96rem; letter-spacing: -0.2px;">ClubHub UIT</div>
+                        <span class="badge rounded-pill px-2.5 py-1 text-uppercase fw-bold shadow-xs" style="background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #ffffff; font-size: 0.6rem; letter-spacing: 0.8px; font-weight: 800;">
                             <i class="bi bi-shield-fill-check me-1"></i> DEAN GOVERNANCE
                         </span>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white d-lg-none" id="superSidebarCloseBtn" aria-label="Close"></button>
+                <button type="button" class="btn-close d-lg-none" id="superSidebarCloseBtn" aria-label="Close"></button>
             </div>
         </div>
 
@@ -225,9 +214,9 @@ if (class_exists('Database')) {
             </a>
 
             <a href="clubs.php"
-               class="admin-nav-link <?= str_contains($currentSuperUri, 'clubs.php') ? 'active' : '' ?>">
+               class="admin-nav-link <?= (str_contains($currentSuperUri, 'clubs.php') || str_contains($currentSuperUri, 'club-detail.php')) ? 'active' : '' ?>">
                 <i class="bi bi-trophy-fill"></i>
-                <span>Manage Clubs</span>
+                <span>Campus Student Clubs</span>
             </a>
 
             <a href="categories.php"
@@ -238,8 +227,8 @@ if (class_exists('Database')) {
 
             <a href="users.php"
                class="admin-nav-link <?= str_contains($currentSuperUri, 'users.php') ? 'active' : '' ?>">
-                <i class="bi bi-person-gear"></i>
-                <span>Club Accounts</span>
+                <i class="bi bi-shield-lock-fill"></i>
+                <span>System Main Admins</span>
             </a>
 
             <!-- SECTION 2: AUDIT & HELPDESK -->
@@ -263,7 +252,7 @@ if (class_exists('Database')) {
             <!-- SECTION 3: EXTERNAL -->
             <div class="sidebar-section-label">Quick Portals</div>
 
-            <a href="../../index.html" target="_blank" class="admin-nav-link text-info">
+            <a href="../../index.html" target="_blank" class="admin-nav-link text-primary">
                 <i class="bi bi-globe2"></i>
                 <span>Public Student Portal</span>
                 <i class="bi bi-arrow-up-right small ms-auto opacity-50"></i>
@@ -276,15 +265,15 @@ if (class_exists('Database')) {
         <div class="d-flex align-items-center gap-2.5 mb-2.5">
             <div class="position-relative">
                 <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm"
-                     style="width:38px;height:38px;background:linear-gradient(135deg,#6366f1,#a855f7);font-size:0.92rem;flex-shrink:0;">
+                     style="width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#7c3aed);font-size:0.92rem;flex-shrink:0;">
                     <?= strtoupper(substr($firstName, 0, 1)) ?>
                 </div>
                 <span class="position-absolute bottom-0 end-0 rounded-circle"
-                      style="width:9px;height:9px;background:#22c55e;border:2px solid #090d16; box-shadow:0 0 6px #22c55e;"></span>
+                      style="width:9px;height:9px;background:#22c55e;border:2px solid #ffffff; box-shadow:0 0 4px #22c55e;"></span>
             </div>
             <div class="flex-grow-1 overflow-hidden">
-                <div class="text-white fw-bold text-truncate" style="font-size:0.84rem;"><?= htmlspecialchars($deanName) ?></div>
-                <div class="text-white-50" style="font-size:0.65rem;">Dean (Student Affairs)</div>
+                <div class="text-dark fw-bold text-truncate" style="font-size:0.84rem;"><?= htmlspecialchars($deanName) ?></div>
+                <div class="text-muted" style="font-size:0.65rem;">Dean (Student Affairs)</div>
             </div>
         </div>
         <a href="../logout.php" class="btn btn-outline-danger btn-sm w-100 rounded-pill fw-bold py-1.5" style="font-size:0.78rem;">

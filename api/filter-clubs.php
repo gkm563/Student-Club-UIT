@@ -22,6 +22,8 @@ try {
     if ($statusFilter !== 'all') {
         $where[] = "c.status = ?";
         $params[] = $statusFilter;
+    } else {
+        $where[] = "c.status = 'active'";
     }
 
     if (!empty($search)) {

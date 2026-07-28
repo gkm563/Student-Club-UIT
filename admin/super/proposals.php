@@ -64,26 +64,52 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <style>
-        body { background: #f8fafc; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #f8fafc; font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #1e293b; }
         .proposal-card {
             border: 1px solid #e2e8f0;
             border-radius: 18px;
             background: #ffffff;
-            transition: all 0.2s ease;
+            padding: 20px 22px;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .proposal-card:hover {
-            box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
             border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+        .proposal-card i, .proposal-card svg {
+            margin-right: 6px;
+            display: inline-block;
         }
         .student-badge {
             background: linear-gradient(135deg, #7c3aed, #4f46e5);
             color: #ffffff;
         }
         .id-card-preview {
-            max-height: 220px;
+            max-height: 240px;
             object-fit: cover;
             border-radius: 12px;
             border: 2px solid #e2e8f0;
+        }
+        .table-custom th {
+            font-size: 0.72rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #64748b;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 14px 18px;
+            white-space: nowrap;
+        }
+        .table-custom td {
+            padding: 16px 18px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .table-custom tr:last-child td {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -100,12 +126,12 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
             <div>
                 <span class="badge bg-purple-subtle text-purple border rounded-pill px-3 py-1 fw-bold small" style="background:#f5f3ff; color:#7c3aed;">DEAN GOVERNANCE PORTAL</span>
-                <h2 class="fw-bold mb-1 text-dark">Club & Campus Event Proposals</h2>
+                <h2 class="fw-bold mb-1 text-dark mt-2">Club & Campus Event Proposals</h2>
                 <p class="text-secondary small mb-0">Review student and faculty proposals, verify registered UIT college student credentials, and issue official Dean approvals.</p>
             </div>
             <div class="d-flex gap-2">
-                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3.5 py-2 fw-bold d-flex align-items-center gap-1.5">
-                    <i class="bi bi-clock-history"></i> Pending Review: <?= $pendingCount ?>
+                <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-2 fw-bold d-flex align-items-center gap-2">
+                    <i class="bi bi-clock-history m-0"></i> Pending Review: <?= $pendingCount ?>
                 </span>
             </div>
         </div>
@@ -134,26 +160,26 @@ $studentCount = count(array_filter($proposals, fn($p) => !empty($p['is_uit_stude
         <!-- KPI Metric Cards Grid -->
         <div class="row g-3 mb-4">
             <div class="col-6 col-md-3">
-                <div class="card proposal-card p-3.5 shadow-xs">
-                    <span class="text-secondary small fw-bold text-uppercase d-block mb-1" style="font-size:0.7rem;">TOTAL SUBMISSIONS</span>
+                <div class="card proposal-card shadow-xs">
+                    <span class="text-secondary small fw-bold text-uppercase d-block mb-2" style="font-size:0.7rem;">TOTAL SUBMISSIONS</span>
                     <h3 class="fw-bold text-dark mb-0"><?= $totalCount ?></h3>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="card proposal-card p-3.5 shadow-xs">
-                    <span class="text-warning small fw-bold text-uppercase d-block mb-1" style="font-size:0.7rem;">PENDING DEAN REVIEW</span>
+                <div class="card proposal-card shadow-xs">
+                    <span class="text-warning small fw-bold text-uppercase d-block mb-2" style="font-size:0.7rem;">PENDING DEAN REVIEW</span>
                     <h3 class="fw-bold text-warning mb-0"><?= $pendingCount ?></h3>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="card proposal-card p-3.5 shadow-xs">
-                    <span class="text-purple small fw-bold text-uppercase d-block mb-1" style="font-size:0.7rem; color:#7c3aed;">REGISTERED UIT STUDENTS</span>
+                <div class="card proposal-card shadow-xs">
+                    <span class="text-purple small fw-bold text-uppercase d-block mb-2" style="font-size:0.7rem; color:#7c3aed;">REGISTERED UIT STUDENTS</span>
                     <h3 class="fw-bold mb-0" style="color:#7c3aed;"><?= $studentCount ?></h3>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="card proposal-card p-3.5 shadow-xs">
-                    <span class="text-success small fw-bold text-uppercase d-block mb-1" style="font-size:0.7rem;">APPROVED PROPOSALS</span>
+                <div class="card proposal-card shadow-xs">
+                    <span class="text-success small fw-bold text-uppercase d-block mb-2" style="font-size:0.7rem;">APPROVED PROPOSALS</span>
                     <h3 class="fw-bold text-success mb-0"><?= $approvedCount ?></h3>
                 </div>
             </div>

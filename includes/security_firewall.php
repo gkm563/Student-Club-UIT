@@ -12,6 +12,7 @@ if (!function_exists('run_campus_security_firewall')) {
             header("X-Content-Type-Options: nosniff");
             header("X-XSS-Protection: 1; mode=block");
             header("Referrer-Policy: strict-origin-when-cross-origin");
+            header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
             header("Permissions-Policy: geolocation=(), microphone=(), camera=()");
             header("X-Permitted-Cross-Domain-Policies: none");
             header("Content-Security-Policy: default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';");

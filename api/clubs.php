@@ -20,14 +20,14 @@ try {
             SELECT c.*, cat.name as category_name, cat.slug as category_slug, cat.icon as category_icon
             FROM clubs c
             JOIN categories cat ON c.category_id = cat.id
-            WHERE (c.id = ? OR c.slug = ?) AND c.status != 'suspended'
+            WHERE (c.id = ? OR c.slug = ?) AND c.status = 'active'
             LIMIT 1
         ");
         $stmt->execute([$identifier, $identifier]);
         $club = $stmt->fetch();
 
         if (!$club) {
-            echo json_encode(['status' => 'error', 'message' => 'Club not found']);
+            echo json_encode(['status' => 'error', 'message' => 'Club not found or is currently private/inactive']);
             exit;
         }
 
@@ -72,7 +72,7 @@ try {
         (SELECT COUNT(*) FROM leadership l WHERE l.club_id = c.id) as member_count
         FROM clubs c
         JOIN categories cat ON c.category_id = cat.id
-        WHERE c.status != 'suspended'
+        WHERE c.status = 'active'
     ";
     $params = [];
 
@@ -106,7 +106,7 @@ try {
     $catStmt = $db->query("
         SELECT cat.*, COUNT(c.id) as club_count 
         FROM categories cat 
-        LEFT JOIN clubs c ON c.category_id = cat.id AND c.status != 'suspended'
+        LEFT JOIN clubs c ON c.category_id = cat.id AND c.status = 'active'
         GROUP BY cat.id
     ");
     $categories = $catStmt->fetchAll();

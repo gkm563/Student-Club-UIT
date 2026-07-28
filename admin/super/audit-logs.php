@@ -136,12 +136,17 @@ function actionBadgeClass(string $action): string {
                 <p class="text-secondary small mb-0">Immutable record of all administrative actions, credential changes, and audit events.</p>
             </div>
             <div class="d-flex gap-2 no-print">
-                <button class="btn btn-outline-secondary rounded-pill px-3 fw-semibold" onclick="exportTableCSV()">
-                    <i class="bi bi-download me-1"></i> Export CSV
-                </button>
-                <button class="btn btn-outline-secondary rounded-pill px-3 fw-semibold" onclick="window.print()">
-                    <i class="bi bi-printer me-1"></i> Print
-                </button>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary rounded-pill px-3 dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-download me-1"></i> Export Data
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end rounded-4 shadow border-0 p-2">
+                        <li><a class="dropdown-item rounded-3 small py-2 fw-medium" href="#" onclick="ClubHubExporter.exportCSV('auditLogsTable', 'Audit-Logs'); return false;"><i class="bi bi-filetype-csv text-success me-2 fs-6"></i> Export CSV (.csv)</a></li>
+                        <li><a class="dropdown-item rounded-3 small py-2 fw-medium" href="#" onclick="ClubHubExporter.exportExcel('auditLogsTable', 'Audit-Logs'); return false;"><i class="bi bi-file-earmark-excel text-success me-2 fs-6"></i> Export Excel (.xls)</a></li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li><a class="dropdown-item rounded-3 small py-2 fw-medium" href="#" onclick="ClubHubExporter.exportPDF('auditLogsTable', 'Administrative Security Audit Logs Report'); return false;"><i class="bi bi-file-earmark-pdf text-danger me-2 fs-6"></i> Print / Save PDF Report</a></li>
+                    </ul>
+                </div>
                 <button class="btn btn-danger rounded-pill px-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#clearLogsModal">
                     <i class="bi bi-trash me-1"></i> Clear Old Logs
                 </button>
@@ -357,6 +362,7 @@ function actionBadgeClass(string $action): string {
     </div>
 </div>
 
+<script src="../../assets/js/export_utility.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 // Instant Search Filter
