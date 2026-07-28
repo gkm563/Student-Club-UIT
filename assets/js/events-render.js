@@ -422,78 +422,81 @@ function renderFloatingEventCard(event, isPast = false) {
 
     return `
         <div class="col-md-6 col-lg-4">
-            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn shadow-sm hover-shadow-lg transition-all" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer; border-radius: 18px; overflow: hidden; border: 1px solid #e2e8f0;">
+            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn shadow-sm transition-all" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer; border-radius: 20px; overflow: hidden; border: 1.5px solid #e2e8f0; background: #ffffff;">
                 <!-- Cover Image Banner -->
-                <div class="position-relative overflow-hidden" style="height: 175px;">
+                <div class="position-relative overflow-hidden" style="height: 190px;">
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
                     <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.85) 100%);"></div>
 
                     <!-- Floating Frosted Date Badge -->
-                    <div class="position-absolute top-0 start-0 m-2.5 z-2">
-                        <div class="google-date-badge text-center" style="min-width: 54px; padding: 6px 10px;">
-                            <span class="date-day d-block" style="font-size: 1.15rem; line-height: 1;">${day}</span>
-                            <span class="date-month d-block" style="font-size: 0.68rem;">${month} '${String(year).slice(-2)}</span>
+                    <div class="position-absolute top-0 start-0 m-3 z-2">
+                        <div class="google-date-badge text-center shadow-sm" style="min-width: 58px; padding: 7px 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-radius: 14px; border: 1px solid rgba(255,255,255,0.9);">
+                            <span class="date-day d-block text-primary fw-black" style="font-size: 1.25rem; line-height: 1; font-family: 'Outfit', sans-serif;">${day}</span>
+                            <span class="date-month d-block text-dark fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
                         </div>
                     </div>
 
                     <!-- Status Ribbon Floating Top Right -->
-                    <div class="position-absolute top-0 end-0 m-2.5 z-2">
+                    <div class="position-absolute top-0 end-0 m-3 z-2">
                         ${statusBadge}
                     </div>
 
                     <!-- Club Badge Floating Overlay -->
-                    <div class="position-absolute bottom-0 start-0 m-2.5 z-2">
-                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-85 text-white border border-white-20 rounded-pill px-2.5 py-1 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" style="font-size: 0.72rem;" title="Filter all events by ${escapeHtml(event.club_name)}">
+                    <div class="position-absolute bottom-0 start-0 m-3 z-2">
+                        <a href="#" class="filter-this-club-btn badge text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" style="font-size: 0.76rem; background: rgba(15, 23, 42, 0.78); backdrop-filter: blur(10px);" title="Filter all events by ${escapeHtml(event.club_name)}">
                             <i class="bi bi-shield-fill text-info"></i> <span>${escapeHtml(event.club_short_name || event.club_name)}</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Event Body -->
-                <div class="p-3.5 flex-grow-1 d-flex flex-column bg-white">
-                    <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
-                        <span class="small text-primary fw-bold" style="font-size: 0.76rem;">
+                <div class="p-4 flex-grow-1 d-flex flex-column bg-white">
+                    <!-- Date & RSVP Meta Header Bar -->
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <span class="small text-primary fw-extrabold" style="font-size: 0.80rem;">
                             <i class="bi bi-calendar3 me-1"></i> ${fullDateFormatted}
                         </span>
-                        <span class="small text-secondary fw-semibold" style="font-size: 0.76rem;">
-                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> RSVP'd
+                        <span class="small text-secondary fw-bold" style="font-size: 0.80rem;">
+                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark fw-extrabold">${registeredCount}+</strong> Coders
                         </span>
                     </div>
 
-                    <h5 class="fw-extrabold text-dark mb-2 mt-1" style="font-size: 1.06rem; line-height: 1.35; letter-spacing: -0.3px;">
+                    <!-- Event Title -->
+                    <h4 class="fw-extrabold text-dark mb-2 mt-1" style="font-size: 1.15rem; line-height: 1.4; letter-spacing: -0.3px; color: #0f172a !important;">
                         ${escapeHtml(event.title)}
-                    </h5>
+                    </h4>
 
-                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.83rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                    <!-- Event Description -->
+                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.86rem; line-height: 1.6; color: #475569 !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                         ${escapeHtml(event.description || 'Join us for an exciting campus tech session organized by student chapter leads at UIT.')}
                     </p>
 
                     ${event.outcomes_summary ? `
-                        <div class="rounded-3 p-2 mb-3 bg-light border border-light-subtle small text-dark d-flex align-items-center gap-2" style="font-size: 0.76rem;">
-                            <i class="bi bi-award-fill text-warning fs-6 flex-shrink-0"></i>
+                        <div class="rounded-3 p-2.5 mb-3 bg-light border border-light-subtle small text-dark d-flex align-items-center gap-2" style="font-size: 0.78rem;">
+                            <i class="bi bi-award-fill text-warning fs-5 flex-shrink-0"></i>
                             <div class="text-truncate"><strong>Rewards:</strong> ${escapeHtml(event.outcomes_summary)}</div>
                         </div>
                     ` : ''}
 
                     <!-- Meta Bar & Footer Button -->
-                    <div class="pt-2.5 border-top mt-auto">
-                        <div class="small text-muted mb-2.5 d-flex align-items-center justify-content-between gap-2" style="font-size: 0.78rem;">
-                            <span class="text-dark fw-medium text-truncate" style="max-width: 60%;"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
-                            <span class="text-secondary font-monospace"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
+                    <div class="pt-3 border-top mt-auto" style="border-color: #f1f5f9 !important;">
+                        <div class="small text-muted mb-3 d-flex align-items-center justify-content-between gap-2" style="font-size: 0.80rem;">
+                            <span class="text-dark fw-bold text-truncate" style="max-width: 60%;"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
+                            <span class="text-secondary font-monospace fw-bold"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
                         </div>
 
                         ${event.status === 'ongoing' || event.status === 'live' ? `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #ef4444, #dc2626); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);">
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2.5 fw-extrabold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #ef4444, #dc2626); border: none; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);">
                                 <span>Join Live Session Now</span>
                                 <i class="bi bi-play-circle-fill text-white ms-1"></i>
                             </a>
                         ` : (!isPast && event.status !== 'completed' ? `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2.5 fw-extrabold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);">
                                 <span>Explore & Register Free</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
                             </a>
                         ` : `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #059669, #047857); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);">
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2.5 fw-extrabold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #059669, #047857); border: none; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);">
                                 <span>Explore Highlights & Winners</span>
                                 <i class="bi bi-trophy-fill text-warning ms-1"></i>
                             </a>
