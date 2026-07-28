@@ -2864,6 +2864,50 @@ body {
     transform: scale(1.08);
 }
 
+.tinder-.btn-danger:hover {
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* ==========================================================================
+   Continuous Gentle Air Floating & Bobbing Animation Engine for Icons
+   ========================================================================== */
+@keyframes iconFloatAir {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-5px) rotate(3deg);
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+.icon-float-air,
+.footer-links li a i,
+.social-icon-btn i,
+.brand-logo-img-footer,
+.developer-link i,
+.events-photo-badge-pill i,
+.clubs-top-pill-breadcrumb i {
+    display: inline-block !important;
+    animation: iconFloatAir 3.2s ease-in-out infinite !important;
+}
+
+.footer-links li:nth-child(2n) a i,
+.social-icon-btn:nth-child(2n) i {
+    animation-delay: 0.5s !important;
+    animation-duration: 2.7s !important;
+}
+
+.footer-links li:nth-child(3n) a i,
+.social-icon-btn:nth-child(3n) i {
+    animation-delay: 1.1s !important;
+    animation-duration: 3.4s !important;
+}
+
 .tinder-btn-swipe:hover {
     background-color: #dc2626;
     color: #ffffff !important;
