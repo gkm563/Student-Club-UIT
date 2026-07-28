@@ -170,6 +170,9 @@ if (!empty($event['event_date'])) {
                 <p class="text-secondary small mb-0">Modify event schedule, location, banner poster, and agenda.</p>
             </div>
             <div class="d-flex align-items-center gap-2">
+                <a href="../event-detail.html?id=<?= urlencode($event['id']) ?>" target="_blank" class="btn btn-outline-success rounded-pill px-4 py-2 fw-bold text-nowrap">
+                    <i class="bi bi-box-arrow-up-right me-1.5"></i> View Live Page
+                </a>
                 <button type="submit" form="editEventForm" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
                     <i class="bi bi-floppy me-1"></i> Save Changes
                 </button>
@@ -198,11 +201,15 @@ if (!empty($event['event_date'])) {
                         <p class="text-secondary small mb-3"><?= htmlspecialchars($event['description'] ?: 'No description provided.') ?></p>
                         
                         <hr class="my-3">
-                        <div class="small text-muted space-y-2">
+                        <div class="small text-muted space-y-2 mb-3">
                             <div><i class="bi bi-geo-alt text-danger me-2"></i> <strong>Venue:</strong> <?= htmlspecialchars($event['venue']) ?></div>
                             <div><i class="bi bi-clock text-primary me-2"></i> <strong>Date:</strong> <?= date('d M Y, h:i A', strtotime($event['event_date'])) ?></div>
                             <div><i class="bi bi-link-45deg text-success me-2"></i> <strong>Registration:</strong> <a href="<?= htmlspecialchars($event['registration_link']) ?>" target="_blank" class="text-truncate d-inline-block align-middle" style="max-width: 150px;"><?= htmlspecialchars($event['registration_link']) ?></a></div>
                         </div>
+
+                        <a href="../event-detail.html?id=<?= urlencode($event['id']) ?>" target="_blank" class="btn btn-success rounded-pill w-100 py-2.5 fw-bold text-white shadow-sm">
+                            <i class="bi bi-eye-fill me-1.5"></i> View Live Event Page
+                        </a>
                     </div>
                 </div>
 
