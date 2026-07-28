@@ -60,7 +60,16 @@ $sql = "
     JOIN categories cat ON c.category_id = cat.id
     LEFT JOIN club_admins ca ON ca.club_id = c.id
     LEFT JOIN users u ON ca.user_id = u.id
-    ORDER BY e.event_date DESC
+    ORDER BY 
+        CASE 
+            WHEN LOWER(e.status) IN ('ongoing', 'live') THEN 1
+            WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN 2
+            ELSE 3
+        END ASC,
+        CASE 
+            WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN e.event_date
+        END ASC,
+        e.event_date DESC
 ";
 $events = $db->query($sql)->fetchAll();
 

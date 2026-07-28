@@ -18,7 +18,16 @@ try {
         FROM events e
         JOIN clubs c ON e.club_id = c.id
         WHERE c.status = 'active' AND e.status NOT IN ('draft', 'hidden', 'archived')
-        ORDER BY e.event_date ASC
+        ORDER BY 
+            CASE 
+                WHEN LOWER(e.status) IN ('ongoing', 'live') THEN 1
+                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN 2
+                ELSE 3
+            END ASC,
+            CASE 
+                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN e.event_date
+            END ASC,
+            e.event_date DESC
     ");
     $allEvents = $stmt->fetchAll();
 
