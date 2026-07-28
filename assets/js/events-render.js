@@ -422,12 +422,13 @@ function renderFloatingEventCard(event, isPast = false) {
     const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
     const year = eventDate.getFullYear();
     const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
+    const fullDateFormatted = eventDate.toLocaleString('default', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
-    let statusBadge = `<span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1.5 small fw-bold"><i class="bi bi-calendar-event me-1"></i> Upcoming Contest</span>`;
+    let statusBadge = `<span class="badge bg-primary text-white border border-primary-subtle rounded-pill px-3 py-1.5 small fw-bold shadow-xs d-inline-flex align-items-center gap-1.5"><i class="bi bi-calendar-event-fill me-1"></i> 📅 UPCOMING</span>`;
     if (isPast || event.status === 'completed') {
-        statusBadge = `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill px-3 py-1.5 small fw-bold"><i class="bi bi-check-circle-fill me-1"></i> Completed Session</span>`;
-    } else if (event.status === 'ongoing') {
-        statusBadge = `<span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1.5 small fw-bold"><span class="pulse-dot-green me-1.5"></span> Live Workshop</span>`;
+        statusBadge = `<span class="badge bg-secondary text-white border border-secondary-subtle rounded-pill px-3 py-1.5 small fw-bold shadow-xs d-inline-flex align-items-center gap-1.5"><i class="bi bi-check-circle-fill me-1"></i> 🏆 COMPLETED</span>`;
+    } else if (event.status === 'ongoing' || event.status === 'live') {
+        statusBadge = `<span class="badge bg-danger text-white border border-danger-subtle rounded-pill px-3 py-1.5 small fw-bold shadow-xs d-inline-flex align-items-center gap-1.5"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:7px;height:7px;"></span> 🔴 LIVE ONGOING</span>`;
     }
 
     const registeredCount = event.registered_count || 45;
@@ -435,38 +436,45 @@ function renderFloatingEventCard(event, isPast = false) {
 
     return `
         <div class="col-md-6 col-lg-6">
-            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer;">
+            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn shadow-sm hover-shadow-lg transition-all" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer; border-radius: 20px; overflow: hidden;">
                 <!-- Cover Image Banner -->
-                <div class="position-relative overflow-hidden" style="height: 195px;">
+                <div class="position-relative overflow-hidden" style="height: 200px;">
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
-                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.85) 100%);"></div>
+                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.85) 100%);"></div>
 
                     <!-- Floating Frosted Date Badge -->
                     <div class="position-absolute top-0 start-0 m-3 z-2">
-                        <div class="google-date-badge text-center" style="min-width: 60px;">
-                            <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.3rem;">${day}</span>
-                            <span class="small fw-bold text-dark text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
+                        <div class="google-date-badge text-center shadow-md bg-white rounded-3 p-1.5 px-2.5" style="min-width: 62px; border: 1px solid #e2e8f0;">
+                            <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.35rem; font-weight:900;">${day}</span>
+                            <span class="small fw-bold text-dark text-uppercase" style="font-size: 0.68rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
                         </div>
+                    </div>
+
+                    <!-- Status Ribbon Floating Top Right -->
+                    <div class="position-absolute top-0 end-0 m-3 z-2">
+                        ${statusBadge}
                     </div>
 
                     <!-- Club Badge Floating Overlay -->
                     <div class="position-absolute bottom-0 start-0 m-3 z-2">
-                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-80 text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
+                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-85 text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
                             <i class="bi bi-shield-fill text-info"></i> <span>${escapeHtml(event.club_short_name || event.club_name)}</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Event Body -->
-                <div class="p-4 flex-grow-1 d-flex flex-column">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        ${statusBadge}
-                        <span class="small text-secondary fw-semibold" style="font-size: 0.8rem;">
-                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> Coders RSVP'd
+                <div class="p-4 flex-grow-1 d-flex flex-column bg-white">
+                    <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
+                        <span class="small text-primary fw-bold" style="font-size: 0.78rem;">
+                            <i class="bi bi-calendar3 me-1"></i> ${fullDateFormatted}
+                        </span>
+                        <span class="small text-secondary fw-semibold" style="font-size: 0.78rem;">
+                            <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> RSVP'd
                         </span>
                     </div>
 
-                    <h4 class="fw-bold text-dark mb-2" style="font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.3px;">
+                    <h4 class="fw-extrabold text-dark mb-2 mt-1" style="font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.3px;">
                         ${escapeHtml(event.title)}
                     </h4>
 
@@ -485,7 +493,7 @@ function renderFloatingEventCard(event, isPast = false) {
                     <div class="pt-3 border-top mt-auto">
                         <div class="small text-muted mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2" style="font-size: 0.8rem;">
                             <span class="text-dark fw-medium"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
-                            <span class="text-secondary"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
+                            <span class="text-secondary font-monospace"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
                         </div>
 
                         ${!isPast && event.status !== 'completed' ? `
