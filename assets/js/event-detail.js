@@ -115,11 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // ── Rewards & Outcomes Banner ──────────────────────────────
         const rewardsBannerContainer = document.getElementById('rewardsBannerContainer');
-        const showRewards = event.show_rewards === undefined || event.show_rewards === null || String(event.show_rewards) === '1';
+        const showRewards = isTrue(event.show_rewards);
         if (rewardsBannerContainer) {
-            if (showRewards && (event.outcomes_summary || true)) {
+            if (showRewards && event.outcomes_summary && event.outcomes_summary.trim() !== '') {
                 rewardsBannerContainer.classList.remove('d-none');
-                setHtml('detailOutcomes', escapeHtml(event.outcomes_summary || 'Participation Certificates, Swags & Mentorship for all attendees.'));
+                setHtml('detailOutcomes', escapeHtml(event.outcomes_summary));
             } else {
                 rewardsBannerContainer.classList.add('d-none');
             }
@@ -175,6 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Gallery fetch error:', err));
     }
 
+    // ── Helper to Parse Boolean/Int Toggles ────────────────────────
+    function isTrue(val) {
+        if (val === undefined || val === null) return true;
+        return String(val) === '1' || val === 1 || val === true;
+    }
+
     // ── Status Badge Renderer ──────────────────────────────────────
     function renderStatusBadge(event, eventDate) {
         const isPast = (eventDate < new Date()) || (event.status === 'completed');
@@ -218,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const speakerSection = document.getElementById('speakerSection');
         if (!speakerSection) return;
 
-        const showSpeaker = event.show_speaker === undefined || event.show_speaker === null || String(event.show_speaker) === '1';
+        const showSpeaker = isTrue(event.show_speaker);
         if (showSpeaker && event.speaker_name && event.speaker_name.trim() !== '') {
             speakerSection.classList.remove('d-none');
             setEl('speakerName', event.speaker_name);
@@ -234,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const agendaList = document.getElementById('agendaList');
         if (!agendaSection || !agendaList) return;
 
-        const showAgenda = event.show_agenda === undefined || event.show_agenda === null || String(event.show_agenda) === '1';
+        const showAgenda = isTrue(event.show_agenda);
         if (showAgenda && event.agenda_timeline && event.agenda_timeline.trim() !== '') {
             agendaSection.classList.remove('d-none');
             // Parse agenda — expected as newline-separated entries or JSON array
@@ -246,13 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 items = event.agenda_timeline.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             }
 
-            agendaList.innerHTML = items.map((item, i) => `
-                <li class="d-flex align-items-start gap-3 mb-3 pb-3 ${i < items.length - 1 ? 'border-bottom' : ''}">
-                    <div class="bg-primary-subtle text-primary rounded-3 fw-black d-flex align-items-center justify-content-center flex-shrink-0"
-                         style="width:34px;height:34px;font-size:0.78rem;font-weight:900;">${String(i + 1).padStart(2, '0')}</div>
-                    <span class="text-dark fw-semibold" style="font-size:0.92rem;line-height:1.55;">${escapeHtml(typeof item === 'object' ? (item.title || item.time || JSON.stringify(item)) : item)}</span>
-                </li>
-            `).join('');
+            if (items.length > 0) {
+                agendaList.innerHTML = items.map((item, i) => `
+                    <li class="d-flex align-items-start gap-3 mb-3 pb-3 ${i < items.length - 1 ? 'border-bottom' : ''}">
+                        <div class="bg-primary-subtle text-primary rounded-3 fw-black d-flex align-items-center justify-content-center flex-shrink-0"
+                             style="width:34px;height:34px;font-size:0.78rem;font-weight:900;">${String(i + 1).padStart(2, '0')}</div>
+                        <span class="text-dark fw-semibold" style="font-size:0.92rem;line-height:1.55;">${escapeHtml(typeof item === 'object' ? (item.title || item.time || JSON.stringify(item)) : item)}</span>
+                    </li>
+                `).join('');
+            } else {
+                agendaSection.classList.add('d-none');
+            }
         } else {
             agendaSection.classList.add('d-none');
         }
@@ -264,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const gainGrid = document.getElementById('gainGrid');
         if (!gainGrid) return;
 
-        const showTakeaways = event.show_takeaways === undefined || event.show_takeaways === null || String(event.show_takeaways) === '1';
+        const showTakeaways = isTrue(event.show_takeaways);
         if (!showTakeaways) {
             if (gainContainer) gainContainer.classList.add('d-none');
             return;
@@ -274,25 +284,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (event.custom_takeaways && event.custom_takeaways.trim() !== '') {
             const customItems = event.custom_takeaways.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            gainGrid.innerHTML = customItems.map(item => `
-                <div class="col-md-6">
-                    <div class="gain-card-item h-100 d-flex align-items-start">
-                        <div class="bg-primary-subtle text-primary rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:52px;height:52px;font-size:1.35rem;">
-                            <i class="bi bi-stars"></i>
-                        </div>
-                        <div class="flex-grow-1 min-w-0">
-                            <div class="d-flex align-items-center justify-content-between mb-2 gap-2">
-                                <strong class="text-dark fw-extrabold" style="font-size:1.02rem;">Key Benefit</strong>
-                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 fw-bold flex-shrink-0" style="font-size:0.70rem;">
-                                    <i class="bi bi-check2-circle me-1"></i> Included
-                                </span>
+            if (customItems.length > 0) {
+                gainGrid.innerHTML = customItems.map(item => `
+                    <div class="col-md-6">
+                        <div class="gain-card-item h-100 d-flex align-items-start">
+                            <div class="bg-primary-subtle text-primary rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:52px;height:52px;font-size:1.35rem;">
+                                <i class="bi bi-stars"></i>
                             </div>
-                            <p class="small text-secondary mb-0" style="line-height:1.6;font-size:0.88rem;">${escapeHtml(item)}</p>
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="d-flex align-items-center justify-content-between mb-2 gap-2">
+                                    <strong class="text-dark fw-extrabold" style="font-size:1.02rem;">Key Benefit</strong>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 fw-bold flex-shrink-0" style="font-size:0.70rem;">
+                                        <i class="bi bi-check2-circle me-1"></i> Included
+                                    </span>
+                                </div>
+                                <p class="small text-secondary mb-0" style="line-height:1.6;font-size:0.88rem;">${escapeHtml(item)}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
-            return;
+                `).join('');
+                return;
+            }
         }
 
         // Build default benefit cards based on actual event data
