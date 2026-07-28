@@ -2349,12 +2349,34 @@ body {
    ========================================================================== */
 
 .clubs-hero-image-styled {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.88) 100%), url('../img/indian_clubs_hero.jpg'), url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1600&auto=format&fit=crop') center center / cover no-repeat !important;
     position: relative;
     overflow: hidden;
     color: #ffffff;
     padding: 65px 0 80px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0f172a;
+}
+
+.hero-bg-slides-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.hero-bg-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+    transform: scale(1.06);
+}
+
+.hero-bg-slide.active {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .clubs-hero-image-styled .hero-mesh-glow {
