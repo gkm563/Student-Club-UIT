@@ -408,87 +408,87 @@ function renderFloatingEventCard(event, isPast = false) {
     const month = eventDate.toLocaleString('default', { month: 'short' }).toUpperCase();
     const year = eventDate.getFullYear();
     const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
-    const fullDateFormatted = eventDate.toLocaleString('default', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    const fullDateFormatted = eventDate.toLocaleString('default', { weekday: 'short', month: 'short', day: 'numeric' });
 
-    let statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-calendar-check-fill me-1"></i> UPCOMING</span>`;
+    let statusBadge = `<span class="badge rounded-pill px-2.5 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.72rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-calendar-check-fill me-1"></i> UPCOMING</span>`;
     if (isPast || event.status === 'completed') {
-        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-award-fill me-1"></i> COMPLETED</span>`;
+        statusBadge = `<span class="badge rounded-pill px-2.5 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.72rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-award-fill me-1"></i> COMPLETED</span>`;
     } else if (event.status === 'ongoing' || event.status === 'live') {
-        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:7px;height:7px;"></span> LIVE ONGOING</span>`;
+        statusBadge = `<span class="badge rounded-pill px-2.5 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.72rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:7px;height:7px;"></span> LIVE ONGOING</span>`;
     }
 
     const registeredCount = event.registered_count || 45;
     const bannerUrl = escapeHtml(event.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
 
     return `
-        <div class="col-md-6 col-lg-6">
-            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn shadow-sm hover-shadow-lg transition-all" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer; border-radius: 20px; overflow: hidden;">
+        <div class="col-md-6 col-lg-4">
+            <div class="google-meta-card h-100 d-flex flex-column open-event-detail-btn shadow-sm hover-shadow-lg transition-all" data-event-id="${escapeHtml(event.id)}" style="cursor: pointer; border-radius: 18px; overflow: hidden; border: 1px solid #e2e8f0;">
                 <!-- Cover Image Banner -->
-                <div class="position-relative overflow-hidden" style="height: 200px;">
+                <div class="position-relative overflow-hidden" style="height: 175px;">
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
-                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.2) 0%, rgba(15,23,42,0.85) 100%);"></div>
+                    <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.85) 100%);"></div>
 
                     <!-- Floating Frosted Date Badge -->
-                    <div class="position-absolute top-0 start-0 m-3 z-2">
-                        <div class="google-date-badge text-center" style="min-width: 62px;">
-                            <span class="date-day d-block">${day}</span>
-                            <span class="date-month d-block">${month} '${String(year).slice(-2)}</span>
+                    <div class="position-absolute top-0 start-0 m-2.5 z-2">
+                        <div class="google-date-badge text-center" style="min-width: 54px; padding: 6px 10px;">
+                            <span class="date-day d-block" style="font-size: 1.15rem; line-height: 1;">${day}</span>
+                            <span class="date-month d-block" style="font-size: 0.68rem;">${month} '${String(year).slice(-2)}</span>
                         </div>
                     </div>
 
                     <!-- Status Ribbon Floating Top Right -->
-                    <div class="position-absolute top-0 end-0 m-3 z-2">
+                    <div class="position-absolute top-0 end-0 m-2.5 z-2">
                         ${statusBadge}
                     </div>
 
                     <!-- Club Badge Floating Overlay -->
-                    <div class="position-absolute bottom-0 start-0 m-3 z-2">
-                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-85 text-white border border-white-20 rounded-pill px-3 py-1.5 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" title="Filter all events by ${escapeHtml(event.club_name)}">
+                    <div class="position-absolute bottom-0 start-0 m-2.5 z-2">
+                        <a href="#" class="filter-this-club-btn badge bg-dark bg-opacity-85 text-white border border-white-20 rounded-pill px-2.5 py-1 text-decoration-none shadow-sm backdrop-blur d-inline-flex align-items-center gap-1.5" data-club-id="${escapeHtml(event.club_id)}" style="font-size: 0.72rem;" title="Filter all events by ${escapeHtml(event.club_name)}">
                             <i class="bi bi-shield-fill text-info"></i> <span>${escapeHtml(event.club_short_name || event.club_name)}</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Event Body -->
-                <div class="p-4 flex-grow-1 d-flex flex-column bg-white">
+                <div class="p-3.5 flex-grow-1 d-flex flex-column bg-white">
                     <div class="d-flex align-items-center justify-content-between mb-2 pb-1 border-bottom">
-                        <span class="small text-primary fw-bold" style="font-size: 0.78rem;">
+                        <span class="small text-primary fw-bold" style="font-size: 0.76rem;">
                             <i class="bi bi-calendar3 me-1"></i> ${fullDateFormatted}
                         </span>
-                        <span class="small text-secondary fw-semibold" style="font-size: 0.78rem;">
+                        <span class="small text-secondary fw-semibold" style="font-size: 0.76rem;">
                             <i class="bi bi-people-fill text-primary me-1"></i> <strong class="text-dark">${registeredCount}+</strong> RSVP'd
                         </span>
                     </div>
 
-                    <h4 class="fw-extrabold text-dark mb-2 mt-1" style="font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.3px;">
+                    <h5 class="fw-extrabold text-dark mb-2 mt-1" style="font-size: 1.06rem; line-height: 1.35; letter-spacing: -0.3px;">
                         ${escapeHtml(event.title)}
-                    </h4>
+                    </h5>
 
-                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                    <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.83rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                         ${escapeHtml(event.description || 'Join us for an exciting campus tech session organized by student chapter leads at UIT.')}
                     </p>
 
                     ${event.outcomes_summary ? `
-                        <div class="rounded-3 p-2.5 mb-3 bg-light border border-light-subtle small text-dark d-flex align-items-center gap-2" style="font-size: 0.8rem;">
-                            <i class="bi bi-award-fill text-warning fs-5 flex-shrink-0"></i>
-                            <div><strong>Rewards:</strong> ${escapeHtml(event.outcomes_summary)}</div>
+                        <div class="rounded-3 p-2 mb-3 bg-light border border-light-subtle small text-dark d-flex align-items-center gap-2" style="font-size: 0.76rem;">
+                            <i class="bi bi-award-fill text-warning fs-6 flex-shrink-0"></i>
+                            <div class="text-truncate"><strong>Rewards:</strong> ${escapeHtml(event.outcomes_summary)}</div>
                         </div>
                     ` : ''}
 
                     <!-- Meta Bar & Footer Button -->
-                    <div class="pt-3 border-top mt-auto">
-                        <div class="small text-muted mb-3 d-flex flex-wrap align-items-center justify-content-between gap-2" style="font-size: 0.8rem;">
-                            <span class="text-dark fw-medium"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
+                    <div class="pt-2.5 border-top mt-auto">
+                        <div class="small text-muted mb-2.5 d-flex align-items-center justify-content-between gap-2" style="font-size: 0.78rem;">
+                            <span class="text-dark fw-medium text-truncate" style="max-width: 60%;"><i class="bi bi-geo-alt-fill text-danger me-1"></i> ${escapeHtml(event.venue)}</span>
                             <span class="text-secondary font-monospace"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
                         </div>
 
                         ${!isPast && event.status !== 'completed' ? `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-primary rounded-pill w-100 py-2.5 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-2" style="background: linear-gradient(135deg, #2563eb, #0284c7); border: none; font-size: 0.9rem;">
-                                <span>RSVP & View Full Details</span>
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-primary rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; font-size: 0.84rem;">
+                                <span>RSVP & View Details</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
                             </a>
                         ` : `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-light text-dark border rounded-pill w-100 py-2.5 text-center d-block text-decoration-none" style="font-size: 0.82rem;"><i class="bi bi-info-circle me-1"></i> View Session Summary</a>
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-light text-dark border rounded-pill w-100 py-2 text-center d-block text-decoration-none" style="font-size: 0.80rem;"><i class="bi bi-info-circle me-1"></i> View Summary</a>
                         `}
                     </div>
                 </div>
