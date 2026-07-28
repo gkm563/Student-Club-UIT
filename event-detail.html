@@ -194,11 +194,13 @@
                     <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1.5 fw-bold">
                         <i class="bi bi-person-check-fill me-1"></i> Open to All Students
                     </span>
+                    <span class="badge bg-info-subtle text-info border rounded-pill px-3 py-1.5 fw-bold" id="detailEventType" style="display:none;"></span>
                 </div>
 
                 <h1 class="event-detail-hero-title" id="detailTitle">
                     Loading Event Title...
                 </h1>
+                <p class="text-secondary fw-semibold mt-2 mb-0" id="detailTagline" style="font-size: 1rem; line-height: 1.6;"></p>
 
                 <!-- Specs Quick Summary Bar -->
                 <div class="d-flex flex-wrap align-items-center gap-3 text-dark fw-semibold mt-4">
@@ -227,7 +229,7 @@
 
             <!-- Quick Jump Button -->
             <div class="col-lg-4 text-lg-end">
-                <a href="#rsvpFormSection" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+                <a href="#rsvpFormSection" id="heroActionBtn" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
                     <span id="heroActionBtnText">Register for Event</span>
                     <i class="bi bi-arrow-down-short fs-5"></i>
                 </a>
@@ -289,7 +291,7 @@
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <strong class="text-dark d-block fw-bold mb-1" style="font-size: 0.94rem;">Eligibility</strong>
-                                <span class="small text-secondary d-block" style="line-height: 1.55; font-size: 0.84rem;">All B.Tech / BCA / MCA / Diploma Students</span>
+                                <span class="small text-secondary d-block" id="detailEligibility" style="line-height: 1.55; font-size: 0.84rem;">All B.Tech / BCA / MCA / Diploma Students</span>
                             </div>
                         </div>
                     </div>
@@ -300,7 +302,7 @@
                             </div>
                             <div class="flex-grow-1 min-w-0">
                                 <strong class="text-dark d-block fw-bold mb-1" style="font-size: 0.94rem;">Fee & Perks</strong>
-                                <span class="small text-secondary d-block" style="line-height: 1.55; font-size: 0.84rem;">100% FREE • SAC E-Certificates & Swags</span>
+                                <span class="small text-secondary d-block" id="detailFeePerks" style="line-height: 1.55; font-size: 0.84rem;">100% FREE • SAC E-Certificates & Swags</span>
                             </div>
                         </div>
                     </div>
@@ -352,73 +354,10 @@
                             </span>
                         </div>
 
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="gain-card-item p-4 rounded-4 bg-white border shadow-sm transition-all h-100 d-flex align-items-start gap-3.5" style="border: 1.5px solid #e2e8f0 !important;">
-                                    <div class="gain-icon-box bg-primary-subtle text-primary rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; font-size: 1.35rem;">
-                                        <i class="bi bi-code-slash"></i>
-                                    </div>
-                                    <div class="flex-grow-1 min-w-0">
-                                        <div class="d-flex align-items-center justify-content-between mb-1.5 gap-2">
-                                            <strong class="text-dark d-block fw-extrabold text-truncate" style="font-size: 1.02rem; color: #0f172a !important;">Hands-on Technical Mastery</strong>
-                                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 fw-bold flex-shrink-0" style="font-size: 0.70rem;">
-                                                <i class="bi bi-check2-circle me-1"></i> Included
-                                            </span>
-                                        </div>
-                                        <p class="small text-secondary mb-0" style="line-height: 1.6; font-size: 0.88rem; color: #475569 !important;">Solve live competitive problems & build production-ready projects in real time.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="gain-card-item p-4 rounded-4 bg-white border shadow-sm transition-all h-100 d-flex align-items-start gap-3.5" style="border: 1.5px solid #e2e8f0 !important;">
-                                    <div class="gain-icon-box bg-purple-subtle rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; font-size: 1.35rem; color: #7c3aed; background: #f5f3ff;">
-                                        <i class="bi bi-people-fill"></i>
-                                    </div>
-                                    <div class="flex-grow-1 min-w-0">
-                                        <div class="d-flex align-items-center justify-content-between mb-1.5 gap-2">
-                                            <strong class="text-dark d-block fw-extrabold text-truncate" style="font-size: 1.02rem; color: #0f172a !important;">Mentorship & Peer Guidance</strong>
-                                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 fw-bold flex-shrink-0" style="font-size: 0.70rem;">
-                                                <i class="bi bi-check2-circle me-1"></i> Included
-                                            </span>
-                                        </div>
-                                        <p class="small text-secondary mb-0" style="line-height: 1.6; font-size: 0.88rem; color: #475569 !important;">Interact directly with senior domain leads, alumni & industry tech mentors.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="gain-card-item p-4 rounded-4 bg-white border shadow-sm transition-all h-100 d-flex align-items-start gap-3.5" style="border: 1.5px solid #e2e8f0 !important;">
-                                    <div class="gain-icon-box bg-success-subtle text-success rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; font-size: 1.35rem;">
-                                        <i class="bi bi-award-fill"></i>
-                                    </div>
-                                    <div class="flex-grow-1 min-w-0">
-                                        <div class="d-flex align-items-center justify-content-between mb-1.5 gap-2">
-                                            <strong class="text-dark d-block fw-extrabold text-truncate" style="font-size: 1.02rem; color: #0f172a !important;">Verified SAC Certificates</strong>
-                                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 fw-bold flex-shrink-0" style="font-size: 0.70rem;">
-                                                <i class="bi bi-check2-circle me-1"></i> Included
-                                            </span>
-                                        </div>
-                                        <p class="small text-secondary mb-0" style="line-height: 1.6; font-size: 0.88rem; color: #475569 !important;">Get official Dean Student Welfare (SAC) verified participation certificates.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="gain-card-item p-4 rounded-4 bg-white border shadow-sm transition-all h-100 d-flex align-items-start gap-3.5" style="border: 1.5px solid #e2e8f0 !important;">
-                                    <div class="gain-icon-box bg-warning-subtle text-warning-emphasis rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; font-size: 1.35rem;">
-                                        <i class="bi bi-gift-fill"></i>
-                                    </div>
-                                    <div class="flex-grow-1 min-w-0">
-                                        <div class="d-flex align-items-center justify-content-between mb-1.5 gap-2">
-                                            <strong class="text-dark d-block fw-extrabold text-truncate" style="font-size: 1.02rem; color: #0f172a !important;">Chapter Swags & Goodies</strong>
-                                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 fw-bold flex-shrink-0" style="font-size: 0.70rem;">
-                                                <i class="bi bi-check2-circle me-1"></i> Included
-                                            </span>
-                                        </div>
-                                        <p class="small text-secondary mb-0" style="line-height: 1.6; font-size: 0.88rem; color: #475569 !important;">Win exclusive community swags, t-shirts, stickers & tech gadgets.</p>
-                                    </div>
-                                </div>
+                        <div class="row g-4" id="gainGrid">
+                            <!-- Dynamically rendered from Club Portal API -->
+                            <div class="col-12 text-center py-3">
+                                <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                             </div>
                         </div>
                     </div>
