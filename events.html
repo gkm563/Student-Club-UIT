@@ -178,18 +178,37 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .event-status-tab {
-            color: var(--text-secondary);
-            font-weight: 600;
-            border-bottom: 2px solid transparent;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            padding: 8px 16px;
+        .event-segmented-container {
+            background: #f1f5f9;
+            border-radius: 50rem;
+            padding: 4px;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            gap: 2px;
         }
 
-        .event-status-tab:hover, .event-status-tab.active {
-            color: var(--vibrant-purple);
-            border-bottom-color: var(--vibrant-purple);
+        .event-status-tab {
+            border-radius: 50rem;
+            padding: 7px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748b;
+            border: none;
+            background: transparent;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .event-status-tab:hover {
+            color: #0f172a;
+        }
+
+        .event-status-tab.active {
+            background: #ffffff !important;
+            color: #2563eb !important;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.1) !important;
+            border: none !important;
         }
     </style>
 </head>
@@ -301,24 +320,35 @@
     </div>
 </section>
 
-<!-- Filter Bar Section: Club Filter Pills & 3-Status Tabs -->
-<section class="py-3 bg-white border-bottom shadow-sm sticky-top" style="top: 68px; z-index: 1070;">
+<!-- Filter Bar Section: Sleek Clean Segmented Control Bar -->
+<section class="py-2.5 bg-white border-bottom shadow-xs sticky-top" style="top: 68px; z-index: 1070;">
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-            <!-- Filter by Specific Club Pills -->
-            <div class="d-flex align-items-center gap-2 overflow-x-auto py-1" id="clubFilterPills">
-                <button class="btn btn-sm rounded-pill px-3 py-1-5 fw-semibold club-pill-btn active" data-club-id="all">
-                    <i class="bi bi-collection-fill me-1"></i> All Clubs
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 py-1">
+            
+            <!-- Sleek Segmented Event Status Control Bar -->
+            <div class="event-segmented-container">
+                <button class="btn btn-sm event-status-tab active" data-status-tab="all">
+                    <i class="bi bi-collection-fill me-1 text-primary"></i> All Events
+                </button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">
+                    <span class="pulse-dot-green me-1"></span> 🔴 Live Now
+                </button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">
+                    <i class="bi bi-calendar-event me-1 text-primary"></i> 📅 Upcoming
+                </button>
+                <button class="btn btn-sm event-status-tab" data-status-tab="past">
+                    <i class="bi bi-check-circle-fill me-1 text-success"></i> 🏆 Completed
                 </button>
             </div>
 
-            <!-- Status Tabs (Ongoing, Upcoming, Completed) -->
-            <div class="d-flex align-items-center gap-1 border-start ps-md-3">
-                <button class="btn btn-sm event-status-tab active" data-status-tab="all">All Events</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">🔴 Live Now</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">📅 Upcoming</button>
-                <button class="btn btn-sm event-status-tab" data-status-tab="past">🏆 Completed</button>
+            <!-- Sleek Club Filter Dropdown -->
+            <div class="d-flex align-items-center gap-2">
+                <span class="small font-monospace text-secondary fw-bold d-none d-sm-inline-block">FILTER BY CLUB:</span>
+                <select id="clubSelectFilter" class="form-select form-select-sm rounded-pill px-3 py-1.5 fw-bold border text-dark shadow-xs" style="width: auto; max-width: 220px; background-color: #f8fafc; border-color: #cbd5e1 !important; cursor: pointer;">
+                    <option value="all">⚡ All Campus Clubs</option>
+                </select>
             </div>
+
         </div>
     </div>
 </section>

@@ -52,37 +52,54 @@ document.addEventListener('DOMContentLoaded', () => {
             renderEmptyState(upcomingContainer, 'Unable to connect to events database.');
         });
 
-    // Render Club Filter Pills
+    // Render Club Filter Control (Dropdown & Pills)
     function renderClubFilterPills() {
-        if (!clubPillsContainer) return;
+        const clubSelectFilter = document.getElementById('clubSelectFilter');
+        if (clubSelectFilter) {
+            let optionsHtml = `<option value="all">⚡ All Campus Clubs (${allEvents.length})</option>`;
+            allClubsMap.forEach(club => {
+                const count = allEvents.filter(e => e.club_id === club.id).length;
+                optionsHtml += `<option value="${escapeHtml(club.id)}">${escapeHtml(club.short || club.name)} (${count})</option>`;
+            });
+            clubSelectFilter.innerHTML = optionsHtml;
+            clubSelectFilter.value = currentClubFilter;
 
-        let pillsHtml = `
-            <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn active" data-club-id="all">
-                <i class="bi bi-collection-fill me-1"></i> All Clubs (${allEvents.length})
-            </button>
-        `;
-
-        allClubsMap.forEach(club => {
-            const count = allEvents.filter(e => e.club_id === club.id).length;
-            pillsHtml += `
-                <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn" data-club-id="${club.id}">
-                    <img src="${escapeHtml(club.logo)}" class="rounded-circle me-1" style="width: 18px; height: 18px; object-fit: cover;">
-                    ${escapeHtml(club.short)} (${count})
-                </button>
-            `;
-        });
-
-        clubPillsContainer.innerHTML = pillsHtml;
-
-        // Add Click Listeners to Club Pills
-        clubPillsContainer.querySelectorAll('.club-pill-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                clubPillsContainer.querySelectorAll('.club-pill-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
-                btn.classList.add('active');
-                currentClubFilter = btn.dataset.clubId;
+            clubSelectFilter.addEventListener('change', (e) => {
+                currentClubFilter = e.target.value;
                 applyFiltersAndRender();
             });
-        });
+        }
+
+        if (clubPillsContainer) {
+            let pillsHtml = `
+                <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn active" data-club-id="all">
+                    <i class="bi bi-collection-fill me-1"></i> All Clubs (${allEvents.length})
+                </button>
+            `;
+
+            allClubsMap.forEach(club => {
+                const count = allEvents.filter(e => e.club_id === club.id).length;
+                pillsHtml += `
+                    <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn" data-club-id="${club.id}">
+                        <img src="${escapeHtml(club.logo)}" class="rounded-circle me-1" style="width: 18px; height: 18px; object-fit: cover;">
+                        ${escapeHtml(club.short)} (${count})
+                    </button>
+                `;
+            });
+
+            clubPillsContainer.innerHTML = pillsHtml;
+
+            // Add Click Listeners to Club Pills
+            clubPillsContainer.querySelectorAll('.club-pill-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    clubPillsContainer.querySelectorAll('.club-pill-btn').forEach(b => b.classList.remove('active', 'btn-primary'));
+                    btn.classList.add('active');
+                    currentClubFilter = btn.dataset.clubId;
+                    if (clubSelectFilter) clubSelectFilter.value = currentClubFilter;
+                    applyFiltersAndRender();
+                });
+            });
+        }
     }
 
     // Filter Logic & Render Unified Event Stream (1st: Ongoing, 2nd: Upcoming, 3rd: Past)
