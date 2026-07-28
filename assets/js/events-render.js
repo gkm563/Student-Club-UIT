@@ -482,14 +482,22 @@ function renderFloatingEventCard(event, isPast = false) {
                             <span class="text-secondary font-monospace"><i class="bi bi-clock-fill text-primary me-1"></i> ${timeStr}</span>
                         </div>
 
-                        ${!isPast && event.status !== 'completed' ? `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-primary rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; font-size: 0.84rem;">
-                                <span>RSVP & View Details</span>
+                        ${event.status === 'ongoing' || event.status === 'live' ? `
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #ef4444, #dc2626); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);">
+                                <span>Join Live Session Now</span>
+                                <i class="bi bi-play-circle-fill text-white ms-1"></i>
+                            </a>
+                        ` : (!isPast && event.status !== 'completed' ? `
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);">
+                                <span>Explore & Register Free</span>
                                 <i class="bi bi-arrow-right-short fs-5"></i>
                             </a>
                         ` : `
-                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn btn-light text-dark border rounded-pill w-100 py-2 text-center d-block text-decoration-none" style="font-size: 0.80rem;"><i class="bi bi-info-circle me-1"></i> View Summary</a>
-                        `}
+                            <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2 fw-bold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #059669, #047857); border: none; font-size: 0.84rem; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);">
+                                <span>Explore Highlights & Winners</span>
+                                <i class="bi bi-trophy-fill text-warning ms-1"></i>
+                            </a>
+                        `)}
                     </div>
                 </div>
             </div>
