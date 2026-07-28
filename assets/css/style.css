@@ -2951,6 +2951,60 @@ body {
     animation-duration: 3.2s !important;
 }
 
+/* ==========================================================================
+   Continuous 3D Floating Pulse & Glow Engine for Explore by Categories Icons
+   ========================================================================== */
+@keyframes categoryIconPulseOrbit {
+    0% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+        filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.25));
+    }
+    33% {
+        transform: translateY(-7px) rotate(4deg) scale(1.06);
+        filter: drop-shadow(0 12px 22px rgba(124, 58, 237, 0.45));
+    }
+    66% {
+        transform: translateY(-3px) rotate(-3deg) scale(0.97);
+        filter: drop-shadow(0 6px 14px rgba(14, 165, 233, 0.35));
+    }
+    100% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+        filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.25));
+    }
+}
+
+.cat-3d-box,
+.category-icon-box,
+.cat-3d-svg,
+.cat-3d-box img,
+.cat-3d-box i,
+.category-card-3d .cat-3d-box,
+.club-category-icon-box {
+    display: inline-flex !important;
+    animation: categoryIconPulseOrbit 3.6s ease-in-out infinite !important;
+}
+
+.col-6:nth-child(2n) .cat-3d-box,
+[class*="col"]:nth-child(2n) .cat-3d-box,
+[class*="col"]:nth-child(2n) .category-icon-box {
+    animation-delay: 0.6s !important;
+    animation-duration: 3.2s !important;
+}
+
+.col-6:nth-child(3n) .cat-3d-box,
+[class*="col"]:nth-child(3n) .cat-3d-box,
+[class*="col"]:nth-child(3n) .category-icon-box {
+    animation-delay: 1.2s !important;
+    animation-duration: 4.0s !important;
+}
+
+.col-6:nth-child(4n) .cat-3d-box,
+[class*="col"]:nth-child(4n) .cat-3d-box,
+[class*="col"]:nth-child(4n) .category-icon-box {
+    animation-delay: 1.8s !important;
+    animation-duration: 3.5s !important;
+}
+
 .tinder-btn-swipe:hover {
     background-color: #dc2626;
     color: #ffffff !important;
