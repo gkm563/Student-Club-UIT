@@ -17,6 +17,80 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Custom Vibrant Design System -->
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        /* 📱 Dedicated Mobile & Tablet Responsive Engine for Event Detail Page */
+        @media (max-width: 991.98px) {
+            .event-detail-hero-light {
+                padding: 35px 0 25px !important;
+            }
+
+            .event-detail-hero-title {
+                font-size: 1.95rem !important;
+                line-height: 1.35 !important;
+                margin-top: 10px !important;
+                margin-bottom: 15px !important;
+            }
+
+            #rsvpFormSection {
+                position: static !important;
+                margin-top: 25px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .event-detail-hero-light .d-flex.flex-wrap.align-items-center.gap-3 {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 8px !important;
+            }
+
+            .event-detail-hero-light .d-flex.align-items-center.gap-2.bg-white {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 10px 14px !important;
+            }
+
+            .event-spec-card {
+                padding: 1.25rem !important;
+                gap: 0.85rem !important;
+            }
+
+            .about-card-elevated {
+                padding: 1.25rem !important;
+            }
+
+            #detailBannerImg {
+                height: 220px !important;
+            }
+
+            .google-date-badge {
+                padding: 5px 10px !important;
+                min-width: 54px !important;
+            }
+
+            .gain-card-item {
+                padding: 1.15rem !important;
+                gap: 0.85rem !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .event-detail-hero-title {
+                font-size: 1.65rem !important;
+            }
+
+            #detailBannerImg {
+                height: 190px !important;
+            }
+
+            .lightbox-nav-btn {
+                width: 44px !important;
+                height: 44px !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
 </head>
 <body class="bg-body-tertiary">
 
