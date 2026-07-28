@@ -425,9 +425,9 @@ function renderFloatingEventCard(event, isPast = false) {
 
                     <!-- Floating Frosted Date Badge -->
                     <div class="position-absolute top-0 start-0 m-3 z-2">
-                        <div class="google-date-badge text-center shadow-md bg-white rounded-3 p-1.5 px-2.5" style="min-width: 62px; border: 1px solid #e2e8f0;">
-                            <span class="d-block fw-extrabold text-primary lh-1" style="font-size: 1.35rem; font-weight:900;">${day}</span>
-                            <span class="small fw-bold text-dark text-uppercase" style="font-size: 0.68rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
+                        <div class="google-date-badge text-center" style="min-width: 62px;">
+                            <span class="date-day d-block">${day}</span>
+                            <span class="date-month d-block">${month} '${String(year).slice(-2)}</span>
                         </div>
                     </div>
 
