@@ -309,7 +309,7 @@
                 </div>
 
                 <!-- Rewards & Swags Banner Card -->
-                <div class="about-card-elevated p-4 mb-4" style="border-left: 5px solid #f59e0b !important;">
+                <div class="about-card-elevated p-4 mb-4" id="rewardsBannerContainer" style="border-left: 5px solid #f59e0b !important;">
                     <div class="d-flex align-items-center gap-4">
                         <div class="rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 52px; height: 52px; background:#fffbeb; color:#d97706;">
                             <i class="bi bi-trophy-fill fs-4"></i>
@@ -319,6 +319,31 @@
                             <div class="text-secondary small mb-0" id="detailOutcomes">Laptop Bags, GFG Goodies & Swags, Verified Certificates for all attendees.</div>
                         </div>
                     </div>
+                </div>
+
+                <!-- 🎙️ Key Speaker Spotlight Card (Dynamically Toggled) -->
+                <div class="about-card-elevated p-4 mb-4 bg-white border shadow-sm rounded-4 d-none" id="speakerSection">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-primary-subtle text-primary p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 54px; height: 54px; font-size: 1.4rem;">
+                            <i class="bi bi-mic-fill"></i>
+                        </div>
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-0.5 fw-bold small mb-1">Featured Speaker</span>
+                            <h5 class="fw-extrabold text-dark mb-0" id="speakerName" style="font-weight: 900;">Speaker Name</h5>
+                            <p class="text-secondary small mb-0" id="speakerDesignation">Keynote Speaker</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ⏱️ Agenda & Timeline Schedule (Dynamically Toggled) -->
+                <div class="about-card-elevated p-4 p-md-5 mb-4 shadow-sm position-relative overflow-hidden d-none" id="agendaSection">
+                    <div class="d-flex align-items-center gap-2.5 mb-4 pb-2 border-bottom">
+                        <div class="bg-info rounded-pill" style="width: 5px; height: 24px;"></div>
+                        <h5 class="fw-black text-dark mb-0" style="font-weight: 900; font-size: 1.2rem;">Session Agenda & Schedule</h5>
+                    </div>
+                    <ul class="list-unstyled mb-0" id="agendaList">
+                        <!-- Populated dynamically via JS -->
+                    </ul>
                 </div>
 
                 <!-- Redesigned About Event Description & Takeaways Card -->
@@ -343,7 +368,7 @@
                     </p>
 
                     <!-- 🎯 What You Will Gain Section (Executive Redesign) -->
-                    <div class="pt-3">
+                    <div class="pt-3" id="gainSectionContainer">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4 pb-2 border-bottom">
                             <div class="d-flex align-items-center gap-2.5">
                                 <div class="bg-primary rounded-pill" style="width: 5px; height: 24px;"></div>

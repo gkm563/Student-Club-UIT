@@ -114,17 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
             : '100% Free • SAC E-Certificates & Swags');
 
         // ── Rewards & Outcomes Banner ──────────────────────────────
-        const detailOutcomes = document.getElementById('detailOutcomes');
-        if (detailOutcomes) {
-            let summaryHtml = escapeHtml(event.outcomes_summary || 'Participation Certificates, Swags & Mentorship for all attendees.');
-            if (event.speaker_name) {
-                summaryHtml += ` <br><span class="text-secondary small mt-1 d-inline-block">
-                    <i class="bi bi-mic-fill text-primary me-1"></i>
-                    <strong>Key Speaker:</strong> ${escapeHtml(event.speaker_name)}
-                    ${event.speaker_designation ? `(${escapeHtml(event.speaker_designation)})` : ''}
-                </span>`;
+        const rewardsBannerContainer = document.getElementById('rewardsBannerContainer');
+        const showRewards = event.show_rewards === undefined || event.show_rewards === null || String(event.show_rewards) === '1';
+        if (rewardsBannerContainer) {
+            if (showRewards && (event.outcomes_summary || true)) {
+                rewardsBannerContainer.classList.remove('d-none');
+                setHtml('detailOutcomes', escapeHtml(event.outcomes_summary || 'Participation Certificates, Swags & Mentorship for all attendees.'));
+            } else {
+                rewardsBannerContainer.classList.add('d-none');
             }
-            detailOutcomes.innerHTML = summaryHtml;
         }
 
         // ── About / Description ────────────────────────────────────
@@ -220,7 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const speakerSection = document.getElementById('speakerSection');
         if (!speakerSection) return;
 
-        if (event.speaker_name) {
+        const showSpeaker = event.show_speaker === undefined || event.show_speaker === null || String(event.show_speaker) === '1';
+        if (showSpeaker && event.speaker_name && event.speaker_name.trim() !== '') {
             speakerSection.classList.remove('d-none');
             setEl('speakerName', event.speaker_name);
             setEl('speakerDesignation', event.speaker_designation || 'Keynote Speaker');
@@ -235,7 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const agendaList = document.getElementById('agendaList');
         if (!agendaSection || !agendaList) return;
 
-        if (event.agenda_timeline && event.agenda_timeline.trim() !== '') {
+        const showAgenda = event.show_agenda === undefined || event.show_agenda === null || String(event.show_agenda) === '1';
+        if (showAgenda && event.agenda_timeline && event.agenda_timeline.trim() !== '') {
             agendaSection.classList.remove('d-none');
             // Parse agenda — expected as newline-separated entries or JSON array
             let items = [];
@@ -249,8 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
             agendaList.innerHTML = items.map((item, i) => `
                 <li class="d-flex align-items-start gap-3 mb-3 pb-3 ${i < items.length - 1 ? 'border-bottom' : ''}">
                     <div class="bg-primary-subtle text-primary rounded-3 fw-black d-flex align-items-center justify-content-center flex-shrink-0"
-                         style="width:32px;height:32px;font-size:0.78rem;font-weight:900;">${String(i + 1).padStart(2, '0')}</div>
-                    <span class="text-dark fw-semibold" style="font-size:0.9rem;line-height:1.55;">${escapeHtml(typeof item === 'object' ? (item.title || item.time || JSON.stringify(item)) : item)}</span>
+                         style="width:34px;height:34px;font-size:0.78rem;font-weight:900;">${String(i + 1).padStart(2, '0')}</div>
+                    <span class="text-dark fw-semibold" style="font-size:0.92rem;line-height:1.55;">${escapeHtml(typeof item === 'object' ? (item.title || item.time || JSON.stringify(item)) : item)}</span>
                 </li>
             `).join('');
         } else {
@@ -260,17 +260,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── What You Will Gain — Dynamic ──────────────────────────────
     function renderGainSection(event) {
+        const gainContainer = document.getElementById('gainSectionContainer');
         const gainGrid = document.getElementById('gainGrid');
         if (!gainGrid) return;
 
-        // Build benefit cards based on actual event data
+        const showTakeaways = event.show_takeaways === undefined || event.show_takeaways === null || String(event.show_takeaways) === '1';
+        if (!showTakeaways) {
+            if (gainContainer) gainContainer.classList.add('d-none');
+            return;
+        } else {
+            if (gainContainer) gainContainer.classList.remove('d-none');
+        }
+
+        if (event.custom_takeaways && event.custom_takeaways.trim() !== '') {
+            const customItems = event.custom_takeaways.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            gainGrid.innerHTML = customItems.map(item => `
+                <div class="col-md-6">
+                    <div class="gain-card-item h-100 d-flex align-items-start">
+                        <div class="bg-primary-subtle text-primary rounded-4 p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:52px;height:52px;font-size:1.35rem;">
+                            <i class="bi bi-stars"></i>
+                        </div>
+                        <div class="flex-grow-1 min-w-0">
+                            <div class="d-flex align-items-center justify-content-between mb-2 gap-2">
+                                <strong class="text-dark fw-extrabold" style="font-size:1.02rem;">Key Benefit</strong>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 fw-bold flex-shrink-0" style="font-size:0.70rem;">
+                                    <i class="bi bi-check2-circle me-1"></i> Included
+                                </span>
+                            </div>
+                            <p class="small text-secondary mb-0" style="line-height:1.6;font-size:0.88rem;">${escapeHtml(item)}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            return;
+        }
+
+        // Build default benefit cards based on actual event data
         const benefits = [
             {
                 icon: 'bi-lightbulb-fill',
                 colorClass: 'bg-primary-subtle text-primary',
                 title: event.event_type || 'Technical Mastery',
                 desc: event.description
-                    ? event.description.substring(0, 100) + (event.description.length > 100 ? '…' : '')
+                    ? event.description.substring(0, 110) + (event.description.length > 110 ? '…' : '')
                     : 'Gain hands-on exposure & build expertise.',
             },
             {

@@ -72,6 +72,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
     $target_audience    = trim($_POST['target_audience'] ?? 'All Departments & Years');
     $budget_utilized    = (float)($_POST['budget_utilized'] ?? 0.0);
 
+    // Section Toggle Switches
+    $show_rewards       = isset($_POST['show_rewards']) ? 1 : 0;
+    $show_speaker       = isset($_POST['show_speaker']) ? 1 : 0;
+    $show_agenda        = isset($_POST['show_agenda']) ? 1 : 0;
+    $show_takeaways     = isset($_POST['show_takeaways']) ? 1 : 0;
+    $custom_takeaways   = trim($_POST['custom_takeaways'] ?? '');
+
     // Process uploaded image file if provided
     $uploadedBanner = upload_image_file($_FILES['banner_file'] ?? null, 'events', $event['banner'] ?? $bannerUrl);
     $banner = !empty($uploadedBanner) ? $uploadedBanner : (!empty($bannerUrl) ? $bannerUrl : $event['banner']);
@@ -83,15 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_update'])) {
             $uStmt = $db->prepare("
                 UPDATE events SET 
                     title = ?, tagline = ?, event_type = ?, description = ?, venue = ?, event_date = ?, registration_link = ?, status = ?, banner = ?,
-                    registered_count = ?, actual_attended = ?, outcomes_summary = ?, speaker_name = ?, speaker_designation = ?, agenda_timeline = ?, target_audience = ?, budget_utilized = ?
+                    registered_count = ?, actual_attended = ?, outcomes_summary = ?, speaker_name = ?, speaker_designation = ?, agenda_timeline = ?, target_audience = ?, budget_utilized = ?,
+                    show_rewards = ?, show_speaker = ?, show_agenda = ?, show_takeaways = ?, custom_takeaways = ?
                 WHERE id = ? AND club_id = ?
             ");
             $uStmt->execute([
                 $title, $tagline, $event_type, $description, $venue, $event_date, $reg_link, $status, $banner,
                 $registered_count, $actual_attended, $outcomes_summary, $speaker_name, $speaker_designation, $agenda_timeline, $target_audience, $budget_utilized,
+                $show_rewards, $show_speaker, $show_agenda, $show_takeaways, $custom_takeaways,
                 $eventId, $club['id']
             ]);
-            $success = "Event details and advanced documentation updated successfully!";
+            $success = "Event details, section visibility toggles, and live configuration updated successfully!";
             
             // Refresh event data
             $evtStmt->execute([$eventId, $club['id']]);
@@ -154,6 +163,23 @@ if (!empty($event['event_date'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .section-toggle-card {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            transition: all 0.25s ease;
+            background: #ffffff;
+        }
+        .section-toggle-card:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.08);
+        }
+        .form-switch .form-check-input {
+            width: 2.8em;
+            height: 1.5em;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -163,22 +189,19 @@ if (!empty($event['event_date'])) {
 
     <!-- Main Content -->
     <div class="flex-grow-1 p-3 p-md-4 p-xl-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
             <div>
                 <a href="events.php" class="text-primary fw-bold text-decoration-none small d-inline-block mb-2">&larr; Back to Events List</a>
-                <h2 class="fw-bold mb-1">Edit Event Details</h2>
-                <p class="text-secondary small mb-0">Modify event schedule, location, banner poster, and agenda.</p>
+                <h2 class="fw-bold mb-1">Event Detail & Section Manager</h2>
+                <p class="text-secondary small mb-0">Toggle section visibility and customize every detail shown on the public event page.</p>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <a href="../event-detail.html?id=<?= urlencode($event['id']) ?>" target="_blank" class="btn btn-outline-success rounded-pill px-4 py-2 fw-bold text-nowrap">
+                <a href="../event-detail.html?id=<?= urlencode($event['id']) ?>" target="_blank" class="btn btn-outline-success rounded-pill px-4 py-2.5 fw-bold text-nowrap shadow-xs">
                     <i class="bi bi-box-arrow-up-right me-1.5"></i> View Live Page
                 </a>
-                <button type="submit" form="editEventForm" class="btn btn-primary rounded-pill px-4 py-2 fw-bold text-white shadow-sm">
-                    <i class="bi bi-floppy me-1"></i> Save Changes
+                <button type="submit" form="editEventForm" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm">
+                    <i class="bi bi-floppy me-1.5"></i> Save All Changes
                 </button>
-                <a href="events.php?delete=<?= $event['id'] ?>" onclick="return confirm('Are you sure you want to delete this event?');" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold">
-                    <i class="bi bi-trash me-1"></i> Delete Event
-                </a>
             </div>
         </div>
 
@@ -191,9 +214,9 @@ if (!empty($event['event_date'])) {
         <?php endif; ?>
 
         <div class="row g-4">
-            <!-- Event Preview Card -->
+            <!-- Event Preview & Live Actions -->
             <div class="col-lg-4">
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white">
                     <img src="<?= htmlspecialchars($event['banner']) ?>" class="card-img-top" style="height: 200px; object-fit: cover;">
                     <div class="card-body p-4">
                         <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 mb-2 fw-bold text-uppercase" style="font-size: 0.7rem;"><?= htmlspecialchars($event['status']) ?></span>
@@ -204,16 +227,15 @@ if (!empty($event['event_date'])) {
                         <div class="small text-muted space-y-2 mb-3">
                             <div><i class="bi bi-geo-alt text-danger me-2"></i> <strong>Venue:</strong> <?= htmlspecialchars($event['venue']) ?></div>
                             <div><i class="bi bi-clock text-primary me-2"></i> <strong>Date:</strong> <?= date('d M Y, h:i A', strtotime($event['event_date'])) ?></div>
-                            <div><i class="bi bi-link-45deg text-success me-2"></i> <strong>Registration:</strong> <a href="<?= htmlspecialchars($event['registration_link']) ?>" target="_blank" class="text-truncate d-inline-block align-middle" style="max-width: 150px;"><?= htmlspecialchars($event['registration_link']) ?></a></div>
                         </div>
 
                         <a href="../event-detail.html?id=<?= urlencode($event['id']) ?>" target="_blank" class="btn btn-success rounded-pill w-100 py-2.5 fw-bold text-white shadow-sm">
-                            <i class="bi bi-eye-fill me-1.5"></i> View Live Event Page
+                            <i class="bi bi-eye-fill me-1.5"></i> Open Live Event Page
                         </a>
                     </div>
                 </div>
 
-                <!-- Event Photo Gallery Manager Card -->
+                <!-- Gallery Manager Card -->
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 bg-white p-4">
                     <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-images text-primary me-2"></i> Event Photo Gallery</h5>
                     <p class="text-secondary small mb-3">Upload recap photos from this event for students to view on event page.</p>
@@ -256,14 +278,15 @@ if (!empty($event['event_date'])) {
                 </div>
             </div>
 
-            <!-- Edit Event Form -->
+            <!-- Edit Event Form & Interactive Toggles -->
             <div class="col-lg-8">
                 <div class="card p-4 p-md-5 border-0 shadow-sm rounded-4 bg-white">
-                    <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information Editor</h5>
+                    <h5 class="fw-bold mb-4"><i class="bi bi-pencil-square text-primary me-2"></i> Event Information & Display Controls</h5>
                     
                     <form action="" method="POST" enctype="multipart/form-data" id="editEventForm">
                         <input type="hidden" name="action_update" value="1">
                         
+                        <!-- Core Details Section -->
                         <div class="row g-3 mb-3">
                             <div class="col-md-8">
                                 <label class="form-label small fw-semibold">Event Title *</label>
@@ -272,16 +295,17 @@ if (!empty($event['event_date'])) {
                             <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Event Category / Type *</label>
                                 <select name="event_type" class="form-select rounded-3">
-                                    <option value="Hands-on Workshop" <?= ($event['event_type'] ?? '') === 'Hands-on Workshop' ? 'selected' : '' ?>>🛠️ Hands-on Workshop</option>
-                                    <option value="Competitive Hackathon" <?= ($event['event_type'] ?? '') === 'Competitive Hackathon' ? 'selected' : '' ?>>🏆 Competitive Hackathon</option>
-                                    <option value="Tech Talk / Webinar" <?= ($event['event_type'] ?? '') === 'Tech Talk / Webinar' ? 'selected' : '' ?>>🎙️ Tech Talk / Webinar</option>
-                                    <option value="Coding Contest" <?= ($event['event_type'] ?? '') === 'Coding Contest' ? 'selected' : '' ?>>💻 Coding Contest</option>
-                                    <option value="Orientation Session" <?= ($event['event_type'] ?? '') === 'Orientation Session' ? 'selected' : '' ?>>🚀 Orientation Session</option>
+                                    <option value="Hands-on Workshop" <?= ($event['event_type'] ?? '') === 'Hands-on Workshop' ? 'selected' : '' ?>>Hands-on Workshop</option>
+                                    <option value="Competitive Hackathon" <?= ($event['event_type'] ?? '') === 'Competitive Hackathon' ? 'selected' : '' ?>>Competitive Hackathon</option>
+                                    <option value="Tech Talk / Webinar" <?= ($event['event_type'] ?? '') === 'Tech Talk / Webinar' ? 'selected' : '' ?>>Tech Talk / Webinar</option>
+                                    <option value="Coding Contest" <?= ($event['event_type'] ?? '') === 'Coding Contest' ? 'selected' : '' ?>>Coding Contest</option>
+                                    <option value="Flagship Conference" <?= ($event['event_type'] ?? '') === 'Flagship Conference' ? 'selected' : '' ?>>Flagship Conference</option>
+                                    <option value="Orientation Session" <?= ($event['event_type'] ?? '') === 'Orientation Session' ? 'selected' : '' ?>>Orientation Session</option>
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label small fw-semibold">Event Subtitle / Tagline</label>
-                                <input type="text" name="tagline" class="form-control rounded-3" value="<?= htmlspecialchars($event['tagline'] ?? '') ?>" placeholder="e.g. Winning Strategies & Solution Challenge Briefing 2026">
+                                <label class="form-label small fw-semibold">Event Subtitle / Catchphrase Tagline</label>
+                                <input type="text" name="tagline" class="form-control rounded-3" value="<?= htmlspecialchars($event['tagline'] ?? '') ?>" placeholder="e.g. Ideas Worth Spreading — Inspiring Talks & Leadership">
                             </div>
                         </div>
 
@@ -291,7 +315,7 @@ if (!empty($event['event_date'])) {
                                 <input type="datetime-local" name="event_date" class="form-control rounded-3" value="<?= htmlspecialchars($formattedDate) ?>" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Status *</label>
+                                <label class="form-label small fw-semibold">Publication Status *</label>
                                 <select name="status" class="form-select rounded-3">
                                     <option value="upcoming" <?= $event['status'] === 'upcoming' ? 'selected' : '' ?>>Upcoming (Published)</option>
                                     <option value="ongoing" <?= $event['status'] === 'ongoing' ? 'selected' : '' ?>>Ongoing (Live Now)</option>
@@ -299,7 +323,6 @@ if (!empty($event['event_date'])) {
                                     <option value="draft" <?= ($event['status'] === 'draft' || $event['status'] === 'drafted') ? 'selected' : '' ?>>Drafted (Private)</option>
                                     <option value="hidden" <?= ($event['status'] === 'hidden' || $event['status'] === 'private') ? 'selected' : '' ?>>Hidden (Private)</option>
                                     <option value="archived" <?= $event['status'] === 'archived' ? 'selected' : '' ?>>Archived</option>
-                                    <option value="cancelled" <?= $event['status'] === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
                                 </select>
                             </div>
                         </div>
@@ -311,72 +334,113 @@ if (!empty($event['event_date'])) {
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-semibold">Target Audience / Eligibility</label>
-                                <input type="text" name="target_audience" class="form-control rounded-3" value="<?= htmlspecialchars($event['target_audience'] ?? 'All UIT Departments & Years') ?>">
+                                <input type="text" name="target_audience" class="form-control rounded-3" value="<?= htmlspecialchars($event['target_audience'] ?? 'All Departments & Years') ?>">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label small fw-semibold"><i class="bi bi-upload text-primary me-1"></i> Upload New Banner Poster (From PC)</label>
                             <input type="file" name="banner_file" class="form-control rounded-3" accept="image/*">
-                            <span class="form-text text-muted small">Upload PNG, JPG, or WEBP poster file from your computer to replace current poster.</span>
-                        </div>
-
-                        <div class="row g-3 mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Key Speaker / Mentor Name</label>
-                                <input type="text" name="speaker_name" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_name'] ?? '') ?>" placeholder="e.g. Krishna Aute">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label small fw-semibold">Speaker Designation / Achievement</label>
-                                <input type="text" name="speaker_designation" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_designation'] ?? '') ?>" placeholder="e.g. Global Solution Challenge Top 3 Winner">
-                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small fw-semibold">Registration Form / Contact Link</label>
+                            <label class="form-label small fw-semibold">Registration Link (External Google Form / Portal URL)</label>
                             <input type="text" name="registration_link" class="form-control rounded-3" value="<?= htmlspecialchars($event['registration_link']) ?>">
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label class="form-label small fw-semibold">Full Event Description</label>
                             <textarea name="description" class="form-control rounded-3" rows="4"><?= htmlspecialchars($event['description']) ?></textarea>
                         </div>
 
-                        <div class="mb-4">
-                            <label class="form-label small fw-semibold">Session Agenda Timeline</label>
-                            <textarea name="agenda_timeline" class="form-control rounded-3" rows="3" placeholder="Phase 1: Registration&#10;Phase 2: Live Hands-on Coding&#10;Phase 3: Certificate Distribution"><?= htmlspecialchars($event['agenda_timeline'] ?? '') ?></textarea>
+                        <!-- 🎛️ Dynamic Section Visibility Toggles Engine -->
+                        <h5 class="fw-bold mb-3 mt-4 pt-3 border-top"><i class="bi bi-sliders text-primary me-2"></i> Section Display & Feature Toggles</h5>
+                        <p class="text-secondary small mb-4">Turn sections ON or OFF. Only toggled ON sections will be displayed on the public event detail page.</p>
+
+                        <!-- Toggle 1: Rewards & Swags Banner -->
+                        <div class="section-toggle-card p-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleRewards">
+                                    <i class="bi bi-trophy-fill text-warning me-2 fs-5"></i> Show Rewards, Swags & Certificates Banner
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleRewards" name="show_rewards" value="1" <?= ($event['show_rewards'] ?? 1) ? 'checked' : '' ?> onchange="toggleContainer('rewardsFields', this.checked)">
+                            </div>
+                            <div id="rewardsFields" class="mt-3 pt-3 border-top <?= ($event['show_rewards'] ?? 1) ? '' : 'd-none' ?>">
+                                <label class="form-label small fw-semibold">Outcomes, Swags & Rewards Summary</label>
+                                <textarea name="outcomes_summary" class="form-control rounded-3" rows="2" placeholder="e.g. Laptop Bags, GFG Goodies & Swags, Verified Certificates for all attendees."><?= htmlspecialchars($event['outcomes_summary'] ?? '') ?></textarea>
+                            </div>
                         </div>
 
-                        <!-- Mandatory Post-Event Documentation & Audit Section -->
-                        <div class="p-4 bg-light rounded-4 border mb-4">
-                            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-shield-check text-success me-2"></i> Post-Event Documentation & Audit (Dean Review)</h6>
-                            <p class="text-muted small mb-3" style="font-size:0.75rem;">Required when updating event status to <strong>Completed</strong>. This data provides official documentation to college authorities for future event approvals.</p>
+                        <!-- Toggle 2: Key Speaker Spotlight Section -->
+                        <div class="section-toggle-card p-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleSpeaker">
+                                    <i class="bi bi-mic-fill text-primary me-2 fs-5"></i> Show Key Speaker Spotlight Section
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleSpeaker" name="show_speaker" value="1" <?= ($event['show_speaker'] ?? 1) ? 'checked' : '' ?> onchange="toggleContainer('speakerFields', this.checked)">
+                            </div>
+                            <div id="speakerFields" class="mt-3 pt-3 border-top <?= ($event['show_speaker'] ?? 1) ? '' : 'd-none' ?>">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-semibold">Speaker Name</label>
+                                        <input type="text" name="speaker_name" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_name'] ?? '') ?>" placeholder="e.g. Dr. Ananya Sharma">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small fw-semibold">Speaker Designation / Bio</label>
+                                        <input type="text" name="speaker_designation" class="form-control rounded-3" value="<?= htmlspecialchars($event['speaker_designation'] ?? '') ?>" placeholder="e.g. Senior AI Research Scientist at Google">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            <div class="row g-3 mb-3">
-                                <div class="col-md-4">
-                                    <label class="form-label small fw-semibold">Registered Participants</label>
+                        <!-- Toggle 3: Agenda Timeline Section -->
+                        <div class="section-toggle-card p-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleAgenda">
+                                    <i class="bi bi-clock-history text-info me-2 fs-5"></i> Show Agenda & Schedule Timeline
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleAgenda" name="show_agenda" value="1" <?= ($event['show_agenda'] ?? 1) ? 'checked' : '' ?> onchange="toggleContainer('agendaFields', this.checked)">
+                            </div>
+                            <div id="agendaFields" class="mt-3 pt-3 border-top <?= ($event['show_agenda'] ?? 1) ? '' : 'd-none' ?>">
+                                <label class="form-label small fw-semibold">Agenda Items (One per line)</label>
+                                <textarea name="agenda_timeline" class="form-control rounded-3" rows="3" placeholder="10:00 AM — Inaugural Keynote&#10;11:30 AM — Hands-on Coding Session&#10;02:00 PM — Certificate & Swag Distribution"><?= htmlspecialchars($event['agenda_timeline'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Toggle 4: What You Will Gain Section -->
+                        <div class="section-toggle-card p-4 mb-4">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleTakeaways">
+                                    <i class="bi bi-stars text-success me-2 fs-5"></i> Show 'What You Will Gain' Key Takeaways
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleTakeaways" name="show_takeaways" value="1" <?= ($event['show_takeaways'] ?? 1) ? 'checked' : '' ?> onchange="toggleContainer('takeawaysFields', this.checked)">
+                            </div>
+                            <div id="takeawaysFields" class="mt-3 pt-3 border-top <?= ($event['show_takeaways'] ?? 1) ? '' : 'd-none' ?>">
+                                <label class="form-label small fw-semibold">Custom Key Takeaways (Optional Custom Notes)</label>
+                                <textarea name="custom_takeaways" class="form-control rounded-3" rows="2" placeholder="Custom notes or leave blank for automatic smart takeaway cards generation."><?= htmlspecialchars($event['custom_takeaways'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Mandatory Documentation & Audit Section -->
+                        <div class="p-4 bg-light rounded-4 border mb-4">
+                            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-shield-check text-success me-2"></i> Attendance & Audit Documentation</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-semibold">Registered Participants Counter</label>
                                     <input type="number" name="registered_count" class="form-control rounded-3" value="<?= (int)($event['registered_count'] ?? 0) ?>" min="0">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="form-label small fw-semibold">Actual Attendees Present</label>
                                     <input type="number" name="actual_attended" class="form-control rounded-3" value="<?= (int)($event['actual_attended'] ?? 0) ?>" min="0">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label small fw-semibold">Budget / Resource Utilized (₹)</label>
-                                    <input type="number" step="0.01" name="budget_utilized" class="form-control rounded-3" value="<?= (float)($event['budget_utilized'] ?? 0.0) ?>" min="0">
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small fw-semibold">Outcomes, Swags & Key Highlights Summary</label>
-                                    <textarea name="outcomes_summary" class="form-control rounded-3" rows="3" placeholder="Log key achievements, guest speakers, winner details, and outcomes for college administration records..."><?= htmlspecialchars($event['outcomes_summary'] ?? '') ?></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex gap-3">
-                            <button type="submit" class="btn btn-primary rounded-pill px-5 py-2-5 fw-bold text-white shadow-sm">
-                                Save Changes & Audit Log
+                            <button type="submit" class="btn btn-primary rounded-pill px-5 py-3 fw-bold text-white shadow-sm">
+                                <i class="bi bi-floppy me-1.5"></i> Save & Publish Changes
                             </button>
-                            <a href="events.php" class="btn btn-light rounded-pill px-4 py-2-5">Cancel</a>
+                            <a href="events.php" class="btn btn-light rounded-pill px-4 py-3 fw-bold text-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -384,6 +448,19 @@ if (!empty($event['event_date'])) {
         </div>
     </div>
 </div>
+
+<script>
+function toggleContainer(containerId, isChecked) {
+    const el = document.getElementById(containerId);
+    if (el) {
+        if (isChecked) {
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    }
+}
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
