@@ -497,8 +497,8 @@ function renderFloatingEventCard(event, isPast = false) {
                             </a>
                         ` : `
                             <a href="event-detail.html?id=${escapeHtml(event.id)}" class="btn rounded-pill w-100 py-2.5 fw-extrabold text-white text-decoration-none shadow-sm d-flex align-items-center justify-content-center gap-1.5" style="background: linear-gradient(135deg, #059669, #047857); border: none; font-size: 0.88rem; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);">
-                                <span>Explore Highlights & Winners</span>
-                                <i class="bi bi-trophy-fill text-warning ms-1"></i>
+                                <span>See Event Details & Recaps</span>
+                                <i class="bi bi-arrow-right-circle-fill text-white ms-1"></i>
                             </a>
                         `)}
                     </div>
