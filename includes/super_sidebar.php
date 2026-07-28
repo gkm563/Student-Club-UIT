@@ -219,6 +219,12 @@ if (class_exists('Database')) {
                 <span>Campus Student Clubs</span>
             </a>
 
+            <a href="events.php"
+               class="admin-nav-link <?= str_contains($currentSuperUri, 'events.php') ? 'active' : '' ?>">
+                <i class="bi bi-calendar-event-fill"></i>
+                <span>Events Governance</span>
+            </a>
+
             <a href="categories.php"
                class="admin-nav-link <?= str_contains($currentSuperUri, 'categories.php') ? 'active' : '' ?>">
                 <i class="bi bi-grid-3x3-gap-fill"></i>
