@@ -338,6 +338,108 @@
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.2);
             background: #ffffff;
         }
+
+        /* 📱 Dedicated Mobile & Tablet Responsive Engine (320px - 991px) */
+        @media (max-width: 991.98px) {
+            .events-hero-header-banner {
+                padding: 40px 0 35px !important;
+            }
+
+            .events-hero-header-banner h1 {
+                font-size: 2.1rem !important;
+            }
+
+            .events-hero-header-banner p {
+                font-size: 0.95rem !important;
+            }
+
+            .events-hero-card-elevated {
+                margin-top: 15px;
+                padding: 1.25rem !important;
+            }
+
+            .events-sticky-filter-bar {
+                top: 58px !important;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .events-sticky-filter-bar .container > div {
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 10px !important;
+            }
+
+            .event-segmented-container {
+                overflow-x: auto;
+                flex-wrap: nowrap !important;
+                -webkit-overflow-scrolling: touch;
+                max-width: 100%;
+                padding: 4px;
+                justify-content: flex-start;
+                scrollbar-width: none;
+            }
+
+            .event-segmented-container::-webkit-scrollbar {
+                display: none;
+            }
+
+            .event-status-tab {
+                padding: 7px 15px !important;
+                font-size: 0.80rem !important;
+            }
+
+            .club-select-filter-box {
+                width: 100%;
+                justify-content: space-between;
+                padding: 4px 6px 4px 14px;
+            }
+
+            .club-select-dropdown {
+                flex-grow: 1;
+                max-width: 100% !important;
+                padding: 6px 32px 6px 12px !important;
+                font-size: 0.82rem !important;
+            }
+
+            .clubs-hero-search-pill-image {
+                padding: 4px 6px !important;
+            }
+
+            .clubs-hero-search-pill-image input {
+                font-size: 0.88rem !important;
+            }
+
+            .clubs-hero-search-btn-image {
+                padding: 8px 16px !important;
+                font-size: 0.82rem !important;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .events-hero-header-banner h1 {
+                font-size: 1.85rem !important;
+            }
+
+            .google-meta-card .position-relative {
+                height: 165px !important;
+            }
+
+            .google-meta-card .p-4 {
+                padding: 1rem !important;
+            }
+
+            .google-meta-card h4 {
+                font-size: 1.05rem !important;
+            }
+
+            .glass-count-chip-badge {
+                padding: 6px 14px !important;
+                font-size: 0.80rem !important;
+            }
+        }
     </style>
 </head>
 <body>
