@@ -429,6 +429,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
+                const isTrue = (val) => (val === undefined || val === null || String(val) === '1' || val === 1 || val === true);
+
+                const showAchievements = isTrue(club.show_achievements);
+                const showLeadership   = isTrue(club.show_leadership);
+                const showRecruitment  = isTrue(club.show_recruitment);
+                const showGallery      = isTrue(club.show_gallery);
+
                 const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop');
                 const logoImg = escapeHtml(club.logo || 'assets/United Logo.webp');
                 const foundedYear = club.founded_year || 2024;
@@ -477,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold small">
                                                 <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                             </span>
-                                            ${club.recruitment_open ? `
+                                            ${(showRecruitment && club.recruitment_open) ? `
                                                 <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1.5 fw-bold small">
                                                     <span class="pulse-dot-green me-1.5"></span> Recruitment Open
                                                 </span>
@@ -493,12 +500,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                                 <div class="col-lg-4 text-lg-end">
                                     <div class="d-flex align-items-center gap-2 justify-content-start justify-content-lg-end flex-wrap">
-                                        <a href="contact.html" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm">
-                                            <i class="bi bi-person-plus-fill me-1"></i> Join Chapter / Apply
-                                        </a>
-                                        <a href="contact.html" class="btn btn-outline-secondary rounded-pill px-3 py-2.5 fw-bold">
-                                            Contact Lead
-                                        </a>
+                                        ${(showRecruitment && club.recruitment_open) ? `
+                                            <a href="${escapeHtml(club.recruitment_link || 'contact.html')}" target="_blank" class="btn btn-success rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                                                <i class="bi bi-person-plus-fill me-1"></i> Apply for Chapter Recruitment
+                                            </a>
+                                        ` : `
+                                            <a href="contact.html" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm">
+                                                <i class="bi bi-envelope-fill me-1"></i> Contact Club Leads
+                                            </a>
+                                        `}
                                     </div>
                                 </div>
                             </div>
@@ -537,8 +547,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     <section class="py-5" style="background: #f8fafc;">
                         <div class="container py-2">
                             <div class="row g-4 g-lg-5">
-                                <!-- Left Column (8 Cols): About, Mission/Vision, Leadership, Events, Gallery -->
+                                <!-- Left Column (8 Cols): Achievements, About, Mission/Vision, Leadership, Events, Gallery -->
                                 <div class="col-lg-8">
+
+                                    <!-- Key Achievements & Milestones Banner (Dynamically Toggled) -->
+                                    ${(showAchievements && club.achievements_text && club.achievements_text.trim() !== '') ? `
+                                        <div class="about-card-elevated p-4 mb-4" style="border-left: 5px solid #f59e0b !important;">
+                                            <div class="d-flex align-items-start gap-3">
+                                                <div class="rounded-circle p-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px; background:#fffbeb; color:#d97706;">
+                                                    <i class="bi bi-trophy-fill fs-4"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="fw-black text-dark mb-2" style="font-weight: 900;">Key Chapter Achievements & Milestones</h6>
+                                                    <div class="text-secondary small mb-0 space-y-1">
+                                                        ${club.achievements_text.split('\n').map(line => `<div class="d-flex align-items-center gap-2 mb-1"><i class="bi bi-star-fill text-warning fs-6"></i><span>${escapeHtml(line.trim())}</span></div>`).join('')}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+
                                     <!-- About & Overview Card -->
                                     <div class="about-card-elevated p-4 p-md-5 mb-4">
                                         <h4 class="fw-black text-dark mb-3" style="font-weight: 900;">About ${escapeHtml(club.name)}</h4>
@@ -569,50 +597,52 @@ document.addEventListener('DOMContentLoaded', () => {
                                         </div>
                                     </div>
 
-                                    <!-- Leadership & Governance Roster -->
-                                    <div class="about-card-elevated p-4 p-md-5 mb-4">
-                                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                                            <div>
-                                                <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-award text-primary me-2"></i> Executive Leadership & Core Committee</h4>
-                                                <p class="text-secondary small mb-0">Faculty Mentors, Chapter President, Core Leads & Founding Team</p>
-                                            </div>
-                                        </div>
-
-                                        ${Object.keys(tenureMap).length === 0 ? `
-                                            <div class="text-center py-4 text-muted bg-light rounded-4">
-                                                <i class="bi bi-people fs-2 d-block mb-1"></i>
-                                                Core leadership roster updating soon.
-                                            </div>
-                                        ` : Object.keys(tenureMap).map(term => `
-                                            <div class="mb-4">
-                                                <div class="d-flex align-items-center gap-2 mb-3">
-                                                    <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold small">${escapeHtml(term)} Academic Term</span>
-                                                    <hr class="flex-grow-1 my-0">
+                                    <!-- Leadership & Governance Roster (Dynamically Toggled) -->
+                                    ${showLeadership ? `
+                                        <div class="about-card-elevated p-4 p-md-5 mb-4">
+                                            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                                                <div>
+                                                    <h4 class="fw-black text-dark mb-1" style="font-weight: 900;"><i class="bi bi-award text-primary me-2"></i> Executive Leadership & Core Committee</h4>
+                                                    <p class="text-secondary small mb-0">Faculty Mentors, Chapter President, Core Leads & Founding Team</p>
                                                 </div>
-                                                <div class="row g-3">
-                                                    ${tenureMap[term].map(leader => {
-                                                        const isFaculty = leader.category === 'faculty_coordinator';
-                                                        const isPresident = leader.category === 'president';
-                                                        
-                                                        let badgeClass = 'bg-primary-subtle text-primary';
-                                                        if (isFaculty) badgeClass = 'bg-warning-subtle text-warning border-warning';
-                                                        if (isPresident) badgeClass = 'bg-purple-subtle text-purple';
+                                            </div>
 
-                                                        return `
-                                                            <div class="col-6 col-md-4 text-center">
-                                                                <div class="p-3 bg-white rounded-4 border h-100 shadow-xs">
-                                                                    <img src="${escapeHtml(leader.avatar)}" class="rounded-circle mb-2 border shadow-xs" style="width: 72px; height: 72px; object-fit: cover;" alt="${escapeHtml(leader.name)}" onerror="this.src='assets/United Logo.webp'">
-                                                                    <h6 class="fw-black text-dark mb-1" style="font-size: 0.95rem; font-weight: 900;">${escapeHtml(leader.name)}</h6>
-                                                                    <span class="badge ${badgeClass} border rounded-pill px-2.5 py-1 small" style="font-size: 0.72rem;">${escapeHtml(leader.role_title)}</span>
-                                                                    ${leader.email ? `<span class="d-block text-muted small mt-1 text-truncate" style="font-size: 0.72rem;">${escapeHtml(leader.email)}</span>` : ''}
+                                            ${Object.keys(tenureMap).length === 0 ? `
+                                                <div class="text-center py-4 text-muted bg-light rounded-4">
+                                                    <i class="bi bi-people fs-2 d-block mb-1"></i>
+                                                    Core leadership roster updating soon.
+                                                </div>
+                                            ` : Object.keys(tenureMap).map(term => `
+                                                <div class="mb-4">
+                                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                                        <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold small">${escapeHtml(term)} Academic Term</span>
+                                                        <hr class="flex-grow-1 my-0">
+                                                    </div>
+                                                    <div class="row g-3">
+                                                        ${tenureMap[term].map(leader => {
+                                                            const isFaculty = leader.category === 'faculty_coordinator';
+                                                            const isPresident = leader.category === 'president';
+                                                            
+                                                            let badgeClass = 'bg-primary-subtle text-primary';
+                                                            if (isFaculty) badgeClass = 'bg-warning-subtle text-warning border-warning';
+                                                            if (isPresident) badgeClass = 'bg-purple-subtle text-purple';
+
+                                                            return `
+                                                                <div class="col-6 col-md-4 text-center">
+                                                                    <div class="p-3 bg-white rounded-4 border h-100 shadow-xs">
+                                                                        <img src="${escapeHtml(leader.avatar)}" class="rounded-circle mb-2 border shadow-xs" style="width: 72px; height: 72px; object-fit: cover;" alt="${escapeHtml(leader.name)}" onerror="this.src='assets/United Logo.webp'">
+                                                                        <h6 class="fw-black text-dark mb-1" style="font-size: 0.95rem; font-weight: 900;">${escapeHtml(leader.name)}</h6>
+                                                                        <span class="badge ${badgeClass} border rounded-pill px-2.5 py-1 small" style="font-size: 0.72rem;">${escapeHtml(leader.role_title)}</span>
+                                                                        ${leader.email ? `<span class="d-block text-muted small mt-1 text-truncate" style="font-size: 0.72rem;">${escapeHtml(leader.email)}</span>` : ''}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        `;
-                                                    }).join('')}
+                                                            `;
+                                                        }).join('')}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        `).join('')}
-                                    </div>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
 
                                     <!-- Club Events Showcase (Completed Recaps & Upcoming) -->
                                     <div class="about-card-elevated p-4 p-md-5 mb-4">
@@ -698,8 +728,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         `}
                                     </div>
 
-                                    <!-- Official Club Photo Gallery Section -->
-                                    ${(club.gallery && club.gallery.length > 0) ? `
+                                    <!-- Official Club Photo Gallery Section (Dynamically Toggled) -->
+                                    ${(showGallery && club.gallery && club.gallery.length > 0) ? `
                                         <div class="about-card-elevated p-4 p-md-5 mb-4">
                                             <div class="d-flex align-items-center justify-content-between mb-2">
                                                 <h4 class="fw-black text-dark mb-0" style="font-weight: 900;"><i class="bi bi-images text-primary me-2"></i> Official Chapter Photo Gallery</h4>

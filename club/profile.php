@@ -49,6 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $website = trim($_POST['website'] ?? '');
     $recruitmentOpen = isset($_POST['recruitment_open']) ? 1 : 0;
 
+    // Section Visibility Toggles
+    $showAchievements = isset($_POST['show_achievements']) ? 1 : 0;
+    $showLeadership   = isset($_POST['show_leadership']) ? 1 : 0;
+    $showRecruitment  = isset($_POST['show_recruitment']) ? 1 : 0;
+    $showGallery      = isset($_POST['show_gallery']) ? 1 : 0;
+    $achievementsText = trim($_POST['achievements_text'] ?? '');
+
     // Logo & Cover Uploads
     $logoUrl = trim($_POST['logo'] ?? '');
     $uploadedLogo = upload_image_file($_FILES['logo_file'] ?? null, 'clubs', $club['logo'] ?? $logoUrl);
@@ -64,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 tagline = ?, description = ?, mission = ?, vision = ?,
                 email = ?, phone = ?, office_location = ?, meeting_time = ?, meeting_location = ?,
                 instagram = ?, linkedin = ?, github = ?, website = ?, recruitment_open = ?,
-                logo = ?, cover_image = ?
+                logo = ?, cover_image = ?,
+                show_achievements = ?, show_leadership = ?, show_recruitment = ?, show_gallery = ?, achievements_text = ?
             WHERE id = ?
         ");
         $uStmt->execute([
@@ -72,10 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $email, $phone, $officeLocation, $meetingTime, $meetingLocation,
             $instagram, $linkedin, $github, $website, $recruitmentOpen,
             $logo, $coverImage,
+            $showAchievements, $showLeadership, $showRecruitment, $showGallery, $achievementsText,
             $club['id']
         ]);
 
-        $message = 'Club profile, logo, and cover details updated successfully!';
+        $message = 'Club profile, section visibility toggles, and media updated successfully!';
         // Refresh club data
         $stmt->execute([get_current_user_id()]);
         $club = $stmt->fetch();
@@ -398,6 +407,54 @@ $profileGalleryCount = count($clubPhotos ?? []);
                                     <input type="file" name="cover_file" class="form-control form-control-sm rounded-3" accept="image/*">
                                     <div class="mt-1 small text-muted">Current Cover: <a href="<?= htmlspecialchars($club['cover_image'] ?? '#') ?>" target="_blank" class="fw-bold text-primary">View Cover</a></div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- 🎛️ Section Visibility & Feature Display Switches -->
+                        <h5 class="fw-bold mb-3 mt-4 pt-3 border-top"><i class="bi bi-sliders text-primary me-2"></i> Public Page Section Display Toggles</h5>
+                        <p class="text-secondary small mb-4">Turn sections ON or OFF. Only toggled ON sections will be displayed on your public chapter detail page (<code>club-detail.html</code>).</p>
+
+                        <!-- Toggle 1: Recent Achievements & Milestones -->
+                        <div class="p-3.5 bg-white border rounded-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleAchievements">
+                                    <i class="bi bi-trophy-fill text-warning me-2 fs-5"></i> Show Recent Achievements & Milestones Banner
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleAchievements" name="show_achievements" value="1" <?= ($club['show_achievements'] ?? 1) ? 'checked' : '' ?> onchange="document.getElementById('achievementsBox').classList.toggle('d-none', !this.checked)">
+                            </div>
+                            <div id="achievementsBox" class="mt-3 pt-3 border-top <?= ($club['show_achievements'] ?? 1) ? '' : 'd-none' ?>">
+                                <label class="form-label small fw-semibold">Key Achievements & Highlights (One per line)</label>
+                                <textarea name="achievements_text" class="form-control rounded-3" rows="3" placeholder="🏆 Winner of Smart India Hackathon 2025&#10;🚀 250+ Active Coders Onboarded&#10;⭐ SAC Best Technical Society Award 2025"><?= htmlspecialchars($club['achievements_text'] ?? '') ?></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Toggle 2: Executive Leadership & Core Committee -->
+                        <div class="p-3.5 bg-white border rounded-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleLeadership">
+                                    <i class="bi bi-award-fill text-primary me-2 fs-5"></i> Show Executive Leadership & Core Committee Roster
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleLeadership" name="show_leadership" value="1" <?= ($club['show_leadership'] ?? 1) ? 'checked' : '' ?>>
+                            </div>
+                        </div>
+
+                        <!-- Toggle 3: Student Recruitment & Hiring Notice -->
+                        <div class="p-3.5 bg-white border rounded-4 mb-3">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleRecruitment">
+                                    <i class="bi bi-person-plus-fill text-success me-2 fs-5"></i> Show Student Recruitment & Hiring Notice
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleRecruitment" name="show_recruitment" value="1" <?= ($club['show_recruitment'] ?? 1) ? 'checked' : '' ?>>
+                            </div>
+                        </div>
+
+                        <!-- Toggle 4: Official Photo Gallery & Event Memories -->
+                        <div class="p-3.5 bg-white border rounded-4 mb-4">
+                            <div class="form-check form-switch d-flex align-items-center justify-content-between p-0 mb-0">
+                                <label class="form-check-label fw-bold text-dark cursor-pointer mb-0" for="toggleGallery">
+                                    <i class="bi bi-images text-info me-2 fs-5"></i> Show Chapter Photo Gallery & Memories
+                                </label>
+                                <input class="form-check-input ms-3" type="checkbox" role="switch" id="toggleGallery" name="show_gallery" value="1" <?= ($club['show_gallery'] ?? 1) ? 'checked' : '' ?>>
                             </div>
                         </div>
 
