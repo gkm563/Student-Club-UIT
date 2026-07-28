@@ -555,10 +555,14 @@ body {
     transform: scale(1.2) rotate(-5deg);
 }
 
-.cat-3d-svg {
-    width: 52px;
-    height: 52px;
-    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+.cat-3d-svg,
+.cat-3d-box img,
+.cat-3d-box svg {
+    width: 48px;
+    height: 48px;
+    filter: none !important;
+    image-rendering: -webkit-optimize-contrast;
+    object-fit: contain;
 }
 
 .cat-3d-badge {
@@ -2994,57 +2998,55 @@ body {
 }
 
 /* ==========================================================================
-   Continuous 3D Floating Pulse & Glow Engine for Explore by Categories Icons
+   Continuous Ultra-Clean Crisp Floating Engine for Explore by Categories Icons
    ========================================================================== */
-@keyframes categoryIconPulseOrbit {
+@keyframes categoryCleanFloat {
     0% {
-        transform: translateY(0px) rotate(0deg) scale(1);
-        filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.25));
+        transform: translateY(0px);
     }
-    33% {
-        transform: translateY(-7px) rotate(4deg) scale(1.06);
-        filter: drop-shadow(0 12px 22px rgba(124, 58, 237, 0.45));
-    }
-    66% {
-        transform: translateY(-3px) rotate(-3deg) scale(0.97);
-        filter: drop-shadow(0 6px 14px rgba(14, 165, 233, 0.35));
+    50% {
+        transform: translateY(-6px);
     }
     100% {
-        transform: translateY(0px) rotate(0deg) scale(1);
-        filter: drop-shadow(0 4px 10px rgba(99, 102, 241, 0.25));
+        transform: translateY(0px);
     }
 }
 
 .cat-3d-box,
 .category-icon-box,
-.cat-3d-svg,
-.cat-3d-box img,
-.cat-3d-box i,
-.category-card-3d .cat-3d-box,
 .club-category-icon-box {
     display: inline-flex !important;
-    animation: categoryIconPulseOrbit 3.6s ease-in-out infinite !important;
+    animation: categoryCleanFloat 3.2s ease-in-out infinite !important;
+}
+
+.cat-3d-svg,
+.cat-3d-box img,
+.cat-3d-box svg,
+.category-icon-box img,
+.category-icon-box svg {
+    filter: none !important;
+    image-rendering: -webkit-optimize-contrast !important;
 }
 
 .col-6:nth-child(2n) .cat-3d-box,
 [class*="col"]:nth-child(2n) .cat-3d-box,
 [class*="col"]:nth-child(2n) .category-icon-box {
-    animation-delay: 0.6s !important;
-    animation-duration: 3.2s !important;
+    animation-delay: 0.5s !important;
+    animation-duration: 2.9s !important;
 }
 
 .col-6:nth-child(3n) .cat-3d-box,
 [class*="col"]:nth-child(3n) .cat-3d-box,
 [class*="col"]:nth-child(3n) .category-icon-box {
-    animation-delay: 1.2s !important;
-    animation-duration: 4.0s !important;
+    animation-delay: 1.0s !important;
+    animation-duration: 3.5s !important;
 }
 
 .col-6:nth-child(4n) .cat-3d-box,
 [class*="col"]:nth-child(4n) .cat-3d-box,
 [class*="col"]:nth-child(4n) .category-icon-box {
-    animation-delay: 1.8s !important;
-    animation-duration: 3.5s !important;
+    animation-delay: 1.5s !important;
+    animation-duration: 3.1s !important;
 }
 
 .tinder-btn-swipe:hover {
