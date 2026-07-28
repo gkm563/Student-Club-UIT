@@ -382,12 +382,36 @@ body {
 }
 
 .hero-carousel-caption {
-    background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.88) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.92) 100%);
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 24px 20px 16px;
+    padding: 32px 24px 46px;
     text-align: left;
+    z-index: 5;
+}
+
+#heroCampusCarousel .carousel-indicators {
+    margin-bottom: 14px;
+    z-index: 10;
+    gap: 6px;
+}
+
+#heroCampusCarousel .carousel-indicators button {
+    width: 24px;
+    height: 4px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+#heroCampusCarousel .carousel-indicators button.active {
+    width: 36px;
+    background-color: #38bdf8;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
 }
 
 .hero-slide-link {
