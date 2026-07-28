@@ -333,60 +333,77 @@ $searchIndexData = array_merge($clubsSearch, $usersSearch, $propsSearch, $events
                 </div>
             </div>
 
-            <!-- KPI Metric Deck -->
+            <!-- 6 Executive KPI Metric Cards Deck (3 Top, 3 Bottom Layout) -->
             <div class="row g-3 mb-4">
-                <div class="col-6 col-md-4 col-xl-2.4">
-                    <a href="clubs.php" class="exec-card">
+                <!-- 1. Total Clubs -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="clubs.php" class="exec-card h-100">
                         <div class="d-flex align-items-center justify-content-between">
-                            <span class="kpi-label">TOTAL CLUBS</span>
+                            <span class="kpi-label">TOTAL CAMPUS CLUBS</span>
                             <div class="kpi-icon-wrapper bg-primary-subtle text-primary"><i class="bi bi-trophy"></i></div>
                         </div>
                         <div class="kpi-value"><?= $totalClubs ?></div>
-                        <div class="small text-success fw-semibold" style="font-size:0.75rem;"><i class="bi bi-check-circle me-1"></i><?= $activeClubs ?> Active ON</div>
+                        <div class="small text-success fw-semibold" style="font-size:0.75rem;"><i class="bi bi-check-circle me-1"></i><?= $activeClubs ?> Active Chapters (ON)</div>
                     </a>
                 </div>
 
-                <div class="col-6 col-md-4 col-xl-2.4">
-                    <a href="proposals.php" class="exec-card">
+                <!-- 2. Pending Proposals -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="proposals.php" class="exec-card h-100">
                         <div class="d-flex align-items-center justify-content-between">
-                            <span class="kpi-label">PROPOSALS</span>
+                            <span class="kpi-label">PENDING PROPOSALS</span>
                             <div class="kpi-icon-wrapper bg-warning-subtle text-warning"><i class="bi bi-file-earmark-text"></i></div>
                         </div>
                         <div class="kpi-value"><?= $pendingProposalsCount ?></div>
-                        <div class="small text-warning fw-bold" style="font-size:0.75rem;"><i class="bi bi-clock me-1"></i>Pending Review</div>
+                        <div class="small text-warning fw-bold" style="font-size:0.75rem;"><i class="bi bi-clock me-1"></i>Awaiting Dean Review</div>
                     </a>
                 </div>
 
-                <div class="col-6 col-md-4 col-xl-2.4">
-                    <a href="users.php" class="exec-card">
+                <!-- 3. Campus Events Governance -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="events.php" class="exec-card h-100">
                         <div class="d-flex align-items-center justify-content-between">
-                            <span class="kpi-label">SYSTEM USERS</span>
-                            <div class="kpi-icon-wrapper bg-purple-subtle text-purple" style="background:#f5f3ff; color:#7c3aed;"><i class="bi bi-people"></i></div>
-                        </div>
-                        <div class="kpi-value"><?= $totalUsers ?></div>
-                        <div class="small text-secondary fw-semibold" style="font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Admins & Leads</div>
-                    </a>
-                </div>
-
-                <div class="col-6 col-md-4 col-xl-2.4">
-                    <a href="audit-logs.php" class="exec-card">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <span class="kpi-label">UPCOMING EVENTS</span>
+                            <span class="kpi-label">UPCOMING & CAMPUS EVENTS</span>
                             <div class="kpi-icon-wrapper bg-info-subtle text-info"><i class="bi bi-calendar-event"></i></div>
                         </div>
                         <div class="kpi-value"><?= $upcomingEvents ?></div>
-                        <div class="small text-info fw-semibold" style="font-size:0.75rem;"><i class="bi bi-calendar-check me-1"></i>Scheduled</div>
+                        <div class="small text-info fw-semibold" style="font-size:0.75rem;"><i class="bi bi-calendar-check me-1"></i>Governance Directory</div>
                     </a>
                 </div>
 
-                <div class="col-6 col-md-4 col-xl-2.4">
-                    <a href="categories.php" class="exec-card">
+                <!-- 4. System Users & Officers -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="users.php" class="exec-card h-100">
                         <div class="d-flex align-items-center justify-content-between">
-                            <span class="kpi-label">DOMAINS</span>
+                            <span class="kpi-label">SYSTEM USERS & ROSTER</span>
+                            <div class="kpi-icon-wrapper bg-purple-subtle text-purple" style="background:#f5f3ff; color:#7c3aed;"><i class="bi bi-people"></i></div>
+                        </div>
+                        <div class="kpi-value"><?= $totalUsers ?></div>
+                        <div class="small text-secondary fw-semibold" style="font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Admins & Club Leads</div>
+                    </a>
+                </div>
+
+                <!-- 5. Power BI Campus Analytics -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="analytics.php" class="exec-card h-100" style="border-color:#c084fc;">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="kpi-label" style="color:#7c3aed;">CAMPUS DEEP ANALYTICS</span>
+                            <div class="kpi-icon-wrapper text-white" style="background:linear-gradient(135deg,#7c3aed,#4f46e5);"><i class="bi bi-bar-chart-line"></i></div>
+                        </div>
+                        <div class="kpi-value" style="color:#6b21a8;">POWER BI</div>
+                        <div class="small fw-bold" style="font-size:0.75rem; color:#7c3aed;"><i class="bi bi-graph-up-arrow me-1"></i>Ecosystem Intelligence & Rankings &rarr;</div>
+                    </a>
+                </div>
+
+                <!-- 6. Domain Categories -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <a href="categories.php" class="exec-card h-100">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="kpi-label">DOMAIN CATEGORIES</span>
                             <div class="kpi-icon-wrapper bg-success-subtle text-success"><i class="bi bi-grid-3x3-gap"></i></div>
                         </div>
                         <div class="kpi-value"><?= $totalCats ?></div>
-                        <div class="small text-success fw-semibold" style="font-size:0.75rem;"><i class="bi bi-folder-check me-1"></i>Categories</div>
+                        <div class="small text-success fw-semibold" style="font-size:0.75rem;"><i class="bi bi-folder-check me-1"></i>Active Domain Clusters</div>
                     </a>
                 </div>
             </div>
