@@ -2349,7 +2349,7 @@ body {
    ========================================================================== */
 
 .clubs-hero-image-styled {
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.88) 100%), url('../img/indian_clubs_hero.jpg') center/cover no-repeat;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.88) 100%), url('../img/indian_clubs_hero.jpg'), url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1600&auto=format&fit=crop') center center / cover no-repeat !important;
     position: relative;
     overflow: hidden;
     color: #ffffff;
