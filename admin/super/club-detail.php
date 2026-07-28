@@ -540,10 +540,11 @@ $galleryCount       = (int)$db->query("SELECT COUNT(*) FROM gallery_items WHERE 
                                         <td colspan="6" class="text-center py-5 text-muted">No events recorded for this chapter yet.</td>
                                     </tr>
                                 <?php else: foreach ($events as $ev): ?>
-                                    <tr>
                                         <td>
-                                            <div class="fw-bold text-dark mb-0"><?= htmlspecialchars($ev['title']) ?></div>
-                                            <span class="badge bg-light text-secondary border rounded-pill px-2 py-0.5" style="font-size:0.68rem;"><?= htmlspecialchars($ev['event_type'] ?? 'General Event') ?></span>
+                                            <a href="javascript:void(0)" class="fw-bold text-dark text-decoration-none hover-primary mb-0 d-block" data-bs-toggle="modal" data-bs-target="#clubEventAuditModal_<?= $ev['id'] ?>" title="Click to view full event details & dossier">
+                                                <?= htmlspecialchars($ev['title']) ?> <i class="bi bi-info-circle text-primary fs-7 ms-1"></i>
+                                            </a>
+                                            <span class="badge bg-light text-secondary border rounded-pill px-2 py-0.5 mt-1" style="font-size:0.68rem;"><?= htmlspecialchars($ev['event_type'] ?? 'General Event') ?></span>
                                         </td>
                                         <td class="small">
                                             <div class="fw-semibold text-dark"><i class="bi bi-calendar3 me-1 text-primary"></i><?= date('M d, Y', strtotime($ev['event_date'])) ?></div>

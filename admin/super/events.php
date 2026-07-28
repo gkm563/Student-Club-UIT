@@ -31,6 +31,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
+// Handle Event Deletion
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete_event') {
+    $eventId = trim($_POST['event_id'] ?? '');
+    if (!empty($eventId)) {
+        try {
+            $stmt = $db->prepare("DELETE FROM events WHERE id = ?");
+            $stmt->execute([$eventId]);
+
+            log_audit($db, $_SESSION['user_id'], $_SESSION['full_name'] ?? 'Dean Sir', 'EVENT_DELETED', 'event', $eventId, "Deleted event ID '$eventId'");
+            $message = "Event record deleted successfully!";
+        } catch (Exception $e) {
+            $error = "Error deleting event: " . $e->getMessage();
+        }
+    }
+}
+
 // Fetch Filters Data
 $allClubs = $db->query("SELECT id, name, short_name, logo FROM clubs ORDER BY name ASC")->fetchAll();
 $allCategories = $db->query("SELECT * FROM categories ORDER BY name ASC")->fetchAll();
@@ -225,8 +241,10 @@ $upcomingCount = (int)$db->query("SELECT COUNT(*) FROM events WHERE event_date >
                         <?php else: foreach ($events as $ev): ?>
                             <tr>
                                 <td>
-                                    <div class="fw-bold text-dark mb-0"><?= htmlspecialchars($ev['title']) ?></div>
-                                    <span class="badge bg-light text-secondary border rounded-pill px-2 py-0.5" style="font-size:0.68rem;"><?= htmlspecialchars($ev['event_type'] ?? 'General Event') ?></span>
+                                    <a href="javascript:void(0)" class="fw-bold text-dark text-decoration-none hover-primary mb-0 d-block" data-bs-toggle="modal" data-bs-target="#eventAuditModal_<?= $ev['id'] ?>" title="Click to view full event details & dossier">
+                                        <?= htmlspecialchars($ev['title']) ?> <i class="bi bi-info-circle text-primary fs-7 ms-1"></i>
+                                    </a>
+                                    <span class="badge bg-light text-secondary border rounded-pill px-2 py-0.5 mt-1" style="font-size:0.68rem;"><?= htmlspecialchars($ev['event_type'] ?? 'General Event') ?></span>
                                 </td>
                                 <td>
                                     <a href="club-detail.php?id=<?= $ev['club_id'] ?>" class="text-decoration-none d-inline-flex align-items-center gap-2">
@@ -258,16 +276,56 @@ $upcomingCount = (int)$db->query("SELECT COUNT(*) FROM events WHERE event_date >
                                     <span class="badge <?= $bClass ?> border rounded-pill px-2.5 py-1 small"><?= ucfirst($st) ?></span>
                                 </td>
                                 <td class="text-end">
-                                    <div class="btn-group">
-                                        <!-- View Event Audit Modal Button -->
-                                        <button type="button" class="btn btn-sm btn-light rounded-circle me-1" data-bs-toggle="modal" data-bs-target="#eventAuditModal_<?= $ev['id'] ?>" title="Executive Event Deep Audit">
-                                            <i class="bi bi-eye-fill text-primary"></i>
-                                        </button>
+                                    <div class="d-flex align-items-center justify-content-end gap-1">
+                                        <!-- Direct Quick Decision: Mark Completed / Conducted -->
+                                        <?php if ($ev['status'] !== 'completed'): ?>
+                                            <form action="events.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="action" value="update_event_status">
+                                                <input type="hidden" name="event_id" value="<?= htmlspecialchars($ev['id']) ?>">
+                                                <input type="hidden" name="status" value="completed">
+                                                <button type="submit" class="btn btn-sm btn-success rounded-circle shadow-xs" title="Approve & Mark Completed">
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
 
-                                        <!-- Edit Status Button -->
-                                        <button type="button" class="btn btn-sm btn-light rounded-circle" data-bs-toggle="modal" data-bs-target="#editEventStatusModal_<?= $ev['id'] ?>" title="Change Event Status">
+                                        <!-- Direct Quick Decision: Set Upcoming -->
+                                        <?php if ($ev['status'] !== 'upcoming'): ?>
+                                            <form action="events.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="action" value="update_event_status">
+                                                <input type="hidden" name="event_id" value="<?= htmlspecialchars($ev['id']) ?>">
+                                                <input type="hidden" name="status" value="upcoming">
+                                                <button type="submit" class="btn btn-sm btn-primary rounded-circle shadow-xs" title="Schedule as Upcoming Event">
+                                                    <i class="bi bi-calendar-check-fill"></i>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
+
+                                        <!-- Direct Quick Decision: Cancel / Flag Event -->
+                                        <?php if ($ev['status'] !== 'cancelled'): ?>
+                                            <form action="events.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="action" value="update_event_status">
+                                                <input type="hidden" name="event_id" value="<?= htmlspecialchars($ev['id']) ?>">
+                                                <input type="hidden" name="status" value="cancelled">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-circle shadow-xs" title="Flag & Cancel Event" onclick="return confirm('Cancel this event?')">
+                                                    <i class="bi bi-slash-circle-fill"></i>
+                                                </button>
+                                            </form>
+                                        <?php endif; ?>
+
+                                        <!-- Edit Settings Modal Button -->
+                                        <button type="button" class="btn btn-sm btn-light rounded-circle shadow-xs" data-bs-toggle="modal" data-bs-target="#editEventStatusModal_<?= $ev['id'] ?>" title="Change Event Status Settings">
                                             <i class="bi bi-gear-fill text-secondary"></i>
                                         </button>
+
+                                        <!-- Direct Delete Event Record -->
+                                        <form action="events.php" method="POST" class="d-inline">
+                                            <input type="hidden" name="action" value="delete_event">
+                                            <input type="hidden" name="event_id" value="<?= htmlspecialchars($ev['id']) ?>">
+                                            <button type="submit" class="btn btn-sm btn-light text-danger rounded-circle shadow-xs" title="Permanently Delete Event Record" onclick="return confirm('Permanently delete this event record?')">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </button>
+                                        </form>
                                     </div>
 
                                     <!-- Event Deep Audit Modal -->
