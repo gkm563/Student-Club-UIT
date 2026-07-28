@@ -131,12 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const masterPriorityList = [...ongoingList, ...upcomingList, ...pastList];
 
         // Update Counter Badges
-        const heroOngoing = document.getElementById('heroOngoingCount');
-        const heroUpcoming = document.getElementById('heroUpcomingCount');
+        const heroTotalEvents = document.getElementById('heroTotalEventsCount');
+        const heroTotalAttendees = document.getElementById('heroTotalAttendees');
+        const heroActiveClubs = document.getElementById('heroActiveClubs');
         const streamCountBadge = document.getElementById('streamCountBadge');
 
-        if (heroOngoing) heroOngoing.textContent = `${ongoingList.length}`;
-        if (heroUpcoming) heroUpcoming.textContent = `${upcomingList.length}`;
+        if (heroTotalEvents) heroTotalEvents.textContent = `${allEvents.length}+`;
+        if (heroActiveClubs) heroActiveClubs.textContent = `${allClubsMap.size || 9} Clubs`;
+        if (heroTotalAttendees) {
+            const totalAttendees = allEvents.reduce((acc, curr) => acc + (parseInt(curr.actual_attended || curr.registered_count || 45)), 0);
+            heroTotalAttendees.textContent = `${totalAttendees.toLocaleString()}+`;
+        }
 
         // Select Stream Display List Based on Selected Status Tab
         let displayList = masterPriorityList;

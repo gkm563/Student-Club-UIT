@@ -331,39 +331,89 @@
                 </div>
             </div>
 
-            <!-- Right Side Clean Elevated Stat Card -->
+            <!-- Right Side High-Impact Live Campus Intelligence Hub Widget -->
             <div class="col-lg-5 col-xl-4">
-                <div class="events-hero-card-elevated text-center">
-                    <!-- Top Institutional Header -->
-                    <div class="d-flex align-items-center justify-content-center gap-2.5 mb-4 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
-                        <div class="clubs-card-icon-box-image">
-                            <i class="bi bi-calendar-event-fill fs-5 text-primary"></i>
+                <div class="events-hero-card-elevated text-center shadow-2xl p-4" style="background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(20px); border-radius: 24px; border: 1.5px solid rgba(255,255,255,0.8);">
+                    <!-- Dynamic Pulse Status Header -->
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
+                        <div class="d-flex align-items-center gap-2 text-start">
+                            <div class="clubs-card-icon-box-image p-2 rounded-circle bg-primary bg-opacity-10 text-primary">
+                                <i class="bi bi-cpu-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-black text-dark mb-0" style="font-weight: 900; font-size: 0.95rem;">Campus Intelligence Hub</h6>
+                                <span class="small text-muted font-monospace" style="font-size: 0.72rem;">SAC Real-time Ecosystem</span>
+                            </div>
                         </div>
-                        <span class="fw-black text-dark fs-6" style="color: #0f172a !important; font-weight: 900; letter-spacing: -0.2px;">United Campus Events Portal</span>
+                        <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1 font-monospace fw-bold" style="font-size: 0.72rem;">
+                            <span class="pulse-dot-green me-1"></span> LIVE 2026
+                        </span>
                     </div>
 
-                    <!-- 2-Column Stat Counter Grid -->
-                    <div class="row g-2 text-center my-2">
-                        <div class="col-6 border-end" style="border-color: #f1f5f9 !important;">
-                            <div class="clubs-stat-circle-box" style="background: #eff6ff; color: #3b82f6;">
-                                <i class="bi bi-lightning-charge-fill fs-5"></i>
-                            </div>
-                            <h2 class="fw-black mb-0 text-primary" style="color: #2563eb !important; font-size: 2.2rem; font-weight: 900;" id="heroOngoingCount">0</h2>
-                            <span class="fw-extrabold text-dark d-block mt-1" style="font-size: 0.85rem; color: #0f172a !important;">Live Events</span>
-                        </div>
+                    <!-- 2x2 Ecosystem Metrics Matrix Grid -->
+                    <div class="row g-2 text-start mb-3">
                         <div class="col-6">
-                            <div class="clubs-stat-circle-box" style="background: #f5f3ff; color: #7c3aed;">
-                                <i class="bi bi-calendar-check-fill fs-5"></i>
+                            <div class="p-3 rounded-4 bg-primary-subtle bg-opacity-30 border border-primary-subtle h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <i class="bi bi-lightning-charge-fill text-primary fs-5"></i>
+                                    <span class="badge bg-primary text-white rounded-pill" style="font-size: 0.62rem;">TOTAL</span>
+                                </div>
+                                <h3 class="fw-black mb-0 text-primary" style="font-size: 1.6rem; font-weight: 900;" id="heroTotalEventsCount">11+</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Contests & Contests</span>
                             </div>
-                            <h2 class="fw-black mb-0" style="color: #7c3aed !important; font-size: 2.2rem; font-weight: 900;" id="heroUpcomingCount">0</h2>
-                            <span class="fw-extrabold text-dark d-block mt-1" style="font-size: 0.85rem; color: #0f172a !important;">Scheduled Events</span>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="p-3 rounded-4 bg-purple-subtle bg-opacity-30 border border-purple-subtle h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <i class="bi bi-people-fill fs-5" style="color: #7c3aed;"></i>
+                                    <span class="badge rounded-pill text-white" style="background: #7c3aed; font-size: 0.62rem;">ACTIVE</span>
+                                </div>
+                                <h3 class="fw-black mb-0" style="color: #7c3aed !important; font-size: 1.6rem; font-weight: 900;" id="heroTotalAttendees">1,450+</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Student Coders</span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="p-3 rounded-4 bg-warning-subtle bg-opacity-30 border border-warning-subtle h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <i class="bi bi-trophy-fill text-warning fs-5"></i>
+                                    <span class="badge bg-warning text-dark rounded-pill" style="font-size: 0.62rem;">PRIZES</span>
+                                </div>
+                                <h3 class="fw-black mb-0 text-dark" style="font-size: 1.6rem; font-weight: 900;" id="heroPrizePool">₹1.5L+</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Swags & Rewards</span>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="p-3 rounded-4 bg-success-subtle bg-opacity-30 border border-success-subtle h-100">
+                                <div class="d-flex align-items-center justify-content-between mb-1">
+                                    <i class="bi bi-rocket-takeoff-fill text-success fs-5"></i>
+                                    <span class="badge bg-success text-white rounded-pill" style="font-size: 0.62rem;">CHAPTERS</span>
+                                </div>
+                                <h3 class="fw-black mb-0 text-success" style="font-size: 1.6rem; font-weight: 900;" id="heroActiveClubs">9 Clubs</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">SAC Governed</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-center gap-2 mt-4 pt-3 border-top text-muted small" style="border-color: #f1f5f9 !important;">
-                        <i class="bi bi-patch-check-fill text-success fs-6"></i>
-                        <span class="fw-extrabold text-dark">100% SAC Verified Certificates</span>
+                    <!-- Verified Certificate & Dean Approval Stamp Banner -->
+                    <div class="p-3 rounded-4 text-start shadow-sm" style="background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%); color: #ffffff; border: 1px solid rgba(167, 139, 250, 0.3);">
+                        <div class="d-flex align-items-center gap-2.5">
+                            <i class="bi bi-patch-check-fill text-warning fs-3 flex-shrink-0"></i>
+                            <div>
+                                <strong class="d-block text-white" style="font-size: 0.86rem; letter-spacing: -0.2px;">100% SAC Verified Certificates</strong>
+                                <span class="small text-white-70 d-block mt-0.5" style="font-size: 0.72rem; line-height: 1.35;">Official QR-Coded verified certificates issued for all registered participants.</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Live RSVP Activity Toast Ticker -->
+                    <div class="mt-3 text-start small text-dark d-flex align-items-center gap-2 p-2 px-3 rounded-pill bg-light border shadow-xs" style="font-size: 0.78rem;">
+                        <span class="badge bg-danger rounded-circle p-1" style="width:8px; height:8px;"></span>
+                        <span class="text-truncate">🔥 <strong>Ananya S. (CSE '27)</strong> just RSVP'd for GFG Code Sprint!</span>
+                    </div>
+
                 </div>
             </div>
         </div>
