@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!clubPillsContainer) return;
 
         let pillsHtml = `
-            <button class="btn btn-sm rounded-pill px-3 py-1-5 fw-semibold club-pill-btn active" data-club-id="all">
+            <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn active" data-club-id="all">
                 <i class="bi bi-collection-fill me-1"></i> All Clubs (${allEvents.length})
             </button>
         `;
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         allClubsMap.forEach(club => {
             const count = allEvents.filter(e => e.club_id === club.id).length;
             pillsHtml += `
-                <button class="btn btn-sm rounded-pill px-3 py-1-5 fw-semibold club-pill-btn" data-club-id="${club.id}">
+                <button class="btn btn-sm rounded-pill px-3.5 py-2 fw-semibold club-pill-btn" data-club-id="${club.id}">
                     <img src="${escapeHtml(club.logo)}" class="rounded-circle me-1" style="width: 18px; height: 18px; object-fit: cover;">
                     ${escapeHtml(club.short)} (${count})
                 </button>

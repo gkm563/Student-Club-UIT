@@ -2288,8 +2288,39 @@ body {
     padding: 6px 18px;
     border-radius: 50px;
     font-size: 0.85rem;
+}
+
+/* Club Filter Pill Button Padding & Spacing Utility */
+.club-pill-btn {
+    padding: 8px 18px !important;
+    margin: 3px 2px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    border-radius: 50rem !important;
+    background: #f1f5f9;
     color: #475569;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    border: 1px solid #e2e8f0;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.club-pill-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.club-pill-btn.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
 }
 
 .clubs-top-pill-badge {
