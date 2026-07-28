@@ -94,14 +94,12 @@ $completedCount = $db->prepare("SELECT COUNT(*) FROM events WHERE club_id = ? AN
 $completedCount->execute([$club['id']]);
 $totalCompleted = $completedCount->fetchColumn();
 
-// Club Health Score (0-100)
-$healthScore = 0;
-if ($eventsThisMonth > 0) $healthScore += 25;
-if ($totalGallery >= 3) $healthScore += 25;
-if ($totalLeaders >= 3) $healthScore += 25;
-if ($totalUpcoming > 0) $healthScore += 25;
-if (!empty($club['description'])) $healthScore = min(100, $healthScore + 10);
-$healthBadge = $healthScore >= 80 ? ['Excellent', 'success'] : ($healthScore >= 50 ? ['Good', 'warning'] : ['Needs Attention', 'danger']);
+// System-Wide 100% Dynamic 12-Criteria Club Profile Setup Health Calculation
+$profileHealthData = calculate_club_profile_health($club, $db);
+$healthScore = $profileHealthData['score'];
+$healthStatus = $profileHealthData['status'];
+$healthBadgeClass = $profileHealthData['badge_class'];
+$healthBadge = [$healthStatus, $healthBadgeClass];
 
 // Pending Tasks
 $pendingTasks = [];
@@ -329,12 +327,12 @@ try {
                         <div class="d-flex align-items-baseline gap-2 mb-2">
                             <span class="display-5 fw-bold text-white mb-0"><?= $healthScore ?></span>
                             <span class="text-white-50 fs-5">/ 100</span>
-                            <span class="badge bg-<?= $healthBadge[1] ?> text-white ms-auto rounded-pill px-3 py-1 fw-bold"><?= $healthBadge[0] ?></span>
+                            <span class="badge bg-<?= $healthBadgeClass ?> text-white ms-auto rounded-pill px-3 py-1 fw-bold"><?= $healthStatus ?></span>
                         </div>
                         <div class="progress bg-black bg-opacity-30 rounded-pill" style="height: 8px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $healthScore ?>%;" aria-valuenow="<?= $healthScore ?>"></div>
+                            <div class="progress-bar bg-<?= $healthBadgeClass ?>" role="progressbar" style="width: <?= $healthScore ?>%;" aria-valuenow="<?= $healthScore ?>"></div>
                         </div>
-                        <span class="d-block text-white-50 small mt-2" style="font-size:0.75rem;">Keep profiles, leaders & upcoming events active for maximum score.</span>
+                        <span class="d-block text-white-50 small mt-2" style="font-size:0.75rem;">12-Criteria Profile Setup: <?= $profileHealthData['filled_count'] ?>/<?= $profileHealthData['total_fields'] ?> completed. <a href="profile.php" class="text-white text-decoration-underline fw-bold">Update Profile</a></span>
                     </div>
                 </div>
             </div>
