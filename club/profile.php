@@ -199,7 +199,7 @@ if (isset($_GET['delete_photo'])) {
 }
 
 // Fetch Annual Leadership Roster
-$rosterStmt = $db->prepare("SELECT * FROM leadership WHERE club_id = ? ORDER BY term_year DESC, created_at ASC");
+$rosterStmt = $db->prepare("SELECT * FROM leadership WHERE club_id = ? ORDER BY term_year DESC, order_index ASC, id ASC");
 $rosterStmt->execute([$club['id']]);
 $roster = $rosterStmt->fetchAll();
 
