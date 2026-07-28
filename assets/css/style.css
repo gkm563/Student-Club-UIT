@@ -2533,14 +2533,14 @@ body {
 
 .clubs-hero-left-glass,
 .events-hero-left-glass {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 255, 255, 0.95);
-    border-radius: 28px;
-    padding: 38px 42px;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 28px !important;
+    padding: 38px 42px !important;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35) !important;
+    transition: all 0.3s ease !important;
 }
 
 .clubs-hero-headline-image {
