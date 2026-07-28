@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderClubFilterPills() {
         const clubSelectFilter = document.getElementById('clubSelectFilter');
         if (clubSelectFilter) {
-            let optionsHtml = `<option value="all">⚡ All Campus Clubs (${allEvents.length})</option>`;
+            let optionsHtml = `<option value="all">All Campus Clubs (${allEvents.length})</option>`;
             allClubsMap.forEach(club => {
                 const count = allEvents.filter(e => e.club_id === club.id).length;
                 optionsHtml += `<option value="${escapeHtml(club.id)}">${escapeHtml(club.short || club.name)} (${count})</option>`;
@@ -214,11 +214,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
 
         const isPast = (eventDate < new Date()) || (targetEvent.status === 'completed');
-        let statusBadge = `<span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><i class="bi bi-calendar-event-fill me-1 text-warning"></i> 📅 UPCOMING CONTEST</span>`;
+        let statusBadge = `<span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><i class="bi bi-calendar-event-fill me-1"></i> UPCOMING CONTEST</span>`;
         if (isPast) {
-            statusBadge = `<span class="badge bg-success text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><i class="bi bi-check-circle-fill me-1 text-warning"></i> 🏆 COMPLETED SESSION</span>`;
+            statusBadge = `<span class="badge bg-success text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><i class="bi bi-award-fill me-1"></i> COMPLETED SESSION</span>`;
         } else if (targetEvent.status === 'ongoing' || targetEvent.status === 'live') {
-            statusBadge = `<span class="badge bg-danger text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><span class="spinner-grow spinner-grow-sm text-white me-1" role="status" style="width:7px;height:7px;"></span> 🔴 LIVE WORKSHOP</span>`;
+            statusBadge = `<span class="badge bg-danger text-white rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="font-size:0.8rem;"><span class="spinner-grow spinner-grow-sm text-white me-1" role="status" style="width:7px;height:7px;"></span> LIVE WORKSHOP</span>`;
         }
 
         const registeredCount = targetEvent.registered_count || 45;
@@ -410,11 +410,11 @@ function renderFloatingEventCard(event, isPast = false) {
     const timeStr = eventDate.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
     const fullDateFormatted = eventDate.toLocaleString('default', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
-    let statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-calendar-event-fill me-1 text-warning"></i> 📅 UPCOMING</span>`;
+    let statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-calendar-check-fill me-1"></i> UPCOMING</span>`;
     if (isPast || event.status === 'completed') {
-        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-check-circle-fill me-1 text-warning"></i> 🏆 COMPLETED</span>`;
+        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><i class="bi bi-award-fill me-1"></i> COMPLETED</span>`;
     } else if (event.status === 'ongoing' || event.status === 'live') {
-        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:7px;height:7px;"></span> 🔴 LIVE ONGOING</span>`;
+        statusBadge = `<span class="badge rounded-pill px-3 py-1.5 fw-extrabold shadow-sm d-inline-flex align-items-center gap-1.5 text-white" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border: 1.5px solid rgba(255, 255, 255, 0.9); font-size: 0.78rem; letter-spacing: 0.3px; backdrop-filter: blur(8px);"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:7px;height:7px;"></span> LIVE ONGOING</span>`;
     }
 
     const registeredCount = event.registered_count || 45;

@@ -224,12 +224,12 @@
             background: rgba(255, 255, 255, 0.6);
         }
 
-        /* Distinct Color Accents for Active Tabs */
+        /* Distinct Color Accents for Active Tabs (Navy/Indigo instead of Black) */
         .event-status-tab.active[data-status-tab="all"], .event-status-tab.active:not([data-status-tab]) {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
             color: #ffffff !important;
-            border-color: #0f172a !important;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.3) !important;
+            border-color: #1e40af !important;
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.35) !important;
         }
 
         .event-status-tab.active[data-status-tab="ongoing"] {
@@ -472,16 +472,16 @@
             <!-- Sleek Segmented Event Status Control Bar -->
             <div class="event-segmented-container">
                 <button class="btn btn-sm event-status-tab active" data-status-tab="all">
-                    <i class="bi bi-collection-fill me-1 text-primary"></i> All Events
+                    <i class="bi bi-grid-fill me-1"></i> All Events
                 </button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="ongoing">
-                    <span class="pulse-dot-green me-1"></span> 🔴 Live Now
+                    <i class="bi bi-record-circle-fill me-1 text-danger"></i> Live Now
                 </button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="upcoming">
-                    <i class="bi bi-calendar-event me-1 text-primary"></i> 📅 Upcoming
+                    <i class="bi bi-calendar-check-fill me-1"></i> Upcoming
                 </button>
                 <button class="btn btn-sm event-status-tab" data-status-tab="past">
-                    <i class="bi bi-check-circle-fill me-1 text-success"></i> 🏆 Completed
+                    <i class="bi bi-award-fill me-1"></i> Completed
                 </button>
             </div>
 
@@ -489,7 +489,7 @@
             <div class="club-select-filter-box">
                 <span class="club-filter-label d-none d-sm-inline-block"><i class="bi bi-funnel-fill text-primary me-1"></i> Filter by Club:</span>
                 <select id="clubSelectFilter" class="form-select form-select-sm club-select-dropdown">
-                    <option value="all">⚡ All Campus Clubs</option>
+                    <option value="all">All Campus Clubs</option>
                 </select>
             </div>
 
