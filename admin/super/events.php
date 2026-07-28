@@ -280,9 +280,16 @@ $upcomingCount = (int)$db->query("SELECT COUNT(*) FROM events WHERE event_date >
                                 <td>
                                     <?php
                                     $st = strtolower($ev['status']);
-                                    $bClass = ($st === 'completed') ? 'bg-success-subtle text-success' : (($st === 'upcoming') ? 'bg-primary-subtle text-primary' : (($st === 'ongoing') ? 'bg-warning-subtle text-warning' : 'bg-danger-subtle text-danger'));
+                                    if ($st === 'completed') {
+                                        echo '<span class="badge bg-success text-white rounded-pill px-3 py-1 font-monospace fw-bold shadow-xs"><i class="bi bi-check-circle-fill me-1 text-warning"></i> Completed</span>';
+                                    } else if ($st === 'upcoming') {
+                                        echo '<span class="badge bg-primary text-white rounded-pill px-3 py-1 font-monospace fw-bold shadow-xs"><i class="bi bi-calendar-event-fill me-1 text-warning"></i> Upcoming</span>';
+                                    } else if ($st === 'ongoing' || $st === 'live') {
+                                        echo '<span class="badge bg-danger text-white rounded-pill px-3 py-1 font-monospace fw-bold shadow-xs"><span class="spinner-grow spinner-grow-sm me-1 text-white" role="status" style="width:6px;height:6px;"></span> Ongoing</span>';
+                                    } else {
+                                        echo '<span class="badge bg-secondary text-white rounded-pill px-3 py-1 font-monospace fw-bold shadow-xs">' . ucfirst($st) . '</span>';
+                                    }
                                     ?>
-                                    <span class="badge <?= $bClass ?> border rounded-pill px-2.5 py-1 small"><?= ucfirst($st) ?></span>
                                 </td>
                                 <td class="text-end">
                                     <div class="d-flex align-items-center justify-content-end gap-1">
