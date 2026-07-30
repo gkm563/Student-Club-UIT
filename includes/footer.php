@@ -39,12 +39,12 @@ if (!isset($assetPrefix)) {
                 <div class="d-flex align-items-center gap-3 mb-3 justify-content-center justify-content-lg-start">
                     <img src="<?= $assetPrefix ?>assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img-footer">
                     <div>
-                        <span class="brand-logo-text fs-4 d-block text-white">ClubHub UIT</span>
-                        <span class="small text-white-50">United Institute of Technology</span>
+                        <span class="brand-logo-text fs-4 d-block text-white" style="font-weight: 900; line-height: 1.1;">USC UIT</span>
+                        <span class="small text-warning fw-extrabold" style="letter-spacing: 0.5px;">UNITED STUDENT CLUB</span>
                     </div>
                 </div>
                 <p class="small text-white-80 max-w-sm mb-4 mx-auto mx-lg-0">
-                    Official Student Clubs & Co-Curricular Governance Portal. Facilitating technical study jams, cultural fests, sports events, and community drives at UIT Prayagraj.
+                    Official Student Clubs &amp; Co-Curricular Governance Council of United Institute of Technology (UIT). Home to Developers Club UIT &amp; Cultural Club UIT.
                 </p>
                 <div class="d-flex gap-2 justify-content-center justify-content-lg-start">
                     <a href="#" class="social-icon-btn fb" title="Facebook"><i class="bi bi-facebook"></i></a>

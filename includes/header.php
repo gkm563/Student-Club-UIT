@@ -31,12 +31,15 @@ if (!isset($pageTitle)) {
 </head>
 <body>
 
-<!-- Vibrant Universal Top Navbar (ClubHub UIT) -->
+<!-- Vibrant Universal Top Navbar (USC UIT - United Student Club) -->
 <nav class="navbar navbar-expand-lg navbar-clubhub sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-3" href="<?= $assetPrefix ?>index.html">
             <img src="<?= $assetPrefix ?>assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img">
-            <span class="brand-logo-text">ClubHub UIT</span>
+            <div class="d-flex flex-column">
+                <span class="brand-logo-text" style="font-size: 1.25rem; font-weight: 900; line-height: 1.1;">USC UIT</span>
+                <span class="text-white opacity-75 fw-bold" style="font-size: 0.68rem; letter-spacing: 0.5px;">UNITED STUDENT CLUB</span>
+            </div>
         </a>
 
         <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClubhub" aria-controls="navbarClubhub" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +50,32 @@ if (!isset($pageTitle)) {
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>index.html" id="nav-home">Home</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>clubs.html" id="nav-clubs">Clubs</a></li>
-                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>events.html" id="nav-events">Events</a></li>
+                
+                <!-- Events Dropdown with Tech & Cultural Wings -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-clubhub dropdown-toggle" href="<?= $assetPrefix ?>events.html" id="nav-events" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Events
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg rounded-4 p-2 mt-2" aria-labelledby="nav-events">
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>events.html">
+                                <i class="bi bi-grid-fill text-primary"></i> All Campus Events
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold text-primary d-flex align-items-center gap-2" href="<?= $assetPrefix ?>tech-events.html">
+                                <i class="bi bi-code-slash text-primary"></i> Developers Club Events
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold text-danger d-flex align-items-center gap-2" href="<?= $assetPrefix ?>cultural-events.html">
+                                <i class="bi bi-palette-fill text-danger"></i> Cultural Club Events
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>gallery.html" id="nav-gallery">Gallery</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>about.html" id="nav-about">About Us</a></li>
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>contact.html" id="nav-contact">Contact</a></li>

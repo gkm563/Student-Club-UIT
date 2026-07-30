@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClubHub | College Club Management Platform</title>
-    <meta name="description" content="Explore student clubs, campus events, and activities across the college. Find your passion, build connections, and grow together with ClubHub.">
+    <title>USC UIT | United Student Club - United Institute of Technology</title>
+    <meta name="description" content="Official website of USC UIT - United Student Club, United Institute of Technology (UIT) Prayagraj. Home to Developers Club UIT & Cultural Club UIT.">
     
+    <!-- OpenGraph SEO Tags -->
+    <meta property="og:title" content="USC UIT | United Student Club - United Institute of Technology">
+    <meta property="og:description" content="Official Student Activities & Club Governance Portal of UIT Prayagraj. Governing Developers Club UIT & Cultural Club UIT.">
+    <meta property="og:type" content="website">
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -18,55 +23,70 @@
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- Hero Section (Vibrant Blue, Purple & Crimson Gradient) -->
+<!-- ⭐ Official USC UIT Hero Banner -->
 <section class="hero-clubhub">
     <div class="container">
         <div class="row align-items-center g-5">
             <!-- Hero Text Left -->
             <div class="col-lg-6">
-                <div class="hero-welcome-badge">
+                <div class="hero-welcome-badge shadow-sm mb-3">
                     <span class="badge bg-primary text-white rounded-circle p-1 d-inline-flex align-items-center justify-content-center shadow-sm">
-                        <i class="bi bi-stars text-white fs-6"></i>
+                        <i class="bi bi-shield-check text-white fs-6"></i>
                     </span>
-                    <span class="fw-black" style="color: #1e40af !important; letter-spacing: 0.4px;">Welcome to ClubHub</span>
+                    <span class="fw-black text-primary" style="color: #1e40af !important; letter-spacing: 0.4px;">USC UIT — United Student Club</span>
                     <span class="fs-5">👋</span>
-                    <span class="badge rounded-pill px-2.5 py-1 ms-1 fw-extrabold small shadow-sm" style="font-size: 0.72rem; letter-spacing: 0.6px; background: linear-gradient(135deg, #2563eb, #0284c7) !important; color: #ffffff !important;">OFFICIAL SAC</span>
+                    <span class="badge rounded-pill px-2.5 py-1 ms-1 fw-extrabold small shadow-sm" style="font-size: 0.72rem; letter-spacing: 0.6px; background: linear-gradient(135deg, #2563eb, #0284c7) !important; color: #ffffff !important;">UIT PRAYAGRAJ</span>
                 </div>
-                <h1 class="hero-headline">
-                    Discover, Connect & Be Part of Something <span class="hero-headline-highlight">Amazing.</span>
+
+                <h1 class="hero-headline mb-3">
+                    Welcome to <span class="hero-headline-highlight">USC UIT</span><br>
+                    <span class="fs-2 text-dark d-block fw-bold mt-1">United Student Club — UIT</span>
                 </h1>
-                <p class="hero-subtitle">
-                    Your one-stop vibrant platform to explore student clubs, campus events, and activities across the college. Find your passion and grow together.
+                
+                <p class="hero-subtitle mb-4">
+                    The official campus governing council uniting all technical innovation, hackathons, cultural festivals, public speaking arenas, and student leadership chapters at United Institute of Technology.
                 </p>
 
+                <!-- 2 Main Wings Quick Action Buttons -->
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                    <a href="#mainWingsSection" class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold shadow-lg d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-cpu-fill fs-5"></i>
+                        <span>Explore 2 Main Wings</span>
+                    </a>
+                    <a href="#committeeSection" class="btn btn-outline-primary rounded-pill px-4 py-2-5 fw-bold d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-person-workspace fs-5"></i>
+                        <span>Executive Council</span>
+                    </a>
+                </div>
+
                 <!-- Search Bar -->
-                <div class="hero-search-bar">
-                    <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search for clubs, events, or activities..." autocomplete="off">
+                <div class="hero-search-bar mb-4">
+                    <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search Developers Club, Cultural Club, hackathons, events..." autocomplete="off">
                     <button class="hero-search-btn" title="Search">
                         <i class="bi bi-search"></i>
                     </button>
                     <div id="searchResultsDropdown" class="search-results-dropdown"></div>
                 </div>
 
-                <!-- Dynamic Live Database Hero Stats Row (Premium 3D Glass Badges) -->
+                <!-- Dynamic Live Database Hero Stats Row -->
                 <div class="hero-stats-row">
                     <div class="hero-stat-card-3d stat-trophy">
                         <div class="hero-stat-icon-box trophy-bg">
-                            <i class="bi bi-trophy-fill hero-stat-icon trophy"></i>
+                            <i class="bi bi-layers-fill hero-stat-icon trophy"></i>
                         </div>
                         <div>
-                            <div class="hero-stat-num" id="heroStatClubs">11+</div>
-                            <div class="hero-stat-label">Campus Clubs</div>
+                            <div class="hero-stat-num">2 Main</div>
+                            <div class="hero-stat-label">Parent Wings</div>
                         </div>
                     </div>
 
                     <div class="hero-stat-card-3d stat-calendar">
                         <div class="hero-stat-icon-box calendar-bg">
-                            <i class="bi bi-calendar-event-fill hero-stat-icon calendar"></i>
+                            <i class="bi bi-award-fill hero-stat-icon calendar"></i>
                         </div>
                         <div>
-                            <div class="hero-stat-num" id="heroStatEvents">11+</div>
-                            <div class="hero-stat-label">Live Events</div>
+                            <div class="hero-stat-num" id="heroStatClubs">11+</div>
+                            <div class="hero-stat-label">Sub-Chapters</div>
                         </div>
                     </div>
 
@@ -75,7 +95,7 @@
                             <i class="bi bi-people-fill hero-stat-icon members"></i>
                         </div>
                         <div>
-                            <div class="hero-stat-num" id="heroStatMembers">32+</div>
+                            <div class="hero-stat-num" id="heroStatMembers">600+</div>
                             <div class="hero-stat-label">Active Members</div>
                         </div>
                     </div>
@@ -85,8 +105,8 @@
                             <i class="bi bi-lightning-charge-fill hero-stat-icon activities"></i>
                         </div>
                         <div>
-                            <div class="hero-stat-num" id="heroStatActivities">10+</div>
-                            <div class="hero-stat-label">Key Activities</div>
+                            <div class="hero-stat-num" id="heroStatEvents">15+</div>
+                            <div class="hero-stat-label">Annual Events</div>
                         </div>
                     </div>
                 </div>
@@ -106,41 +126,41 @@
                         <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
                     </div>
 
-                    <!-- Carousel Slides (6 High-Quality Campus & Tech Photos with Interactive Links) -->
+                    <!-- Carousel Slides -->
                     <div class="carousel-inner" style="border-radius: 16px;">
                         <!-- Slide 1 -->
                         <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="UIT Campus Life">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="USC UIT Campus Life">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="clubs.html" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Campus Vibrancy</a>
-                                <h6 class="mb-0"><a href="clubs.html" class="fw-bold text-white text-decoration-none hero-slide-link">United Institute of Technology &rarr;</a></h6>
+                                <a href="#mainWingsSection" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">USC UIT Headquarters</a>
+                                <h6 class="mb-0"><a href="#mainWingsSection" class="fw-bold text-white text-decoration-none hero-slide-link">United Student Club — UIT Campus &rarr;</a></h6>
                             </div>
                         </div>
 
                         <!-- Slide 2 -->
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Google Cloud Study Jam">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Developers Club UIT Hackathon">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">GDGOC UIT</a>
-                                <h6 class="mb-0"><a href="club-detail.html?id=clb_gdgoc_uit_2026" class="fw-bold text-white text-decoration-none hero-slide-link">Google Cloud Study Jam 2026 &rarr;</a></h6>
+                                <a href="tech-events.html" class="badge bg-primary text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Developers Club UIT</a>
+                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Google Cloud Study Jam & Hackathons &rarr;</a></h6>
                             </div>
                         </div>
 
                         <!-- Slide 3 -->
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="HACKQUEST '25">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Cultural Club UIT Stage">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="events.html" class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">24-Hour Hackathon</a>
-                                <h6 class="mb-0"><a href="events.html" class="fw-bold text-white text-decoration-none hero-slide-link">HACKQUEST '25 Grand Finale &rarr;</a></h6>
+                                <a href="cultural-events.html" class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block" style="background:#e11d48 !important;">Cultural Club UIT</a>
+                                <h6 class="mb-0"><a href="cultural-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Annual Fest & Stage Performances &rarr;</a></h6>
                             </div>
                         </div>
 
                         <!-- Slide 4 -->
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Build With AI">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Build With AI Summit">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="badge bg-purple text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block" style="background:#7c3aed;">Gemini Builders</a>
-                                <h6 class="mb-0"><a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="fw-bold text-white text-decoration-none hero-slide-link">Build With AI Summit & Workshop &rarr;</a></h6>
+                                <a href="tech-events.html" class="badge bg-purple text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block" style="background:#7c3aed;">Developers Club UIT</a>
+                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Build With AI Summit & Workshop &rarr;</a></h6>
                             </div>
                         </div>
 
@@ -148,17 +168,17 @@
                         <div class="carousel-item">
                             <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="GFG SC UIT">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="badge bg-success text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">GFG SC UIT</a>
-                                <h6 class="mb-0"><a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="fw-bold text-white text-decoration-none hero-slide-link">SyntaxClash 2026 Coding Sprint &rarr;</a></h6>
+                                <a href="tech-events.html" class="badge bg-success text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Developers Club UIT</a>
+                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">SyntaxClash 2026 Coding Sprint &rarr;</a></h6>
                             </div>
                         </div>
 
                         <!-- Slide 6 -->
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Campus Leadership">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Toastmasters Public Speaking">
                             <div class="carousel-caption hero-carousel-caption">
-                                <a href="about.html" class="badge bg-warning text-dark rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Orientation '26</a>
-                                <h6 class="mb-0"><a href="about.html" class="fw-bold text-white text-decoration-none hero-slide-link">Student Leadership & Onboarding &rarr;</a></h6>
+                                <a href="cultural-events.html" class="badge bg-warning text-dark rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Cultural Club UIT</a>
+                                <h6 class="mb-0"><a href="cultural-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Toastmasters Public Speaking Arena &rarr;</a></h6>
                             </div>
                         </div>
                     </div>
@@ -177,7 +197,7 @@
         </div>
     </div>
 
-    <!-- Curved Wave Transition (Ultra-Smooth Bezier Curve) -->
+    <!-- Curved Wave Transition -->
     <div class="hero-wave-divider">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,0 C300,90 600,10 900,65 C1050,90 1150,45 1200,30 L1200,120 L0,120 Z" fill="#ffffff"></path>
@@ -185,31 +205,296 @@
     </div>
 </section>
 
-<!-- ⭐ Ultra-Attractive 3D Explore by Categories Section -->
-<section class="category-section-wrapper">
-    <!-- Ambient Background Glow Orbs -->
-    <div class="category-bg-glow-1"></div>
-    <div class="category-bg-glow-2"></div>
-    <div class="category-bg-glow-3"></div>
+<!-- 🔥 SECTION 1: THE 2 MAIN PARENT CLUBS / WINGS OF USC UIT -->
+<section id="mainWingsSection" class="py-5" style="background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
+    <div class="container py-3">
+        <div class="text-center mb-5 max-w-2xl mx-auto">
+            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3.5 py-2 fw-extrabold text-uppercase mb-2 shadow-sm" style="font-size: 0.8rem; letter-spacing: 1px;">
+                <i class="bi bi-diagram-3-fill me-1"></i> Core Campus Architecture
+            </span>
+            <h2 class="fw-black text-dark display-6 mb-2">The 2 Main Wings of USC UIT</h2>
+            <p class="text-secondary fs-6 mb-0 fw-medium">
+                Under the umbrella of <strong>United Student Club (USC UIT)</strong>, all student activities, chapters, and events are organized into two primary parent clubs:
+            </p>
+        </div>
 
+        <div class="row g-4 g-lg-5 align-items-stretch">
+            <!-- 💻 WING 1: Developers Club UIT (Technical Wing) -->
+            <div class="col-lg-6">
+                <div class="main-wing-card main-wing-card-tech">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="wing-header-badge tech">
+                            <i class="bi bi-cpu-fill"></i> Technical Parent Wing
+                        </span>
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold">USC UIT TECH</span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="rounded-4 p-3 bg-primary text-white shadow-md d-inline-flex align-items-center justify-content-center" style="width: 58px; height: 58px; font-size: 1.8rem;">
+                            <i class="bi bi-code-slash"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-black text-dark mb-0 fs-3">Developers Club UIT</h3>
+                            <span class="text-primary fw-bold small">Official Technical Umbrella Council</span>
+                        </div>
+                    </div>
+
+                    <p class="text-secondary small mb-4" style="line-height: 1.65; font-size: 0.95rem;">
+                        The premier technical powerhouse governing all software development, coding competitions, artificial intelligence study jams, robotics, and cloud engineering projects across UIT.
+                    </p>
+
+                    <!-- Faculty Coordinators Banner -->
+                    <div class="wing-faculty-box d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-primary-subtle text-primary p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                            <i class="bi bi-person-workspace fs-5"></i>
+                        </div>
+                        <div>
+                            <span class="d-block text-uppercase text-secondary fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">FACULTY COORDINATORS</span>
+                            <span class="fw-extrabold text-dark" style="font-size: 0.92rem; color: #0f172a !important;">
+                                Er. Gaurav Narain &amp; Er. Kushagra Dwivedi
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-Chapters under Developers Club -->
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase text-secondary fw-extrabold mb-2" style="font-size: 0.74rem; letter-spacing: 0.5px;">CHAPTERS UNDER DEVELOPERS CLUB UIT:</span>
+                        <div>
+                            <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="wing-sub-chapters-tag">
+                                <i class="bi bi-cloud-fill text-primary"></i> GDG Cloud UIT
+                            </a>
+                            <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="wing-sub-chapters-tag">
+                                <i class="bi bi-code-square text-success"></i> GFG SC UIT
+                            </a>
+                            <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="wing-sub-chapters-tag">
+                                <i class="bi bi-robot text-purple" style="color:#7c3aed;"></i> Gemini Builders
+                            </a>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-cpu text-info"></i> TechMatrix Robotics
+                            </span>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-shield-lock text-danger"></i> CyberShield
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-wrap align-items-center gap-2 pt-2 border-top">
+                        <a href="tech-events.html" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-calendar-event-fill"></i> Developers Club Events
+                        </a>
+                        <a href="clubs.html?wing=technical" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2">
+                            <i class="bi bi-compass"></i> Tech Chapters
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🎭 WING 2: Cultural Club UIT (Cultural & Literary Wing) -->
+            <div class="col-lg-6">
+                <div class="main-wing-card main-wing-card-cultural">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="wing-header-badge cultural">
+                            <i class="bi bi-palette-fill"></i> Cultural Parent Wing
+                        </span>
+                        <span class="badge bg-danger text-white rounded-pill px-3 py-1.5 fw-bold" style="background:#e11d48 !important;">USC UIT CULTURAL</span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="rounded-4 p-3 text-white shadow-md d-inline-flex align-items-center justify-content-center" style="width: 58px; height: 58px; font-size: 1.8rem; background: linear-gradient(135deg, #e11d48, #be123c);">
+                            <i class="bi bi-music-note-list"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-black text-dark mb-0 fs-3">Cultural Club UIT</h3>
+                            <span class="text-danger fw-bold small" style="color:#be123c !important;">Official Cultural Umbrella Council</span>
+                        </div>
+                    </div>
+
+                    <p class="text-secondary small mb-4" style="line-height: 1.65; font-size: 0.95rem;">
+                        The vibrant heart of campus culture, public speaking, performing arts, musical bands, theatrical dramas, literary debates, and creative design at UIT.
+                    </p>
+
+                    <!-- Faculty Coordinator Banner -->
+                    <div class="wing-faculty-box d-flex align-items-center gap-3">
+                        <div class="rounded-circle bg-danger-subtle text-danger p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+                            <i class="bi bi-person-badge fs-5"></i>
+                        </div>
+                        <div>
+                            <span class="d-block text-uppercase text-secondary fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">FACULTY COORDINATOR</span>
+                            <span class="fw-extrabold text-dark" style="font-size: 0.92rem; color: #0f172a !important;">
+                                Dr. Ankit Gupta
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-Chapters under Cultural Club -->
+                    <div class="mb-4">
+                        <span class="d-block text-uppercase text-secondary fw-extrabold mb-2" style="font-size: 0.74rem; letter-spacing: 0.5px;">CHAPTERS UNDER CULTURAL CLUB UIT:</span>
+                        <div>
+                            <a href="club-detail.html?id=clb_toastmasters_uit_2026" class="wing-sub-chapters-tag">
+                                <i class="bi bi-mic-fill text-warning"></i> Toastmasters Club
+                            </a>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-music-note-beamer text-danger"></i> Harmony Music &amp; Band
+                            </span>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-mask text-purple" style="color:#7c3aed;"></i> Rangmanch Drama
+                            </span>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-palette text-success"></i> Kalakriti Fine Arts
+                            </span>
+                            <span class="wing-sub-chapters-tag">
+                                <i class="bi bi-journal-richtext text-info"></i> Literary Society
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex flex-wrap align-items-center gap-2 pt-2 border-top">
+                        <a href="cultural-events.html" class="btn btn-danger rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="background:#e11d48; border-color:#e11d48;">
+                            <i class="bi bi-calendar-event-fill"></i> Cultural Club Events
+                        </a>
+                        <a href="clubs.html?wing=cultural" class="btn btn-outline-danger rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2" style="color:#e11d48; border-color:#e11d48;">
+                            <i class="bi bi-palette"></i> Cultural Chapters
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 👑 SECTION 2: EXECUTIVE LEADERSHIP & ADVISORY COMMITTEE OF USC UIT -->
+<section id="committeeSection" class="py-5" style="background: #ffffff;">
+    <div class="container py-3">
+        <div class="text-center mb-5 max-w-3xl mx-auto">
+            <span class="badge bg-warning bg-opacity-20 text-warning border border-warning rounded-pill px-3.5 py-2 fw-extrabold text-uppercase mb-2 shadow-sm" style="font-size: 0.8rem; letter-spacing: 1px; color:#b45309 !important; background:#fef3c7 !important;">
+                <i class="bi bi-award-fill me-1"></i> Executive Committee
+            </span>
+            <h2 class="fw-black text-dark display-6 mb-2">Executive Leadership &amp; Advisory Council</h2>
+            <p class="text-secondary fs-6 mb-0 fw-medium">
+                Under the visionary guidance of patrons, institutional heads, DSW, and student council leads governing <strong>USC UIT (United Student Club)</strong>.
+            </p>
+        </div>
+
+        <!-- 7 Members Executive Grid -->
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
+            
+            <!-- 1. Girdhar Gulati - Chairman -->
+            <div class="col">
+                <div class="committee-card-3d patron">
+                    <span class="committee-role-badge gold">CHAIRMAN</span>
+                    <div class="committee-avatar-wrapper">
+                        <i class="bi bi-person-fill-gear committee-avatar-icon"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Girdhar Gulati</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Chairman</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">United Group (UGI)</span>
+                </div>
+            </div>
+
+            <!-- 2. Dr. Jagdish Gulati - President -->
+            <div class="col">
+                <div class="committee-card-3d patron">
+                    <span class="committee-role-badge gold">PRESIDENT</span>
+                    <div class="committee-avatar-wrapper">
+                        <i class="bi bi-award-fill committee-avatar-icon"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Jagdish Gulati</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">President</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">United Group (UGI)</span>
+                </div>
+            </div>
+
+            <!-- 3. Dr. Satpal Gulati - Vice Chairman -->
+            <div class="col">
+                <div class="committee-card-3d patron">
+                    <span class="committee-role-badge gold">VICE CHAIRMAN</span>
+                    <div class="committee-avatar-wrapper">
+                        <i class="bi bi-building-fill-gear committee-avatar-icon"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Satpal Gulati</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Vice Chairman</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">United Group (UGI)</span>
+                </div>
+            </div>
+
+            <!-- 4. Gaurav Gulati - Senior Vice President -->
+            <div class="col">
+                <div class="committee-card-3d patron">
+                    <span class="committee-role-badge gold">SR. VICE PRESIDENT</span>
+                    <div class="committee-avatar-wrapper">
+                        <i class="bi bi-person-fill-check committee-avatar-icon"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Gaurav Gulati</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Senior Vice President</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">United Group (UGI)</span>
+                </div>
+            </div>
+
+            <!-- 5. Prof. (Dr.) Sanjay Srivastava - Principal UIT -->
+            <div class="col">
+                <div class="committee-card-3d">
+                    <span class="committee-role-badge blue">PRINCIPAL UIT</span>
+                    <div class="committee-avatar-wrapper">
+                        <i class="bi bi-mortarboard-fill committee-avatar-icon"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Prof. (Dr.) Sanjay Srivastava</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Principal, UIT</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">UIT Institutional Head</span>
+                </div>
+            </div>
+
+            <!-- 6. Dr. Manas Pandey - Dean Student Welfare -->
+            <div class="col">
+                <div class="committee-card-3d">
+                    <span class="committee-role-badge purple">DSW HEAD</span>
+                    <div class="committee-avatar-wrapper" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                        <i class="bi bi-person-hearts committee-avatar-icon" style="color:#7c3aed;"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Manas Pandey</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Dean Student Welfare (DSW)</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-2.5 py-1 small fw-semibold">Student Welfare Council</span>
+                </div>
+            </div>
+
+            <!-- 7. Arya Keshari - Student Club President -->
+            <div class="col">
+                <div class="committee-card-3d">
+                    <span class="committee-role-badge green">STUDENT PRESIDENT</span>
+                    <div class="committee-avatar-wrapper" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                        <i class="bi bi-person-fill-up committee-avatar-icon" style="color:#166534;"></i>
+                    </div>
+                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Arya Keshari</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Student Club President</span>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2.5 py-1 small fw-bold">USC UIT Council Lead</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ⭐ Ultra-Attractive 3D Explore by Categories Section -->
+<section class="category-section-wrapper py-5">
     <div class="container position-relative" style="z-index: 2;">
         <div class="text-center mb-5">
             <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-bold mb-2 shadow-sm">
-                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Interactive Categories
+                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Sub-Chapter Categories
             </span>
             <h2 class="fw-bold fs-1 mb-2 text-dark">
-                Explore by Categories
+                Explore Sub-Chapters by Category
             </h2>
             <p class="text-secondary fs-6 max-w-md mx-auto fw-medium">
-                Select your interest to discover active student clubs, coding jams, cultural stages, and sports communities!
+                Select your domain to discover active coding jams, robotics teams, music bands, public speaking arenas, and sports communities!
             </p>
         </div>
 
         <div class="row g-4 row-cols-2 row-cols-md-4 row-cols-lg-4 justify-content-center">
-            <!-- 1. Technical (3D Code/Tech SVG) -->
+            <!-- 1. Technical -->
             <div class="col">
                 <a href="clubs.html?category=technical" class="category-card-3d cat-3d-technical">
-                    <span class="cat-3d-badge">Code & AI</span>
+                    <span class="cat-3d-badge">Developers Club</span>
                     <div class="cat-3d-box">
                         <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
@@ -217,26 +502,22 @@
                                     <stop offset="0%" stop-color="#3b82f6"/>
                                     <stop offset="100%" stop-color="#1d4ed8"/>
                                 </linearGradient>
-                                <filter id="glowBlue" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#2563eb" flood-opacity="0.4"/>
-                                </filter>
                             </defs>
-                            <rect x="8" y="12" width="48" height="36" rx="10" fill="url(#techGrad)" filter="url(#glowBlue)"/>
+                            <rect x="8" y="12" width="48" height="36" rx="10" fill="url(#techGrad)"/>
                             <path d="M20 28L14 34L20 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M44 28L50 34L44 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M35 24L29 44" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-                            <circle cx="48" cy="18" r="4" fill="#60a5fa"/>
                         </svg>
                     </div>
                     <div class="category-name-3d">Technical</div>
-                    <div class="category-subtext-3d">Coding, Dev & Hackathons</div>
+                    <div class="category-subtext-3d">Developers Club UIT</div>
                 </a>
             </div>
 
-            <!-- 2. Cultural (3D Dramatic Mask SVG) -->
+            <!-- 2. Cultural -->
             <div class="col">
                 <a href="clubs.html?category=cultural" class="category-card-3d cat-3d-cultural">
-                    <span class="cat-3d-badge">Arts & Stage</span>
+                    <span class="cat-3d-badge">Cultural Club</span>
                     <div class="cat-3d-box">
                         <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
@@ -244,22 +525,19 @@
                                     <stop offset="0%" stop-color="#ff4d6d"/>
                                     <stop offset="100%" stop-color="#be123c"/>
                                 </linearGradient>
-                                <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#e11d48" flood-opacity="0.4"/>
-                                </filter>
                             </defs>
-                            <path d="M12 18C12 18 20 12 32 12C44 12 52 18 52 18V38C52 48 40 54 32 54C24 54 12 48 12 38V18Z" fill="url(#cultGrad)" filter="url(#glowRed)"/>
+                            <path d="M12 18C12 18 20 12 32 12C44 12 52 18 52 18V38C52 48 40 54 32 54C24 54 12 48 12 38V18Z" fill="url(#cultGrad)"/>
                             <circle cx="24" cy="28" r="4" fill="#ffffff"/>
                             <circle cx="40" cy="28" r="4" fill="#ffffff"/>
                             <path d="M24 40C28 44 36 44 40 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="category-name-3d">Cultural</div>
-                    <div class="category-subtext-3d">Dance, Music & Drama</div>
+                    <div class="category-subtext-3d">Cultural Club UIT</div>
                 </a>
             </div>
 
-            <!-- 3. Sports (3D Golden Trophy SVG) -->
+            <!-- 3. Sports -->
             <div class="col">
                 <a href="clubs.html?category=sports" class="category-card-3d cat-3d-sports">
                     <span class="cat-3d-badge">Athletics</span>
@@ -270,24 +548,18 @@
                                     <stop offset="0%" stop-color="#34d399"/>
                                     <stop offset="100%" stop-color="#047857"/>
                                 </linearGradient>
-                                <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#10b981" flood-opacity="0.4"/>
-                                </filter>
                             </defs>
-                            <path d="M16 12H48V28C48 38 40 44 32 44C24 44 16 38 16 28V12Z" fill="url(#sportGrad)" filter="url(#glowGreen)"/>
+                            <path d="M16 12H48V28C48 38 40 44 32 44C24 44 16 38 16 28V12Z" fill="url(#sportGrad)"/>
                             <path d="M24 44V52H40V44" stroke="#047857" stroke-width="4" stroke-linecap="round"/>
                             <rect x="20" y="52" width="24" height="6" rx="3" fill="url(#sportGrad)"/>
-                            <path d="M16 18H8V26C8 30 12 34 16 34V18Z" fill="#10b981"/>
-                            <path d="M48 18H56V26C56 30 52 34 48 34V18Z" fill="#10b981"/>
-                            <polygon points="32,18 35,24 42,25 37,30 38,37 32,33 26,37 27,30 22,25 29,24" fill="#ffffff"/>
                         </svg>
                     </div>
                     <div class="category-name-3d">Sports</div>
-                    <div class="category-subtext-3d">Cricket, Football & Gaming</div>
+                    <div class="category-subtext-3d">Cricket &amp; Athletics</div>
                 </a>
             </div>
 
-            <!-- 4. Social Impact (3D Radiant Heart SVG) -->
+            <!-- 4. Social Impact -->
             <div class="col">
                 <a href="clubs.html?category=social" class="category-card-3d cat-3d-social">
                     <span class="cat-3d-badge">Community</span>
@@ -298,192 +570,23 @@
                                     <stop offset="0%" stop-color="#f472b6"/>
                                     <stop offset="100%" stop-color="#db2777"/>
                                 </linearGradient>
-                                <filter id="glowPink" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#ec4899" flood-opacity="0.4"/>
-                                </filter>
                             </defs>
-                            <path d="M32 54S10 38 10 24A14 14 0 0 1 32 15A14 14 0 0 1 54 24C54 38 32 54 32 54Z" fill="url(#pinkGrad)" filter="url(#glowPink)"/>
-                            <path d="M26 28C26 28 29 32 32 32C35 32 38 28 38 28" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M32 52C32 52 12 38 12 24C12 16 18 10 26 10C30 10 32 14 32 14C32 14 34 10 38 10C46 10 52 16 52 24C52 38 32 52 32 52Z" fill="url(#pinkGrad)"/>
                         </svg>
                     </div>
-                    <div class="category-name-3d">Social Impact</div>
-                    <div class="category-subtext-3d">NSS, Volunteering & Care</div>
-                </a>
-            </div>
-
-            <!-- 5. E-Cell (3D Rocket Launch SVG) -->
-            <div class="col">
-                <a href="clubs.html?category=entrepreneurship" class="category-card-3d cat-3d-ecell">
-                    <span class="cat-3d-badge">Startups</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="purpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#a855f7"/>
-                                    <stop offset="100%" stop-color="#6d28d9"/>
-                                </linearGradient>
-                                <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#7c3aed" flood-opacity="0.4"/>
-                                </filter>
-                            </defs>
-                            <path d="M32 8C32 8 46 22 46 38C46 44 42 48 36 50L32 44L28 50C22 48 18 44 18 38C18 22 32 8 32 8Z" fill="url(#purpGrad)" filter="url(#glowPurple)"/>
-                            <circle cx="32" cy="28" r="6" fill="#ffffff"/>
-                            <path d="M20 42L10 50L18 54L22 48" fill="#a855f7"/>
-                            <path d="M44 42L54 50L46 54L42 48" fill="#a855f7"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">E-Cell</div>
-                    <div class="category-subtext-3d">Innovation & Pitch Jams</div>
-                </a>
-            </div>
-
-            <!-- 6. Media & Creative (3D Lens & Reel SVG) -->
-            <div class="col">
-                <a href="clubs.html?category=creative" class="category-card-3d cat-3d-media">
-                    <span class="cat-3d-badge">Design</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#38bdf8"/>
-                                    <stop offset="100%" stop-color="#0284c7"/>
-                                </linearGradient>
-                                <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#06b6d4" flood-opacity="0.4"/>
-                                </filter>
-                            </defs>
-                            <rect x="8" y="16" width="36" height="32" rx="8" fill="url(#cyanGrad)" filter="url(#glowCyan)"/>
-                            <polygon points="44,24 56,16 56,48 44,40" fill="#0284c7" filter="url(#glowCyan)"/>
-                            <circle cx="26" cy="32" r="7" stroke="#ffffff" stroke-width="3.5"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Media & Creative</div>
-                    <div class="category-subtext-3d">Photography & VFX</div>
-                </a>
-            </div>
-
-            <!-- 7. Academic (3D Scholar Mortarboard SVG) -->
-            <div class="col">
-                <a href="clubs.html?category=academic" class="category-card-3d cat-3d-academic">
-                    <span class="cat-3d-badge">Research</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="indGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#6366f1"/>
-                                    <stop offset="100%" stop-color="#3730a3"/>
-                                </linearGradient>
-                                <filter id="glowIndigo" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#4f46e5" flood-opacity="0.4"/>
-                                </filter>
-                            </defs>
-                            <path d="M32 10L6 22L32 34L58 22L32 10Z" fill="url(#indGrad)" filter="url(#glowIndigo)"/>
-                            <path d="M14 28.5V42C14 42 22 48 32 48C42 48 50 42 50 42V28.5" stroke="url(#indGrad)" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M52 24V44" stroke="#818cf8" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="52" cy="46" r="3" fill="#818cf8"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Academic</div>
-                    <div class="category-subtext-3d">Robotics & IEEE Papers</div>
-                </a>
-            </div>
-
-            <!-- 8. All Clubs (3D Rainbow Grid SVG) -->
-            <div class="col">
-                <a href="clubs.html" class="category-card-3d cat-3d-all">
-                    <span class="cat-3d-badge">Explore</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="allGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#e11d48"/>
-                                    <stop offset="50%" stop-color="#7c3aed"/>
-                                    <stop offset="100%" stop-color="#2563eb"/>
-                                </linearGradient>
-                                <filter id="glowAll" x="-20%" y="-20%" width="140%" height="140%">
-                                    <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#7c3aed" flood-opacity="0.45"/>
-                                </filter>
-                            </defs>
-                            <rect x="10" y="10" width="18" height="18" rx="6" fill="url(#allGrad)" filter="url(#glowAll)"/>
-                            <rect x="36" y="10" width="18" height="18" rx="6" fill="url(#allGrad)" filter="url(#glowAll)"/>
-                            <rect x="10" y="36" width="18" height="18" rx="6" fill="url(#allGrad)" filter="url(#glowAll)"/>
-                            <rect x="36" y="36" width="18" height="18" rx="6" fill="url(#allGrad)" filter="url(#glowAll)"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">All Campus Clubs</div>
-                    <div class="category-subtext-3d">Active Campus Clubs</div>
+                    <div class="category-name-3d">Social Drives</div>
+                    <div class="category-subtext-3d">NSS &amp; Community Drives</div>
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ⭐ Featured Clubs Section -->
-<section class="py-5" style="background: #ffffff;">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h4 class="fw-bold mb-1" style="color: var(--vibrant-blue);">⭐ Featured Campus Clubs</h4>
-                <p class="text-secondary small mb-0">Discover top active clubs around campus</p>
-            </div>
-            <a href="clubs.html" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold text-decoration-none">View All Clubs &rarr;</a>
-        </div>
-
-        <div class="row g-4" id="featuredClubsGrid">
-            <div class="col-12 text-center py-4 text-muted">
-                <div class="spinner-border text-primary spinner-border-sm" role="status"></div>
-                <span class="ms-2 small">Loading featured campus clubs...</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Latest Activities & Upcoming Events Split Section -->
-<section class="py-5" style="background: #f8fafc;">
-    <div class="container">
-        <div class="row g-5">
-            <!-- Left: Latest Activities -->
-            <div class="col-lg-6">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h5 class="fw-bold mb-0" style="color: var(--vibrant-blue);"><i class="bi bi-lightning-charge-fill me-2" style="color: var(--vibrant-blue);"></i>Latest Activities</h5>
-                        <p class="text-secondary small mb-0">Recent achievements & event highlights</p>
-                    </div>
-                    <a href="events.html" class="text-decoration-none small fw-bold text-primary">View All &rarr;</a>
-                </div>
-                <div class="activity-list" id="homeActivityList">
-                    <div class="text-center py-4 text-muted">
-                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
-                        <span class="ms-2 small">Loading activities...</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Upcoming Events -->
-            <div class="col-lg-6">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div>
-                        <h5 class="fw-bold mb-0" style="color: var(--vibrant-red);"><i class="bi bi-calendar-event-fill me-2" style="color: var(--vibrant-red);"></i>Upcoming Events</h5>
-                        <p class="text-secondary small mb-0">Don't miss upcoming events & competitions</p>
-                    </div>
-                    <a href="events.html" class="text-decoration-none small fw-bold text-danger">View All &rarr;</a>
-                </div>
-                <div class="event-list" id="homeUpcomingList">
-                    <div class="text-center py-4 text-muted">
-                        <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
-                        <span class="ms-2 small">Loading events...</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Dynamic Community Numbers Banner (Real Live DB Data) -->
-<section class="container">
+<!-- Dynamic Community Numbers Banner -->
+<section class="container py-4">
     <div class="community-banner">
         <div class="text-center mb-4">
-            <h3 class="fw-bold mb-0">Our Community in Numbers</h3>
+            <h3 class="fw-bold mb-0">USC UIT Community in Numbers</h3>
             <p class="small text-white-80 mb-0">Real live statistics powered directly from our campus database</p>
         </div>
         <div class="row text-center g-4">
@@ -491,8 +594,8 @@
                 <div class="community-stat-item justify-content-center">
                     <i class="bi bi-people-fill community-stat-icon"></i>
                     <div class="text-start">
-                        <div class="community-stat-num" id="communityStatClubs">8+</div>
-                        <div class="community-stat-label">Active Clubs</div>
+                        <div class="community-stat-num" id="communityStatClubs">11+</div>
+                        <div class="community-stat-label">Active Chapters</div>
                     </div>
                 </div>
             </div>
@@ -500,8 +603,8 @@
                 <div class="community-stat-item justify-content-center">
                     <i class="bi bi-person-check-fill community-stat-icon"></i>
                     <div class="text-start">
-                        <div class="community-stat-num" id="communityStatMembers">11+</div>
-                        <div class="community-stat-label">Core Members</div>
+                        <div class="community-stat-num" id="communityStatMembers">600+</div>
+                        <div class="community-stat-label">Student Members</div>
                     </div>
                 </div>
             </div>
@@ -509,7 +612,7 @@
                 <div class="community-stat-item justify-content-center">
                     <i class="bi bi-calendar-check-fill community-stat-icon"></i>
                     <div class="text-start">
-                        <div class="community-stat-num" id="communityStatEvents">12+</div>
+                        <div class="community-stat-num" id="communityStatEvents">15+</div>
                         <div class="community-stat-label">Events Organized</div>
                     </div>
                 </div>
@@ -519,241 +622,11 @@
                     <i class="bi bi-lightning-fill community-stat-icon"></i>
                     <div class="text-start">
                         <div class="community-stat-num" id="communityStatActivities">12+</div>
-                        <div class="community-stat-label">Activities Completed</div>
+                        <div class="community-stat-label">Activities Done</div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- Section 1: Why Join Campus Clubs at UIT? (4-Grid 3D Showcase) -->
-<section class="py-5" style="background: #ffffff;">
-    <div class="container">
-        <div class="text-center mb-5 max-w-2xl mx-auto">
-            <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">
-                Campus Experience
-            </span>
-            <h2 class="fw-bold text-dark mb-2">Why Join Campus Clubs at UIT?</h2>
-            <p class="text-secondary small mb-0">Empower your college journey with hands-on learning, leadership, and lifelong networks</p>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-3">
-                <div class="why-join-card-3d border-blue-glow">
-                    <div class="why-join-icon-box bg-primary-subtle text-primary">
-                        <i class="bi bi-code-square fs-3"></i>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-2" style="font-size: 1.05rem;">Skill Development</h5>
-                    <p class="text-secondary small mb-0">Hands-on workshops, AI Study Jams, FlutterFlow labs, and real-world project experience.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="why-join-card-3d border-purple-glow">
-                    <div class="why-join-icon-box bg-purple-subtle text-purple">
-                        <i class="bi bi-award-fill fs-3"></i>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-2" style="font-size: 1.05rem;">Leadership Growth</h5>
-                    <p class="text-secondary small mb-0">Lead official campus chapters, direct technical teams, and build resume-defining credentials.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="why-join-card-3d border-emerald-glow">
-                    <div class="why-join-icon-box bg-success-subtle text-success">
-                        <i class="bi bi-people-fill fs-3"></i>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-2" style="font-size: 1.05rem;">770+ Peer Network</h5>
-                    <p class="text-secondary small mb-0">Connect with passionate developers, designers, mentors, and industry alumni.</p>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3">
-                <div class="why-join-card-3d border-rose-glow">
-                    <div class="why-join-icon-box bg-danger-subtle text-danger">
-                        <i class="bi bi-trophy-fill fs-3"></i>
-                    </div>
-                    <h5 class="fw-bold text-dark mb-2" style="font-size: 1.05rem;">Global Hackathons</h5>
-                    <p class="text-secondary small mb-0">Compete in Google Solution Challenge, HACKQUEST, and win cash prizes & awards.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Section 2: Campus Moments Gallery (Ultra-Attractive 3D Showcase) -->
-<section class="py-5" style="background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
-    <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 gap-3">
-            <div>
-                <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2 d-inline-flex align-items-center gap-1.5" style="font-size: 0.72rem; letter-spacing: 0.5px;">
-                    <span class="pulse-dot-green"></span> Live Campus Highlights
-                </span>
-                <h2 class="fw-bold text-dark mb-1">Campus Moments Gallery</h2>
-                <p class="text-secondary small mb-0">Capturing real-time hackathons, AI summits, study jams & campus celebrations</p>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-                <a href="gallery.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
-                    Explore Full Gallery <i class="bi bi-arrow-right-short fs-5 ms-1"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <!-- Moment 1: Google Cloud Study Jam -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop', 'Google Cloud Study Jam 2026', 'GDGOC UIT • Prayagraj')">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Google Cloud Study Jam">
-                    <div class="gallery-card-badge">GDGOC UIT</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">Cloud Study Jam</span>
-                            <h6 class="gallery-card-title">Google Cloud Study Jam 2026</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moment 2: HACKQUEST '25 24-Hour Hackathon -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop', 'HACKQUEST \'25 24-Hour Hackathon', 'GDGOC UIT • ₹85K Prize Pool')">
-                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="HACKQUEST '25">
-                    <div class="gallery-card-badge bg-danger text-white">HACKATHON</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">Flagship Hackathon</span>
-                            <h6 class="gallery-card-title">HACKQUEST '25 Teams</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moment 3: Build With AI Summit & Gemini API -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop', 'Build With AI Summit & Gemini API Showcase', 'Gemini Builders & GDGOC')">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Build With AI">
-                    <div class="gallery-card-badge bg-purple text-white" style="background:#7c3aed;">AI SUMMIT</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">Gen AI Workshop</span>
-                            <h6 class="gallery-card-title">Build With AI Summit</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moment 4: GFG SC UIT Coding Sprint -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop', 'SyntaxClash 2026 Coding Contest', 'GFG SC UIT • 600+ Members')">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="GFG Coding Contest">
-                    <div class="gallery-card-badge bg-success text-white">GFG SC UIT</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">DSA & Contest</span>
-                            <h6 class="gallery-card-title">SyntaxClash 2026</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moment 5: TFUG x GDG Inaugural Keynote -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop', 'TFUG x GDG On-Campus Inaugural', 'TensorFlow User Group & GDGoC')">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="TFUG Keynote">
-                    <div class="gallery-card-badge">TFUG PRAYAGRAJ</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">Inaugural Keynote</span>
-                            <h6 class="gallery-card-title">TFUG x GDG Inaugural</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Moment 6: Orientation & Gala Night Celebration -->
-            <div class="col-6 col-md-4 col-lg-4">
-                <div class="gallery-card-3d" onclick="openGalleryModal('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop', 'GDG on Campus Orientation & Gala Night', 'UIT Induction Hall')">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=600&auto=format&fit=crop" class="gallery-card-img" alt="Orientation Session">
-                    <div class="gallery-card-badge bg-warning text-dark fw-bold">ORIENTATION</div>
-                    <div class="gallery-card-overlay">
-                        <div>
-                            <span class="gallery-card-tag">Campus Onboarding</span>
-                            <h6 class="gallery-card-title">GDGoC Campus Kickoff</h6>
-                        </div>
-                        <div class="gallery-expand-icon">
-                            <i class="bi bi-arrows-angle-expand"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Gallery Fullscreen Lightbox Modal -->
-<div class="modal fade" id="galleryLightboxModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content border-0 rounded-4 overflow-hidden shadow-2xl" style="background:#0f172a;">
-            <div class="modal-header border-0 p-3" style="background: rgba(15,23,42,0.8); backdrop-filter: blur(10px);">
-                <div>
-                    <h6 class="modal-title fw-bold text-white mb-0" id="galleryModalTitle">Campus Highlight</h6>
-                    <span class="text-white-50 small" id="galleryModalSubtitle">United Institute of Technology</span>
-                </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0 text-center bg-black position-relative">
-                <img src="" id="galleryModalImg" class="img-fluid w-100" style="max-height: 75vh; object-fit: contain;" alt="Campus Moment">
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Management Committee & Institutional Leadership Section -->
-<section class="py-5" style="background: #f8fafc;">
-    <div class="container">
-        <div class="text-center mb-5 max-w-2xl mx-auto">
-            <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1-5 rounded-pill mb-2" style="font-size: 0.75rem; letter-spacing: 1px;">
-                Institutional Governance
-            </span>
-            <h2 class="fw-bold text-dark mb-2">Management Committee</h2>
-            <p class="text-secondary small mb-0">Official Leadership & Governance Advisory — United Group of Institutions</p>
-        </div>
-
-        <div id="managementCommitteeContainer" class="row g-4 justify-content-center">
-            <!-- Dynamic Management Committee Cards rendered by committee-render.js -->
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action & Official Proposal Banner -->
-<section class="container my-5">
-    <div class="cta-banner-clubhub">
-        <div>
-            <span class="badge bg-white text-primary fw-bold px-3 py-1 rounded-pill mb-2 d-inline-block" style="font-size: 0.75rem;">Dean Student Welfare Initiative</span>
-            <h3 class="fw-bold mb-1 text-white">Want to Lead a New Club or Host an Event?</h3>
-            <p class="mb-0 text-white-80 fs-6">Submit an official proposal to the Dean Student Welfare & Management Committee for campus approval.</p>
-        </div>
-        <a href="contact.html#proposal" class="cta-btn-vibrant">
-            Submit Proposal &rarr;
-        </a>
     </div>
 </section>
 
@@ -764,8 +637,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/main.js"></script>
-<script src="assets/js/home-render.js"></script>
-<script src="assets/js/committee-render.js"></script>
-<script src="assets/js/search.js"></script>
 </body>
 </html>
