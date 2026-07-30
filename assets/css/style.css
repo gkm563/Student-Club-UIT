@@ -3533,85 +3533,108 @@ html, body {
 
 /* Executive Leadership & Advisory Committee Showcase */
 .committee-card-3d {
-    background: #ffffff;
-    border-radius: 22px;
-    padding: 24px 20px;
-    border: 1.5px solid #e2e8f0;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    padding: 32px 20px 24px !important;
+    border: 1.5px solid #e2e8f0 !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
 }
 
 .committee-card-3d:hover {
-    transform: translateY(-6px) scale(1.02);
-    border-color: #3b82f6;
-    box-shadow: 0 20px 45px rgba(37, 99, 235, 0.18);
+    transform: translateY(-8px) !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 24px 50px rgba(37, 99, 235, 0.18) !important;
+}
+
+/* Top Accent Line for Cards */
+.committee-card-3d::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 5px !important;
+    background: linear-gradient(90deg, #2563eb, #7c3aed) !important;
+}
+
+.committee-card-3d.patron::before {
+    background: linear-gradient(90deg, #d97706, #f59e0b) !important;
 }
 
 .committee-avatar-wrapper {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto 16px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border: 3px solid #ffffff;
-    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+    width: 86px !important;
+    height: 86px !important;
+    border-radius: 50% !important;
+    margin: 0 auto 16px !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    border: 3.5px solid #ffffff !important;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15) !important;
+    flex-shrink: 0 !important;
 }
 
 .committee-avatar-icon {
-    font-size: 2.2rem;
-    color: #1d4ed8;
+    font-size: 2.3rem !important;
+    color: #1d4ed8 !important;
 }
 
 .committee-card-3d.patron .committee-avatar-wrapper {
-    background: linear-gradient(135deg, #fffbe0 0%, #fef08a 100%);
-    box-shadow: 0 8px 20px rgba(234, 179, 8, 0.25);
+    background: linear-gradient(135deg, #fffbe0 0%, #fef08a 100%) !important;
+    box-shadow: 0 8px 24px rgba(217, 119, 6, 0.22) !important;
 }
 
 .committee-card-3d.patron .committee-avatar-icon {
-    color: #b45309;
+    color: #b45309 !important;
 }
 
 .committee-role-badge {
-    display: inline-block;
-    padding: 4px 14px;
-    border-radius: 50px;
-    font-size: 0.76rem;
-    font-weight: 800;
-    letter-spacing: 0.4px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 6px 18px !important;
+    border-radius: 50rem !important;
+    font-size: 0.76rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 14px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 .committee-role-badge.gold {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
+    background: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
 }
 
 .committee-role-badge.blue {
-    background: #dbeafe;
-    color: #1e40af;
-    border: 1px solid #bfdbfe;
+    background: #dbeafe !important;
+    color: #1e40af !important;
+    border: 1px solid #bfdbfe !important;
 }
 
 .committee-role-badge.purple {
-    background: #f3e8ff;
-    color: #6b21a8;
-    border: 1px solid #e9d5ff;
+    background: #f3e8ff !important;
+    color: #6b21a8 !important;
+    border: 1px solid #e9d5ff !important;
 }
 
 .committee-role-badge.green {
-    background: #dcfce7;
-    color: #166534;
-    border: 1px solid #bbf7d0;
+    background: #dcfce7 !important;
+    color: #166534 !important;
+    border: 1px solid #bbf7d0 !important;
 }
 
 
