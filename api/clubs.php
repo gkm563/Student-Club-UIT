@@ -76,9 +76,19 @@ try {
     ";
     $params = [];
 
+    $wing = $_GET['wing'] ?? '';
+    if (!empty($wing)) {
+        if (strtolower($wing) === 'technical' || strtolower($wing) === 'developers') {
+            $sql .= " AND (c.parent_wing LIKE '%Developers%' OR cat.slug = 'technical')";
+        } elseif (strtolower($wing) === 'cultural') {
+            $sql .= " AND (c.parent_wing LIKE '%Cultural%' OR cat.slug = 'cultural')";
+        }
+    }
+
     if ($categorySlug !== 'all' && !empty($categorySlug)) {
-        $sql .= " AND cat.slug = ?";
+        $sql .= " AND (cat.slug = ? OR c.parent_wing LIKE ?)";
         $params[] = $categorySlug;
+        $params[] = "%$categorySlug%";
     }
 
     if (!empty($search)) {

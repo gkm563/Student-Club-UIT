@@ -294,6 +294,11 @@ try {
                         <span class="badge bg-black bg-opacity-25 text-white rounded-pill px-3 py-1-5 fw-semibold small">
                             <?= e($club['category_name'] ?? 'Student Club') ?>
                         </span>
+                        <?php if (!empty($club['parent_wing'])): ?>
+                            <span class="badge bg-warning text-dark rounded-pill px-3 py-1-5 fw-extrabold small">
+                                <i class="bi <?= strpos($club['parent_wing'], 'Developers') !== false ? 'bi-code-slash' : 'bi-palette-fill' ?> me-1"></i><?= e($club['parent_wing']) ?>
+                            </span>
+                        <?php endif; ?>
                     </div>
 
                     <h1 class="fw-bold text-white mb-2 display-6">Welcome back, <?= e($firstName) ?>! 👋</h1>

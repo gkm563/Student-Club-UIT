@@ -499,7 +499,12 @@ foreach ($registeredClubs as $cCheck) {
                                     </a>
                                 </td>
                                 <td>
-                                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small"><?= htmlspecialchars($club['category_name']) ?></span>
+                                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small d-block mb-1"><?= htmlspecialchars($club['category_name']) ?></span>
+                                    <?php if (!empty($club['parent_wing'])): ?>
+                                        <span class="badge <?= strpos($club['parent_wing'], 'Developers') !== false ? 'bg-info-subtle text-primary border-info-subtle' : 'bg-danger-subtle text-danger border-danger-subtle' ?> border rounded-pill px-2 py-0.5" style="font-size:0.7rem;">
+                                            <i class="bi <?= strpos($club['parent_wing'], 'Developers') !== false ? 'bi-code-slash' : 'bi-palette-fill' ?> me-1"></i><?= htmlspecialchars($club['parent_wing']) ?>
+                                        </span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center gap-2">

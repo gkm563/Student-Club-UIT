@@ -13,7 +13,7 @@ try {
     $db = Database::getConnection();
 
     $stmt = $db->query("
-        SELECT id, name, designation, role_title, photo, bio, order_index
+        SELECT id, name, designation, role_title, photo, bio, order_index, badge_type
         FROM management_committee
         ORDER BY order_index ASC
     ");
