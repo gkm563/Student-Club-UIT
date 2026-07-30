@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = "Dean Sir Super Admin Login | ClubHub UIT";
+$pageTitle = "Dean Sir Super Admin Login | USC UIT";
 $assetPrefix = '../';
 require_once __DIR__ . '/../includes/header.php';
 ?>

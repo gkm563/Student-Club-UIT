@@ -71,7 +71,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     }
 }
 
-$pageTitle = "Dean Sir Portal Login | ClubHub UIT";
+$pageTitle = "Dean Sir Portal Login | USC UIT";
 require_once __DIR__ . '/../includes/header.php';
 ?>
 

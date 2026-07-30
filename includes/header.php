@@ -12,7 +12,7 @@ if (!isset($assetPrefix)) {
     }
 }
 if (!isset($pageTitle)) {
-    $pageTitle = 'ClubHub UIT | Official Campus Club Portal';
+    $pageTitle = 'USC UIT | United Student Club — UIT';
 }
 ?>
 <!DOCTYPE html>
