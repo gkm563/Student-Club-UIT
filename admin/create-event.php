@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action_create'])) {
                         <div class="row g-3">
                             <div class="col-md-12">
                                 <label class="form-label small fw-bold text-dark">Rewards, Cash Prizes & Swags</label>
-                                <input type="text" name="outcomes_summary" class="form-control rounded-3" placeholder="e.g. ₹15,000 Cash Prize, GFG Badges & SAC Verified Certificates">
+                                <input type="text" name="outcomes_summary" class="form-control rounded-3" placeholder="e.g. ₹15,000 Cash Prize, GFG Badges & USC UIT Verified Certificates">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label small fw-bold text-dark">Keynote Speaker Name</label>

@@ -103,7 +103,7 @@ function require_login(string $redirectUrl = 'club-login.php'): void {
             if ($uStatus && $uStatus !== 'active') {
                 session_unset();
                 session_destroy();
-                header("Location: $redirectUrl?error=" . urlencode("Account Suspended: Your access has been suspended by the Dean of Student Affairs. Contact SAC governance."));
+                header("Location: $redirectUrl?error=" . urlencode("Account Suspended: Your access has been suspended by the Dean of Student Affairs. Contact USC UIT governance."));
                 exit;
             }
         } catch (Exception $e) {

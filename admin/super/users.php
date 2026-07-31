@@ -1095,7 +1095,7 @@ $activeUsersCount = count(array_filter(array_merge($mainAdmins, $clubAdmins), fn
                             <label class="form-label small fw-semibold">Role Designation Title</label>
                             <select name="designation" id="adminRoleDesignationSelect" class="form-select rounded-3">
                                 <option value="Associate Dean">Associate Dean (Full Access)</option>
-                                <option value="SAC Coordinator">SAC Coordinator (Clubs & Proposals)</option>
+                                <option value="USC UIT Coordinator">USC UIT Coordinator (Clubs & Proposals)</option>
                                 <option value="System Administrator">System Administrator (IT & Users)</option>
                                 <option value="Faculty Advisor">Faculty Advisor (Proposals Oversight)</option>
                                 <option value="Institutional Admin" selected>Institutional Admin (Standard)</option>
@@ -1298,6 +1298,7 @@ $activeUsersCount = count(array_filter(array_merge($mainAdmins, $clubAdmins), fn
     // Dynamic Role Preset Permissions Mapping
     const rolePermissionsMap = {
         "Associate Dean": ["manage_clubs", "approve_proposals", "reset_credentials", "manage_users", "audit_logs", "categories_manage"],
+        "USC UIT Coordinator": ["manage_clubs", "approve_proposals", "audit_logs", "categories_manage"],
         "SAC Coordinator": ["manage_clubs", "approve_proposals", "audit_logs", "categories_manage"],
         "System Administrator": ["manage_clubs", "reset_credentials", "manage_users", "audit_logs"],
         "Faculty Advisor": ["approve_proposals"],

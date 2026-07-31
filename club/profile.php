@@ -412,7 +412,7 @@ $profileGalleryCount = count($clubPhotos ?? []);
                             </div>
                             <div id="achievementsBox" class="mt-3 pt-3 border-top <?= ($club['show_achievements'] ?? 1) ? '' : 'd-none' ?>">
                                 <label class="form-label small fw-semibold">Key Achievements & Highlights (One per line)</label>
-                                <textarea name="achievements_text" class="form-control rounded-3" rows="3" placeholder="🏆 Winner of Smart India Hackathon 2025&#10;🚀 250+ Active Coders Onboarded in 2025-26&#10;⭐ SAC Best Technical Society Award 2025"><?= htmlspecialchars($club['achievements_text'] ?? '') ?></textarea>
+                                <textarea name="achievements_text" class="form-control rounded-3" rows="3" placeholder="🏆 Winner of Smart India Hackathon 2025&#10;🚀 250+ Active Coders Onboarded in 2025-26&#10;⭐ USC UIT Best Technical Chapter Award 2025"><?= htmlspecialchars($club['achievements_text'] ?? '') ?></textarea>
                             </div>
                         </div>
 
@@ -589,7 +589,7 @@ $profileGalleryCount = count($clubPhotos ?? []);
                 <!-- 4. Chapter Honors & Recognition Card (Below Leadership Roster as requested!) -->
                 <div class="card p-4 border-0 shadow-sm rounded-4 mb-4 bg-white">
                     <h5 class="fw-bold mb-1 text-dark"><i class="bi bi-trophy-fill text-warning me-2"></i> Honors & Recognition</h5>
-                    <p class="text-secondary small mb-3">Official Dean Student Welfare (SAC) recognitions & national competition awards.</p>
+                    <p class="text-secondary small mb-3">Official USC UIT recognitions & national competition awards.</p>
                     
                     <div class="p-3 bg-light rounded-4 border">
                         <div class="d-flex align-items-center gap-3">
@@ -597,7 +597,7 @@ $profileGalleryCount = count($clubPhotos ?? []);
                                 <i class="bi bi-shield-lock-fill fs-5"></i>
                             </div>
                             <div>
-                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.90rem;">100% SAC Verified Chapter</h6>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.90rem;">100% USC UIT Verified Chapter</h6>
                                 <p class="small text-secondary mb-0" style="font-size: 0.78rem;">Recognized by Student Welfare Advisory Committee, UIT Prayagraj.</p>
                             </div>
                         </div>

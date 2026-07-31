@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Password Hash Verification using BCRYPT
             if ($user && password_verify($password, $user['password_hash'])) {
                 if (($user['status'] ?? 'active') !== 'active') {
-                    $error = "Account Suspended: Your access has been suspended by the Dean of Student Affairs. Please contact SAC governance.";
+                    $error = "Account Suspended: Your access has been suspended by the Dean of Student Affairs. Please contact USC UIT governance.";
                 } else {
                     session_regenerate_id(true);
                     reset_login_rate_limit($email);

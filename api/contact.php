@@ -54,7 +54,7 @@ try {
 
         echo json_encode([
             'status' => 'success',
-            'message' => 'Your message has been sent successfully to the SAC Secretariat! Our team will get back to you shortly.'
+            'message' => 'Your message has been sent successfully to the USC UIT team! Our executive office will get back to you shortly.'
         ]);
         exit;
     }

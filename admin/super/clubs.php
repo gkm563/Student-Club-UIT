@@ -291,7 +291,7 @@ $categoriesCount   = count($categories);
         <!-- Header Banner -->
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
             <div>
-                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">SAC CAMPUS GOVERNANCE</span>
+                <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 fw-bold small">USC UIT CAMPUS GOVERNANCE</span>
                 <h2 class="fw-bold mb-1 text-dark mt-2">Manage Campus Clubs & Credentials</h2>
                 <p class="text-secondary small mb-0">Create new student chapters, issue leadership credentials, reset passwords, and edit chapter details.</p>
             </div>

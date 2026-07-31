@@ -569,7 +569,7 @@ try {
                             </div>
                             <div>
                                 <strong class="d-block text-dark">Office Location</strong>
-                                <?= e($club['office_location'] ?: 'Student Activity Center, UIT') ?>
+                                <?= e($club['office_location'] ?: 'USC UIT Office, UIT Campus') ?>
                             </div>
                         </div>
 
