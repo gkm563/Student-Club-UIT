@@ -3,626 +3,531 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USC UIT | United Student Club - United Institute of Technology</title>
-    <meta name="description" content="Official website of USC UIT - United Student Club, United Institute of Technology (UIT) Prayagraj. Home to Developers Club UIT & Cultural Club UIT.">
-    
-    <!-- OpenGraph SEO Tags -->
-    <meta property="og:title" content="USC UIT | United Student Club - United Institute of Technology">
-    <meta property="og:description" content="Official Student Activities & Club Governance Portal of UIT Prayagraj. Governing Developers Club UIT & Cultural Club UIT.">
+    <title>USC UIT | United Student Club — United Institute of Technology</title>
+    <meta name="description" content="Official website of USC UIT — United Student Club at United Institute of Technology, Prayagraj. Home to Developers Club UIT & Cultural Club UIT.">
+
+    <meta property="og:title" content="USC UIT | United Student Club — UIT Prayagraj">
+    <meta property="og:description" content="The official campus governing council for technical innovation, hackathons, cultural festivals, and student leadership at UIT.">
     <meta property="og:type" content="website">
 
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- Custom Vibrant Design System -->
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <!-- Site styles -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/home.css">
 </head>
 <body>
 
-<!-- Universal Header Container -->
 <div id="header-placeholder"></div>
 
-<!-- ⭐ Official USC UIT Hero Banner -->
-<section class="hero-clubhub">
-    <div class="container">
+<!-- ═══════════════════════════════════════════════════════════════════════
+     HERO — First impression: You are on USC UIT
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-hero" id="top">
+    <div class="home-hero__mesh"></div>
+    <div class="home-hero__grid"></div>
+    <div class="home-hero__orb home-hero__orb--1"></div>
+    <div class="home-hero__orb home-hero__orb--2"></div>
+    <div class="home-hero__orb home-hero__orb--3"></div>
+
+    <div class="container home-hero__content">
         <div class="row align-items-center g-5">
-            <!-- Hero Text Left -->
-            <div class="col-lg-6">
-                <div class="hero-welcome-badge shadow-sm mb-3">
-                    <span class="badge bg-primary text-white rounded-circle p-1 d-inline-flex align-items-center justify-content-center shadow-sm">
-                        <i class="bi bi-shield-check text-white fs-6"></i>
-                    </span>
-                    <span class="fw-black text-primary" style="color: #1e40af !important; letter-spacing: 0.4px;">USC UIT — United Student Club</span>
-                    <span class="fs-5">👋</span>
-                    <span class="badge rounded-pill px-2.5 py-1 ms-1 fw-extrabold small shadow-sm" style="font-size: 0.72rem; letter-spacing: 0.6px; background: linear-gradient(135deg, #2563eb, #0284c7) !important; color: #ffffff !important;">UIT PRAYAGRAJ</span>
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="home-badge">
+                    <span class="home-badge__dot"></span>
+                    Official Campus Governing Council
+                    <span class="badge bg-primary ms-1" style="font-size:0.68rem;">UIT PRAYAGRAJ</span>
                 </div>
 
-                <h1 class="hero-headline mb-3">
-                    Welcome to <span class="hero-headline-highlight">USC UIT</span><br>
-                    <span class="fs-2 text-dark d-block fw-bold mt-1">United Student Club — UIT</span>
+                <h1 class="home-hero__title">
+                    Welcome to<br>
+                    <span>USC UIT</span>
                 </h1>
-                
-                <p class="hero-subtitle mb-4">
+                <p class="home-hero__subtitle mb-1 fw-bold text-white" style="font-size:1.05rem; opacity:0.95;">
+                    United Student Club — UIT
+                </p>
+                <p class="home-hero__subtitle">
                     The official campus governing council uniting all technical innovation, hackathons, cultural festivals, public speaking arenas, and student leadership chapters at United Institute of Technology.
                 </p>
 
-                <!-- 2 Main Wings Quick Action Buttons -->
-                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
-                    <a href="#mainWingsSection" class="btn btn-primary rounded-pill px-4 py-2-5 fw-bold shadow-lg d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-cpu-fill fs-5"></i>
-                        <span>Explore 2 Main Wings</span>
+                <div class="home-hero__actions">
+                    <a href="#mainWingsSection" class="home-btn-primary">
+                        <i class="bi bi-diagram-3-fill"></i> Explore 2 Main Wings
                     </a>
-                    <a href="#committeeSection" class="btn btn-outline-primary rounded-pill px-4 py-2-5 fw-bold d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-person-workspace fs-5"></i>
-                        <span>Executive Council</span>
+                    <a href="#committeeSection" class="home-btn-ghost">
+                        <i class="bi bi-award-fill"></i> Executive Committee
                     </a>
                 </div>
 
-                <!-- Search Bar -->
-                <div class="hero-search-bar mb-4">
-                    <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search Developers Club, Cultural Club, hackathons, events..." autocomplete="off">
-                    <button class="hero-search-btn" title="Search">
+                <div class="hero-search-bar">
+                    <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Search clubs, hackathons, events…" autocomplete="off">
+                    <button class="hero-search-btn" title="Search" type="button">
                         <i class="bi bi-search"></i>
                     </button>
                     <div id="searchResultsDropdown" class="search-results-dropdown"></div>
                 </div>
 
-                <!-- Dynamic Live Database Hero Stats Row -->
-                <div class="hero-stats-row">
-                    <div class="hero-stat-card-3d stat-trophy">
-                        <div class="hero-stat-icon-box trophy-bg">
-                            <i class="bi bi-layers-fill hero-stat-icon trophy"></i>
-                        </div>
-                        <div>
-                            <div class="hero-stat-num">2 Main</div>
-                            <div class="hero-stat-label">Parent Wings</div>
-                        </div>
+                <div class="home-stats">
+                    <div class="home-stat">
+                        <div class="home-stat__num">2</div>
+                        <div class="home-stat__label">Parent Wings</div>
                     </div>
-
-                    <div class="hero-stat-card-3d stat-calendar">
-                        <div class="hero-stat-icon-box calendar-bg">
-                            <i class="bi bi-award-fill hero-stat-icon calendar"></i>
-                        </div>
-                        <div>
-                            <div class="hero-stat-num" id="heroStatClubs">11+</div>
-                            <div class="hero-stat-label">Sub-Chapters</div>
-                        </div>
+                    <div class="home-stat">
+                        <div class="home-stat__num" id="heroStatClubs">11+</div>
+                        <div class="home-stat__label">Sub-Chapters</div>
                     </div>
-
-                    <div class="hero-stat-card-3d stat-members">
-                        <div class="hero-stat-icon-box members-bg">
-                            <i class="bi bi-people-fill hero-stat-icon members"></i>
-                        </div>
-                        <div>
-                            <div class="hero-stat-num" id="heroStatMembers">600+</div>
-                            <div class="hero-stat-label">Active Members</div>
-                        </div>
+                    <div class="home-stat">
+                        <div class="home-stat__num" id="heroStatMembers">600+</div>
+                        <div class="home-stat__label">Active Members</div>
                     </div>
-
-                    <div class="hero-stat-card-3d stat-activities">
-                        <div class="hero-stat-icon-box activities-bg">
-                            <i class="bi bi-lightning-charge-fill hero-stat-icon activities"></i>
-                        </div>
-                        <div>
-                            <div class="hero-stat-num" id="heroStatEvents">15+</div>
-                            <div class="hero-stat-label">Annual Events</div>
-                        </div>
+                    <div class="home-stat">
+                        <div class="home-stat__num" id="heroStatEvents">15+</div>
+                        <div class="home-stat__label">Annual Events</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Hero Campus Slider Right (6 Automatic & Swipeable Photos) -->
-            <div class="col-lg-6">
-                <div id="heroCampusCarousel" class="carousel slide carousel-fade rounded-4 overflow-hidden shadow-2xl border border-white-50 position-relative" data-bs-ride="carousel" data-bs-interval="3200" data-bs-touch="true">
-                    
-                    <!-- Carousel Indicators / Dots -->
-                    <div class="carousel-indicators mb-2">
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                        <button type="button" data-bs-target="#heroCampusCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
-                    </div>
-
-                    <!-- Carousel Slides -->
-                    <div class="carousel-inner" style="border-radius: 16px;">
-                        <!-- Slide 1 -->
-                        <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="USC UIT Campus Life">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="#mainWingsSection" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">USC UIT Headquarters</a>
-                                <h6 class="mb-0"><a href="#mainWingsSection" class="fw-bold text-white text-decoration-none hero-slide-link">United Student Club — UIT Campus &rarr;</a></h6>
+            <div class="col-lg-6 home-hero__visual" data-aos="fade-left" data-aos-delay="150">
+                <div class="swiper home-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide position-relative">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop" alt="USC UIT Campus">
+                            <div class="home-swiper__caption">
+                                <span class="home-swiper__tag home-swiper__tag--usc">USC UIT</span>
+                                <p class="home-swiper__title">United Student Club — UIT Campus Headquarters</p>
                             </div>
                         </div>
-
-                        <!-- Slide 2 -->
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Developers Club UIT Hackathon">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="tech-events.html" class="badge bg-primary text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Developers Club UIT</a>
-                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Google Cloud Study Jam & Hackathons &rarr;</a></h6>
+                        <div class="swiper-slide position-relative">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop" alt="Developers Club Hackathon">
+                            <div class="home-swiper__caption">
+                                <span class="home-swiper__tag home-swiper__tag--tech">Developers Club UIT</span>
+                                <p class="home-swiper__title">Google Cloud Study Jam &amp; Hackathons</p>
                             </div>
                         </div>
-
-                        <!-- Slide 3 -->
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Cultural Club UIT Stage">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="cultural-events.html" class="badge bg-danger text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block" style="background:#e11d48 !important;">Cultural Club UIT</a>
-                                <h6 class="mb-0"><a href="cultural-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Annual Fest & Stage Performances &rarr;</a></h6>
+                        <div class="swiper-slide position-relative">
+                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" alt="Cultural Club Stage">
+                            <div class="home-swiper__caption">
+                                <span class="home-swiper__tag home-swiper__tag--cultural">Cultural Club UIT</span>
+                                <p class="home-swiper__title">Annual Fest &amp; Stage Performances</p>
                             </div>
                         </div>
-
-                        <!-- Slide 4 -->
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Build With AI Summit">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="tech-events.html" class="badge bg-purple text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block" style="background:#7c3aed;">Developers Club UIT</a>
-                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Build With AI Summit & Workshop &rarr;</a></h6>
+                        <div class="swiper-slide position-relative">
+                            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt="Build With AI Summit">
+                            <div class="home-swiper__caption">
+                                <span class="home-swiper__tag home-swiper__tag--tech">Developers Club UIT</span>
+                                <p class="home-swiper__title">Build With AI Summit &amp; Workshop</p>
                             </div>
                         </div>
-
-                        <!-- Slide 5 -->
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="GFG SC UIT">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="tech-events.html" class="badge bg-success text-white rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Developers Club UIT</a>
-                                <h6 class="mb-0"><a href="tech-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">SyntaxClash 2026 Coding Sprint &rarr;</a></h6>
-                            </div>
-                        </div>
-
-                        <!-- Slide 6 -->
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" class="d-block w-100 hero-carousel-img" alt="Toastmasters Public Speaking">
-                            <div class="carousel-caption hero-carousel-caption">
-                                <a href="cultural-events.html" class="badge bg-warning text-dark rounded-pill px-3 py-1 fw-bold mb-1 text-decoration-none shadow-sm d-inline-block">Cultural Club UIT</a>
-                                <h6 class="mb-0"><a href="cultural-events.html" class="fw-bold text-white text-decoration-none hero-slide-link">Toastmasters Public Speaking Arena &rarr;</a></h6>
+                        <div class="swiper-slide position-relative">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="Student Leadership">
+                            <div class="home-swiper__caption">
+                                <span class="home-swiper__tag home-swiper__tag--cultural">Cultural Club UIT</span>
+                                <p class="home-swiper__title">Toastmasters Public Speaking Arena</p>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Custom Left Navigation Arrow Button -->
-                    <button class="carousel-control-prev hero-carousel-nav-btn prev-btn" type="button" data-bs-target="#heroCampusCarousel" data-bs-slide="prev" aria-label="Previous Slide">
-                        <i class="bi bi-chevron-left fs-5"></i>
-                    </button>
-
-                    <!-- Custom Right Navigation Arrow Button -->
-                    <button class="carousel-control-next hero-carousel-nav-btn next-btn" type="button" data-bs-target="#heroCampusCarousel" data-bs-slide="next" aria-label="Next Slide">
-                        <i class="bi bi-chevron-right fs-5"></i>
-                    </button>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Curved Wave Transition -->
-    <div class="hero-wave-divider">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0 C300,90 600,10 900,65 C1050,90 1150,45 1200,30 L1200,120 L0,120 Z" fill="#ffffff"></path>
+    <div class="home-hero__wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 70" preserveAspectRatio="none">
+            <path d="M0,40 C200,70 400,10 600,45 C800,75 1000,20 1200,50 L1200,70 L0,70 Z" fill="#ffffff"/>
         </svg>
     </div>
 </section>
 
-<!-- 🔥 SECTION 1: THE 2 MAIN PARENT CLUBS / WINGS OF USC UIT -->
-<section id="mainWingsSection" class="py-5" style="background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);">
-    <div class="container py-3">
-        <div class="text-center mb-5 max-w-2xl mx-auto">
-            <span class="badge bg-primary-subtle text-primary border rounded-pill px-3.5 py-2 fw-extrabold text-uppercase mb-2 shadow-sm" style="font-size: 0.8rem; letter-spacing: 1px;">
-                <i class="bi bi-diagram-3-fill me-1"></i> Core Campus Architecture
-            </span>
-            <h2 class="fw-black text-dark display-6 mb-2">The 2 Main Wings of USC UIT</h2>
-            <p class="text-secondary fs-6 mb-0 fw-medium">
+<!-- Identity strip — reinforces USC UIT branding -->
+<div class="home-identity-strip">
+    <div class="container">
+        <div class="home-identity-strip__inner">
+            <div class="home-identity-item"><i class="bi bi-shield-check"></i> Official USC UIT Portal</div>
+            <div class="home-identity-item"><i class="bi bi-building"></i> United Institute of Technology, Prayagraj</div>
+            <div class="home-identity-item"><i class="bi bi-diagram-3"></i> 2 Parent Wings · 11+ Chapters</div>
+            <div class="home-identity-item"><i class="bi bi-people-fill"></i> 600+ Active Student Members</div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     WHAT IS USC UIT — Clear explainer + org diagram
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section" id="aboutSection">
+    <div class="container">
+        <div class="home-about-grid">
+            <div data-aos="fade-up">
+                <span class="home-section-label"><i class="bi bi-info-circle-fill"></i> Who We Are</span>
+                <h2 class="home-section-title">What is USC UIT?</h2>
+                <p class="text-secondary" style="font-size:1.05rem; line-height:1.75;">
+                    <strong>USC UIT (United Student Club — UIT)</strong> is the central governing body for all student activities at United Institute of Technology. Every club, chapter, hackathon, cultural fest, and leadership program on campus operates under USC UIT.
+                </p>
+                <ul class="home-about-points">
+                    <li>
+                        <span class="home-about-points__icon" style="background:#eff6ff;color:#2563eb;"><i class="bi bi-shield-check"></i></span>
+                        <span><strong>One umbrella, one identity.</strong> USC UIT is the single official council that represents all student life at UIT Prayagraj.</span>
+                    </li>
+                    <li>
+                        <span class="home-about-points__icon" style="background:#f0fdf4;color:#059669;"><i class="bi bi-layers-fill"></i></span>
+                        <span><strong>Two parent wings.</strong> All chapters fall under either <em>Developers Club UIT</em> (technical) or <em>Cultural Club UIT</em> (cultural &amp; literary).</span>
+                    </li>
+                    <li>
+                        <span class="home-about-points__icon" style="background:#fef3c7;color:#b45309;"><i class="bi bi-award-fill"></i></span>
+                        <span><strong>Executive-led governance.</strong> Guided by the United Group advisory board, UIT institutional heads, and student council leadership.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="100">
+                <div class="home-org-diagram">
+                    <div class="home-org-diagram__root">
+                        <h4><i class="bi bi-shield-fill-check me-1"></i> USC UIT</h4>
+                        <p>United Student Club — UIT Prayagraj</p>
+                    </div>
+                    <div class="home-org-diagram__connector"><span></span></div>
+                    <div class="home-org-diagram__wings">
+                        <div class="home-org-wing home-org-wing--tech">
+                            <i class="bi bi-code-slash"></i>
+                            <h5>Developers Club UIT</h5>
+                            <p>Technical Umbrella Council</p>
+                        </div>
+                        <div class="home-org-wing home-org-wing--cultural">
+                            <i class="bi bi-palette-fill"></i>
+                            <h5>Cultural Club UIT</h5>
+                            <p>Cultural Umbrella Council</p>
+                        </div>
+                    </div>
+                    <div class="home-org-diagram__chapters">
+                        <p>GDG Cloud · GFG SC · Gemini Builders · Toastmasters · Music · Drama · Literary Society · and more…</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     2 MAIN WINGS — Developers Club & Cultural Club
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section home-section--alt" id="mainWingsSection">
+    <div class="container">
+        <div class="home-wings-header" data-aos="fade-up">
+            <span class="home-section-label"><i class="bi bi-diagram-3-fill"></i> Core Campus Architecture</span>
+            <h2 class="home-section-title">The 2 Main Wings of USC UIT</h2>
+            <p class="home-section-desc">
                 Under the umbrella of <strong>United Student Club (USC UIT)</strong>, all student activities, chapters, and events are organized into two primary parent clubs:
             </p>
         </div>
 
-        <div class="row g-4 g-lg-5 align-items-stretch">
-            <!-- 💻 WING 1: Developers Club UIT (Technical Wing) -->
-            <div class="col-lg-6">
-                <div class="main-wing-card main-wing-card-tech">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="wing-header-badge tech">
-                            <i class="bi bi-cpu-fill"></i> Technical Parent Wing
-                        </span>
-                        <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold">USC UIT TECH</span>
+        <div class="row g-4">
+            <!-- Developers Club UIT -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="0">
+                <article class="home-wing-card home-wing-card--tech">
+                    <div class="home-wing-card__header">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="home-wing-card__icon"><i class="bi bi-code-slash"></i></div>
+                            <div>
+                                <h3 class="home-wing-card__title">Developers Club UIT</h3>
+                                <span class="home-wing-card__role">Official Technical Umbrella Council</span>
+                            </div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill px-3 py-2 fw-bold" style="font-size:0.72rem;">USC UIT TECH</span>
                     </div>
 
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="rounded-4 p-3 bg-primary text-white shadow-md d-inline-flex align-items-center justify-content-center" style="width: 58px; height: 58px; font-size: 1.8rem;">
-                            <i class="bi bi-code-slash"></i>
-                        </div>
-                        <div>
-                            <h3 class="fw-black text-dark mb-0 fs-3">Developers Club UIT</h3>
-                            <span class="text-primary fw-bold small">Official Technical Umbrella Council</span>
-                        </div>
-                    </div>
-
-                    <p class="text-secondary small mb-4" style="line-height: 1.65; font-size: 0.95rem;">
+                    <p class="home-wing-card__desc">
                         The premier technical powerhouse governing all software development, coding competitions, artificial intelligence study jams, robotics, and cloud engineering projects across UIT.
                     </p>
 
-                    <!-- Faculty Coordinators Banner -->
-                    <div class="wing-faculty-box d-flex align-items-center gap-3">
-                        <div class="rounded-circle bg-primary-subtle text-primary p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
-                            <i class="bi bi-person-workspace fs-5"></i>
+                    <div class="home-wing-card__faculty">
+                        <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center" style="width:40px;height:40px;flex-shrink:0;">
+                            <i class="bi bi-person-workspace"></i>
                         </div>
                         <div>
-                            <span class="d-block text-uppercase text-secondary fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">FACULTY COORDINATORS</span>
-                            <span class="fw-extrabold text-dark" style="font-size: 0.92rem; color: #0f172a !important;">
-                                Er. Gaurav Narain &amp; Er. Kushagra Dwivedi
-                            </span>
+                            <div class="home-wing-card__faculty-label">Faculty Coordinators</div>
+                            <div class="home-wing-card__faculty-name">Er. Gaurav Narain &amp; Er. Kushagra Dwivedi</div>
                         </div>
                     </div>
 
-                    <!-- Sub-Chapters under Developers Club -->
-                    <div class="mb-4">
-                        <span class="d-block text-uppercase text-secondary fw-extrabold mb-2" style="font-size: 0.74rem; letter-spacing: 0.5px;">CHAPTERS UNDER DEVELOPERS CLUB UIT:</span>
-                        <div class="d-flex flex-wrap align-items-center gap-2">
-                            <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="wing-sub-chapters-tag">
-                                <i class="bi bi-cloud-fill text-primary"></i> GDG Cloud UIT
-                            </a>
-                            <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="wing-sub-chapters-tag">
-                                <i class="bi bi-code-square text-success"></i> GFG SC UIT
-                            </a>
-                            <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="wing-sub-chapters-tag">
-                                <i class="bi bi-robot text-purple" style="color:#7c3aed;"></i> Gemini Builders
-                            </a>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-cpu text-info"></i> TechMatrix Robotics
-                            </span>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-shield-lock text-danger"></i> CyberShield
-                            </span>
-                        </div>
+                    <div class="home-wing-card__chapters-label">Chapters Under Developers Club UIT</div>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-cloud-fill text-primary"></i> GDG Cloud UIT</a>
+                        <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-code-square text-success"></i> GFG SC UIT</a>
+                        <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-robot" style="color:#7c3aed;"></i> Gemini Builders</a>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-cpu text-info"></i> TechMatrix Robotics</span>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-shield-lock text-danger"></i> CyberShield</span>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="d-flex flex-wrap align-items-center gap-2 pt-2 border-top">
-                        <a href="tech-events.html" class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2">
-                            <i class="bi bi-calendar-event-fill"></i> Developers Club Events
+                    <div class="home-wing-card__actions">
+                        <a href="tech-events.html" class="btn btn-primary rounded-pill px-4 fw-bold">
+                            <i class="bi bi-calendar-event-fill me-1"></i> Tech Events
                         </a>
-                        <a href="clubs.html?wing=technical" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2">
-                            <i class="bi bi-compass"></i> Tech Chapters
+                        <a href="clubs.html?wing=technical" class="btn btn-outline-primary rounded-pill px-4 fw-bold">
+                            <i class="bi bi-compass me-1"></i> All Tech Chapters
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
 
-            <!-- 🎭 WING 2: Cultural Club UIT (Cultural & Literary Wing) -->
-            <div class="col-lg-6">
-                <div class="main-wing-card main-wing-card-cultural">
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="wing-header-badge cultural">
-                            <i class="bi bi-palette-fill"></i> Cultural Parent Wing
-                        </span>
-                        <span class="badge bg-danger text-white rounded-pill px-3 py-1.5 fw-bold" style="background:#e11d48 !important;">USC UIT CULTURAL</span>
+            <!-- Cultural Club UIT -->
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                <article class="home-wing-card home-wing-card--cultural">
+                    <div class="home-wing-card__header">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="home-wing-card__icon"><i class="bi bi-music-note-list"></i></div>
+                            <div>
+                                <h3 class="home-wing-card__title">Cultural Club UIT</h3>
+                                <span class="home-wing-card__role">Official Cultural Umbrella Council</span>
+                            </div>
+                        </div>
+                        <span class="badge rounded-pill px-3 py-2 fw-bold text-white" style="background:#e11d48;font-size:0.72rem;">USC UIT CULTURAL</span>
                     </div>
 
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="rounded-4 p-3 text-white shadow-md d-inline-flex align-items-center justify-content-center" style="width: 58px; height: 58px; font-size: 1.8rem; background: linear-gradient(135deg, #e11d48, #be123c);">
-                            <i class="bi bi-music-note-list"></i>
-                        </div>
-                        <div>
-                            <h3 class="fw-black text-dark mb-0 fs-3">Cultural Club UIT</h3>
-                            <span class="text-danger fw-bold small" style="color:#be123c !important;">Official Cultural Umbrella Council</span>
-                        </div>
-                    </div>
-
-                    <p class="text-secondary small mb-4" style="line-height: 1.65; font-size: 0.95rem;">
-                        The vibrant heart of campus culture, public speaking, performing arts, musical bands, theatrical dramas, literary debates, and creative design at UIT.
+                    <p class="home-wing-card__desc">
+                        The vibrant heart of campus culture — public speaking, performing arts, musical bands, theatrical dramas, literary debates, and creative design at UIT.
                     </p>
 
-                    <!-- Faculty Coordinator Banner -->
-                    <div class="wing-faculty-box d-flex align-items-center gap-3">
-                        <div class="rounded-circle bg-danger-subtle text-danger p-2 d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
-                            <i class="bi bi-person-badge fs-5"></i>
+                    <div class="home-wing-card__faculty">
+                        <div class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center" style="width:40px;height:40px;flex-shrink:0;">
+                            <i class="bi bi-person-badge"></i>
                         </div>
                         <div>
-                            <span class="d-block text-uppercase text-secondary fw-bold" style="font-size: 0.7rem; letter-spacing: 0.5px;">FACULTY COORDINATOR</span>
-                            <span class="fw-extrabold text-dark" style="font-size: 0.92rem; color: #0f172a !important;">
-                                Dr. Ankit Gupta
-                            </span>
+                            <div class="home-wing-card__faculty-label">Faculty Coordinator</div>
+                            <div class="home-wing-card__faculty-name">Dr. Ankit Gupta</div>
                         </div>
                     </div>
 
-                    <!-- Sub-Chapters under Cultural Club -->
-                    <div class="mb-4">
-                        <span class="d-block text-uppercase text-secondary fw-extrabold mb-2" style="font-size: 0.74rem; letter-spacing: 0.5px;">CHAPTERS UNDER CULTURAL CLUB UIT:</span>
-                        <div class="d-flex flex-wrap align-items-center gap-2">
-                            <a href="club-detail.html?id=clb_toastmasters_uit_2026" class="wing-sub-chapters-tag">
-                                <i class="bi bi-mic-fill text-warning"></i> Toastmasters Club
-                            </a>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-music-note-beamer text-danger"></i> Harmony Music &amp; Band
-                            </span>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-mask text-purple" style="color:#7c3aed;"></i> Rangmanch Drama
-                            </span>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-palette text-success"></i> Kalakriti Fine Arts
-                            </span>
-                            <span class="wing-sub-chapters-tag">
-                                <i class="bi bi-journal-richtext text-info"></i> Literary Society
-                            </span>
-                        </div>
+                    <div class="home-wing-card__chapters-label">Chapters Under Cultural Club UIT</div>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
+                        <a href="club-detail.html?id=clb_toastmasters_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-mic-fill text-warning"></i> Toastmasters Club</a>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-music-note-beamed text-danger"></i> Harmony Music &amp; Band</span>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-mask" style="color:#7c3aed;"></i> Rangmanch Drama</span>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-palette text-success"></i> Kalakriti Fine Arts</span>
+                        <span class="wing-sub-chapters-tag"><i class="bi bi-journal-richtext text-info"></i> Literary Society</span>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="d-flex flex-wrap align-items-center gap-2 pt-2 border-top">
-                        <a href="cultural-events.html" class="btn btn-danger rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center gap-2" style="background:#e11d48; border-color:#e11d48;">
-                            <i class="bi bi-calendar-event-fill"></i> Cultural Club Events
+                    <div class="home-wing-card__actions">
+                        <a href="cultural-events.html" class="btn btn-danger rounded-pill px-4 fw-bold" style="background:#e11d48;border-color:#e11d48;">
+                            <i class="bi bi-calendar-event-fill me-1"></i> Cultural Events
                         </a>
-                        <a href="clubs.html?wing=cultural" class="btn btn-outline-danger rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2" style="color:#e11d48; border-color:#e11d48;">
-                            <i class="bi bi-palette"></i> Cultural Chapters
+                        <a href="clubs.html?wing=cultural" class="btn btn-outline-danger rounded-pill px-4 fw-bold" style="color:#e11d48;border-color:#e11d48;">
+                            <i class="bi bi-palette me-1"></i> All Cultural Chapters
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 👑 SECTION 2: EXECUTIVE LEADERSHIP & ADVISORY COMMITTEE OF USC UIT -->
-<section id="committeeSection" class="py-5" style="background: #ffffff;">
-    <div class="container py-3">
-        <div class="text-center mb-5 max-w-3xl mx-auto">
-            <span class="badge bg-warning bg-opacity-20 text-warning border border-warning rounded-pill px-3.5 py-2 fw-extrabold text-uppercase mb-2 shadow-sm" style="font-size: 0.8rem; letter-spacing: 1px; color:#b45309 !important; background:#fef3c7 !important;">
-                <i class="bi bi-award-fill me-1"></i> Executive Committee
-            </span>
-            <h2 class="fw-black text-dark display-6 mb-2">Executive Leadership &amp; Advisory Council</h2>
-            <p class="text-secondary fs-6 mb-0 fw-medium">
-                Under the visionary guidance of patrons, institutional heads, DSW, and student council leads governing <strong>USC UIT (United Student Club)</strong>.
+<!-- ═══════════════════════════════════════════════════════════════════════
+     EXECUTIVE COMMITTEE — Vision + Leadership
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section" id="committeeSection">
+    <div class="container">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <span class="home-section-label"><i class="bi bi-award-fill"></i> Executive Committee</span>
+            <h2 class="home-section-title">Vision of the Executive Committee</h2>
+            <p class="home-section-desc">
+                Under the visionary guidance of patrons, institutional heads, DSW, and student council leads governing <strong>USC UIT</strong>.
             </p>
         </div>
 
-        <!-- 7 Members Executive Grid -->
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center">
-            
-            <!-- 1. Girdhar Gulati - Chairman -->
-            <div class="col">
+        <div class="home-vision-block" data-aos="fade-up" data-aos-delay="100">
+            <p class="home-vision-block__quote">
+                "Student activities are the heartbeat of campus life. USC UIT provides the platform where classroom knowledge transforms into leadership, innovation, and lifelong impact — cultivating world-class programmers, cultural performers, and articulate leaders recognized across national platforms."
+            </p>
+            <p class="home-vision-block__attr">— USC UIT Executive Advisory Council, United Group of Institutions</p>
+
+            <div class="home-vision-pillars">
+                <div class="home-vision-pillar">
+                    <i class="bi bi-bullseye"></i>
+                    <h5>Our Mission</h5>
+                    <p>Bridge academic theory with real-world execution through structured support, grants, and mentorship.</p>
+                </div>
+                <div class="home-vision-pillar">
+                    <i class="bi bi-eye-fill"></i>
+                    <h5>Our Vision</h5>
+                    <p>A self-governed student ecosystem where innovation flourishes and leaders emerge on national stages.</p>
+                </div>
+                <div class="home-vision-pillar">
+                    <i class="bi bi-stars"></i>
+                    <h5>Our Values</h5>
+                    <p>Global excellence, inclusive leadership, experiential learning, and community impact.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patron Board -->
+        <div class="home-committee-tier" data-aos="fade-up">
+            <span class="home-committee-tier__label home-committee-tier__label--patron">
+                <i class="bi bi-award-fill"></i> Patron &amp; Advisory Board — United Group
+            </span>
+        </div>
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-2">
+            <div class="col" data-aos="fade-up" data-aos-delay="0">
                 <div class="committee-card-3d patron">
-                    <div class="committee-avatar-wrapper">
-                        <i class="bi bi-person-fill-gear committee-avatar-icon"></i>
-                    </div>
-                    <span class="committee-role-badge gold"><i class="bi bi-award-fill me-1"></i> CHAIRMAN</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Girdhar Gulati</h4>
+                    <div class="committee-avatar-wrapper"><i class="bi bi-person-fill-gear committee-avatar-icon"></i></div>
+                    <span class="committee-role-badge gold"><i class="bi bi-award-fill me-1"></i> Chairman</span>
+                    <h4 class="fw-black fs-5 mb-1">Girdhar Gulati</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Chairman</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">United Group (UGI)</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">United Group (UGI)</span>
                 </div>
             </div>
-
-            <!-- 2. Dr. Jagdish Gulati - President -->
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
                 <div class="committee-card-3d patron">
-                    <div class="committee-avatar-wrapper">
-                        <i class="bi bi-award-fill committee-avatar-icon"></i>
-                    </div>
-                    <span class="committee-role-badge gold"><i class="bi bi-patch-check-fill me-1"></i> PRESIDENT</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Jagdish Gulati</h4>
+                    <div class="committee-avatar-wrapper"><i class="bi bi-award-fill committee-avatar-icon"></i></div>
+                    <span class="committee-role-badge gold"><i class="bi bi-patch-check-fill me-1"></i> President</span>
+                    <h4 class="fw-black fs-5 mb-1">Dr. Jagdish Gulati</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">President</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">United Group (UGI)</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">United Group (UGI)</span>
                 </div>
             </div>
-
-            <!-- 3. Dr. Satpal Gulati - Vice Chairman -->
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="100">
                 <div class="committee-card-3d patron">
-                    <div class="committee-avatar-wrapper">
-                        <i class="bi bi-building-fill-gear committee-avatar-icon"></i>
-                    </div>
-                    <span class="committee-role-badge gold"><i class="bi bi-star-fill me-1"></i> VICE CHAIRMAN</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Satpal Gulati</h4>
+                    <div class="committee-avatar-wrapper"><i class="bi bi-building-fill-gear committee-avatar-icon"></i></div>
+                    <span class="committee-role-badge gold"><i class="bi bi-star-fill me-1"></i> Vice Chairman</span>
+                    <h4 class="fw-black fs-5 mb-1">Dr. Satpal Gulati</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Vice Chairman</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">United Group (UGI)</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">United Group (UGI)</span>
                 </div>
             </div>
-
-            <!-- 4. Gaurav Gulati - Senior Vice President -->
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="150">
                 <div class="committee-card-3d patron">
-                    <div class="committee-avatar-wrapper">
-                        <i class="bi bi-person-fill-check committee-avatar-icon"></i>
-                    </div>
-                    <span class="committee-role-badge gold"><i class="bi bi-shield-fill-check me-1"></i> SR. VICE PRESIDENT</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Gaurav Gulati</h4>
+                    <div class="committee-avatar-wrapper"><i class="bi bi-person-fill-check committee-avatar-icon"></i></div>
+                    <span class="committee-role-badge gold"><i class="bi bi-shield-fill-check me-1"></i> Sr. Vice President</span>
+                    <h4 class="fw-black fs-5 mb-1">Gaurav Gulati</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Senior Vice President</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">United Group (UGI)</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">United Group (UGI)</span>
                 </div>
             </div>
+        </div>
 
-            <!-- 5. Prof. (Dr.) Sanjay Srivastava - Principal UIT -->
-            <div class="col">
+        <!-- Institutional & Student Leadership -->
+        <div class="home-committee-tier" data-aos="fade-up">
+            <span class="home-committee-tier__label home-committee-tier__label--institutional">
+                <i class="bi bi-bank2"></i> Institutional &amp; Student Leadership — UIT
+            </span>
+        </div>
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 justify-content-center">
+            <div class="col" data-aos="fade-up" data-aos-delay="0">
                 <div class="committee-card-3d">
-                    <div class="committee-avatar-wrapper">
-                        <i class="bi bi-mortarboard-fill committee-avatar-icon"></i>
-                    </div>
-                    <span class="committee-role-badge blue"><i class="bi bi-bank2 me-1"></i> PRINCIPAL UIT</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Prof. (Dr.) Sanjay Srivastava</h4>
+                    <div class="committee-avatar-wrapper"><i class="bi bi-mortarboard-fill committee-avatar-icon"></i></div>
+                    <span class="committee-role-badge blue"><i class="bi bi-bank2 me-1"></i> Principal UIT</span>
+                    <h4 class="fw-black fs-5 mb-1">Prof. (Dr.) Sanjay Srivastava</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Principal, UIT</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">UIT Institutional Head</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">UIT Institutional Head</span>
                 </div>
             </div>
-
-            <!-- 6. Dr. Manas Pandey - Dean Student Welfare -->
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="50">
                 <div class="committee-card-3d">
-                    <div class="committee-avatar-wrapper" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                    <div class="committee-avatar-wrapper" style="background:linear-gradient(135deg,#f3e8ff,#e9d5ff);">
                         <i class="bi bi-person-hearts committee-avatar-icon" style="color:#7c3aed;"></i>
                     </div>
-                    <span class="committee-role-badge purple"><i class="bi bi-heart-fill me-1"></i> DSW HEAD</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Dr. Manas Pandey</h4>
+                    <span class="committee-role-badge purple"><i class="bi bi-heart-fill me-1"></i> DSW Head</span>
+                    <h4 class="fw-black fs-5 mb-1">Dr. Manas Pandey</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Dean Student Welfare (DSW)</span>
-                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small fw-semibold">Student Welfare Council</span>
+                    <span class="badge bg-light text-secondary border rounded-pill px-3 py-1 small">Student Welfare Council</span>
                 </div>
             </div>
-
-            <!-- 7. Arya Keshari - Student Club President -->
-            <div class="col">
+            <div class="col" data-aos="fade-up" data-aos-delay="100">
                 <div class="committee-card-3d">
-                    <div class="committee-avatar-wrapper" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <div class="committee-avatar-wrapper" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0);">
                         <i class="bi bi-person-fill-up committee-avatar-icon" style="color:#166534;"></i>
                     </div>
-                    <span class="committee-role-badge green"><i class="bi bi-person-badge-fill me-1"></i> STUDENT PRESIDENT</span>
-                    <h4 class="fw-black text-dark fs-5 mb-1" style="color:#0f172a !important;">Arya Keshari</h4>
+                    <span class="committee-role-badge green"><i class="bi bi-person-badge-fill me-1"></i> Student President</span>
+                    <h4 class="fw-black fs-5 mb-1">Arya Keshari</h4>
                     <span class="d-block text-secondary small fw-bold mb-2">Student Club President</span>
-                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small fw-bold">USC UIT Council Lead</span>
+                    <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1 small fw-bold">USC UIT Council Lead</span>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
-<!-- ⭐ Ultra-Attractive 3D Explore by Categories Section -->
-<section class="category-section-wrapper py-5">
-    <div class="container position-relative" style="z-index: 2;">
-        <div class="text-center mb-5">
-            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-bold mb-2 shadow-sm">
-                <i class="bi bi-grid-3x3-gap-fill me-1"></i> Sub-Chapter Categories
-            </span>
-            <h2 class="fw-bold fs-1 mb-2 text-dark">
-                Explore Sub-Chapters by Category
-            </h2>
-            <p class="text-secondary fs-6 max-w-md mx-auto fw-medium">
-                Select your domain to discover active coding jams, robotics teams, music bands, public speaking arenas, and sports communities!
+<!-- ═══════════════════════════════════════════════════════════════════════
+     EXPLORE BY CATEGORY
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section home-section--alt" id="exploreSection">
+    <div class="container">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <span class="home-section-label"><i class="bi bi-grid-3x3-gap-fill"></i> Sub-Chapter Categories</span>
+            <h2 class="home-section-title">Explore Sub-Chapters by Category</h2>
+            <p class="home-section-desc">
+                Select your domain to discover coding jams, robotics teams, music bands, public speaking arenas, and sports communities.
             </p>
         </div>
 
-        <div class="row g-4 row-cols-2 row-cols-md-4 row-cols-lg-4 justify-content-center">
-            <!-- 1. Technical -->
-            <div class="col">
-                <a href="clubs.html?category=technical" class="category-card-3d cat-3d-technical">
-                    <span class="cat-3d-badge">Developers Club</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="techGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#3b82f6"/>
-                                    <stop offset="100%" stop-color="#1d4ed8"/>
-                                </linearGradient>
-                            </defs>
-                            <rect x="8" y="12" width="48" height="36" rx="10" fill="url(#techGrad)"/>
-                            <path d="M20 28L14 34L20 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M44 28L50 34L44 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M35 24L29 44" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Technical</div>
-                    <div class="category-subtext-3d">Developers Club UIT</div>
-                </a>
-            </div>
-
-            <!-- 2. Cultural -->
-            <div class="col">
-                <a href="clubs.html?category=cultural" class="category-card-3d cat-3d-cultural">
-                    <span class="cat-3d-badge">Cultural Club</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="cultGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#ff4d6d"/>
-                                    <stop offset="100%" stop-color="#be123c"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M12 18C12 18 20 12 32 12C44 12 52 18 52 18V38C52 48 40 54 32 54C24 54 12 48 12 38V18Z" fill="url(#cultGrad)"/>
-                            <circle cx="24" cy="28" r="4" fill="#ffffff"/>
-                            <circle cx="40" cy="28" r="4" fill="#ffffff"/>
-                            <path d="M24 40C28 44 36 44 40 40" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Cultural</div>
-                    <div class="category-subtext-3d">Cultural Club UIT</div>
-                </a>
-            </div>
-
-            <!-- 3. Sports -->
-            <div class="col">
-                <a href="clubs.html?category=sports" class="category-card-3d cat-3d-sports">
-                    <span class="cat-3d-badge">Athletics</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="sportGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#34d399"/>
-                                    <stop offset="100%" stop-color="#047857"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M16 12H48V28C48 38 40 44 32 44C24 44 16 38 16 28V12Z" fill="url(#sportGrad)"/>
-                            <path d="M24 44V52H40V44" stroke="#047857" stroke-width="4" stroke-linecap="round"/>
-                            <rect x="20" y="52" width="24" height="6" rx="3" fill="url(#sportGrad)"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Sports</div>
-                    <div class="category-subtext-3d">Cricket &amp; Athletics</div>
-                </a>
-            </div>
-
-            <!-- 4. Social Impact -->
-            <div class="col">
-                <a href="clubs.html?category=social" class="category-card-3d cat-3d-social">
-                    <span class="cat-3d-badge">Community</span>
-                    <div class="cat-3d-box">
-                        <svg class="cat-3d-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#f472b6"/>
-                                    <stop offset="100%" stop-color="#db2777"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M32 52C32 52 12 38 12 24C12 16 18 10 26 10C30 10 32 14 32 14C32 14 34 10 38 10C46 10 52 16 52 24C52 38 32 52 32 52Z" fill="url(#pinkGrad)"/>
-                        </svg>
-                    </div>
-                    <div class="category-name-3d">Social Drives</div>
-                    <div class="category-subtext-3d">NSS &amp; Community Drives</div>
-                </a>
-            </div>
+        <div class="home-quick-nav" data-aos="fade-up" data-aos-delay="100">
+            <a href="clubs.html?category=technical" class="home-quick-nav__item home-quick-nav__item--tech">
+                <div class="home-quick-nav__icon"><i class="bi bi-code-slash"></i></div>
+                <div class="home-quick-nav__title">Technical</div>
+                <div class="home-quick-nav__sub">Developers Club UIT</div>
+            </a>
+            <a href="clubs.html?category=cultural" class="home-quick-nav__item home-quick-nav__item--cultural">
+                <div class="home-quick-nav__icon"><i class="bi bi-palette-fill"></i></div>
+                <div class="home-quick-nav__title">Cultural</div>
+                <div class="home-quick-nav__sub">Cultural Club UIT</div>
+            </a>
+            <a href="clubs.html?category=sports" class="home-quick-nav__item home-quick-nav__item--sports">
+                <div class="home-quick-nav__icon"><i class="bi bi-trophy-fill"></i></div>
+                <div class="home-quick-nav__title">Sports</div>
+                <div class="home-quick-nav__sub">Cricket &amp; Athletics</div>
+            </a>
+            <a href="clubs.html?category=social" class="home-quick-nav__item home-quick-nav__item--social">
+                <div class="home-quick-nav__icon"><i class="bi bi-heart-fill"></i></div>
+                <div class="home-quick-nav__title">Social Drives</div>
+                <div class="home-quick-nav__sub">NSS &amp; Community</div>
+            </a>
         </div>
     </div>
 </section>
 
-<!-- Dynamic Community Numbers Banner -->
-<section class="container py-4">
-    <div class="community-banner">
-        <div class="text-center mb-4">
-            <h3 class="fw-bold mb-0">USC UIT Community in Numbers</h3>
-            <p class="small text-white-80 mb-0">Real live statistics powered directly from our campus database</p>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     FEATURED CLUBS & EVENTS (Dynamic)
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section" id="featuredSection">
+    <div class="container">
+        <div class="text-center mb-4" data-aos="fade-up">
+            <span class="home-section-label"><i class="bi bi-lightning-charge-fill"></i> Campus Activity</span>
+            <h2 class="home-section-title">Featured Chapters &amp; Events</h2>
+            <p class="home-section-desc">Live updates from USC UIT clubs and upcoming campus events.</p>
         </div>
-        <div class="row text-center g-4">
-            <div class="col-6 col-md-3">
-                <div class="community-stat-item justify-content-center">
-                    <i class="bi bi-people-fill community-stat-icon"></i>
-                    <div class="text-start">
-                        <div class="community-stat-num" id="communityStatClubs">11+</div>
-                        <div class="community-stat-label">Active Chapters</div>
+
+        <div class="row g-4 mb-4" id="featuredClubsGrid" data-aos="fade-up">
+            <!-- Populated by home-render.js -->
+            <div class="col-12 text-center py-4 text-muted">
+                <div class="spinner-border text-primary spinner-border-sm me-2" role="status"></div>
+                Loading featured chapters…
+            </div>
+        </div>
+
+        <div class="home-dual-panel" data-aos="fade-up" data-aos-delay="100">
+            <div class="home-panel">
+                <div class="home-panel__header">
+                    <h3 class="home-panel__title"><i class="bi bi-clock-history text-primary"></i> Recent Activities</h3>
+                    <a href="events.html" class="home-panel__link">View all →</a>
+                </div>
+                <div id="homeActivityList">
+                    <div class="text-center py-3 text-muted small">
+                        <div class="spinner-border spinner-border-sm text-primary me-1"></div> Loading…
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="community-stat-item justify-content-center">
-                    <i class="bi bi-person-check-fill community-stat-icon"></i>
-                    <div class="text-start">
-                        <div class="community-stat-num" id="communityStatMembers">600+</div>
-                        <div class="community-stat-label">Student Members</div>
-                    </div>
+            <div class="home-panel">
+                <div class="home-panel__header">
+                    <h3 class="home-panel__title"><i class="bi bi-calendar-event text-success"></i> Upcoming Events</h3>
+                    <a href="events.html" class="home-panel__link">View all →</a>
                 </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="community-stat-item justify-content-center">
-                    <i class="bi bi-calendar-check-fill community-stat-icon"></i>
-                    <div class="text-start">
-                        <div class="community-stat-num" id="communityStatEvents">15+</div>
-                        <div class="community-stat-label">Events Organized</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="community-stat-item justify-content-center">
-                    <i class="bi bi-lightning-fill community-stat-icon"></i>
-                    <div class="text-start">
-                        <div class="community-stat-num" id="communityStatActivities">12+</div>
-                        <div class="community-stat-label">Activities Done</div>
+                <div id="homeUpcomingList">
+                    <div class="text-center py-3 text-muted small">
+                        <div class="spinner-border spinner-border-sm text-primary me-1"></div> Loading…
                     </div>
                 </div>
             </div>
@@ -630,12 +535,67 @@
     </div>
 </section>
 
-<!-- Universal Footer Container -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     COMMUNITY STATS
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-section home-section--alt">
+    <div class="container">
+        <div class="home-community" data-aos="zoom-in">
+            <h3 class="home-community__title">USC UIT Community in Numbers</h3>
+            <p class="home-community__sub">Live statistics powered directly from our campus database</p>
+            <div class="home-community__grid">
+                <div class="home-community__stat">
+                    <i class="bi bi-layers-fill"></i>
+                    <div class="home-community__num" id="communityStatClubs">11+</div>
+                    <div class="home-community__label">Active Chapters</div>
+                </div>
+                <div class="home-community__stat">
+                    <i class="bi bi-people-fill"></i>
+                    <div class="home-community__num" id="communityStatMembers">600+</div>
+                    <div class="home-community__label">Student Members</div>
+                </div>
+                <div class="home-community__stat">
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <div class="home-community__num" id="communityStatEvents">15+</div>
+                    <div class="home-community__label">Events Organized</div>
+                </div>
+                <div class="home-community__stat">
+                    <i class="bi bi-lightning-fill"></i>
+                    <div class="home-community__num" id="communityStatActivities">12+</div>
+                    <div class="home-community__label">Activities Done</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="home-cta">
+    <div class="container" data-aos="fade-up">
+        <h2 class="home-cta__title">Ready to Join USC UIT?</h2>
+        <p class="home-cta__desc">
+            Explore our chapters, attend campus events, or connect with the Executive Committee to start your journey at United Institute of Technology.
+        </p>
+        <div class="home-cta__actions">
+            <a href="clubs.html" class="home-btn-primary"><i class="bi bi-compass"></i> Explore All Clubs</a>
+            <a href="events.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold"><i class="bi bi-calendar-event me-1"></i> View Events</a>
+            <a href="contact.html" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-bold"><i class="bi bi-envelope me-1"></i> Contact Us</a>
+        </div>
+    </div>
+</section>
+
 <div id="footer-placeholder"></div>
 
-<!-- JS Dependencies -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/home-render.js"></script>
+<script src="assets/js/home-init.js"></script>
 </body>
 </html>
