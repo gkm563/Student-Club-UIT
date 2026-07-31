@@ -778,31 +778,40 @@
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
 
-            gsap.from(".usc-pillar-card", {
-                scrollTrigger: { trigger: "#aboutSection", start: "top 80%" },
-                y: 50,
-                opacity: 0,
-                duration: 0.9,
-                stagger: 0.18,
-                ease: "power3.out"
-            });
+            gsap.fromTo(".usc-pillar-card", 
+                { y: 30, opacity: 0.2 },
+                {
+                    scrollTrigger: { trigger: "#aboutSection", start: "top 90%", toggleActions: "play none none none" },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    stagger: 0.15,
+                    ease: "power2.out"
+                }
+            );
 
-            gsap.from(".home-org-diagram", {
-                scrollTrigger: { trigger: "#aboutSection", start: "top 75%" },
-                scale: 0.92,
-                opacity: 0,
-                duration: 1,
-                ease: "back.out(1.4)"
-            });
+            gsap.fromTo(".home-org-diagram", 
+                { scale: 0.95, opacity: 0.2 },
+                {
+                    scrollTrigger: { trigger: "#aboutSection", start: "top 85%", toggleActions: "play none none none" },
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "back.out(1.2)"
+                }
+            );
 
-            gsap.from(".committee-card-3d", {
-                scrollTrigger: { trigger: "#committeeSection", start: "top 80%" },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.12,
-                ease: "power2.out"
-            });
+            gsap.fromTo(".committee-card-3d", 
+                { y: 30, opacity: 0.2 },
+                {
+                    scrollTrigger: { trigger: "#committeeSection", start: "top 90%", toggleActions: "play none none none" },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                }
+            );
         }
     });
 </script>

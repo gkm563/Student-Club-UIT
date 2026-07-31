@@ -482,6 +482,13 @@
     gap: 1.25rem;
 }
 
+#aboutSection,
+.usc-pillar-card,
+.home-org-diagram {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .usc-pillar-card {
     position: relative;
     padding: 1.5rem 1.65rem;
