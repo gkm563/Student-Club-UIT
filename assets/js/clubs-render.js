@@ -16,14 +16,127 @@ document.addEventListener('DOMContentLoaded', () => {
         // Read URL parameter on load
         const urlParams = new URLSearchParams(window.location.search);
         let currentCategory = urlParams.get('category') || 'all';
+        let currentWing = urlParams.get('wing') || '';
         let currentSearch = urlParams.get('search') || '';
         let currentSort = 'popularity';
+
+        applyWingDirectoryUi(currentWing);
 
         if (clubSearchInput && currentSearch) {
             clubSearchInput.value = currentSearch;
         }
 
         const getApiUrl = (endpoint) => `api/${endpoint}`;
+
+        function renderClubCardHtml(club) {
+            const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop');
+            const logoImg = club.logo
+                ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary\\'></i>'">`
+                : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary"></i>`;
+            const memberCount = club.member_count || 45;
+            const clubWing = resolveWing(club.category_slug);
+            const wingMeta = getWingMeta(clubWing);
+            const wingTagClass = clubWing === 'cultural' ? 'club-card-wing-tag--cultural' : 'club-card-wing-tag--tech';
+            const wingTagLabel = wingMeta.wing ? wingMeta.label : 'USC UIT Chapter';
+            const btnClass = clubWing === 'cultural' ? 'btn-danger' : 'btn-primary';
+            const btnExtraStyle = clubWing === 'cultural' ? 'background:#e11d48;border-color:#e11d48;' : '';
+
+            const recruitmentBadge = club.recruitment_open
+                ? `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.75rem;"><span class="pulse-dot-green me-1.5"></span>Recruiting Members</span>`
+                : `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#eff6ff; color:#1d4ed8; border:1px solid rgba(29,78,216,0.3); font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Official Chapter</span>`;
+
+            return `
+                <div class="col-md-6 col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" style="background:#ffffff; border:1px solid #e2e8f0 !important;">
+                        <div class="position-relative" style="height: 160px;">
+                            <img src="${coverImg}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(club.name)}">
+                            <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.75) 100%);"></div>
+                            <div class="position-absolute top-0 start-0 m-3 z-2">
+                                <span class="club-card-wing-tag ${wingTagClass}"><i class="bi ${wingMeta.icon}"></i> ${escapeHtml(wingTagLabel)}</span>
+                            </div>
+                            <div class="position-absolute top-0 end-0 m-3 z-2">
+                                <span class="badge bg-white text-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="font-size: 0.75rem;">
+                                    <i class="bi ${escapeHtml(club.category_icon || 'bi-grid')} me-1 text-primary"></i> ${escapeHtml(club.category_name)}
+                                </span>
+                            </div>
+                            <div class="position-absolute bg-white rounded-4 p-1 shadow-md d-flex align-items-center justify-content-center" style="width: 62px; height: 62px; bottom: -24px; left: 24px; z-index: 3; border: 3px solid #ffffff;">
+                                ${logoImg}
+                            </div>
+                        </div>
+                        <div class="p-4 pt-4 mt-2 flex-grow-1 d-flex flex-column">
+                            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">${recruitmentBadge}</div>
+                            <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
+                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">${escapeHtml(club.name)}</a>
+                            </h4>
+                            <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology.')}
+                            </p>
+                            <div class="rounded-3 p-3 mb-3 bg-light border border-light-subtle">
+                                <div class="d-flex align-items-center gap-1.5 text-dark small" style="font-size: 0.8rem;">
+                                    <i class="bi bi-people-fill text-primary"></i>
+                                    <span><strong>${memberCount}+</strong> Active Members</span>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 pt-2 mt-auto">
+                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn ${btnClass} rounded-pill px-4 py-2 fw-bold w-100 shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 0.88rem; ${btnExtraStyle}">
+                                    <span>Explore Chapter</span>
+                                    <i class="bi bi-arrow-right-short fs-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderWingClubChip(club, wing) {
+            const chipClass = wing === 'cultural' ? 'clubs-wing-club-chip--cultural' : 'clubs-wing-club-chip--tech';
+            const shortName = escapeHtml(club.short_name || club.name);
+            const logo = club.logo
+                ? `<img src="${escapeHtml(club.logo)}" class="clubs-wing-club-chip__logo" alt="" onerror="this.outerHTML='<span class=\\'clubs-wing-club-chip__logo-fallback\\'><i class=\\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')}\\'></i></span>'">`
+                : `<span class="clubs-wing-club-chip__logo-fallback"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')}"></i></span>`;
+
+            return `<a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="clubs-wing-club-chip ${chipClass}" title="${escapeHtml(club.name)}">${logo}<span class="clubs-wing-club-chip__text">${shortName}</span></a>`;
+        }
+
+        function loadWingShowcase() {
+            const techList = document.getElementById('techWingClubsList');
+            const culturalList = document.getElementById('culturalWingClubsList');
+            const techCountEl = document.getElementById('techWingClubCount');
+            const culturalCountEl = document.getElementById('culturalWingClubCount');
+            const heroSubCount = document.querySelector('.clubs-hero-card-image h2.text-primary');
+
+            if (!techList && !culturalList) return;
+
+            Promise.all([
+                fetch(getApiUrl('clubs.php?wing=technical')).then(res => res.json()),
+                fetch(getApiUrl('clubs.php?wing=cultural')).then(res => res.json())
+            ])
+                .then(([techRes, culturalRes]) => {
+                    const techClubs = techRes.status === 'success' ? (techRes.data || []) : [];
+                    const culturalClubs = culturalRes.status === 'success' ? (culturalRes.data || []) : [];
+
+                    if (techCountEl) techCountEl.textContent = techClubs.length;
+                    if (culturalCountEl) culturalCountEl.textContent = culturalClubs.length;
+                    if (heroSubCount) heroSubCount.textContent = `${techClubs.length + culturalClubs.length}+`;
+
+                    if (techList) {
+                        techList.innerHTML = techClubs.length
+                            ? techClubs.map(club => renderWingClubChip(club, 'technical')).join('')
+                            : '<span class="small text-muted">Tech chapters loading soon.</span>';
+                    }
+
+                    if (culturalList) {
+                        culturalList.innerHTML = culturalClubs.length
+                            ? culturalClubs.map(club => renderWingClubChip(club, 'cultural')).join('')
+                            : '<span class="small text-muted">Cultural chapters loading soon.</span>';
+                    }
+                })
+                .catch(() => {
+                    if (techList) techList.innerHTML = '<span class="small text-danger">Could not load tech chapters.</span>';
+                    if (culturalList) culturalList.innerHTML = '<span class="small text-danger">Could not load cultural chapters.</span>';
+                });
+        }
 
         function loadClubs() {
             clubsGrid.innerHTML = `
@@ -33,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            const apiUrl = getApiUrl(`clubs.php?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}&sort=${encodeURIComponent(currentSort)}`);
+            const apiUrl = getApiUrl(`clubs.php?category=${encodeURIComponent(currentCategory)}&search=${encodeURIComponent(currentSearch)}&sort=${encodeURIComponent(currentSort)}${currentWing ? `&wing=${encodeURIComponent(currentWing)}` : ''}`);
 
             fetch(apiUrl)
                 .then(res => res.json())
@@ -58,101 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    clubsGrid.innerHTML = clubs.map(club => {
-                        const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop');
-                        const logoImg = club.logo ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary\'></i>'">` : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary"></i>`;
-                        const memberCount = club.member_count || 45;
-                        const isGfg = club.id === 'clb_gfg_sc_uit_2026';
-                        const isGemini = club.id === 'clb_gemini_builders_uit_2026';
-                        const isGdg = club.id === 'clb_gdgoc_uit_2026';
-
-                        let leadName = 'Student Executive Committee';
-                        if (isGfg) leadName = 'Ansh Kumar Gupta (Campus Mantri)';
-                        else if (isGemini) leadName = 'Google Student Ambassador';
-                        else if (isGdg) leadName = 'GDG Student Lead';
-
-                        let eventSummary = 'Active Events';
-                        if (isGfg) eventSummary = '3 Real Events (SyntaxClash, AI/ML)';
-                        else if (isGemini) eventSummary = 'AI Builder Bootcamp';
-                        else if (isGdg) eventSummary = 'Cloud Study Jam 2026';
-
-                        const recruitmentBadge = club.recruitment_open 
-                            ? `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.75rem;"><span class="pulse-dot-green me-1.5"></span>Recruiting Members</span>`
-                            : `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#eff6ff; color:#1d4ed8; border:1px solid rgba(29,78,216,0.3); font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Official SAC Chapter</span>`;
-
-                        return `
-                            <div class="col-md-6 col-lg-6">
-                                <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" style="background:#ffffff; border:1px solid #e2e8f0 !important;">
-                                    <!-- Cover Banner Header -->
-                                    <div class="position-relative" style="height: 160px;">
-                                        <img src="${coverImg}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(club.name)}">
-                                        <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.75) 100%);"></div>
-
-                                        <!-- Category Badge floating right -->
-                                        <div class="position-absolute top-0 end-0 m-3 z-2">
-                                            <span class="badge bg-white text-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="font-size: 0.75rem;">
-                                                <i class="bi ${escapeHtml(club.category_icon || 'bi-grid')} me-1 text-primary"></i> ${escapeHtml(club.category_name)}
-                                            </span>
-                                        </div>
-
-                                        <!-- Floating Logo Badge -->
-                                        <div class="position-absolute bg-white rounded-4 p-1 shadow-md d-flex align-items-center justify-content-center" style="width: 62px; height: 62px; bottom: -24px; left: 24px; z-index: 3; border: 3px solid #ffffff;">
-                                            ${logoImg}
-                                        </div>
-                                    </div>
-
-                                    <!-- Card Body -->
-                                    <div class="p-4 pt-4 mt-2 flex-grow-1 d-flex flex-column">
-                                        <div class="d-flex align-items-center justify-content-between mb-2">
-                                            ${recruitmentBadge}
-                                        </div>
-
-                                        <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
-                                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">
-                                                ${escapeHtml(club.name)}
-                                            </a>
-                                        </h4>
-
-                                        <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-                                            ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology organizing workshops, contests, and campus events.')}
-                                        </p>
-
-                                        <!-- Key Organization Info Deck -->
-                                        <div class="rounded-3 p-3 mb-3 bg-light border border-light-subtle">
-                                            <div class="row g-2 text-dark small" style="font-size: 0.8rem;">
-                                                <div class="col-6">
-                                                    <div class="d-flex align-items-center gap-1.5">
-                                                        <i class="bi bi-people-fill text-primary"></i>
-                                                        <span><strong>${memberCount}+</strong> Active Members</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6">
-                                                    <div class="d-flex align-items-center gap-1.5">
-                                                        <i class="bi bi-calendar-event-fill text-danger"></i>
-                                                        <span class="text-truncate"><strong>${eventSummary}</strong></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 mt-1 pt-1 border-top border-light-subtle">
-                                                    <div class="d-flex align-items-center gap-1.5 text-secondary">
-                                                        <i class="bi bi-person-badge-fill text-purple"></i>
-                                                        <span>Leadership: <strong class="text-dark">${escapeHtml(leadName)}</strong></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Footer Action Buttons Bar -->
-                                        <div class="d-flex align-items-center gap-2 pt-2 mt-auto">
-                                            <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn btn-primary rounded-pill px-4 py-2 fw-bold w-100 shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 0.88rem;">
-                                                <span>Explore Chapter & Events</span>
-                                                <i class="bi bi-arrow-right-short fs-5"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
+                    clubsGrid.innerHTML = clubs.map(club => renderClubCardHtml(club)).join('');
                 })
                 .catch(err => {
                     console.error('Error fetching clubs:', err);
@@ -173,11 +192,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 'media': 'bi-camera-reels-fill'
             };
 
+            const wingActive = (wing) => currentWing === wing && currentCategory === 'all';
+
             let pillsHtml = `
-                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="all" style="font-size: 0.85rem;">
-                    <span><i class="bi ${categoryIcons['all']} me-2 text-warning"></i> All Domains</span>
-                    <span class="badge ${currentCategory === 'all' ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-extrabold">${totalClubs}</span>
+                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' && !currentWing ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="all" data-wing="" style="font-size: 0.85rem;">
+                    <span><i class="bi ${categoryIcons['all']} me-2 text-warning"></i> All Chapters</span>
+                    <span class="badge ${currentCategory === 'all' && !currentWing ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-extrabold">${totalClubs}</span>
                 </button>
+                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${wingActive('technical') ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="technical" style="font-size: 0.85rem; border-left: 3px solid #2563eb !important;">
+                    <span><i class="bi bi-code-slash me-2 text-primary"></i> Developers Club UIT</span>
+                    <span class="badge ${wingActive('technical') ? 'bg-white text-primary' : 'bg-primary-subtle text-primary'} rounded-pill ms-2 fw-bold">Tech</span>
+                </button>
+                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${wingActive('cultural') ? 'active btn-danger text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="cultural" style="font-size: 0.85rem; border-left: 3px solid #e11d48 !important;">
+                    <span><i class="bi bi-palette-fill me-2 text-danger"></i> Cultural Club UIT</span>
+                    <span class="badge ${wingActive('cultural') ? 'bg-white text-danger' : 'bg-danger-subtle text-danger'} rounded-pill ms-2 fw-bold">Cultural</span>
+                </button>
+                <div class="small text-muted fw-bold text-uppercase px-2 pt-2 pb-1" style="font-size:0.68rem;letter-spacing:0.06em;">More domains</div>
             `;
 
             categories.forEach(cat => {
@@ -198,20 +228,24 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderActiveFilterBadge(categories, count) {
             if (!activeFilterBadge) return;
 
-            if (currentCategory === 'all' && !currentSearch) {
+            const wingMeta = typeof getWingMeta === 'function' ? getWingMeta(resolveWing(currentWing)) : null;
+
+            if (currentCategory === 'all' && !currentSearch && !currentWing) {
                 activeFilterBadge.innerHTML = '';
                 return;
             }
 
             let catName = 'All Categories';
-            if (currentCategory !== 'all' && categories) {
+            if (currentWing && wingMeta && wingMeta.wing) {
+                catName = wingMeta.label;
+            } else if (currentCategory !== 'all' && categories) {
                 const found = categories.find(c => c.slug === currentCategory);
                 if (found) catName = found.name;
             }
 
             activeFilterBadge.innerHTML = `
                 <div class="alert alert-primary border-0 rounded-4 shadow-sm py-2-5 px-4 d-flex align-items-center justify-content-between mb-4">
-                    <div class="d-flex align-items-center gap-2 small">
+                    <div class="d-flex align-items-center gap-2 small flex-wrap">
                         <i class="bi bi-funnel-fill text-primary"></i>
                         <span class="fw-bold text-dark">Filtered by:</span>
                         <span class="badge bg-primary text-white rounded-pill px-3 py-1 fs-6">${escapeHtml(catName)}</span>
@@ -227,15 +261,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const clearBtn = document.getElementById('clearCategoryFilterBtn');
             if (clearBtn) {
                 clearBtn.addEventListener('click', () => {
+                    currentWing = '';
+                    updateUrlParam('wing', null);
+                    applyWingDirectoryUi('');
                     setCategoryFilter('all');
                 });
             }
         }
 
+        function applyWingDirectoryUi(wing) {
+            const breadcrumbHost = document.getElementById('clubsDirectoryBreadcrumb');
+            if (!breadcrumbHost || typeof buildWingBreadcrumbHtml !== 'function') return;
+
+            const resolved = resolveWing(wing);
+            if (!resolved) return;
+
+            breadcrumbHost.innerHTML = buildWingBreadcrumbHtml({ wing: resolved });
+        }
+
         function setCategoryFilter(catSlug) {
             currentCategory = catSlug;
+            currentWing = '';
+            updateUrlParam('wing', null);
             updateUrlParam('category', catSlug === 'all' ? null : catSlug);
+            applyWingDirectoryUi('');
             loadClubs();
+        }
+
+        function setWingFilter(wingSlug) {
+            currentWing = wingSlug;
+            currentCategory = 'all';
+            updateUrlParam('wing', wingSlug || null);
+            updateUrlParam('category', null);
+            applyWingDirectoryUi(wingSlug);
+            loadClubs();
+
+            const directory = document.getElementById('clubsDirectorySection');
+            if (directory) directory.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function updateUrlParam(key, value) {
@@ -278,15 +340,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Category Filter Pill Clicks (Event Delegation)
+        // Category & Wing Filter Pill Clicks (Event Delegation)
         if (categoryFilterList) {
             categoryFilterList.addEventListener('click', (e) => {
+                const wingBtn = e.target.closest('button[data-wing]');
+                if (wingBtn && wingBtn.hasAttribute('data-wing')) {
+                    const wingSlug = wingBtn.getAttribute('data-wing') || '';
+                    setWingFilter(wingSlug);
+                    return;
+                }
                 const btn = e.target.closest('button[data-category]');
                 if (!btn) return;
                 const catSlug = btn.getAttribute('data-category');
+                currentWing = btn.getAttribute('data-wing') || '';
                 setCategoryFilter(catSlug);
             });
         }
+
+        document.querySelectorAll('[data-wing-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setWingFilter(btn.getAttribute('data-wing-filter'));
+            });
+        });
 
         // Search Input Listener
         if (clubSearchInput) {
@@ -368,12 +443,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('popstate', () => {
             const params = new URLSearchParams(window.location.search);
             currentCategory = params.get('category') || 'all';
+            currentWing = params.get('wing') || '';
             currentSearch = params.get('search') || '';
             if (clubSearchInput) clubSearchInput.value = currentSearch;
+            applyWingDirectoryUi(currentWing);
             loadClubs();
         });
 
         // Initial Load
+        loadWingShowcase();
         loadClubs();
     }
 
@@ -417,7 +495,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const club = response.data;
-                document.title = `${club.name} | Student Activity Center - UIT`;
+                document.title = `${club.name} | USC UIT`;
+
+                const clubWing = resolveWing(club.category_slug);
+                const wingMeta = getWingMeta(clubWing);
+                const breadcrumbHtml = buildWingBreadcrumbHtml({
+                    wing: clubWing,
+                    clubName: club.short_name || club.name
+                });
 
                 // Group Leadership Roster by Category & Term
                 const tenureMap = {};
@@ -450,18 +535,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="container position-relative z-2">
                             <!-- Top Breadcrumbs & Accreditation Badge -->
                             <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-                                <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
-                                    <i class="bi bi-house-door-fill text-primary"></i>
-                                    <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
-                                    <span class="text-muted">/</span>
-                                    <a href="clubs.html" class="text-primary text-decoration-none fw-semibold">Clubs</a>
-                                    <span class="text-muted">/</span>
-                                    <span class="text-dark fw-bold">${escapeHtml(club.short_name || club.name)}</span>
-                                </div>
+                                ${breadcrumbHtml}
 
                                 <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
                                     <i class="bi bi-shield-check text-primary fs-6"></i>
-                                    <span>SAC Recognized Chapter • Est. ${foundedYear}</span>
+                                    <span>USC UIT Recognized Chapter • Est. ${foundedYear}</span>
                                 </div>
                             </div>
 
@@ -481,6 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     </div>
                                     <div>
                                         <div class="d-flex align-items-center gap-2 flex-wrap mb-2">
+                                            ${clubWing ? `<a href="${wingMeta.pageUrl}" class="badge bg-dark text-white rounded-pill px-3 py-1.5 fw-bold small text-decoration-none"><i class="bi ${wingMeta.icon} me-1"></i> ${escapeHtml(wingMeta.label)}</a>` : ''}
                                             <span class="badge bg-primary text-white rounded-pill px-3 py-1.5 fw-bold small">
                                                 <i class="bi ${escapeHtml(club.category_icon || 'bi-tag')} me-1"></i> ${escapeHtml(club.category_name)}
                                             </span>
@@ -536,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="col-6 col-md-3">
                                     <div class="p-3 bg-white rounded-4 border border-light shadow-sm">
                                         <h4 class="fw-black mb-1" style="font-size: 1.6rem; font-weight: 900; color: #10b981;">100%</h4>
-                                        <span class="d-block fw-extrabold text-dark" style="font-size: 0.78rem;">SAC Verified Chapter</span>
+                                        <span class="d-block fw-extrabold text-dark" style="font-size: 0.78rem;">USC UIT Verified Chapter</span>
                                     </div>
                                 </div>
                             </div>
@@ -782,7 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                 </div>
                                                 <div>
                                                     <strong class="d-block text-dark">Office Location</strong>
-                                                    <span>${escapeHtml(club.office_location || 'Student Activity Center, UIT')}</span>
+                                                    <span>${escapeHtml(club.office_location || 'USC UIT Office, UIT Campus')}</span>
                                                 </div>
                                             </li>
                                             <li class="d-flex gap-3 align-items-center mb-3">

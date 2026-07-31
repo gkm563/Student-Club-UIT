@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/site-path.js"></script>
     <title>All Clubs &amp; Sub-Chapters | USC UIT - United Institute of Technology</title>
     <meta name="description" content="Explore student chapters governed by Developers Club UIT (Technical Wing) &amp; Cultural Club UIT (Cultural Wing) under USC UIT at United Institute of Technology.">
     
@@ -38,11 +39,11 @@
     <div class="container position-relative z-2 py-2">
         <!-- Top Breadcrumbs Bar -->
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+            <div id="clubsDirectoryBreadcrumb" class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
                 <i class="bi bi-house-door-fill text-primary fs-6"></i>
                 <a href="index.html" class="text-primary text-decoration-none fw-bold">Home</a>
                 <span class="text-muted opacity-75 fw-bold">/</span>
-                <span class="fw-extrabold text-dark" style="color: #0f172a !important; letter-spacing: 0.2px;">USC UIT — Campus Clubs Directory</span>
+                <span class="fw-extrabold text-dark" style="color: #0f172a !important; letter-spacing: 0.2px;">USC UIT clubs</span>
             </div>
 
             <div class="clubs-top-pill-badge float-in-air-slow d-inline-flex align-items-center gap-2">
@@ -128,9 +129,9 @@
                     </div>
 
                     <!-- Big Gradient Browse Action Button -->
-                    <a href="#clubsGrid" class="btn clubs-hero-big-btn-image w-100 mt-4 d-flex align-items-center justify-content-center gap-2">
-                        <span>Browse All Chapters</span>
-                        <i class="bi bi-arrow-right fs-5"></i>
+                    <a href="#clubsDirectorySection" class="btn clubs-hero-big-btn-image w-100 mt-4 d-flex align-items-center justify-content-center gap-2">
+                        <span>See Both Wings Below</span>
+                        <i class="bi bi-arrow-down fs-5"></i>
                     </a>
                 </div>
             </div>
@@ -138,49 +139,96 @@
     </div>
 </section>
 
-<!-- ⚡ 2 MAIN PARENT WINGS QUICK OVERVIEW BAR ON CLUBS.HTML -->
-<section class="py-4" style="background: #ffffff; border-bottom: 1px solid #e2e8f0;">
+<!-- ═══ THE 2 MAIN WINGS — Big showcase boxes with live clubs from database ═══ -->
+<section class="clubs-wings-showcase py-5" id="clubsWingsSection">
     <div class="container">
-        <div class="row g-3">
-            <div class="col-md-6">
-                <div class="p-3.5 rounded-4 border d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #eff6ff, #f0f7ff); border-color:#bfdbfe !important;">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-circle p-2.5 bg-primary text-white d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; font-size: 1.3rem;">
-                            <i class="bi bi-code-slash"></i>
-                        </div>
+        <div class="text-center mb-4 mb-lg-5">
+            <span class="clubs-wings-kicker"><i class="bi bi-diagram-3-fill"></i> How USC UIT is organized</span>
+            <h2 class="clubs-wings-title">The 2 Main Wings of USC UIT</h2>
+            <p class="clubs-wings-lead mx-auto">
+                Every student chapter belongs to <strong>one of two parent clubs</strong>. Pick your wing first — then explore the chapters inside it.
+            </p>
+            <div class="clubs-wings-flow d-flex flex-wrap align-items-center justify-content-center gap-2 gap-md-3 mt-3">
+                <span class="clubs-wings-flow__step"><i class="bi bi-house-door"></i> USC UIT</span>
+                <i class="bi bi-chevron-right text-muted"></i>
+                <span class="clubs-wings-flow__step clubs-wings-flow__step--highlight"><i class="bi bi-diagram-3"></i> 2 Main Wings</span>
+                <i class="bi bi-chevron-right text-muted"></i>
+                <span class="clubs-wings-flow__step"><i class="bi bi-people"></i> Sub-Chapters</span>
+            </div>
+        </div>
+
+        <div class="row g-4 g-lg-5">
+            <!-- Developers Club UIT -->
+            <div class="col-lg-6">
+                <article class="main-wing-card main-wing-card-tech clubs-wing-panel">
+                    <div class="clubs-wing-panel__top">
+                        <span class="wing-header-badge tech"><i class="bi bi-code-slash"></i> Technical Wing</span>
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1 fw-bold" style="font-size:0.72rem;">USC UIT TECH</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="clubs-wing-panel__icon clubs-wing-panel__icon--tech"><i class="bi bi-code-slash"></i></div>
                         <div>
-                            <h6 class="fw-black text-dark mb-0 fs-6">Developers Club UIT</h6>
-                            <span class="small text-primary fw-bold">Faculty: Er. Gaurav Narain &amp; Er. Kushagra Dwivedi</span>
+                            <h3 class="clubs-wing-panel__name mb-1">Developers Club UIT</h3>
+                            <p class="clubs-wing-panel__role mb-0">Official Technical Umbrella Council</p>
                         </div>
                     </div>
-                    <a href="tech-events.html" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold shadow-sm">
-                        Tech Events
-                    </a>
-                </div>
+                    <p class="clubs-wing-panel__desc">Coding, hackathons, AI workshops, cloud study jams, DSA contests, open source, and all technical chapters on campus.</p>
+                    <div class="wing-faculty-box mb-3">
+                        <div class="small text-muted fw-bold text-uppercase mb-1" style="font-size:0.68rem;letter-spacing:0.06em;">Faculty Coordinators</div>
+                        <div class="fw-bold text-dark">Er. Gaurav Narain &amp; Er. Kushagra Dwivedi</div>
+                    </div>
+                    <div class="clubs-wing-panel__clubs-label">
+                        <i class="bi bi-collection"></i> Chapters in Developers Club UIT
+                        <span class="badge bg-primary-subtle text-primary rounded-pill ms-1" id="techWingClubCount">—</span>
+                    </div>
+                    <div class="clubs-wing-clubs-list" id="techWingClubsList">
+                        <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading tech chapters…</div>
+                    </div>
+                    <div class="clubs-wing-panel__actions">
+                        <a href="developers-club.html" class="btn btn-primary rounded-pill px-4 fw-bold"><i class="bi bi-code-slash me-1"></i> Visit Developers Club</a>
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-wing-filter="technical"><i class="bi bi-funnel me-1"></i> Filter tech only</button>
+                    </div>
+                </article>
             </div>
 
-            <div class="col-md-6">
-                <div class="p-3.5 rounded-4 border d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color:#fecdd3 !important;">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="rounded-circle p-2.5 text-white d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; font-size: 1.3rem; background:#e11d48;">
-                            <i class="bi bi-music-note-list"></i>
-                        </div>
+            <!-- Cultural Club UIT -->
+            <div class="col-lg-6">
+                <article class="main-wing-card main-wing-card-cultural clubs-wing-panel">
+                    <div class="clubs-wing-panel__top">
+                        <span class="wing-header-badge cultural"><i class="bi bi-palette-fill"></i> Cultural Wing</span>
+                        <span class="badge rounded-pill px-3 py-1 fw-bold text-white" style="background:#e11d48;font-size:0.72rem;">USC UIT CULTURAL</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="clubs-wing-panel__icon clubs-wing-panel__icon--cultural"><i class="bi bi-palette2"></i></div>
                         <div>
-                            <h6 class="fw-black text-dark mb-0 fs-6">Cultural Club UIT</h6>
-                            <span class="small text-danger fw-bold" style="color:#be123c !important;">Faculty Coordinator: Dr. Ankit Gupta</span>
+                            <h3 class="clubs-wing-panel__name mb-1">Cultural Club UIT</h3>
+                            <p class="clubs-wing-panel__role clubs-wing-panel__role--cultural mb-0">Official Cultural Umbrella Council</p>
                         </div>
                     </div>
-                    <a href="cultural-events.html" class="btn btn-sm btn-danger rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="background:#e11d48; border-color:#e11d48;">
-                        Cultural Events
-                    </a>
-                </div>
+                    <p class="clubs-wing-panel__desc">Public speaking, music, dance, theatre, fine arts, literary events, fests, and all creative campus experiences.</p>
+                    <div class="wing-faculty-box mb-3">
+                        <div class="small text-muted fw-bold text-uppercase mb-1" style="font-size:0.68rem;letter-spacing:0.06em;">Faculty Coordinator</div>
+                        <div class="fw-bold text-dark">Dr. Ankit Gupta</div>
+                    </div>
+                    <div class="clubs-wing-panel__clubs-label">
+                        <i class="bi bi-collection"></i> Chapters in Cultural Club UIT
+                        <span class="badge bg-danger-subtle text-danger rounded-pill ms-1" id="culturalWingClubCount">—</span>
+                    </div>
+                    <div class="clubs-wing-clubs-list" id="culturalWingClubsList">
+                        <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading cultural chapters…</div>
+                    </div>
+                    <div class="clubs-wing-panel__actions">
+                        <a href="cultural-club.html" class="btn btn-danger rounded-pill px-4 fw-bold" style="background:#e11d48;border-color:#e11d48;"><i class="bi bi-palette-fill me-1"></i> Visit Cultural Club</a>
+                        <button type="button" class="btn btn-outline-danger rounded-pill px-4 fw-bold" style="color:#e11d48;border-color:#e11d48;" data-wing-filter="cultural"><i class="bi bi-funnel me-1"></i> Filter cultural only</button>
+                    </div>
+                </article>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Main Clubs Split Section (Clean Sidebar Filter + Rich 2-Column Wide Cards) -->
-<section class="py-5" style="background: #f8fafc;">
+<section class="py-5" style="background: #f8fafc;" id="clubsDirectorySection">
     <div class="container">
         <div class="row g-4">
             <!-- Clean Left Filter Sidebar -->
@@ -224,6 +272,10 @@
 
             <!-- Right Clubs Grid Main Content -->
             <div class="col-lg-9">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                    <h5 class="fw-black text-dark mb-0" style="font-weight:900;"><i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i> Full Chapter Directory</h5>
+                    <span class="small text-muted fw-semibold">Each card is tagged with its parent wing</span>
+                </div>
                 <!-- Active Filter Indicator -->
                 <div id="activeFilterBadge"></div>
 
@@ -245,6 +297,7 @@
 <!-- JS Dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
+<script src="assets/js/wing-utils.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/clubs-render.js"></script>
 
