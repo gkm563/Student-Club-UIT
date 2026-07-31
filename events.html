@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/site-path.js"></script>
     <title>Campus Events &amp; Workshops | USC UIT</title>
     <meta name="description" content="Discover exciting campus events, hackathons, coding competitions, workshops, and fests hosted by student clubs at United Institute of Technology.">
     
@@ -355,6 +356,84 @@
             background: #ffffff;
         }
 
+        .event-wing-tab.active[data-events-wing="all"] {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%) !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25) !important;
+        }
+
+        .event-wing-tab.active[data-events-wing="technical"] {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35) !important;
+        }
+
+        .event-wing-tab.active[data-events-wing="cultural"] {
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
+            color: #ffffff !important;
+            border-color: #e11d48 !important;
+            box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35) !important;
+        }
+
+        .events-wing-event-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            max-width: 100%;
+            padding: 0.5rem 0.85rem;
+            border-radius: 0.85rem;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            color: #0f172a;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .events-wing-event-chip:hover {
+            transform: translateY(-2px);
+            color: #0f172a;
+        }
+
+        .events-wing-event-chip--tech:hover {
+            border-color: #2563eb;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.14);
+        }
+
+        .events-wing-event-chip--cultural:hover {
+            border-color: #e11d48;
+            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.14);
+        }
+
+        .events-wing-event-chip__date {
+            flex-shrink: 0;
+            padding: 0.2rem 0.45rem;
+            border-radius: 0.45rem;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.68rem;
+            font-weight: 800;
+        }
+
+        .events-wing-event-chip--tech .events-wing-event-chip__date {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .events-wing-event-chip--cultural .events-wing-event-chip__date {
+            background: #fff1f2;
+            color: #be123c;
+        }
+
+        .events-wing-event-chip__title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         /* 📱 Dedicated Mobile & Tablet Responsive Engine (320px - 991px) */
         @media (max-width: 991.98px) {
             .events-hero-header-banner {
@@ -489,11 +568,11 @@
             <div class="col-lg-7">
                 <div class="events-hero-left-glass">
                     <h1 class="display-4 fw-black mb-3" style="font-weight: 900; letter-spacing: -1px; color: #0f172a !important;">
-                        Campus Events & <span style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Tech Contests</span>
+                        Campus Events under <span style="background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">2 Main Wings</span>
                     </h1>
                     
                     <p class="fs-5 mb-4" style="max-width: 600px; line-height: 1.6; color: #334155 !important; font-weight: 600;">
-                        Discover hackathons, AI workshops, coding battles, and cultural fests hosted by student chapters at United Institute of Technology.
+                        Technical events live under <strong style="color:#2563eb;">Developers Club UIT</strong>. Cultural events live under <strong style="color:#e11d48;">Cultural Club UIT</strong>. Pick your wing — then find what to join.
                     </p>
 
                     <!-- Clean White Pill Search Bar Container -->
@@ -527,13 +606,16 @@
                         </a>
                     </div>
 
-                    <!-- 2 Main Wings Quick Shortcut Bar -->
+                    <!-- 2 Main Wings Quick Shortcut -->
                     <div class="d-flex align-items-center gap-2 flex-wrap pt-3 mt-3 border-top">
-                        <a href="tech-events.html" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5">
-                            <i class="bi bi-code-slash"></i> Developers Club Events
+                        <a href="#eventsWingsSection" class="btn btn-sm btn-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm">
+                            <i class="bi bi-diagram-3"></i> See Both Wings
                         </a>
-                        <a href="cultural-events.html" class="btn btn-sm btn-danger rounded-pill px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center gap-1.5" style="background:#e11d48; border-color:#e11d48;">
-                            <i class="bi bi-palette-fill"></i> Cultural Club Events
+                        <a href="tech-events.html" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold shadow-sm">
+                            <i class="bi bi-code-slash"></i> Tech Events
+                        </a>
+                        <a href="cultural-events.html" class="btn btn-sm btn-danger rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="background:#e11d48;border-color:#e11d48;">
+                            <i class="bi bi-palette-fill"></i> Cultural Events
                         </a>
                     </div>
                 </div>
@@ -550,7 +632,7 @@
                             </div>
                             <div>
                                 <h6 class="fw-black text-dark mb-0" style="font-weight: 900; font-size: 0.95rem;">Campus Intelligence Hub</h6>
-                                <span class="small text-muted font-monospace" style="font-size: 0.72rem;">SAC Real-time Ecosystem</span>
+                                <span class="small text-muted font-monospace" style="font-size: 0.72rem;">USC UIT Real-time Ecosystem</span>
                             </div>
                         </div>
                         <span class="badge rounded-pill bg-danger-subtle text-danger border border-danger-subtle px-2.5 py-1 font-monospace fw-bold" style="font-size: 0.72rem;">
@@ -566,41 +648,41 @@
                                     <i class="bi bi-lightning-charge-fill text-primary fs-5"></i>
                                     <span class="badge bg-primary text-white rounded-pill" style="font-size: 0.62rem;">TOTAL</span>
                                 </div>
-                                <h3 class="fw-black mb-0 text-primary" style="font-size: 1.6rem; font-weight: 900;" id="heroTotalEventsCount">11+</h3>
-                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Contests & Contests</span>
+                                <h3 class="fw-black mb-0 text-primary" style="font-size: 1.6rem; font-weight: 900;" id="heroTotalEventsCount">—</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Campus Events</span>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="p-3 rounded-4 bg-purple-subtle bg-opacity-30 border border-purple-subtle h-100">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
-                                    <i class="bi bi-people-fill fs-5" style="color: #7c3aed;"></i>
-                                    <span class="badge rounded-pill text-white" style="background: #7c3aed; font-size: 0.62rem;">ACTIVE</span>
+                                    <i class="bi bi-code-slash text-primary fs-5"></i>
+                                    <span class="badge bg-primary text-white rounded-pill" style="font-size: 0.62rem;">TECH</span>
                                 </div>
-                                <h3 class="fw-black mb-0" style="color: #7c3aed !important; font-size: 1.6rem; font-weight: 900;" id="heroTotalAttendees">1,450+</h3>
-                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Student Coders</span>
+                                <h3 class="fw-black mb-0 text-primary" style="font-size: 1.6rem; font-weight: 900;" id="heroTechEventsCount">—</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Developers Club</span>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="p-3 rounded-4 bg-warning-subtle bg-opacity-30 border border-warning-subtle h-100">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
-                                    <i class="bi bi-trophy-fill text-warning fs-5"></i>
-                                    <span class="badge bg-warning text-dark rounded-pill" style="font-size: 0.62rem;">PRIZES</span>
+                                    <i class="bi bi-palette-fill text-danger fs-5"></i>
+                                    <span class="badge bg-danger text-white rounded-pill" style="font-size: 0.62rem;">CULTURAL</span>
                                 </div>
-                                <h3 class="fw-black mb-0 text-dark" style="font-size: 1.6rem; font-weight: 900;" id="heroPrizePool">₹1.5L+</h3>
-                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Swags & Rewards</span>
+                                <h3 class="fw-black mb-0 text-danger" style="font-size: 1.6rem; font-weight: 900;" id="heroCulturalEventsCount">—</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Cultural Club</span>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="p-3 rounded-4 bg-success-subtle bg-opacity-30 border border-success-subtle h-100">
                                 <div class="d-flex align-items-center justify-content-between mb-1">
-                                    <i class="bi bi-rocket-takeoff-fill text-success fs-5"></i>
-                                    <span class="badge bg-success text-white rounded-pill" style="font-size: 0.62rem;">CHAPTERS</span>
+                                    <i class="bi bi-people-fill text-success fs-5"></i>
+                                    <span class="badge bg-success text-white rounded-pill" style="font-size: 0.62rem;">JOINED</span>
                                 </div>
-                                <h3 class="fw-black mb-0 text-success" style="font-size: 1.6rem; font-weight: 900;" id="heroActiveClubs">9 Clubs</h3>
-                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">SAC Governed</span>
+                                <h3 class="fw-black mb-0 text-success" style="font-size: 1.6rem; font-weight: 900;" id="heroTotalAttendees">—</h3>
+                                <span class="fw-bold text-dark d-block mt-1" style="font-size: 0.76rem;">Students Joined</span>
                             </div>
                         </div>
                     </div>
@@ -611,11 +693,102 @@
     </div>
 </section>
 
+<!-- ═══ THE 2 MAIN WINGS — Events grouped by Developers / Cultural ═══ -->
+<section class="clubs-wings-showcase py-5" id="eventsWingsSection">
+    <div class="container">
+        <div class="text-center mb-4 mb-lg-5">
+            <span class="clubs-wings-kicker"><i class="bi bi-calendar-week"></i> Events by wing</span>
+            <h2 class="clubs-wings-title">The 2 Main Wings of USC UIT</h2>
+            <p class="clubs-wings-lead mx-auto">
+                Every campus event belongs to <strong>one parent club</strong>. Tech hackathons &amp; workshops → Developers Club UIT. Fests, speaking &amp; stage → Cultural Club UIT.
+            </p>
+            <div class="clubs-wings-flow d-flex flex-wrap align-items-center justify-content-center gap-2 gap-md-3 mt-3">
+                <span class="clubs-wings-flow__step"><i class="bi bi-house-door"></i> USC UIT</span>
+                <i class="bi bi-chevron-right text-muted"></i>
+                <span class="clubs-wings-flow__step clubs-wings-flow__step--highlight"><i class="bi bi-diagram-3"></i> 2 Main Wings</span>
+                <i class="bi bi-chevron-right text-muted"></i>
+                <span class="clubs-wings-flow__step"><i class="bi bi-calendar-event"></i> Events</span>
+            </div>
+        </div>
+
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-6">
+                <article class="main-wing-card main-wing-card-tech clubs-wing-panel">
+                    <div class="clubs-wing-panel__top">
+                        <span class="wing-header-badge tech"><i class="bi bi-code-slash"></i> Technical Wing</span>
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1 fw-bold" style="font-size:0.72rem;">TECH EVENTS</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="clubs-wing-panel__icon clubs-wing-panel__icon--tech"><i class="bi bi-cpu"></i></div>
+                        <div>
+                            <h3 class="clubs-wing-panel__name mb-1">Developers Club UIT</h3>
+                            <p class="clubs-wing-panel__role mb-0">Official Technical Umbrella Council</p>
+                        </div>
+                    </div>
+                    <p class="clubs-wing-panel__desc">Hackathons, coding battles, AI workshops, cloud study jams, DSA contests, and all technical sessions on campus.</p>
+                    <div class="clubs-wing-panel__clubs-label">
+                        <i class="bi bi-lightning-charge"></i> Events by Developers Club UIT
+                        <span class="badge bg-primary-subtle text-primary rounded-pill ms-1" id="techWingEventCount">—</span>
+                    </div>
+                    <div class="clubs-wing-clubs-list" id="techWingEventsList">
+                        <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading tech events…</div>
+                    </div>
+                    <div class="clubs-wing-panel__actions">
+                        <a href="tech-events.html" class="btn btn-primary rounded-pill px-4 fw-bold"><i class="bi bi-code-slash me-1"></i> All Tech Events</a>
+                        <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-events-wing-filter="technical"><i class="bi bi-funnel me-1"></i> Filter tech only</button>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-lg-6">
+                <article class="main-wing-card main-wing-card-cultural clubs-wing-panel">
+                    <div class="clubs-wing-panel__top">
+                        <span class="wing-header-badge cultural"><i class="bi bi-palette-fill"></i> Cultural Wing</span>
+                        <span class="badge rounded-pill px-3 py-1 fw-bold text-white" style="background:#e11d48;font-size:0.72rem;">CULTURAL EVENTS</span>
+                    </div>
+                    <div class="d-flex align-items-start gap-3 mb-3">
+                        <div class="clubs-wing-panel__icon clubs-wing-panel__icon--cultural"><i class="bi bi-mic"></i></div>
+                        <div>
+                            <h3 class="clubs-wing-panel__name mb-1">Cultural Club UIT</h3>
+                            <p class="clubs-wing-panel__role clubs-wing-panel__role--cultural mb-0">Official Cultural Umbrella Council</p>
+                        </div>
+                    </div>
+                    <p class="clubs-wing-panel__desc">Public speaking, music nights, theatre, fine arts, literary sessions, fests, and all creative campus experiences.</p>
+                    <div class="clubs-wing-panel__clubs-label">
+                        <i class="bi bi-stars"></i> Events by Cultural Club UIT
+                        <span class="badge bg-danger-subtle text-danger rounded-pill ms-1" id="culturalWingEventCount">—</span>
+                    </div>
+                    <div class="clubs-wing-clubs-list" id="culturalWingEventsList">
+                        <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading cultural events…</div>
+                    </div>
+                    <div class="clubs-wing-panel__actions">
+                        <a href="cultural-events.html" class="btn btn-danger rounded-pill px-4 fw-bold" style="background:#e11d48;border-color:#e11d48;"><i class="bi bi-palette-fill me-1"></i> All Cultural Events</a>
+                        <button type="button" class="btn btn-outline-danger rounded-pill px-4 fw-bold" style="color:#e11d48;border-color:#e11d48;" data-events-wing-filter="cultural"><i class="bi bi-funnel me-1"></i> Filter cultural only</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Filter Bar Section: Sleek Clean Segmented Control Bar -->
 <section class="events-sticky-filter-bar sticky-top py-3" style="top: 68px; z-index: 1070;">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 py-1">
             
+            <!-- Wing Filter Tabs -->
+            <div class="event-segmented-container me-2">
+                <button type="button" class="btn btn-sm event-wing-tab active" data-events-wing="all">
+                    <i class="bi bi-grid-fill me-1"></i> All Wings
+                </button>
+                <button type="button" class="btn btn-sm event-wing-tab" data-events-wing="technical">
+                    <i class="bi bi-code-slash me-1"></i> Developers Club
+                </button>
+                <button type="button" class="btn btn-sm event-wing-tab" data-events-wing="cultural">
+                    <i class="bi bi-palette-fill me-1"></i> Cultural Club
+                </button>
+            </div>
+
             <!-- Sleek Segmented Event Status Control Bar -->
             <div class="event-segmented-container">
                 <button class="btn btn-sm event-status-tab active" data-status-tab="all">
@@ -645,18 +818,22 @@
 </section>
 
 <!-- Unified Campus Events Directory & Stream Section -->
-<section class="py-5" style="background: #f8fafc;">
+<section class="py-5" style="background: #f8fafc;" id="eventsDirectorySection">
     <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom">
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom flex-wrap gap-2">
             <div class="d-flex align-items-center gap-2">
                 <i class="bi bi-calendar-event-fill fs-5 text-primary"></i>
-                <h4 class="fw-bold mb-0 text-dark">Campus Events Directory & Activity Stream</h4>
+                <h4 class="fw-bold mb-0 text-dark">Full Events Directory</h4>
             </div>
-            <div class="glass-count-chip-badge">
-                <i class="bi bi-sparkles text-primary fs-6"></i>
-                <span id="streamCountBadge" class="fw-extrabold text-dark">Loading...</span>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <span class="small text-muted fw-semibold d-none d-md-inline">Each card shows its parent wing</span>
+                <div class="glass-count-chip-badge">
+                    <i class="bi bi-sparkles text-primary fs-6"></i>
+                    <span id="streamCountBadge" class="fw-extrabold text-dark">Loading...</span>
+                </div>
             </div>
         </div>
+        <div id="eventsActiveWingBadge" class="mb-3"></div>
 
         <div id="mainEventsListContainer" class="row g-4">
             <div class="col-12 text-center py-5 text-muted">
@@ -685,6 +862,7 @@
 <!-- JS Dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
+<script src="assets/js/wing-utils.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/events-render.js"></script>
 

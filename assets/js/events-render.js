@@ -3,7 +3,7 @@
  * Includes Club Filter Pills, Status Tabs, Floating Glassmorphism Cards, & Search
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initializeEventsRenderer() {
     const upcomingContainer = document.getElementById('upcomingEventsList');
     const pastContainer = document.getElementById('pastEventsList');
     const clubPillsContainer = document.getElementById('clubFilterPills');
@@ -15,8 +15,129 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSearch = '';
     let currentClubFilter = 'all';
     let currentStatusTab = 'all';
+    let currentWingFilter = 'all';
+
+    const eventWing = document.body.dataset.eventWing;
+    const pageWingCategories = eventWing === 'technical'
+        ? ['technical', 'technical-software-development']
+        : eventWing === 'cultural'
+            ? ['cultural', 'academic', 'creative']
+            : null;
 
     const getApiUrl = (endpoint) => `api/${endpoint}`;
+
+    function isTechEvent(event) {
+        return typeof resolveWing === 'function' && resolveWing(event.category_slug) === 'technical';
+    }
+
+    function isCulturalEvent(event) {
+        return typeof resolveWing === 'function' && resolveWing(event.category_slug) === 'cultural';
+    }
+
+    function splitEventsByWing(events) {
+        return {
+            technical: events.filter(isTechEvent),
+            cultural: events.filter(isCulturalEvent)
+        };
+    }
+
+    function renderWingEventChip(event, wing) {
+        const chipClass = wing === 'cultural' ? 'events-wing-event-chip--cultural' : 'events-wing-event-chip--tech';
+        const eventDate = new Date(event.event_date);
+        const dateText = Number.isNaN(eventDate.getTime())
+            ? 'TBA'
+            : eventDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+        return `
+            <a href="event-detail.html?id=${encodeURIComponent(event.id)}" class="events-wing-event-chip ${chipClass}" title="${escapeHtml(event.title)}">
+                <span class="events-wing-event-chip__date">${escapeHtml(dateText)}</span>
+                <span class="events-wing-event-chip__title">${escapeHtml(event.title)}</span>
+            </a>
+        `;
+    }
+
+    function loadEventsWingShowcase(events) {
+        const techList = document.getElementById('techWingEventsList');
+        const culturalList = document.getElementById('culturalWingEventsList');
+        const techCountEl = document.getElementById('techWingEventCount');
+        const culturalCountEl = document.getElementById('culturalWingEventCount');
+
+        if (!techList && !culturalList) return;
+
+        const { technical, cultural } = splitEventsByWing(events);
+
+        if (techCountEl) techCountEl.textContent = technical.length;
+        if (culturalCountEl) culturalCountEl.textContent = cultural.length;
+
+        if (techList) {
+            techList.innerHTML = technical.length
+                ? technical.slice(0, 5).map(event => renderWingEventChip(event, 'technical')).join('')
+                : '<span class="small text-muted">No tech events published yet.</span>';
+        }
+
+        if (culturalList) {
+            culturalList.innerHTML = cultural.length
+                ? cultural.slice(0, 5).map(event => renderWingEventChip(event, 'cultural')).join('')
+                : '<span class="small text-muted">No cultural events published yet.</span>';
+        }
+    }
+
+    function updateHeroWingStats(events) {
+        const { technical, cultural } = splitEventsByWing(events);
+        const heroTotal = document.getElementById('heroTotalEventsCount');
+        const heroTech = document.getElementById('heroTechEventsCount');
+        const heroCultural = document.getElementById('heroCulturalEventsCount');
+        const heroAttendees = document.getElementById('heroTotalAttendees');
+
+        if (heroTotal) heroTotal.textContent = `${events.length}`;
+        if (heroTech) heroTech.textContent = `${technical.length}`;
+        if (heroCultural) heroCultural.textContent = `${cultural.length}`;
+        if (heroAttendees) {
+            const totalAttendees = events.reduce((acc, curr) => acc + (parseInt(curr.actual_attended || curr.registered_count || 0, 10) || 0), 0);
+            heroAttendees.textContent = totalAttendees > 0 ? `${totalAttendees.toLocaleString()}+` : '—';
+        }
+    }
+
+    function renderActiveWingBadge() {
+        const badgeHost = document.getElementById('eventsActiveWingBadge');
+        if (!badgeHost) return;
+
+        if (currentWingFilter === 'all') {
+            badgeHost.innerHTML = '';
+            return;
+        }
+
+        const meta = getWingMeta(currentWingFilter);
+        badgeHost.innerHTML = `
+            <div class="alert alert-${currentWingFilter === 'cultural' ? 'danger' : 'primary'} border-0 rounded-4 shadow-sm py-2 px-4 d-flex align-items-center justify-content-between mb-0">
+                <div class="d-flex align-items-center gap-2 small">
+                    <i class="bi ${meta.icon}"></i>
+                    <span class="fw-bold">Showing:</span>
+                    <span class="badge bg-white text-dark rounded-pill px-3 py-1">${escapeHtml(meta.label)} events only</span>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-dark rounded-pill px-3 py-1 fw-bold" id="clearEventsWingFilterBtn">
+                    Show all wings <i class="bi bi-x-lg ms-1"></i>
+                </button>
+            </div>
+        `;
+
+        const clearBtn = document.getElementById('clearEventsWingFilterBtn');
+        if (clearBtn) clearBtn.addEventListener('click', () => setWingFilter('all'));
+    }
+
+    function setWingFilter(wing) {
+        currentWingFilter = wing || 'all';
+        document.querySelectorAll('.event-wing-tab').forEach(tab => {
+            tab.classList.toggle('active', (tab.dataset.eventsWing || 'all') === currentWingFilter);
+        });
+        renderActiveWingBadge();
+        applyFiltersAndRender();
+
+        const directory = document.getElementById('eventsDirectorySection');
+        if (directory && wing !== 'all') {
+            directory.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
 
     // Fetch Events API
     fetch(getApiUrl('events.php'))
@@ -27,7 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            allEvents = response.data || [];
+            allEvents = (response.data || []).filter(event => {
+                if (!pageWingCategories) return true;
+                return pageWingCategories.includes((event.category_slug || '').toLowerCase());
+            });
+
+            loadEventsWingShowcase(allEvents);
+            updateHeroWingStats(allEvents);
 
             // Extract unique clubs for Club Filter Pills
             allEvents.forEach(evt => {
@@ -119,7 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Club Filter
             const matchesClub = (currentClubFilter === 'all') || (evt.club_id === currentClubFilter);
 
-            return matchesQuery && matchesClub;
+            // Wing Filter (events.html only)
+            const matchesWing = currentWingFilter === 'all'
+                || (currentWingFilter === 'technical' && isTechEvent(evt))
+                || (currentWingFilter === 'cultural' && isCulturalEvent(evt));
+
+            return matchesQuery && matchesClub && matchesWing;
         });
 
         // 3 Category Lists
@@ -136,12 +268,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const heroActiveClubs = document.getElementById('heroActiveClubs');
         const streamCountBadge = document.getElementById('streamCountBadge');
 
-        if (heroTotalEvents) heroTotalEvents.textContent = `${allEvents.length}+`;
-        if (heroActiveClubs) heroActiveClubs.textContent = `${allClubsMap.size || 9} Clubs`;
-        if (heroTotalAttendees) {
-            const totalAttendees = allEvents.reduce((acc, curr) => acc + (parseInt(curr.actual_attended || curr.registered_count || 45)), 0);
-            heroTotalAttendees.textContent = `${totalAttendees.toLocaleString()}+`;
-        }
+        if (heroTotalEvents) heroTotalEvents.textContent = `${allEvents.length}`;
+        updateHeroWingStats(allEvents);
 
         // Select Stream Display List Based on Selected Status Tab
         let displayList = masterPriorityList;
@@ -153,9 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
             displayList = pastList;
         }
 
-        if (streamCountBadge) streamCountBadge.textContent = `${displayList.length} Events Total`;
+        if (streamCountBadge) {
+            const wingLabel = currentWingFilter === 'all' ? '' : ` · ${getWingMeta(currentWingFilter).label}`;
+            streamCountBadge.textContent = `${displayList.length} Event${displayList.length === 1 ? '' : 's'}${wingLabel}`;
+        }
 
-        const mainContainer = document.getElementById('mainEventsListContainer');
+        renderActiveWingBadge();
+
+        const mainContainer = document.getElementById('mainEventsListContainer') || upcomingContainer;
         if (mainContainer) {
             if (displayList.length === 0) {
                 mainContainer.innerHTML = `
@@ -248,7 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <img src="${clubLogo}" class="rounded-circle bg-white p-1 shadow-sm" style="width: 38px; height: 38px; object-fit: cover;" alt="${escapeHtml(targetEvent.club_name)}">
                         <div>
                             <h6 class="text-white fw-bold mb-0 lh-1">${escapeHtml(targetEvent.club_name)}</h6>
-                            <span class="small text-white-80" style="font-size: 0.75rem;">Official SAC Governed Society</span>
+                            <span class="small text-white-80" style="font-size: 0.75rem;">Official USC UIT Governed Society</span>
                         </div>
                     </div>
                 </div>
@@ -327,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="small text-muted">${escapeHtml(targetEvent.club_name)} Board</span>
                         </div>
                     </div>
-                    <span class="badge bg-white text-dark border rounded-pill px-3 py-1.5 fw-semibold small"><i class="bi bi-check-circle-fill text-success me-1"></i> SAC Verified Event</span>
+                    <span class="badge bg-white text-dark border rounded-pill px-3 py-1.5 fw-semibold small"><i class="bi bi-check-circle-fill text-success me-1"></i> USC UIT Verified Event</span>
                 </div>
             </div>
 
@@ -389,6 +522,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Wing Filter Tabs & Showcase Buttons
+    document.querySelectorAll('.event-wing-tab').forEach(tab => {
+        tab.addEventListener('click', () => setWingFilter(tab.dataset.eventsWing || 'all'));
+    });
+
+    document.querySelectorAll('[data-events-wing-filter]').forEach(btn => {
+        btn.addEventListener('click', () => setWingFilter(btn.getAttribute('data-events-wing-filter')));
+    });
+
     // Status Tabs Listeners
     statusTabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
@@ -399,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
             applyFiltersAndRender();
         });
     });
-});
+}
 
 /// Render Google / Meta Dev Conference Style Event Cards in 2-Column Grid
 function renderFloatingEventCard(event, isPast = false) {
@@ -419,6 +561,12 @@ function renderFloatingEventCard(event, isPast = false) {
 
     const registeredCount = event.registered_count || 45;
     const bannerUrl = escapeHtml(event.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop');
+    const eventWingType = typeof resolveWing === 'function' ? resolveWing(event.category_slug) : null;
+    const wingMeta = typeof getWingMeta === 'function'
+        ? getWingMeta(eventWingType)
+        : { wing: null, label: 'Campus Event', icon: 'bi-calendar-event' };
+    const wingTagClass = eventWingType === 'cultural' ? 'club-card-wing-tag--cultural' : 'club-card-wing-tag--tech';
+    const wingTagLabel = wingMeta.wing ? wingMeta.label : 'Campus Event';
 
     return `
         <div class="col-md-6 col-lg-4">
@@ -428,8 +576,8 @@ function renderFloatingEventCard(event, isPast = false) {
                     <img src="${bannerUrl}" class="w-100 h-100 object-fit-cover card-banner-zoom" alt="${escapeHtml(event.title)}">
                     <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.85) 100%);"></div>
 
-                    <!-- Floating Frosted Date Badge -->
-                    <div class="position-absolute top-0 start-0 m-3 z-2">
+                    <div class="position-absolute top-0 start-0 m-3 z-2 d-flex flex-column gap-2 align-items-start">
+                        <span class="club-card-wing-tag ${wingTagClass}"><i class="bi ${wingMeta.icon}"></i> ${escapeHtml(wingTagLabel)}</span>
                         <div class="google-date-badge text-center shadow-sm" style="min-width: 58px; padding: 7px 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-radius: 14px; border: 1px solid rgba(255,255,255,0.9);">
                             <span class="date-day d-block text-primary fw-black" style="font-size: 1.25rem; line-height: 1; font-family: 'Outfit', sans-serif;">${day}</span>
                             <span class="date-month d-block text-dark fw-bold" style="font-size: 0.72rem; letter-spacing: 0.5px;">${month} '${String(year).slice(-2)}</span>
@@ -506,6 +654,12 @@ function renderFloatingEventCard(event, isPast = false) {
             </div>
         </div>
     `;
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeEventsRenderer);
+} else {
+    initializeEventsRenderer();
 }
 
 function renderEmptyState(container, title, subtitle = '') {
