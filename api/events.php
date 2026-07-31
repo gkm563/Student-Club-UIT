@@ -14,9 +14,11 @@ try {
 
     // Fetch Events with Organizing Club Info (Excluding Private/Hidden/Drafted/Archived events)
     $stmt = $db->query("
-        SELECT e.*, c.name as club_name, c.short_name as club_short_name, c.logo as club_logo, c.id as club_id
+        SELECT e.*, c.name as club_name, c.short_name as club_short_name, c.logo as club_logo, c.id as club_id,
+               cat.name as category_name, cat.slug as category_slug
         FROM events e
         JOIN clubs c ON e.club_id = c.id
+        JOIN categories cat ON c.category_id = cat.id
         WHERE c.status = 'active' AND e.status NOT IN ('draft', 'hidden', 'archived')
         ORDER BY 
             CASE 

@@ -76,19 +76,20 @@ try {
     ";
     $params = [];
 
-    $wing = $_GET['wing'] ?? '';
-    if (!empty($wing)) {
-        if (strtolower($wing) === 'technical' || strtolower($wing) === 'developers') {
-            $sql .= " AND (c.parent_wing LIKE '%Developers%' OR cat.slug = 'technical')";
-        } elseif (strtolower($wing) === 'cultural') {
-            $sql .= " AND (c.parent_wing LIKE '%Cultural%' OR cat.slug = 'cultural')";
-        }
+    $wing = strtolower($_GET['wing'] ?? '');
+    if ($wing === 'technical' || $wing === 'developers') {
+        $sql .= " AND cat.slug IN ('technical', 'technical-software-development')";
+    } elseif ($wing === 'cultural') {
+        $sql .= " AND cat.slug IN ('cultural', 'academic', 'creative')";
     }
 
     if ($categorySlug !== 'all' && !empty($categorySlug)) {
-        $sql .= " AND (cat.slug = ? OR c.parent_wing LIKE ?)";
-        $params[] = $categorySlug;
-        $params[] = "%$categorySlug%";
+        if ($categorySlug === 'technical') {
+            $sql .= " AND cat.slug IN ('technical', 'technical-software-development')";
+        } else {
+            $sql .= " AND cat.slug = ?";
+            $params[] = $categorySlug;
+        }
     }
 
     if (!empty($search)) {
