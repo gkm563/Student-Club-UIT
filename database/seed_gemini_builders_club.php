@@ -30,7 +30,7 @@ function seed_gemini_builders(PDO $db, string $dbType) {
     $logo = "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg";
     $cover = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop";
     $email = "geminibuilders@uit.edu.in";
-    $office = "Headquarters: Prayagraj, Uttar Pradesh IN (SAC, UIT)";
+    $office = "Headquarters: Prayagraj, Uttar Pradesh IN (USC UIT)";
     $meetingLoc = "Computer Lab 3 & Seminar Hall, UIT Prayagraj";
     $website = "https://gemini.google.com/";
 

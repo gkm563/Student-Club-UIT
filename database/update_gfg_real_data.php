@@ -42,7 +42,7 @@ function seed_gfg_to_pdo(PDO $db, string $dbType) {
     $logo = "https://media.geeksforgeeks.org/wp-content/uploads/gfg_200X200.png";
     $cover = "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop";
     $email = "gfgsc@uit.edu";
-    $office = "Student Activity Center, UIT Prayagraj";
+    $office = "USC UIT Office, UIT Prayagraj";
     $meetingLoc = "Computer Labs 1 & 2 & Seminar Hall, UIT";
     $website = "https://www.geeksforgeeks.org/";
 

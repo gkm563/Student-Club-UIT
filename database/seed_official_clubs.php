@@ -122,7 +122,7 @@ try {
             '• Startup Pitch Jams & Prototype Grants\n• Founder Talks & Mentorship Sessions\n• Angel Investor Summits\n• Incubation Support & Entrepreneurship Workshops',
             'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1200&auto=format&fit=crop',
-            2022, 'active', 1, '/contact.html', 'ecell@uit.edu', '+91 98765 12349', 'Student Activity Center, UIT, Prayagraj 211010', '/contact.html'
+            2022, 'active', 1, '/contact.html', 'ecell@uit.edu', '+91 98765 12349', 'USC UIT Office, UIT, Prayagraj 211010', '/contact.html'
         ],
         [
             'clb_wikiclub_uit_2026',
@@ -167,7 +167,7 @@ try {
             '• Project Smile & Charitable Outreach\n• Blood Donation & Health Camps\n• Environmental Awareness & Tree Plantation Drives\n• Free Educational Kits for Underprivileged Children',
             'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1200&auto=format&fit=crop',
-            2024, 'active', 1, '/contact.html', 'rotaract@uit.edu', '+91 98765 55551', 'Student Activity Center, UIT, Prayagraj 211010', '/contact.html'
+            2024, 'active', 1, '/contact.html', 'rotaract@uit.edu', '+91 98765 55551', 'USC UIT Office, UIT, Prayagraj 211010', '/contact.html'
         ],
         [
             'clb_toastmasters_ugi_2026',
@@ -182,7 +182,7 @@ try {
             '• Speech & Storytelling Masterclasses\n• Table Topics & Impromptu Speaking Drills\n• Interview & Boardroom Presentation Preparation\n• Peer Evaluation & Communication Leadership',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
-            2023, 'active', 1, '/contact.html', 'toastmasters@uit.edu', '+91 98765 66661', 'Seminar Hall & Student Activity Center, UIT, Prayagraj 211010', '/contact.html'
+            2023, 'active', 1, '/contact.html', 'toastmasters@uit.edu', '+91 98765 66661', 'Seminar Hall & USC UIT Office, UIT, Prayagraj 211010', '/contact.html'
         ],
         [
             'clb_flutterflow_uit_2026',
@@ -212,7 +212,7 @@ try {
             '• Annual TEDxUIT Flagship Conference\n• Salon Speaker Sessions & Panel Discussions\n• Student Speaker Curation & Public Speaking Coaching\n• Idea Networking & Youth Empowerment Drives',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
-            2024, 'active', 1, '/contact.html', 'tedx@uit.edu', '+91 98765 88881', 'Main Auditorium & Student Activity Center, UIT, Prayagraj 211010', 'https://www.ted.com/tedx'
+            2024, 'active', 1, '/contact.html', 'tedx@uit.edu', '+91 98765 88881', 'Main Auditorium & USC UIT Office, UIT, Prayagraj 211010', 'https://www.ted.com/tedx'
         ]
     ];
 
@@ -366,7 +366,7 @@ try {
             'ecell-introductory-session-fostering-innovation-2026',
             'https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=800&auto=format&fit=crop',
             'United Institute of Technology (UIT) successfully organized an engaging Entrepreneurship Cell (E-Cell) Introductory Session, bringing together aspiring innovators to explore the institute\'s dynamic entrepreneurial ecosystem. The session highlighted the importance of cultivating a startup mindset, encouraging students to transform innovative ideas into impactful solutions through collaboration, creativity, and practical learning. Students were also introduced to exciting opportunities through IEEE and the Institution\'s Innovation Council (IIC), aimed at supporting and nurturing student-led ventures. Principal Prof. (Dr.) Sanjay Srivastava applauded Team E-Cell for its efforts and inspired students to embrace entrepreneurship as a pathway to innovation and leadership. The session was enriched by valuable insights from Dr. Abhishek Malviya, Dr. Dhananjay Sharma, Dr. Manas Pandey (IITian), Ms. Shruti Sharma, Mr. Amitabh Srivastava, and Dr. Rehan Haider. Led by Prakhar Pandey with over 60 enthusiastic student participants across departments.',
-            'Main Seminar Hall & Student Activity Center, UIT Prayagraj', '2026-02-10 10:30:00', '/contact.html', 'completed'
+            'Main Seminar Hall & USC UIT Office, UIT Prayagraj', '2026-02-10 10:30:00', '/contact.html', 'completed'
         ],
 
         [
@@ -399,7 +399,7 @@ try {
             'ugi-toastmasters-44th-meeting-public-speaking',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop',
             'Lively public speaking session featuring Table Topics, prepared speeches, and constructive peer evaluation.',
-            'Seminar Hall & Student Activity Center, UIT', '2026-03-25 15:30:00', '/contact.html', 'completed'
+            'Seminar Hall & USC UIT Office, UIT', '2026-03-25 15:30:00', '/contact.html', 'completed'
         ],
         [
             'evt_flutterflow_app_bootcamp_2026', 'clb_flutterflow_uit_2026',

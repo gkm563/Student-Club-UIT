@@ -17,7 +17,7 @@ $sampleMsgs = [
         'Aarav Sharma (B.Tech CSE 3rd Year)',
         'aarav.cse23@uit.edu',
         'Inquiry: GDG Android Compose Study Jam Certificate Issue',
-        'Respected Dean Sir, I attended the GDG Android Compose Study Jam on 22nd Jan. My certificate hasn\'t been issued yet. Kindly verify with SAC.',
+        'Respected Dean Sir, I attended the GDG Android Compose Study Jam on 22nd Jan. My certificate hasn\'t been issued yet. Kindly verify with USC UIT.',
         date('Y-m-d H:i:s', strtotime('-2 hours')),
         0
     ],
@@ -26,7 +26,7 @@ $sampleMsgs = [
         'Ananya Verma (E-Cell Student Coordinator)',
         'ananya.ecell@uit.edu',
         'Proposal: E-Cell Startup Pitch Fest Seed Funding Approval',
-        'Dear Sir, We have shortlisted 5 student startups from the introductory session. Requesting SAC allocation for 15k prototype grants.',
+        'Dear Sir, We have shortlisted 5 student startups from the introductory session. Requesting USC UIT allocation for 15k prototype grants.',
         date('Y-m-d H:i:s', strtotime('-1 day')),
         0
     ],
@@ -44,7 +44,7 @@ $sampleMsgs = [
         'Rohan Gupta (Rotaract President)',
         'rotaract@uit.edu',
         'Report: Annual Blood Donation Drive Summary',
-        'Sir, Rotaract Club collected 140+ units in partnership with Prayagraj Blood Bank. Full audit report submitted to SAC office.',
+        'Sir, Rotaract Club collected 140+ units in partnership with Prayagraj Blood Bank. Full audit report submitted to USC UIT office.',
         date('Y-m-d H:i:s', strtotime('-3 days')),
         1
     ]
@@ -100,7 +100,7 @@ $sampleLogs = [
         'usr_admin_uit_2026',
         'Prof. Sanjay Srivastava (Dean)',
         'GOVERNANCE_AUDIT',
-        'Verified SAC Accreditation badges for 10 Active Campus Clubs',
+        'Verified USC UIT Accreditation badges for 10 Active Campus Clubs',
         date('Y-m-d H:i:s', strtotime('-3 days'))
     ]
 ];
