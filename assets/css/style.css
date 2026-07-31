@@ -58,6 +58,13 @@
     --radius-xl: 28px;
     
     --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.text-white-80 {
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+:root {
     --shadow-md: 0 12px 30px -5px rgba(15, 23, 42, 0.08);
     --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
 }
