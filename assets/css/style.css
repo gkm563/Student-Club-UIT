@@ -112,6 +112,51 @@ body {
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
+/* Custom 2 Main Wings Quick Access Buttons in Header */
+.btn-wing-dev {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border: 1px solid #bfdbfe !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+}
+.btn-wing-dev:hover, .btn-wing-dev:focus {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
+    transform: translateY(-1px);
+}
+.btn-wing-dev:hover i, .btn-wing-dev:hover span {
+    color: #ffffff !important;
+}
+
+.btn-wing-cult {
+    background: #fff1f2 !important;
+    color: #e11d48 !important;
+    border: 1px solid #fecdd3 !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+}
+.btn-wing-cult:hover, .btn-wing-cult:focus {
+    background: #e11d48 !important;
+    color: #ffffff !important;
+    border-color: #e11d48 !important;
+    box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
+    transform: translateY(-1px);
+}
+.btn-wing-cult:hover i, .btn-wing-cult:hover span {
+    color: #ffffff !important;
+}
+
+.navbar-clubhub .navbar-toggler {
+    background-color: #1e293b;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
 .brand-logo-text {
     font-weight: 800;
     font-size: 1.45rem;

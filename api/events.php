@@ -12,8 +12,10 @@ header('Access-Control-Allow-Origin: *');
 try {
     $db = Database::getConnection();
 
+    $now = date('Y-m-d H:i:s');
+
     // Fetch Events with Organizing Club Info (Excluding Private/Hidden/Drafted/Archived events)
-    $stmt = $db->query("
+    $stmt = $db->prepare("
         SELECT e.*, c.name as club_name, c.short_name as club_short_name, c.logo as club_logo, c.id as club_id,
                cat.name as category_name, cat.slug as category_slug
         FROM events e
@@ -23,22 +25,25 @@ try {
         ORDER BY 
             CASE 
                 WHEN LOWER(e.status) IN ('ongoing', 'live') THEN 1
-                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN 2
+                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= :now1 THEN 2
                 ELSE 3
             END ASC,
             CASE 
-                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= NOW() THEN e.event_date
+                WHEN LOWER(e.status) = 'upcoming' OR e.event_date >= :now2 THEN e.event_date
             END ASC,
             e.event_date DESC
     ");
-    $allEvents = $stmt->fetchAll();
+    $stmt->execute([
+        ':now1' => $now,
+        ':now2' => $now
+    ]);
+    $allEvents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $now = date('Y-m-d H:i:s');
     $upcoming = [];
     $past = [];
 
     foreach ($allEvents as $event) {
-        if ($event['event_date'] >= $now) {
+        if ($event['event_date'] >= $now || strtolower($event['status'] ?? '') === 'upcoming') {
             $upcoming[] = $event;
         } else {
             $past[] = $event;

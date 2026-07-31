@@ -158,33 +158,128 @@
     transform: translateY(-2px);
 }
 
-/* Hero search (inherits from style.css, enhanced for dark hero) */
+/* Hero search (Enhanced glassmorphism search bar) */
 .home-hero .hero-search-bar {
-    max-width: 480px;
+    position: relative;
+    max-width: 520px;
+    width: 100%;
     margin-bottom: 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 6px 6px 6px 18px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.home-hero .hero-search-bar:hover,
+.home-hero .hero-search-bar:focus-within {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(96, 165, 250, 0.7);
+    box-shadow: 0 16px 45px rgba(37, 99, 235, 0.35), 0 0 0 4px rgba(96, 165, 250, 0.2);
+    transform: translateY(-2px);
+}
+
+.hero-search-icon-left {
+    color: #93c5fd;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.home-hero .hero-search-bar:focus-within .hero-search-icon-left {
+    color: #60a5fa;
+    transform: scale(1.15);
 }
 
 .home-hero .hero-search-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    backdrop-filter: blur(10px);
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 0.96rem;
+    font-weight: 500;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 8px 4px !important;
 }
 
-.home-hero .hero-search-input::placeholder { color: rgba(255, 255, 255, 0.5); }
-.home-hero .hero-search-input:focus {
-    background: rgba(255, 255, 255, 0.14);
-    border-color: rgba(96, 165, 250, 0.6);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+.home-hero .hero-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 450;
 }
 
 .home-hero .hero-search-btn {
-    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #1d4ed8 100%);
+    color: #ffffff;
+    font-weight: 750;
+    font-size: 0.88rem;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    transition: all 0.25s ease;
+    flex-shrink: 0;
 }
+
+.home-hero .hero-search-btn:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #1e40af 100%);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+    transform: scale(1.03);
+    color: #ffffff;
+}
+
+.search-results-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+    z-index: 1050;
+    display: none;
+    padding: 8px 0;
+    animation: dropdownFadeIn 0.25s ease forwards;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding-left: 24px;
+}
+
 
 /* Hero stats row */
 .home-stats {
@@ -360,29 +455,243 @@
     color: #2563eb;
 }
 
-/* ── What is USC UIT / Org diagram ───────────────────────────────────── */
 .home-about-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     gap: 3rem;
     align-items: center;
 }
 
-.home-about-points {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
+@media (max-width: 991.98px) {
+    .home-about-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
 }
 
-.home-about-points li {
+/* ── Premium Interactive Pillar Cards Grid ──────────────────────── */
+.usc-pillar-cards-grid {
     display: flex;
-    gap: 0.85rem;
-    padding: 0.85rem 0;
-    border-bottom: 1px solid #f1f5f9;
-    font-size: 0.95rem;
-    color: #475569;
-    line-height: 1.55;
+    flex-direction: column;
+    gap: 1.25rem;
 }
+
+.usc-pillar-card {
+    position: relative;
+    padding: 1.5rem 1.65rem;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.usc-pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: linear-gradient(180deg, #2563eb 0%, #3b82f6 100%);
+    transition: width 0.3s ease;
+}
+
+.usc-pillar-card--purple::before {
+    background: linear-gradient(180deg, #7c3aed 0%, #e11d48 100%);
+}
+
+.usc-pillar-card--amber::before {
+    background: linear-gradient(180deg, #d97706 0%, #f59e0b 100%);
+}
+
+.usc-pillar-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+    border-color: #cbd5e1;
+}
+
+.usc-pillar-card:hover::before {
+    width: 8px;
+}
+
+.usc-pillar-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.usc-pillar-card__num-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+.usc-pillar-card__num-badge--blue {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid rgba(37,99,235,0.25);
+}
+
+.usc-pillar-card__num-badge--purple {
+    background: #fdf2f8;
+    color: #db2777;
+    border: 1px solid rgba(219,39,119,0.25);
+}
+
+.usc-pillar-card__num-badge--amber {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid rgba(217,119,6,0.25);
+}
+
+.usc-pillar-card__tag {
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.usc-pillar-card__tag--blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.usc-pillar-card__tag--purple {
+    background: #fdf2f8;
+    color: #db2777;
+}
+
+.usc-pillar-card__tag--amber {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.usc-pillar-card__status-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.usc-pillar-card__header {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-bottom: 0.85rem;
+}
+
+.usc-pillar-card__icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-size: 1.45rem;
+    flex-shrink: 0;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.usc-pillar-card__icon--blue {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    color: #2563eb;
+}
+
+.usc-pillar-card__icon--purple {
+    background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+    color: #e11d48;
+}
+
+.usc-pillar-card__icon--amber {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    color: #d97706;
+}
+
+.usc-pillar-card:hover .usc-pillar-card__icon {
+    transform: scale(1.12) rotate(-5deg);
+}
+
+.usc-pillar-card__title {
+    font-weight: 850;
+    font-size: 1.18rem;
+    color: #0f172a;
+    margin-bottom: 0.15rem;
+    letter-spacing: -0.3px;
+}
+
+.usc-pillar-card__subtitle {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.usc-pillar-card__desc {
+    font-size: 0.92rem;
+    color: #475569;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+}
+
+.usc-pillar-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.usc-pillar-card__action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+.usc-pillar-card__action-btn--purple {
+    background: #fdf2f8;
+    color: #e11d48;
+    border: 1px solid rgba(225, 29, 72, 0.3);
+}
+
+.usc-pillar-card__action-btn--purple:hover {
+    background: #e11d48;
+    color: #ffffff;
+    transform: translateX(4px);
+    box-shadow: 0 6px 18px rgba(225, 29, 72, 0.35);
+}
+
+.usc-pillar-card__action-btn--amber {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.usc-pillar-card__action-btn--amber:hover {
+    background: #d97706;
+    color: #ffffff;
+    transform: translateX(4px);
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35);
+}
+
 
 .home-about-points li:last-child { border-bottom: none; }
 

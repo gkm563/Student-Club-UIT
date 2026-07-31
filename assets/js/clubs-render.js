@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderClubCardHtml(club) {
             const coverImg = escapeHtml(club.cover_image || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop');
             const logoImg = club.logo
-                ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.outerHTML='<i class=\\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary\\'></i>'">`
+                ? `<img src="${escapeHtml(club.logo)}" class="featured-club-logo-img" alt="${escapeHtml(club.name)}" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary" style="display:none;"></i>`
                 : `<i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')} fs-3 text-primary"></i>`;
             const memberCount = club.member_count || 45;
             const clubWing = resolveWing(club.category_slug);
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const chipClass = wing === 'cultural' ? 'clubs-wing-club-chip--cultural' : 'clubs-wing-club-chip--tech';
             const shortName = escapeHtml(club.short_name || club.name);
             const logo = club.logo
-                ? `<img src="${escapeHtml(club.logo)}" class="clubs-wing-club-chip__logo" alt="" onerror="this.outerHTML='<span class=\\'clubs-wing-club-chip__logo-fallback\\'><i class=\\'bi ${escapeHtml(club.category_icon || 'bi-shield-check')}\\'></i></span>'">`
+                ? `<img src="${escapeHtml(club.logo)}" class="clubs-wing-club-chip__logo" alt="" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';"><span class="clubs-wing-club-chip__logo-fallback" style="display:none;"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')}"></i></span>`
                 : `<span class="clubs-wing-club-chip__logo-fallback"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')}"></i></span>`;
 
             return `<a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="clubs-wing-club-chip ${chipClass}" title="${escapeHtml(club.name)}">${logo}<span class="clubs-wing-club-chip__text">${shortName}</span></a>`;

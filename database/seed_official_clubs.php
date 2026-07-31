@@ -48,13 +48,12 @@ try {
     ");
 
     $committeeMembers = [
-        ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop', 'Visionary leader driving educational excellence across United Group of Institutions.', 1],
-        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop', 'Guiding institutional growth, technical education innovation, and student welfare.', 2],
-        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 'Pioneering student activity frameworks and campus infrastructure development.', 3],
-        ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 'Fostering industry-academia collaboration and student co-curricular affairs.', 4],
-        ['Prof. (Dr.) Sanjay Srivastava', 'DEAN STUDENT WELFARE & PRINCIPAL', 'United Institute of Technology', 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
-        ['Dr. Divya Nanda', 'FACULTY COORDINATOR', 'Student Club Affairs, UIT', 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop', 'Coordinating official club registrations, event approvals, and student leadership.', 6],
-        ['Ayush Singh', 'STUDENT CLUB PRESIDENT', 'Central Student Council & Club President, UIT', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 'Representing student body interests, driving inter-club activities, and organizing major fests.', 7]
+        ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/girdhar-gopal-gulati.webp', 'Visionary leader driving educational excellence across United Group of Institutions.', 1],
+        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/satpal-gulati.webp', 'Guiding institutional growth, technical education innovation, and student welfare.', 2],
+        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/jagdish-gulati.webp', 'Pioneering student activity frameworks and campus infrastructure development.', 3],
+        ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'assets/img/committee/gaurav-gulati.webp', 'Fostering industry-academia collaboration and student co-curricular affairs.', 4],
+        ['Prof. (Dr.) Sanjay Srivastava', 'DEAN STUDENT WELFARE & PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
+        ['Er. Manas Pandey', 'FACULTY COORDINATOR & ADVISOR', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Coordinating official club registrations, event approvals, and student leadership.', 6]
     ];
 
     foreach ($committeeMembers as $cm) {

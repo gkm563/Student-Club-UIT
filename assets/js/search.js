@@ -27,15 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             let html = '';
                             data.results.forEach(item => {
                                 html += `
-                                    <a href="club-detail.php?slug=${encodeURIComponent(item.slug)}" class="search-result-item">
-                                        <div class="me-3">
-                                            <span class="badge bg-primary-subtle text-primary border rounded-pill">${escapeHtml(item.category_name)}</span>
+                                    <a href="club-detail.html?id=${encodeURIComponent(item.id || item.slug)}" class="search-result-item">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-shield-check text-primary fs-5"></i>
+                                            <div>
+                                                <strong class="d-block text-dark">${escapeHtml(item.name)}</strong>
+                                                <small class="text-secondary">${escapeHtml(item.tagline || item.description || '')}</small>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <strong class="d-block">${escapeHtml(item.name)}</strong>
-                                            <small class="text-muted">${escapeHtml(item.tagline || '')}</small>
-                                        </div>
+                                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small ms-2">${escapeHtml(item.category_name || 'Club')}</span>
                                     </a>
+
                                 `;
                             });
                             searchDropdown.innerHTML = html;

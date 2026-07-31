@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                eventsContainer.innerHTML = events.slice(0, 3).map(event => renderEventCard(event)).join('');
+                eventsContainer.innerHTML = events.slice(0, 6).map(event => renderEventCard(event)).join('');
             })
             .catch(() => {
                 if (eventCount) eventCount.textContent = 'Events coming soon';
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!clubs.length) {
                     clubsContainer.innerHTML = `
                         <div class="col-12 text-center py-4">
-                            <p class="text-white-50 small mb-3">Chapter listings are being updated.</p>
+                            <p class="text-white-50 small mb-3">Chapter listings are currently being updated.</p>
                             <a class="wing-action wing-action--ghost" href="clubs.html?wing=${encodeURIComponent(wing)}">Browse all chapters <i class="bi bi-arrow-right"></i></a>
                         </div>
                     `;
                     return;
                 }
 
-                clubsContainer.innerHTML = clubs.slice(0, 4).map(club => renderChapterCard(club)).join('');
+                clubsContainer.innerHTML = clubs.map(club => renderChapterCard(club)).join('');
             })
             .catch(() => {
                 clubsContainer.innerHTML = `
@@ -72,17 +72,30 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderChapterCard(club) {
-    const mark = club.short_name
-        ? escapeHtml(club.short_name.slice(0, 4).toUpperCase())
-        : '<i class="bi bi-stars"></i>';
+    const hasLogo = club.logo && club.logo.length > 5;
+    const logoHtml = hasLogo
+        ? `<img src="${escapeHtml(club.logo)}" alt="${escapeHtml(club.name)} Logo" class="wing-chapter-card__logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"><div class="wing-chapter-card__mark" style="display:none;">${escapeHtml((club.short_name || 'CLUB').slice(0, 4).toUpperCase())}</div>`
+        : `<div class="wing-chapter-card__mark">${escapeHtml((club.short_name || 'CLUB').slice(0, 4).toUpperCase())}</div>`;
+
+    const categoryBadge = club.category_name
+        ? `<span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-10 rounded-pill fs-xs px-2.5 py-1 mb-2">${escapeHtml(club.category_name)}</span>`
+        : '';
 
     return `
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-lg-4">
             <article class="wing-chapter-card">
-                <div class="wing-chapter-card__mark">${mark}</div>
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="wing-chapter-card__brand-wrap">${logoHtml}</div>
+                    <span class="badge bg-primary bg-opacity-20 text-white rounded-pill px-2.5 py-1" style="font-size:0.7rem; font-weight:700;">USC UIT Chapter</span>
+                </div>
+                ${categoryBadge}
                 <h3>${escapeHtml(club.name)}</h3>
                 <p>${escapeHtml(club.tagline || club.description || 'Official USC UIT student chapter.')}</p>
-                <a href="club-detail.html?id=${encodeURIComponent(club.id)}">Explore chapter <i class="bi bi-arrow-up-right"></i></a>
+                <div class="mt-auto pt-3">
+                    <a class="wing-chapter-link" href="club-detail.html?id=${encodeURIComponent(club.id)}">
+                        <span>Explore chapter</span> <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
             </article>
         </div>
     `;
@@ -100,7 +113,7 @@ function renderEventCard(event) {
             <a class="wing-event-card text-decoration-none" href="${detailUrl}">
                 <div class="wing-event-card__topline">
                     <span class="wing-event-card__date"><i class="bi bi-calendar3 me-1"></i>${escapeHtml(dateText)}</span>
-                    <span>${escapeHtml(event.status || 'Event').toUpperCase()}</span>
+                    <span class="badge bg-primary text-white rounded-pill px-2 py-1 fs-xs">${escapeHtml(event.status || 'Upcoming').toUpperCase()}</span>
                 </div>
                 <h3>${escapeHtml(event.title)}</h3>
                 <p>${escapeHtml(event.description || 'Explore this official USC UIT event and take part with the community.')}</p>
@@ -114,7 +127,7 @@ function renderEmptyState(container, eventPage, wingLabel) {
     container.innerHTML = `
         <div class="col-12">
             <div class="wing-events-empty">
-                <i class="bi bi-calendar2-week"></i>
+                <i class="bi bi-calendar2-week fs-1 text-primary mb-2"></i>
                 <h3>More ${escapeHtml(wingLabel)} events are on the way</h3>
                 <p>Visit the event board to see the newest sessions, registrations, and updates.</p>
                 <a class="wing-action wing-action--primary mt-3" href="${eventPage}">Open event board <i class="bi bi-arrow-right"></i></a>
@@ -131,3 +144,4 @@ function escapeHtml(value) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+

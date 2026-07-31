@@ -43,11 +43,12 @@ try {
         }
 
         $id = 'msg_' . bin2hex(random_bytes(6));
+        $now = date('Y-m-d H:i:s');
         $stmt = $db->prepare("
             INSERT INTO contact_messages (id, name, email, subject, message, is_read, created_at)
-            VALUES (?, ?, ?, ?, ?, 0, NOW())
+            VALUES (?, ?, ?, ?, ?, 0, ?)
         ");
-        $stmt->execute([$id, $name, $email, $subject, $message]);
+        $stmt->execute([$id, $name, $email, $subject, $message, $now]);
 
         // Log audit
         log_audit($db, '0', $name, 'CONTACT_MESSAGE_RECEIVED', 'message', $id, "Received public helpdesk inquiry from $name ($email): '$subject'");
