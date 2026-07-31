@@ -3174,6 +3174,127 @@ body {
     }
 }
 
+.about-usc-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.about-usc-lead {
+    max-width: 680px;
+    margin: 0 auto;
+    color: #64748b;
+    font-size: 1.02rem;
+    line-height: 1.7;
+}
+
+.about-usc-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0.75rem;
+}
+
+.about-usc-flow__step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.about-usc-flow__step--root {
+    background: #0f172a;
+    color: #fff;
+}
+
+.about-usc-flow__step--tech {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+}
+
+.about-usc-flow__step--cultural {
+    background: #fff1f2;
+    color: #be123c;
+    border: 1px solid #fecdd3;
+}
+
+.about-who-card {
+    padding: 1.75rem;
+    border-radius: 1.35rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+    height: 100%;
+}
+
+.about-who-card h3 {
+    margin: 0 0 0.65rem;
+    color: #0f172a;
+    font-size: 1.15rem;
+    font-weight: 900;
+}
+
+.about-who-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+.about-path-card {
+    position: relative;
+    height: 100%;
+    padding: 1.5rem;
+    border-radius: 1.25rem;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.about-path-card__num {
+    display: grid;
+    width: 2.1rem;
+    height: 2.1rem;
+    margin-bottom: 0.85rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #2563eb;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 900;
+}
+
+.about-path-card h4 {
+    margin: 0 0 0.4rem;
+    color: #0f172a;
+    font-size: 1rem;
+    font-weight: 900;
+}
+
+.about-path-card p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
 /* ==========================================================================
    Redesigned Apple/Google Style Contact Page (contact.html)
    ========================================================================== */
@@ -3636,6 +3757,247 @@ html, body {
     color: #166534 !important;
     border: 1px solid #bbf7d0 !important;
 }
+
+/* ── Clubs Page — 2 Main Wings Showcase ── */
+.clubs-wings-showcase {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.clubs-wings-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.clubs-wings-title {
+    margin: 0 0 0.65rem;
+    color: #0f172a;
+    font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+}
+
+.clubs-wings-lead {
+    max-width: 640px;
+    margin: 0;
+    color: #64748b;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.clubs-wings-flow__step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.clubs-wings-flow__step--highlight {
+    background: #0f172a;
+    color: #fff;
+}
+
+.clubs-wing-panel__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.clubs-wing-panel__icon {
+    display: grid;
+    width: 3.25rem;
+    height: 3.25rem;
+    place-items: center;
+    border-radius: 1rem;
+    color: #fff;
+    font-size: 1.35rem;
+    flex-shrink: 0;
+}
+
+.clubs-wing-panel__icon--tech {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+.clubs-wing-panel__icon--cultural {
+    background: linear-gradient(135deg, #e11d48, #f43f5e);
+    box-shadow: 0 10px 24px rgba(225, 29, 72, 0.28);
+}
+
+.clubs-wing-panel__name {
+    color: #0f172a;
+    font-size: 1.45rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+}
+
+.clubs-wing-panel__role {
+    color: #2563eb;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.clubs-wing-panel__role--cultural {
+    color: #e11d48;
+}
+
+.clubs-wing-panel__desc {
+    color: #64748b;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.clubs-wing-panel__clubs-label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.clubs-wing-clubs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 3.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.clubs-wing-club-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    max-width: 100%;
+    padding: 0.45rem 0.85rem 0.45rem 0.45rem;
+    border-radius: 999px;
+    border: 1.5px solid #e2e8f0;
+    background: #fff;
+    color: #0f172a;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clubs-wing-club-chip:hover {
+    transform: translateY(-2px);
+    color: #0f172a;
+}
+
+.clubs-wing-club-chip--tech:hover {
+    border-color: #2563eb;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.16);
+}
+
+.clubs-wing-club-chip--cultural:hover {
+    border-color: #e11d48;
+    box-shadow: 0 8px 20px rgba(225, 29, 72, 0.16);
+}
+
+.clubs-wing-club-chip__logo {
+    width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f1f5f9;
+}
+
+.clubs-wing-club-chip__logo-fallback {
+    display: grid;
+    width: 1.65rem;
+    height: 1.65rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.clubs-wing-club-chip--cultural .clubs-wing-club-chip__logo-fallback {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+.clubs-wing-club-chip__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.clubs-wing-panel__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.club-card-wing-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.28rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.club-card-wing-tag--tech {
+    background: rgba(37, 99, 235, 0.1);
+    color: #1d4ed8;
+    border: 1px solid rgba(37, 99, 235, 0.22);
+}
+
+.club-card-wing-tag--cultural {
+    background: rgba(225, 29, 72, 0.1);
+    color: #be123c;
+    border: 1px solid rgba(225, 29, 72, 0.22);
+}
+
+.wing-sub-chapters-tag.cultural:hover {
+    background: #fff1f2 !important;
+    border-color: #e11d48 !important;
+    color: #be123c !important;
+    box-shadow: 0 8px 20px rgba(225, 29, 72, 0.18) !important;
+}
+
+@media (max-width: 575.98px) {
+    .clubs-wing-panel__actions .btn {
+        width: 100%;
+    }
+
+    .main-wing-card {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
 
 
 
