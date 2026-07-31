@@ -91,7 +91,7 @@ if (!isset($assetPrefix)) {
                     </li>
                     <li class="d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
                         <i class="bi bi-telephone-fill text-success"></i>
-                        <span>+91 98765 43210 (Student Activity Center)</span>
+                        <span>+91 98765 43210 (USC UIT Office)</span>
                     </li>
                 </ul>
             </div>
