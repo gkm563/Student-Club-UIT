@@ -1,128 +1,89 @@
-# 🚀 ClubHub - College Club Management System (CCMS)
+# 🚀 USC UIT — United Student Club Official Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-MariaDB-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live-success?logo=vercel&logoColor=white)](https://student-club-uit.vercel.app)
 [![Bootstrap 5](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
 
-**ClubHub (College Club Management System - CCMS)** is a centralized, mobile-responsive, and security-hardened web platform engineered to serve as the official digital home for all campus student organizations at the **University Institute of Technology (UIT)**.
+**USC UIT (United Student Club — UIT)** is the central governing body and digital ecosystem for all student activities, chapters, technical hackathons, cultural fests, and co-curricular leadership at the **United Institute of Technology (UIT Prayagraj)**.
 
-It connects students, club leaders, and college administrators seamlessly through a public discovery portal, self-service club admin panels, and a super-admin governance console with live institutional analytics.
+Under one unified identity, USC UIT governs all campus student organizations across two primary parent wings:
+1. **Developers Club UIT** — Official Technical Umbrella Council (GDG Cloud, GFG SC, Gemini Builders, FOSS, CodeCrush, etc.)
+2. **Cultural Club UIT** — Official Cultural Umbrella Council (Nritya Dance, Harmony Music, Toastmasters, Theatre, Media, LitSoc, etc.)
 
 ---
 
-## 🌐 Live Production Links
+## 🌐 Production & Repository Links
 
-- **Live Website**: [https://student-club-uit.vercel.app](https://student-club-uit.vercel.app)
 - **GitHub Repository**: [https://github.com/gkm563/Student-Club-UIT](https://github.com/gkm563/Student-Club-UIT)
+- **Institution**: United Institute of Technology (UIT Prayagraj)
 
 ---
 
-## ✨ Key Features & Highlights
+## ✨ Core Platform Features
 
-### 1. 🔍 Public Discovery Portal (Students & Visitors)
-- **Instant Debounced Search**: Fast server-side and AJAX-debounced search bar matching club names, short codes, taglines, and domains.
-- **Categorized Club Directory**: Split into **Technical & Coding**, **Cultural & Performing Arts**, and **Sports & Special Interest** domains with live category pills and status filters (*Recruiting Now*, *Active*).
-- **Club Mini-Site Profiles**: Dedicated profiles (`/clubs/geeksforgeeks`) displaying tagline, established year, mission, vision, objectives, achievements timeline, leadership roster, and recruitment CTA.
-- **Campus Events Calendar**: Global calendar featuring upcoming, ongoing, and completed events with venue details and direct registration links.
-- **Activity Blog Feed**: Cross-club update feed featuring workshop recaps, announcements, and tag filters.
-- **Campus Leadership Roster**: Unified accountability directory displaying Faculty Advisors, Presidents, Vice Presidents, and Secretaries across all active clubs.
-- **Spam-Protected Contact & FAQ**: Contact form protected with honeypot fields, rate-limiting, and structured accordion FAQs.
-- **Modern Apple-Inspired UI**: Glassmorphic headers, card hover micro-animations, statistics counter cards, and persistent Light/Dark theme toggles.
+### 1. 🏛️ Dual Parent Wing Architecture
+- **Developers Club UIT (`/developers-club.html`)**: Dedicated portal for technical chapters, coding bootcamps, AI study jams, and hackathons.
+- **Cultural Club UIT (`/cultural-club.html`)**: Dedicated portal for performing arts, musical bands, theatrical drama, literary debates, and public speaking arenas.
 
-### 2. ⚡ Self-Service Club Admin Panel
-- **Club Dashboard**: Scoped metrics view for assigned club leads showing event counts, activity updates, officer roster size, and profile completion.
-- **Profile & Recruitment Manager**: Self-service editor to update mission, vision, objectives, social media links, recruitment open/closed toggles, and application links.
-- **Event Manager**: Full CRUD interface to schedule, edit, and publish campus events.
-- **Activity Blog Publisher**: Publish news and updates directly to the global student activity feed.
-- **Roster & Officer Manager**: Manage leadership records, faculty advisors, and executive team members.
+### 2. 🔍 Public Student Discovery Portal
+- **Instant Live Search**: Debounced search matching student chapters, GDG, GFG, hackathons, and cultural fests.
+- **Campus Events Directory**: Central calendar featuring ongoing, upcoming, and past campus events with outcomes, venue details, and registration links.
+- **Executive Governance & Leadership**: Roster displaying the Advisory Board, Principal, Dean Student Welfare, Faculty Coordinators, and Student Council Leads.
+- **Glassmorphic UI Design System**: Apple-inspired glassmorphism, dynamic color accents, micro-animations, and responsive layouts.
 
-### 3. 🛡️ Super Admin Governance Console
-- **Institutional Analytics**: High-level KPIs and **Chart.js** data visualizations displaying club distribution across categories and campus activity trends.
-- **Club Onboarding & Lifecycle**: Onboard new clubs, assign domains, and soft-delete/restore existing clubs without data loss.
-- **Account Provisioning**: Create Club Admin accounts, reset credentials, and assign single-club permissions.
-- **Security Audit Governance**: Immutable security audit trail logging administrative logins, profile modifications, and user creation events with IP addresses and timestamps.
+### 3. ⚡ Club Governance & Administration
+- **Scoped Management Panels**: Secure portals for chapter leads to manage event schedules, recruitment status, and member rosters.
+- **Super-Admin Governance Console**: System analytics, institutional KPIs, chapter onboarding, and security audit trail logging.
 
 ---
 
-## 🛠️ Technology Stack & Architecture
+## 🛠️ Technology Stack
 
-- **Frontend**: HTML5, CSS3 (Vanilla Custom Tokens + Glassmorphism), JavaScript (ES6+), Bootstrap 5.3, Bootstrap Icons, Chart.js
-- **Backend Architecture**: PHP 8.0+ (MVC pattern), RESTful AJAX API endpoints
-- **Database Engine**: MySQL / MariaDB with PDO prepared statements & seamless SQLite fallback (`config/database.php`)
-- **Security Hardening**:
-  - Bcrypt password hashing (`password_hash()`)
-  - Session ID regeneration & HttpOnly cookie protection
-  - CSRF token generation and server-side verification
-  - Output escaping (`e()`) for XSS prevention
-  - Honeypot spam defense on contact forms
-  - Security audit logging (`audit_logs`)
+- **Frontend**: HTML5, Vanilla CSS3 (Custom Design Tokens + Glassmorphism), JavaScript (ES6+), Bootstrap 5.3, Bootstrap Icons
+- **Backend**: PHP 8.0+ (RESTful JSON API endpoints & MVC routing)
+- **Database Architecture**: MySQL / MariaDB with PDO prepared statements & SQLite fallback (`config/database.php`)
+- **Security**: Bcrypt password hashing, session regeneration, CSRF protection, output escaping, and audit logging.
 
 ---
 
 ## 📂 Project Structure
 
 ```
-c:\xampp\htdocs\UIT\
+Student-Club-UIT/
+├── developers-club.html       # Developers Club UIT (Technical Umbrella Council)
+├── cultural-club.html         # Cultural Club UIT (Cultural Umbrella Council)
+├── index.html                 # Main USC UIT Home Portal
+├── clubs.html                 # Chapter Directory & Two-Wing Filter
+├── club-detail.html           # Individual Sub-Chapter Profile Page
+├── events.html                # Campus Events & Activities Directory
+├── tech-events.html           # Technical Events Filtered Page
+├── cultural-events.html       # Cultural Events Filtered Page
+├── about.html                 # Institutional Governance & Advisory Board
+├── contact.html               # Secretariat Contact & Helpdesk
 ├── config/
 │   └── database.php           # PDO Singleton with MySQL & SQLite fallback
-├── includes/
-│   ├── auth.php               # Session security, RBAC & CSRF middleware
-│   ├── functions.php          # Global helpers, UUID generator & audit logger
-│   ├── header.php             # HTML head & CDN dependencies
-│   ├── navbar.php             # Responsive navigation bar
-│   └── footer.php             # Global footer template
-├── database/
-│   ├── schema.sql             # MySQL schema DDL
-│   └── ccms.sqlite            # SQLite database file
-├── public/
-│   ├── index.html             # Standalone ClubHub landing page
-│   ├── index.php              # Dynamic home page
-│   ├── clubs.php              # Club directory & category filters
-│   ├── club-detail.php        # Club mini-site profile
-│   ├── events.php             # Events calendar
-│   ├── activities.php         # Activity blog feed
-│   ├── leadership.php         # Campus officer directory
-│   ├── gallery.php            # Media showcase
-│   ├── about.php              # About platform page
-│   ├── contact.php            # Contact form & FAQ
-│   ├── api/                   # RESTful JSON endpoints
-│   │   ├── search.php
-│   │   └── filter-clubs.php
-│   └── assets/
-│       ├── css/style.css      # Master design system stylesheet
-│       └── js/                # Main utilities & debounced search scripts
-├── admin/
-│   ├── login.php              # Admin portal login
-│   ├── logout.php             # Session destruction
-│   ├── dashboard.php          # Club Admin dashboard
-│   ├── profile.php            # Club profile editor
-│   ├── events.php             # Event CRUD manager
-│   ├── activities.php         # Activity post publisher
-│   ├── members.php            # Roster manager
-│   └── super/                 # Super Admin console
-│       ├── index.php          # System analytics & Chart.js
-│       ├── clubs.php          # Club onboarding
-│       ├── users.php          # Account management
-│       └── audit-logs.php     # Audit log viewer
-├── setup.php                  # Automated database initializer & seeder
-├── router.php                 # PHP CLI development web server router
-├── vercel.json                # Vercel production deployment config
-└── README.md                  # Project documentation
+├── api/                       # RESTful JSON endpoints (clubs, events, committee)
+│   ├── clubs.php
+│   ├── events.php
+│   └── committee.php
+├── assets/
+│   ├── css/
+│   │   ├── style.css          # Core Design Tokens & UI Utilities
+│   │   ├── home.css           # Landing Page & Glassmorphism Styling
+│   │   └── wing-pages.css     # Developers & Cultural Club Theme Styles
+│   ├── js/                    # Search, rendering, and layout loaders
+│   └── img/
+│       ├── campus/            # High-res UIT Campus Photography
+│       └── committee/         # Official Executive Leadership Roster Images
+├── admin/                     # Club & Super-Admin Management Portals
+├── includes/                  # Header, Footer, and Navigation Components
+└── database/                  # Schema DDL and Seeding Scripts
 ```
 
 ---
 
-## 🚀 Getting Started & Local Installation
-
-### Prerequisites
-- **PHP**: 8.0 or higher
-- **Web Server**: Apache / Nginx or PHP Built-in Server
-- **Database**: MySQL / MariaDB (XAMPP recommended) or SQLite
-- **Git**: Installed on system
-
-### Installation Steps
+## 🚀 Local Installation & Setup
 
 1. **Clone the Repository**:
    ```bash
@@ -130,42 +91,30 @@ c:\xampp\htdocs\UIT\
    cd Student-Club-UIT
    ```
 
-2. **Initialize Database & Seed Sample Data**:
-   Ensure MySQL is running (or let SQLite auto-generate):
+2. **Initialize Database**:
+   Run the automated database initializer (uses MySQL if available, or auto-generates SQLite):
    ```bash
    php setup.php
    ```
 
-3. **Start Development Web Server**:
+3. **Start Development Server**:
    ```bash
-   php -S localhost:8000 router.php
+   php -S localhost:8000
    ```
-
-4. **Access the Website**:
-   Open your browser and navigate to `http://localhost:8000`.
+   Navigate to `http://localhost:8000` in your web browser.
 
 ---
 
-## 🔑 Demo Credentials
-
-| Role | Email | Password | Access Scope |
-| :--- | :--- | :--- | :--- |
-| **Super Admin** | `admin@uit.edu` | `AdminPassword123!` | Full System Governance & Analytics |
-| **Club Admin** | `geeksforgeeks@uit.edu` | `ClubPassword123!` | GeeksforGeeks Chapter Admin Scope |
-
----
-
-## 👤 Author & Maintainer
+## 👤 Author & Lead Architect
 
 **Gautam Kumar Maurya (GKM563)**  
-*Lead Architect & Full-Stack Developer*  
+*Full-Stack Lead Architect*  
 - **GitHub**: [@gkm563](https://github.com/gkm563)  
 - **Repository**: [https://github.com/gkm563/Student-Club-UIT](https://github.com/gkm563/Student-Club-UIT)  
-- **Live Platform**: [https://student-club-uit.vercel.app](https://student-club-uit.vercel.app)  
-- **Institution**: University Institute of Technology (UIT)
+- **Institution**: United Institute of Technology (UIT Prayagraj)
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE) - feel free to use, modify, and distribute for educational and institutional purposes.
+This project is licensed under the [MIT License](LICENSE) - open for educational and institutional deployment.

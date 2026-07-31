@@ -1,8 +1,12 @@
-# Git Ignore for CCMS
+# Git Ignore for USC UIT Platform
 prd_content.txt
-database/ccms.sqlite
+*.docx
+*.pdf
+*.tmp
+*.log
+*.bak
+scratch/
 .env
 .DS_Store
 Thumbs.db
-
 .vercel
