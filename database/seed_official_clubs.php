@@ -52,8 +52,8 @@ try {
         ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/satpal-gulati.webp', 'Guiding institutional growth, technical education innovation, and student welfare.', 2],
         ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/jagdish-gulati.webp', 'Pioneering student activity frameworks and campus infrastructure development.', 3],
         ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'assets/img/committee/gaurav-gulati.webp', 'Fostering industry-academia collaboration and student co-curricular affairs.', 4],
-        ['Prof. (Dr.) Sanjay Srivastava', 'DEAN STUDENT WELFARE & PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
-        ['Er. Manas Pandey', 'FACULTY COORDINATOR & ADVISOR', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Coordinating official club registrations, event approvals, and student leadership.', 6]
+        ['Prof. (Dr.) Sanjay Srivastava', 'PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
+        ['Dr. Manas Pandey', 'DEAN STUDENT WELFARE (DSW)', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Coordinating official club registrations, event approvals, and student leadership.', 6]
     ];
 
     foreach ($committeeMembers as $cm) {

@@ -158,14 +158,20 @@
      ═══════════════════════════════════════════════════════════════════════ -->
 <section class="home-section" id="aboutSection">
     <div class="container">
-        <div class="home-about-grid">
+        <!-- Section Header -->
+        <div class="text-center mx-auto mb-5" style="max-width: 760px;" data-aos="fade-up">
+            <span class="home-section-label"><i class="bi bi-info-circle-fill"></i> Who We Are</span>
+            <h2 class="home-section-title mt-2 mb-3">What is USC UIT?</h2>
+            <p class="text-secondary fs-5" style="line-height: 1.75;">
+                <strong>USC UIT (United Student Club — UIT)</strong> is the central governing body for all student activities at United Institute of Technology. Every club, chapter, hackathon, cultural fest, and leadership program on campus operates under USC UIT.
+            </p>
+        </div>
+
+        <!-- 2-Column Main Architecture Grid -->
+        <div class="home-about-grid align-items-stretch mb-5">
+            <!-- Left Column: 3 Vertical Pillar Cards -->
             <div data-aos="fade-up">
-                <span class="home-section-label"><i class="bi bi-info-circle-fill"></i> Who We Are</span>
-                <h2 class="home-section-title">What is USC UIT?</h2>
-                <p class="text-secondary" style="font-size:1.05rem; line-height:1.75;">
-                    <strong>USC UIT (United Student Club — UIT)</strong> is the central governing body for all student activities at United Institute of Technology. Every club, chapter, hackathon, cultural fest, and leadership program on campus operates under USC UIT.
-                </p>
-                <div class="usc-pillar-cards-grid mt-4">
+                <div class="usc-pillar-cards-grid">
                     <!-- Pillar Card 01: Governing Body -->
                     <div class="usc-pillar-card usc-pillar-card--blue">
                         <div class="usc-pillar-card__top">
@@ -254,28 +260,84 @@
                 </div>
             </div>
 
-            <div data-aos="fade-up" data-aos-delay="100">
-                <div class="home-org-diagram">
-                    <div class="home-org-diagram__root">
-                        <h4><i class="bi bi-shield-fill-check me-1"></i> USC UIT</h4>
-                        <p>United Student Club — UIT Prayagraj</p>
-                    </div>
-                    <div class="home-org-diagram__connector"><span></span></div>
-                    <div class="home-org-diagram__wings">
-                        <div class="home-org-wing home-org-wing--tech">
-                            <i class="bi bi-code-slash"></i>
-                            <h5>Developers Club UIT</h5>
-                            <p>Technical Umbrella Council</p>
+            <!-- Right Column: Tall 3D Architecture Command Hub Diagram -->
+            <div data-aos="fade-up" data-aos-delay="100" class="d-flex flex-column justify-content-center">
+                <div class="home-org-diagram h-100 d-flex flex-column justify-content-between p-4">
+                    <div>
+                        <div class="home-org-diagram__root p-3 text-center mb-4">
+                            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-2" style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);">
+                                <span class="spinner-grow spinner-grow-sm text-success me-1" style="width: 8px; height: 8px;"></span>
+                                <span class="small text-white fw-bold" style="font-size: 0.76rem; letter-spacing: 0.5px;">USC UIT CENTRAL COMMAND</span>
+                            </div>
+                            <h4 class="text-white fw-black mb-1"><i class="bi bi-shield-fill-check me-1 text-primary"></i> USC UIT</h4>
+                            <p class="mb-0 text-white-80 small">United Student Club — UIT Prayagraj</p>
                         </div>
-                        <div class="home-org-wing home-org-wing--cultural">
-                            <i class="bi bi-palette-fill"></i>
-                            <h5>Cultural Club UIT</h5>
-                            <p>Cultural Umbrella Council</p>
+
+                        <div class="home-org-diagram__connector text-center my-3">
+                            <span style="display: inline-block; width: 2px; height: 35px; background: linear-gradient(180deg, rgba(59,130,246,0.8), rgba(225,29,72,0.8));"></span>
+                        </div>
+
+                        <div class="home-org-diagram__wings">
+                            <div class="home-org-wing home-org-wing--tech p-3 mb-3">
+                                <i class="bi bi-code-slash fs-3 text-primary mb-2 d-block"></i>
+                                <h5 class="fw-bold text-white mb-1">Developers Club UIT</h5>
+                                <p class="small text-white-80 mb-2">Technical Umbrella Council</p>
+                                <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                    <span class="badge bg-primary-subtle text-primary" style="font-size:0.7rem;">GDG Cloud</span>
+                                    <span class="badge bg-primary-subtle text-primary" style="font-size:0.7rem;">GFG SC</span>
+                                    <span class="badge bg-primary-subtle text-primary" style="font-size:0.7rem;">Gemini</span>
+                                </div>
+                            </div>
+
+                            <div class="home-org-wing home-org-wing--cultural p-3">
+                                <i class="bi bi-palette-fill fs-3 text-danger mb-2 d-block"></i>
+                                <h5 class="fw-bold text-white mb-1">Cultural Club UIT</h5>
+                                <p class="small text-white-80 mb-2">Cultural Umbrella Council</p>
+                                <div class="d-flex flex-wrap gap-1 justify-content-center">
+                                    <span class="badge bg-danger-subtle text-danger" style="font-size:0.7rem;">Toastmasters</span>
+                                    <span class="badge bg-danger-subtle text-danger" style="font-size:0.7rem;">Music</span>
+                                    <span class="badge bg-danger-subtle text-danger" style="font-size:0.7rem;">Drama</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="home-org-diagram__chapters">
-                        <p>GDG Cloud · GFG SC · Gemini Builders · Toastmasters · Music · Drama · Literary Society · and more…</p>
+
+                    <div class="home-org-diagram__chapters mt-4 pt-3 border-top text-center" style="border-color: rgba(255,255,255,0.15) !important;">
+                        <p class="small text-white-80 mb-0" style="font-size: 0.82rem;">
+                            <i class="bi bi-stars text-warning me-1"></i> GDG Cloud · GFG SC · Gemini Builders · Toastmasters · Music · Drama · Literary Society · 11+ Chapters
+                        </p>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sleek Interactive Architecture Flow Banner -->
+        <div class="usc-interactive-flow-banner p-4 rounded-4 shadow-sm" data-aos="fade-up" data-aos-delay="200" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); border: 1.5px solid #e2e8f0;">
+            <div class="row align-items-center text-center text-md-start g-3">
+                <div class="col-md-4">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-3">
+                        <img src="assets/img/usc-logo.png" alt="USC Logo" style="width: 44px; height: 44px; object-fit: contain;">
+                        <div>
+                            <h6 class="fw-black mb-0 text-dark">USC UIT Central Council</h6>
+                            <small class="text-secondary">Unified Governing Body</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap">
+                        <a href="developers-club.html" class="badge rounded-pill px-3 py-2 text-decoration-none shadow-sm transition-all" style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; font-size: 0.85rem;">
+                            <i class="bi bi-code-slash me-1"></i> Developers Club UIT
+                        </a>
+                        <span class="text-muted fw-bold">&amp;</span>
+                        <a href="cultural-club.html" class="badge rounded-pill px-3 py-2 text-decoration-none shadow-sm transition-all" style="background: #fff1f2; color: #c8102e; border: 1px solid #fecdd3; font-size: 0.85rem;">
+                            <i class="bi bi-palette-fill me-1"></i> Cultural Club UIT
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3 text-center text-md-end">
+                    <span class="badge rounded-pill px-3 py-2 fw-semibold text-secondary" style="background: #f1f5f9; border: 1px solid #cbd5e1; font-size: 0.8rem;">
+                        <i class="bi bi-stars text-warning me-1"></i> 11+ Official Chapters
+                    </span>
                 </div>
             </div>
         </div>
@@ -325,12 +387,27 @@
                     </div>
 
                     <div class="home-wing-card__chapters-label">Chapters Under Developers Club UIT</div>
-                    <div class="d-flex flex-wrap gap-2 mb-2">
-                        <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-cloud-fill text-primary"></i> GDG Cloud UIT</a>
-                        <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-code-square text-success"></i> GFG SC UIT</a>
-                        <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="wing-sub-chapters-tag"><i class="bi bi-robot" style="color:#7c3aed;"></i> Gemini Builders</a>
-                        <span class="wing-sub-chapters-tag"><i class="bi bi-cpu text-info"></i> TechMatrix Robotics</span>
-                        <span class="wing-sub-chapters-tag"><i class="bi bi-shield-lock text-danger"></i> CyberShield</span>
+                    <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+                        <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="wing-sub-chapters-tag d-inline-flex align-items-center gap-2 shadow-sm" style="padding: 5px 14px;">
+                            <img src="assets/img/chapters/gdg-logo.jpg" alt="GDG Logo" class="rounded-circle" style="width: 22px; height: 22px; object-fit: cover;">
+                            <span class="fw-bold">GDG Cloud UIT</span>
+                        </a>
+                        <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="wing-sub-chapters-tag d-inline-flex align-items-center gap-2 shadow-sm" style="padding: 5px 14px;">
+                            <img src="assets/img/chapters/gfg-logo.jpg" alt="GFG Logo" class="rounded-circle" style="width: 22px; height: 22px; object-fit: cover;">
+                            <span class="fw-bold">GFG SC UIT</span>
+                        </a>
+                        <a href="club-detail.html?id=clb_gemini_builders_uit_2026" class="wing-sub-chapters-tag d-inline-flex align-items-center gap-2 shadow-sm" style="padding: 5px 14px;">
+                            <img src="assets/img/chapters/gemini-logo.jpg" alt="Gemini Logo" class="rounded-circle" style="width: 22px; height: 22px; object-fit: cover;">
+                            <span class="fw-bold">Gemini Builders</span>
+                        </a>
+                        <span class="wing-sub-chapters-tag d-inline-flex align-items-center gap-1.5 shadow-sm" style="padding: 5px 12px;">
+                            <i class="bi bi-cpu text-info fs-6"></i>
+                            <span>TechMatrix Robotics</span>
+                        </span>
+                        <span class="wing-sub-chapters-tag d-inline-flex align-items-center gap-1.5 shadow-sm" style="padding: 5px 12px;">
+                            <i class="bi bi-shield-lock text-danger fs-6"></i>
+                            <span>CyberShield</span>
+                        </span>
                     </div>
 
                     <div class="home-wing-card__actions">
@@ -500,25 +577,25 @@
                     </div>
                     <span class="committee-role-badge blue mb-2"><i class="bi bi-bank2 me-1"></i> Principal UIT</span>
                     <h4 class="fw-black fs-5 mb-1 text-dark">Prof. (Dr.) Sanjay Srivastava</h4>
-                    <span class="d-block text-secondary small fw-bold mb-2">Principal &amp; DSW, UIT</span>
+                    <span class="d-block text-secondary small fw-bold mb-2">Principal, UIT</span>
                     <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small">UIT Institutional Head</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="50">
                 <div class="committee-card-3d text-center p-3">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #7c3aed;box-shadow:0 8px 20px rgba(124,58,237,0.25);">
-                        <img src="assets/img/committee/manas-pandey.jpg" alt="Er. Manas Pandey" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/manas-pandey.jpg" alt="Dr. Manas Pandey" class="w-100 h-100 object-fit-cover">
                     </div>
-                    <span class="committee-role-badge purple mb-2"><i class="bi bi-person-badge-fill me-1"></i> Faculty Advisor</span>
-                    <h4 class="fw-black fs-5 mb-1 text-dark">Er. Manas Pandey</h4>
-                    <span class="d-block text-secondary small fw-bold mb-2">Faculty Coordinator &amp; Advisor</span>
+                    <span class="committee-role-badge purple mb-2"><i class="bi bi-award-fill me-1"></i> Dean Student Welfare</span>
+                    <h4 class="fw-black fs-5 mb-1 text-dark">Dr. Manas Pandey</h4>
+                    <span class="d-block text-secondary small fw-bold mb-2">Dean Student Welfare (DSW)</span>
                     <span class="badge bg-purple-subtle text-purple border rounded-pill px-3 py-1 small" style="background:#f5f3ff;color:#7c3aed;border-color:rgba(124,58,237,0.3)!important;">Student Club Affairs Lead</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="committee-card-3d text-center p-3">
-                    <div class="committee-avatar-ring mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #10b981;box-shadow:0 8px 20px rgba(16,185,129,0.25);background:linear-gradient(135deg,#dcfce7,#bbf7d0);">
-                        <i class="bi bi-person-fill-up fs-1" style="color:#059669;"></i>
+                    <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #10b981;box-shadow:0 8px 20px rgba(16,185,129,0.25);">
+                        <img src="assets/img/committee/arya-keshari.jpg" alt="Arya Keshari" class="w-100 h-100 object-fit-cover">
                     </div>
                     <span class="committee-role-badge green mb-2" style="background:#ecfdf5;color:#059669;border-color:rgba(5,150,105,0.3)!important;"><i class="bi bi-person-badge-fill me-1"></i> Student President</span>
                     <h4 class="fw-black fs-5 mb-1 text-dark">Arya Keshari</h4>
@@ -671,10 +748,45 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/search.js"></script>
 <script src="assets/js/home-render.js"></script>
 <script src="assets/js/home-init.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from(".usc-pillar-card", {
+                scrollTrigger: { trigger: "#aboutSection", start: "top 80%" },
+                y: 50,
+                opacity: 0,
+                duration: 0.9,
+                stagger: 0.18,
+                ease: "power3.out"
+            });
+
+            gsap.from(".home-org-diagram", {
+                scrollTrigger: { trigger: "#aboutSection", start: "top 75%" },
+                scale: 0.92,
+                opacity: 0,
+                duration: 1,
+                ease: "back.out(1.4)"
+            });
+
+            gsap.from(".committee-card-3d", {
+                scrollTrigger: { trigger: "#committeeSection", start: "top 80%" },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.12,
+                ease: "power2.out"
+            });
+        }
+    });
+</script>
 </body>
 </html>

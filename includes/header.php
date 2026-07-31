@@ -35,10 +35,10 @@ if (!isset($pageTitle)) {
 <nav class="navbar navbar-expand-lg navbar-clubhub sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-3" href="<?= $assetPrefix ?>index.html">
-            <img src="<?= $assetPrefix ?>assets/United Logo.webp" alt="United Group Logo" class="brand-logo-img">
+            <img src="<?= $assetPrefix ?>assets/img/usc-logo.png" alt="United Student Club Logo" class="brand-logo-img" style="height: 44px; width: 44px; object-fit: contain;">
             <div class="d-flex flex-column">
                 <span class="brand-logo-text" style="font-size: 1.25rem; font-weight: 900; line-height: 1.1; color: #0f172a;">USC UIT</span>
-                <span class="fw-extrabold text-primary" style="font-size: 0.68rem; letter-spacing: 0.5px;">UNITED STUDENT CLUB</span>
+                <span class="fw-extrabold text-danger" style="font-size: 0.68rem; letter-spacing: 0.5px; color: #c8102e !important;">UNITED STUDENT CLUB</span>
             </div>
         </a>
 
@@ -121,9 +121,6 @@ if (!isset($pageTitle)) {
                 </a>
                 <a href="<?= $assetPrefix ?>cultural-club.html" class="btn btn-sm btn-wing-cult rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1.5 shadow-sm" title="Cultural Club UIT — Official Cultural Council">
                     <i class="bi bi-palette-fill fs-6 text-danger"></i> <span>Cultural</span>
-                </a>
-                <a href="<?= $assetPrefix ?>clubs.html" class="btn btn-sm btn-primary rounded-pill px-3 py-2 fw-bold text-white shadow-sm d-inline-flex align-items-center gap-1">
-                    <i class="bi bi-compass"></i> <span>Explore Clubs</span>
                 </a>
             </div>
         </div>

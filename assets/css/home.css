@@ -198,7 +198,9 @@
 }
 
 .home-hero .hero-search-input {
-    flex: 1;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    width: 0 !important;
     background: transparent !important;
     border: none !important;
     color: #ffffff !important;
@@ -206,12 +208,16 @@
     font-weight: 500;
     outline: none !important;
     box-shadow: none !important;
-    padding: 8px 4px !important;
+    padding: 8px 10px !important;
+    margin: 0 !important;
 }
 
 .home-hero .hero-search-input::placeholder {
     color: rgba(255, 255, 255, 0.65);
     font-weight: 450;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .home-hero .hero-search-btn {
