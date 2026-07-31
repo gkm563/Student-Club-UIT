@@ -62,10 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeStr = `${formattedHours}:${minutes} ${ampm}`;
 
         // ── Page Meta ──────────────────────────────────────────────
-        document.title = `${event.title} | SAC Events — UIT`;
+        document.title = `${event.title} | USC UIT`;
 
-        // ── Breadcrumb ─────────────────────────────────────────────
-        setEl('eventBreadcrumbTitle', event.title);
+        // ── Breadcrumb: Home / USC UIT clubs / Wing / Club / Event ─
+        const breadcrumbHost = document.getElementById('eventBreadcrumbHost');
+        if (breadcrumbHost && typeof buildWingBreadcrumbHtml === 'function') {
+            breadcrumbHost.innerHTML = buildWingBreadcrumbHtml({
+                wing: resolveWing(event.category_slug),
+                clubName: event.club_short_name || event.club_name,
+                clubId: event.club_id,
+                eventTitle: event.title
+            });
+        } else {
+            setEl('eventBreadcrumbTitle', event.title);
+        }
 
         // ── Hero: Title, Tagline ───────────────────────────────────
         setEl('detailTitle', event.title);
@@ -111,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setEl('detailEligibility', event.target_audience || 'All UIT Students (B.Tech / BCA / MCA / Diploma)');
         setEl('detailFeePerks', event.outcomes_summary
             ? `Free Entry • ${event.outcomes_summary.split(',')[0].trim()}`
-            : '100% Free • SAC E-Certificates & Swags');
+            : '100% Free • USC UIT E-Certificates & Swags');
 
         // ── Rewards & Outcomes Banner ──────────────────────────────
         const rewardsBannerContainer = document.getElementById('rewardsBannerContainer');
@@ -148,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setEl('miniClubCategory', event.club_short_name || 'Student Chapter');
         setEl('miniClubTagline', event.club_tagline || `Official Student Chapter under Dean Student Welfare Advisory Committee, United Institute of Technology Prayagraj.`);
 
-        // ── Sidebar Stats: Attended / Members / SAC ───────────────
+        // ── Sidebar Stats: Attended / Members / USC UIT ───────────────
         if (attended > 0) {
             setEl('miniClubEventCount', attended + '+');
         }
@@ -159,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Club profile link
         const miniClubProfileBtn = document.getElementById('miniClubProfileBtn');
         if (miniClubProfileBtn && event.club_id) {
-            miniClubProfileBtn.href = `clubs.html`;
+            miniClubProfileBtn.href = `club-detail.html?id=${encodeURIComponent(event.club_id)}`;
         }
 
         // ── Gallery ────────────────────────────────────────────────
@@ -327,8 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 icon: 'bi-award-fill',
                 colorClass: 'bg-success-subtle text-success',
-                title: 'Verified SAC Certificates',
-                desc: 'Official Dean Student Welfare (SAC) verified participation certificates issued to all attendees.',
+                title: 'Verified USC UIT Certificates',
+                desc: 'Official USC UIT verified participation certificates issued to all attendees.',
             },
             {
                 icon: 'bi-gift-fill',
