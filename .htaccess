@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect paths with double slashes, e.g. /UIT//index.html -> /UIT/index.html
+    RewriteCond %{REQUEST_URI} ^(.*)/{2,}(.*)$
+    RewriteRule ^ %1/%2 [R=301,L]
+</IfModule>

@@ -4,13 +4,16 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    const assetBase = window.UITSitePath ? window.UITSitePath.getAssetBase() : '';
+
     // 1. Load Universal Header
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
-        fetch('includes/header.html')
+        fetch(`${assetBase}includes/header.html`)
             .then(res => res.text())
             .then(html => {
                 headerPlaceholder.innerHTML = html;
+                if (window.UITSitePath) window.UITSitePath.fixRootRelativeLinks(headerPlaceholder);
                 highlightActiveNav();
             })
             .catch(err => console.error('Error loading universal header:', err));
@@ -21,10 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Load Universal Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
-        fetch('includes/footer.html')
+        fetch(`${assetBase}includes/footer.html`)
             .then(res => res.text())
             .then(html => {
                 footerPlaceholder.innerHTML = html;
+                if (window.UITSitePath) window.UITSitePath.fixRootRelativeLinks(footerPlaceholder);
                 initFooterEvents();
             })
             .catch(err => console.error('Error loading universal footer:', err));
@@ -32,15 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function highlightActiveNav() {
-    const path = window.location.pathname.toLowerCase();
+    const path = window.location.pathname.toLowerCase().replace(/\/+/g, '/');
     const navLinks = document.querySelectorAll('.nav-link-clubhub');
     
     navLinks.forEach(link => link.classList.remove('active'));
 
-    if (path.includes('clubs.html') || path.includes('club-detail')) {
+    if (path.includes('clubs.html') || path.includes('club-detail') || path.includes('developers-club') || path.includes('cultural-club')) {
         const el = document.getElementById('nav-clubs');
         if (el) el.classList.add('active');
-    } else if (path.includes('events.html') || path.includes('event-detail')) {
+    } else if (path.includes('events.html') || path.includes('event-detail') || path.includes('tech-events') || path.includes('cultural-events')) {
         const el = document.getElementById('nav-events');
         if (el) el.classList.add('active');
     } else if (path.includes('gallery.html')) {
