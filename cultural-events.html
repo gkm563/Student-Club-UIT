@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="assets/js/site-path.js"></script>
     <title>Cultural Club Events | USC UIT</title>
     <meta name="description" content="Explore annual fests, musical nights, drama performances, public speaking arenas, and art exhibitions organized by Cultural Club UIT under USC UIT.">
 
@@ -13,7 +14,7 @@
     <!-- Custom Vibrant Design System -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-body-tertiary">
+<body class="bg-body-tertiary" data-event-wing="cultural">
 
 <!-- Universal Header Container -->
 <div id="header-placeholder"></div>
@@ -28,13 +29,17 @@
     <div class="container position-relative z-2">
         <!-- Top Breadcrumbs Bar -->
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
-                <i class="bi bi-house-door-fill text-danger fs-6"></i>
-                <a href="index.html" class="text-danger text-decoration-none fw-bold">Home</a>
-                <span class="text-muted opacity-75 fw-bold">/</span>
-                <a href="events.html" class="text-danger text-decoration-none fw-bold">Events</a>
-                <span class="text-muted opacity-75 fw-bold">/</span>
-                <span class="fw-extrabold text-dark" style="color: #0f172a !important; letter-spacing: 0.2px;">Cultural Club Events</span>
+            <div id="culturalEventsBreadcrumb">
+                <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
+                    <i class="bi bi-house-door-fill text-danger fs-6"></i>
+                    <a href="index.html" class="text-danger text-decoration-none fw-bold">Home</a>
+                    <span class="text-muted opacity-75 fw-bold">/</span>
+                    <a href="clubs.html" class="text-danger text-decoration-none fw-bold">USC UIT clubs</a>
+                    <span class="text-muted opacity-75 fw-bold">/</span>
+                    <a href="cultural-club.html" class="text-danger text-decoration-none fw-bold">Cultural Club UIT</a>
+                    <span class="text-muted opacity-75 fw-bold">/</span>
+                    <span class="fw-extrabold text-dark" style="color: #0f172a !important; letter-spacing: 0.2px;">Events</span>
+                </div>
             </div>
 
             <div class="clubs-top-pill-badge float-in-air-slow d-inline-flex align-items-center gap-2">
@@ -80,8 +85,8 @@
             <h3 class="fw-black text-dark mb-1"><i class="bi bi-palette-fill text-danger me-2"></i>Cultural Events &amp; Stage Shows</h3>
             <p class="text-secondary small mb-0 fw-medium">All upcoming and past cultural activities by Cultural Club UIT</p>
         </div>
-        <a href="tech-events.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center gap-2">
-            <i class="bi bi-code-slash"></i> Switch to Developers Club Events
+        <a href="developers-club.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold d-inline-flex align-items-center gap-2">
+            <i class="bi bi-code-slash"></i> Visit Developers Club UIT
         </a>
     </div>
 
@@ -100,9 +105,14 @@
 <script>
     // Load events
     window.addEventListener('DOMContentLoaded', () => {
-        const script = document.createElement('script');
-        script.src = 'assets/js/events-render.js';
-        document.body.appendChild(script);
+        const utils = document.createElement('script');
+        utils.src = 'assets/js/wing-utils.js';
+        utils.onload = () => {
+            const script = document.createElement('script');
+            script.src = 'assets/js/events-render.js';
+            document.body.appendChild(script);
+        };
+        document.body.appendChild(utils);
     });
 </script>
 </body>
