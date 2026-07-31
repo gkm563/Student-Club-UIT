@@ -1,0 +1,609 @@
+:root {
+    --wing-ink: #10213f;
+    --wing-muted: #60708a;
+}
+
+.wing-page {
+    --wing-primary: #2563eb;
+    --wing-secondary: #7c3aed;
+    --wing-soft: #eff6ff;
+    --wing-border: #dbeafe;
+    --wing-dark: #0b1b38;
+    background: #f8fbff;
+    color: var(--wing-ink);
+    overflow: hidden;
+}
+
+.wing-page--cultural {
+    --wing-primary: #e11d48;
+    --wing-secondary: #9333ea;
+    --wing-soft: #fff1f5;
+    --wing-border: #fecdd3;
+    --wing-dark: #351225;
+    background: #fffbfc;
+}
+
+.wing-hero {
+    position: relative;
+    isolation: isolate;
+    padding: clamp(3.5rem, 7vw, 6.5rem) 0 4.5rem;
+    color: #fff;
+    background:
+        radial-gradient(circle at 86% 8%, rgba(96, 165, 250, .34), transparent 21rem),
+        radial-gradient(circle at 12% 90%, rgba(129, 140, 248, .25), transparent 25rem),
+        linear-gradient(135deg, #07152e 0%, var(--wing-dark) 64%, #182f62 100%);
+    overflow: hidden;
+}
+
+.wing-page--cultural .wing-hero {
+    background:
+        radial-gradient(circle at 86% 7%, rgba(251, 191, 36, .27), transparent 21rem),
+        radial-gradient(circle at 8% 88%, rgba(244, 114, 182, .24), transparent 25rem),
+        linear-gradient(135deg, #300d22 0%, var(--wing-dark) 62%, #581236 100%);
+}
+
+.wing-hero::before,
+.wing-hero::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+}
+
+.wing-hero::before {
+    width: 30rem;
+    height: 30rem;
+    top: -18rem;
+    right: -10rem;
+}
+
+.wing-hero::after {
+    width: 19rem;
+    height: 19rem;
+    bottom: -12rem;
+    left: -5rem;
+}
+
+.wing-breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 2rem;
+    padding: .5rem .85rem;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .08);
+    color: rgba(255, 255, 255, .74);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.wing-breadcrumb a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.wing-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    margin-bottom: 1.1rem;
+    padding: .45rem .85rem;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .12);
+    color: #fff;
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.wing-hero h1 {
+    max-width: 720px;
+    margin: 0 0 1.25rem;
+    color: #fff;
+    font-size: clamp(2.7rem, 6vw, 5rem);
+    font-weight: 850;
+    letter-spacing: -.065em;
+    line-height: .98;
+}
+
+.wing-hero h1 span {
+    color: #93c5fd;
+}
+
+.wing-page--cultural .wing-hero h1 span {
+    color: #f9a8d4;
+}
+
+.wing-hero-copy {
+    max-width: 630px;
+    margin-bottom: 1.8rem;
+    color: rgba(255, 255, 255, .78);
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+.wing-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    min-height: 3rem;
+    padding: .75rem 1.1rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.wing-action:hover {
+    transform: translateY(-2px);
+}
+
+.wing-action--primary {
+    background: #fff;
+    color: var(--wing-primary);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .17);
+}
+
+.wing-action--primary:hover {
+    color: var(--wing-primary);
+    box-shadow: 0 18px 32px rgba(0, 0, 0, .25);
+}
+
+.wing-action--ghost {
+    border-color: rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+}
+
+.wing-action--ghost:hover {
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+}
+
+.wing-trust-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.4rem;
+    margin: 1.7rem 0 0;
+    padding: 0;
+    color: rgba(255, 255, 255, .72);
+    font-size: .82rem;
+    font-weight: 700;
+    list-style: none;
+}
+
+.wing-trust-list i {
+    margin-right: .35rem;
+    color: #86efac;
+}
+
+.wing-hero-panel {
+    padding: 1.35rem;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, .1);
+    box-shadow: 0 1.8rem 4.6rem rgba(0, 0, 0, .2);
+    backdrop-filter: blur(18px);
+}
+
+.wing-hero-panel__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, .7);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.wing-hero-panel__dot {
+    display: inline-block;
+    width: .55rem;
+    height: .55rem;
+    margin-right: .35rem;
+    border-radius: 50%;
+    background: #86efac;
+    box-shadow: 0 0 0 .3rem rgba(134, 239, 172, .12);
+}
+
+.wing-start-card {
+    display: flex;
+    align-items: flex-start;
+    gap: .8rem;
+    padding: .9rem 0;
+    border-top: 1px solid rgba(255, 255, 255, .12);
+}
+
+.wing-start-card:first-of-type {
+    border-top: 0;
+}
+
+.wing-start-card__icon {
+    display: grid;
+    flex: 0 0 2.35rem;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border-radius: .85rem;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+}
+
+.wing-start-card h2,
+.wing-start-card p {
+    margin: 0;
+}
+
+.wing-start-card h2 {
+    color: #fff;
+    font-size: .92rem;
+    font-weight: 800;
+}
+
+.wing-start-card p {
+    margin-top: .16rem;
+    color: rgba(255, 255, 255, .67);
+    font-size: .76rem;
+    line-height: 1.45;
+}
+
+.wing-section {
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+}
+
+.wing-section--soft {
+    background: linear-gradient(180deg, var(--wing-soft), #fff);
+}
+
+.wing-section--dark {
+    background: var(--wing-dark);
+    color: #fff;
+}
+
+.wing-section-heading {
+    max-width: 675px;
+    margin-bottom: 2.2rem;
+}
+
+.wing-section-heading--center {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.wing-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-bottom: .8rem;
+    color: var(--wing-primary);
+    font-size: .76rem;
+    font-weight: 850;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.wing-section--dark .wing-eyebrow {
+    color: #c4b5fd;
+}
+
+.wing-section-heading h2 {
+    margin: 0 0 .75rem;
+    color: var(--wing-ink);
+    font-size: clamp(1.9rem, 3.5vw, 3rem);
+    font-weight: 850;
+    letter-spacing: -.05em;
+    line-height: 1.05;
+}
+
+.wing-section--dark .wing-section-heading h2 {
+    color: #fff;
+}
+
+.wing-section-heading p {
+    margin: 0;
+    color: var(--wing-muted);
+    font-size: .98rem;
+    line-height: 1.7;
+}
+
+.wing-section--dark .wing-section-heading p {
+    color: rgba(255, 255, 255, .68);
+}
+
+.wing-intro-card {
+    height: 100%;
+    padding: 1.6rem;
+    border: 1px solid var(--wing-border);
+    border-radius: 1.4rem;
+    background: #fff;
+    box-shadow: 0 1rem 2.5rem rgba(24, 39, 75, .055);
+}
+
+.wing-intro-card__icon,
+.wing-activity-card__icon {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    place-items: center;
+    border-radius: 1rem;
+    background: var(--wing-soft);
+    color: var(--wing-primary);
+    font-size: 1.25rem;
+}
+
+.wing-intro-card h3,
+.wing-activity-card h3,
+.wing-chapter-card h3,
+.wing-event-card h3,
+.wing-path-card h3 {
+    margin: 0 0 .45rem;
+    color: var(--wing-ink);
+    font-size: 1.03rem;
+    font-weight: 850;
+}
+
+.wing-intro-card p,
+.wing-activity-card p,
+.wing-chapter-card p,
+.wing-event-card p,
+.wing-path-card p {
+    margin: 0;
+    color: var(--wing-muted);
+    font-size: .86rem;
+    line-height: 1.6;
+}
+
+.wing-activity-card {
+    height: 100%;
+    padding: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 .8rem 2rem rgba(24, 39, 75, .045);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.wing-activity-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--wing-border);
+    box-shadow: 0 1.3rem 2.8rem rgba(24, 39, 75, .1);
+}
+
+.wing-activity-card__number {
+    margin-bottom: .85rem;
+    color: var(--wing-primary);
+    font-size: .74rem;
+    font-weight: 850;
+    letter-spacing: .08em;
+}
+
+.wing-chapter-card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: 1.3rem;
+    background: rgba(255, 255, 255, .06);
+    transition: transform .2s ease, background .2s ease;
+}
+
+.wing-chapter-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, .1);
+}
+
+.wing-chapter-card__mark {
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-bottom: 1rem;
+    place-items: center;
+    border-radius: .9rem;
+    background: rgba(255, 255, 255, .13);
+    color: #fff;
+    font-weight: 850;
+}
+
+.wing-chapter-card h3 {
+    color: #fff;
+}
+
+.wing-chapter-card p {
+    color: rgba(255, 255, 255, .65);
+}
+
+.wing-chapter-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    margin-top: 1.1rem;
+    color: #fff;
+    font-size: .83rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.wing-event-card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: 1.4rem;
+    border: 1px solid var(--wing-border);
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 1rem 2.5rem rgba(24, 39, 75, .05);
+}
+
+.wing-event-card__topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .8rem;
+    margin-bottom: 1rem;
+    color: var(--wing-primary);
+    font-size: .76rem;
+    font-weight: 850;
+}
+
+.wing-event-card__date {
+    padding: .35rem .55rem;
+    border-radius: .55rem;
+    background: var(--wing-soft);
+}
+
+.wing-event-card h3 {
+    font-size: 1.05rem;
+}
+
+.wing-event-card__meta {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--wing-muted);
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.wing-event-card__meta i {
+    color: var(--wing-primary);
+}
+
+.wing-events-empty {
+    padding: 2rem;
+    border: 1px dashed var(--wing-border);
+    border-radius: 1.25rem;
+    background: #fff;
+    text-align: center;
+}
+
+.wing-events-empty i {
+    color: var(--wing-primary);
+    font-size: 1.5rem;
+}
+
+.wing-events-empty h3 {
+    margin: .75rem 0 .35rem;
+    color: var(--wing-ink);
+    font-size: 1rem;
+    font-weight: 850;
+}
+
+.wing-events-empty p {
+    margin: 0;
+    color: var(--wing-muted);
+    font-size: .85rem;
+}
+
+.wing-path-card {
+    position: relative;
+    height: 100%;
+    padding: 1.45rem;
+    border-radius: 1.25rem;
+    background: #fff;
+    box-shadow: 0 .9rem 2.2rem rgba(24, 39, 75, .055);
+}
+
+.wing-path-card__number {
+    display: grid;
+    width: 2.15rem;
+    height: 2.15rem;
+    margin-bottom: 1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--wing-primary);
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 850;
+}
+
+.wing-crossroad {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(2rem, 4vw, 3.2rem);
+    border-radius: 1.6rem;
+    background: linear-gradient(135deg, var(--wing-dark), #172c58);
+    color: #fff;
+}
+
+.wing-page--cultural .wing-crossroad {
+    background: linear-gradient(135deg, var(--wing-dark), #6a1944);
+}
+
+.wing-crossroad::after {
+    position: absolute;
+    top: -4rem;
+    right: -2rem;
+    width: 15rem;
+    height: 15rem;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+    content: "";
+}
+
+.wing-crossroad h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 .65rem;
+    color: #fff;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 850;
+    letter-spacing: -.045em;
+}
+
+.wing-crossroad p {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0;
+    color: rgba(255, 255, 255, .72);
+    line-height: 1.65;
+}
+
+.wing-crossroad .wing-action--primary {
+    position: relative;
+    z-index: 1;
+    color: var(--wing-primary);
+}
+
+@media (max-width: 991.98px) {
+    .wing-hero-panel {
+        max-width: 560px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .wing-hero {
+        padding-top: 3rem;
+    }
+
+    .wing-hero h1 {
+        font-size: 2.65rem;
+    }
+
+    .wing-hero-copy {
+        font-size: .98rem;
+    }
+
+    .wing-action {
+        width: 100%;
+    }
+
+    .wing-trust-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: .55rem;
+    }
+}
