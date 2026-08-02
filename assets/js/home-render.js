@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         const eventCount = parseInt(club.event_count || 0);
 
                         return `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="featured-club-card-3d" onclick="window.location.href='${detailLink}'" style="cursor: pointer;">
+                            <div class="col-lg-4 col-md-6 mb-4" onclick="window.location.href='${detailLink}'" style="cursor: pointer;">
+                                <div class="featured-club-card-3d">
                                     <div class="featured-club-banner position-relative overflow-hidden" style="height: 140px;">
                                         <img src="${bannerImg}" alt="${esc(club.name)}" class="featured-club-banner-img w-100 h-100 object-fit-cover transition-all" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop'">
                                         <div class="featured-club-overlay"></div>
