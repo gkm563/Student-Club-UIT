@@ -14,9 +14,12 @@ function seed_gemini_builders(PDO $db, string $dbType) {
     $catRow = $catStmt->fetch(PDO::FETCH_ASSOC);
     $catId = $catRow ? $catRow['id'] : 1;
 
-    // Check if club already exists
-    $chkStmt = $db->prepare("SELECT id FROM clubs WHERE id = ?");
-    $chkStmt->execute([$clubId]);
+    $slug = "gemini-builders-uit";
+
+    // Check if club already exists by ID or slug
+    $chkStmt = $db->prepare("SELECT id FROM clubs WHERE id = ? OR slug = ?");
+    $chkStmt->execute([$clubId, $slug]);
+    $existing = $chkStmt->fetch(PDO::FETCH_ASSOC);
 
     $nowStr = date('Y-m-d H:i:s');
     $name = "Gemini Builders Community – UIT";
@@ -34,7 +37,8 @@ function seed_gemini_builders(PDO $db, string $dbType) {
     $meetingLoc = "Computer Lab 3 & Seminar Hall, UIT Prayagraj";
     $website = "https://gemini.google.com/";
 
-    if ($chkStmt->fetch()) {
+    if ($existing) {
+        $clubId = $existing['id'];
         $stmt = $db->prepare("
             UPDATE clubs SET
                 name = ?, short_name = ?, slug = ?, category_id = ?, tagline = ?, description = ?,

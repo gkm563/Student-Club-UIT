@@ -23,6 +23,16 @@ CREATE TABLE IF NOT EXISTS `categories` (
     `description` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `categories` (`id`, `name`, `slug`, `icon`, `description`) VALUES
+(1, 'Technical', 'technical', 'bi-code-slash', 'Coding, Robotics, AI, Web Dev and Tech Innovation'),
+(2, 'Cultural', 'cultural', 'bi-masks', 'Dance, Music, Drama and Creative Arts'),
+(3, 'Sports', 'sports', 'bi-trophy', 'Athletics, Cricket, Football and Outdoor Games'),
+(4, 'Social Impact', 'social', 'bi-heart', 'Community Service, Volunteering and CSR'),
+(5, 'Entrepreneurship', 'entrepreneurship', 'bi-lightbulb', 'Startups, Innovation and E-Cell Drives'),
+(6, 'Media & Creative', 'creative', 'bi-camera', 'Photography, Videography and Design'),
+(7, 'Academic & Literary', 'academic', 'bi-journal-text', 'Literature, Debating, Toastmasters and Speech')
+ON DUPLICATE KEY UPDATE `name` = VALUES(`name`);
+
 -- 3. Clubs Table
 CREATE TABLE IF NOT EXISTS `clubs` (
     `id` VARCHAR(36) PRIMARY KEY,
@@ -38,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `clubs` (
     `logo` VARCHAR(255) DEFAULT 'assets/images/default-logo.png',
     `cover_image` VARCHAR(255) DEFAULT 'assets/images/default-cover.jpg',
     `founded_year` INT DEFAULT 2024,
+    `member_count` INT DEFAULT 0,
     `status` ENUM('active', 'recruiting', 'inactive', 'suspended') NOT NULL DEFAULT 'active',
     `recruitment_open` TINYINT(1) DEFAULT 0,
     `recruitment_link` VARCHAR(255) DEFAULT '',
@@ -80,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `leadership` (
     `email` VARCHAR(191),
     `phone` VARCHAR(50),
     `avatar` VARCHAR(255) DEFAULT 'assets/images/default-avatar.png',
+    `term_year` VARCHAR(50) DEFAULT '2025-2026',
     `order_index` INT DEFAULT 0,
     FOREIGN KEY (`club_id`) REFERENCES `clubs`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -97,6 +109,8 @@ CREATE TABLE IF NOT EXISTS `events` (
     `registration_link` VARCHAR(255),
     `status` ENUM('upcoming', 'ongoing', 'completed', 'cancelled') NOT NULL DEFAULT 'upcoming',
     `attendance_count` INT DEFAULT 0,
+    `registered_count` INT DEFAULT 0,
+    `outcomes_summary` TEXT,
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`club_id`) REFERENCES `clubs`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -127,12 +141,12 @@ CREATE TABLE IF NOT EXISTS `gallery_albums` (
 
 CREATE TABLE IF NOT EXISTS `gallery_items` (
     `id` VARCHAR(36) PRIMARY KEY,
-    `album_id` VARCHAR(36) NOT NULL,
+    `album_id` VARCHAR(36),
+    `club_id` VARCHAR(36),
     `media_url` VARCHAR(255) NOT NULL,
     `media_type` ENUM('image', 'video') DEFAULT 'image',
     `caption` VARCHAR(255),
-    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`album_id`) REFERENCES `gallery_albums`(`id`) ON DELETE CASCADE
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 9. Achievements Table
@@ -175,3 +189,33 @@ CREATE TABLE IF NOT EXISTS `settings` (
     `setting_key` VARCHAR(100) PRIMARY KEY,
     `setting_value` TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 13. Management Committee Table
+CREATE TABLE IF NOT EXISTS `management_committee` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(191) NOT NULL,
+    `designation` VARCHAR(191) NOT NULL,
+    `role_title` VARCHAR(191) NOT NULL,
+    `photo` VARCHAR(255),
+    `bio` TEXT,
+    `order_index` INT DEFAULT 0,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 14. Club Proposals Table
+CREATE TABLE IF NOT EXISTS `club_proposals` (
+    `id` VARCHAR(36) PRIMARY KEY,
+    `proposed_title` VARCHAR(191) NOT NULL,
+    `applicant_name` VARCHAR(191) NOT NULL,
+    `applicant_email` VARCHAR(191) NOT NULL,
+    `applicant_phone` VARCHAR(50),
+    `faculty_mentor` VARCHAR(191),
+    `email` VARCHAR(191),
+    `category_id` INT,
+    `proposal_type` VARCHAR(50) DEFAULT 'new_club',
+    `aim_objectives` TEXT,
+    `objective` TEXT,
+    `status` ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
