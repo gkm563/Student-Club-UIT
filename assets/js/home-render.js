@@ -44,13 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(err => console.error('Error fetching live stats:', err));
 
-    // 1. Fetch & Render Featured Clubs (Top 6 Official Campus Clubs)
+    // 1. Fetch & Render Featured Clubs (Sorted by Most Active Recent Events)
     if (featuredGrid) {
-        fetch(getApiUrl('clubs.php'))
+        fetch(getApiUrl('clubs.php?sort=active'))
             .then(res => res.json())
             .then(response => {
                 if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
-                    const featured = response.data.slice(0, 6); // Take top 6 official clubs
+                    // Filter and sort by highest event count & recent activity
+                    const featured = response.data
+                        .sort((a, b) => (parseInt(b.event_count || 0) - parseInt(a.event_count || 0)))
+                        .slice(0, 6);
+
                     const categoryStyles = [
                         { tagBg: '#eff6ff', tagText: '#2563eb', btnGrad: 'linear-gradient(135deg, #2563eb, #3b82f6)' },
                         { tagBg: '#f5f3ff', tagText: '#7c3aed', btnGrad: 'linear-gradient(135deg, #7c3aed, #9333ea)' },
@@ -63,18 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     featuredGrid.innerHTML = featured.map((club, idx) => {
                         const style = categoryStyles[idx % categoryStyles.length];
                         const bannerImg = esc(club.cover_image || club.banner || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
-                        const logoImg = esc(club.logo || 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=300&auto=format&fit=crop');
+                        const logoImg = esc(club.logo || 'assets/United Logo.webp');
                         const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(club.id)}`);
-                        const memberCount = club.member_count || Math.floor(Math.abs(Math.sin(idx + 1) * 80) + 40);
+                        const eventCount = parseInt(club.event_count || 0);
 
                         return `
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="featured-club-card-3d">
                                     <div class="featured-club-banner" style="background-image: url('${bannerImg}');">
                                         <div class="featured-club-status-badge">
-                                            <span class="pulse-dot-green"></span> ACTIVE CHAPTER
+                                            <span class="pulse-dot-green"></span> MOST ACTIVE CHAPTER
                                         </div>
-                                        <img src="${logoImg}" alt="${esc(club.name)}" class="featured-club-logo-float" onerror="this.src='https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=300&auto=format&fit=crop'">
+                                        <img src="${logoImg}" alt="${esc(club.name)}" class="featured-club-logo-float" onerror="this.src='assets/United Logo.webp'">
                                     </div>
                                     <div class="featured-club-content">
                                         <span class="featured-category-pill" style="background:${style.tagBg}; color:${style.tagText};">
@@ -84,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <p class="featured-club-desc">${esc(club.tagline || club.description || 'Official student organization at United Institute of Technology.')}</p>
                                         
                                         <div class="featured-club-footer">
-                                            <div class="small fw-semibold text-muted">
-                                                <i class="bi bi-people-fill me-1 text-primary"></i>${memberCount}+ Members
+                                            <div class="small fw-bold text-dark">
+                                                <i class="bi bi-calendar-event-fill me-1 text-primary"></i><span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-0.5">${eventCount} Recent Event${eventCount === 1 ? '' : 's'}</span>
                                             </div>
                                             <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};">
                                                 Explore <i class="bi bi-arrow-right-short fs-5"></i>

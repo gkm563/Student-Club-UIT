@@ -69,7 +69,9 @@ try {
 
     $sql = "
         SELECT c.*, cat.name as category_name, cat.slug as category_slug, cat.icon as category_icon,
-        (SELECT COUNT(*) FROM leadership l WHERE l.club_id = c.id) as member_count
+        (SELECT COUNT(*) FROM leadership l WHERE l.club_id = c.id) as leadership_count,
+        (SELECT COUNT(*) FROM events e WHERE e.club_id = c.id) as event_count,
+        (SELECT MAX(e.event_date) FROM events e WHERE e.club_id = c.id) as latest_event_date
         FROM clubs c
         JOIN categories cat ON c.category_id = cat.id
         WHERE c.status = 'active'
@@ -104,9 +106,11 @@ try {
     if ($sort === 'name') {
         $sql .= " ORDER BY c.name ASC";
     } elseif ($sort === 'members') {
-        $sql .= " ORDER BY member_count DESC";
+        $sql .= " ORDER BY c.member_count DESC, leadership_count DESC";
+    } elseif ($sort === 'active' || $sort === 'events') {
+        $sql .= " ORDER BY event_count DESC, latest_event_date DESC";
     } else {
-        $sql .= " ORDER BY c.created_at DESC";
+        $sql .= " ORDER BY event_count DESC, c.created_at DESC";
     }
 
     $stmt = $db->prepare($sql);
