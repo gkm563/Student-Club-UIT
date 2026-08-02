@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /config/
+Disallow: /scratch/
+
+Sitemap: http://localhost/UIT/sitemap.xml
