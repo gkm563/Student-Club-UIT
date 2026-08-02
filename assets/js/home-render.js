@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         return `
                             <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="featured-club-card-3d">
+                                <div class="featured-club-card-3d" onclick="window.location.href='${detailLink}'" style="cursor: pointer;">
                                     <div class="featured-club-banner" style="background-image: url('${bannerImg}');">
                                         <div class="featured-club-status-badge">
                                             <span class="pulse-dot-green"></span> MOST ACTIVE CHAPTER
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             <div class="small fw-bold text-dark">
                                                 <i class="bi bi-calendar-event-fill me-1 text-primary"></i><span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-0.5">${eventCount} Recent Event${eventCount === 1 ? '' : 's'}</span>
                                             </div>
-                                            <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};">
+                                            <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};" onclick="event.stopPropagation();">
                                                 Explore <i class="bi bi-arrow-right-short fs-5"></i>
                                             </a>
                                         </div>

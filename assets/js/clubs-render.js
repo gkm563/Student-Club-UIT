@@ -45,9 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#ecfdf5; color:#059669; border:1px solid rgba(5,150,105,0.3); font-size:0.75rem;"><span class="pulse-dot-green me-1.5"></span>Recruiting Members</span>`
                 : `<span class="badge rounded-pill px-3 py-1 fw-bold" style="background:#eff6ff; color:#1d4ed8; border:1px solid rgba(29,78,216,0.3); font-size:0.75rem;"><i class="bi bi-shield-check me-1"></i>Official Chapter</span>`;
 
+            const clubDetailUrl = `club-detail.html?id=${encodeURIComponent(club.id)}`;
+
             return `
                 <div class="col-md-6 col-lg-6">
-                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" style="background:#ffffff; border:1px solid #e2e8f0 !important;">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100 ccms-club-prestige-card transition-all" onclick="window.location.href='${clubDetailUrl}'" style="background:#ffffff; border:1px solid #e2e8f0 !important; cursor: pointer;">
                         <div class="position-relative" style="height: 160px;">
                             <img src="${coverImg}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(club.name)}">
                             <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.15) 0%, rgba(15,23,42,0.75) 100%);"></div>
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="p-4 pt-4 mt-2 flex-grow-1 d-flex flex-column">
                             <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">${recruitmentBadge}</div>
                             <h4 class="fw-bold mb-1 text-dark" style="font-size: 1.25rem;">
-                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="text-decoration-none text-dark hover-blue">${escapeHtml(club.name)}</a>
+                                <a href="${clubDetailUrl}" class="text-decoration-none text-dark hover-blue" onclick="event.stopPropagation();">${escapeHtml(club.name)}</a>
                             </h4>
                             <p class="text-secondary small mb-3 flex-grow-1" style="font-size: 0.88rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                 ${escapeHtml(club.tagline || club.description || 'Official student chapter at United Institute of Technology.')}
@@ -78,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                             <div class="d-flex align-items-center gap-2 pt-2 mt-auto">
-                                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="btn ${btnClass} rounded-pill px-4 py-2 fw-bold w-100 shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 0.88rem; ${btnExtraStyle}">
+                                <a href="${clubDetailUrl}" class="btn ${btnClass} rounded-pill px-4 py-2 fw-bold w-100 shadow-sm d-flex align-items-center justify-content-center gap-2" style="font-size: 0.88rem; ${btnExtraStyle}" onclick="event.stopPropagation();">
                                     <span>Explore Chapter</span>
                                     <i class="bi bi-arrow-right-short fs-5"></i>
                                 </a>

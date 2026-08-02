@@ -143,20 +143,22 @@ function renderChapterCard(club) {
         ? `<span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-10 rounded-pill fs-xs px-2.5 py-1 mb-2">${escapeHtml(club.category_name)}</span>`
         : '';
 
+    const detailUrl = `club-detail.html?id=${encodeURIComponent(club.id)}`;
+
     return `
         <div class="col-md-6 col-lg-4">
-            <article class="wing-chapter-card h-100 d-flex flex-column justify-content-between p-4 rounded-4 shadow-sm bg-dark bg-opacity-50 border border-white border-opacity-10">
+            <article class="wing-chapter-card h-100 d-flex flex-column justify-content-between p-4 rounded-4 shadow-sm bg-dark bg-opacity-50 border border-white border-opacity-10" onclick="window.location.href='${detailUrl}'" style="cursor: pointer;">
                 <div>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <div class="wing-chapter-card__brand-wrap">${logoHtml}</div>
-                        <span class="badge bg-danger bg-opacity-20 text-danger border border-danger-subtle rounded-pill px-2.5 py-1" style="font-size:0.7rem; font-weight:700;">Cultural Wing</span>
+                        <span class="badge bg-primary bg-opacity-20 text-white rounded-pill px-2.5 py-1" style="font-size:0.7rem; font-weight:700;">Official Chapter</span>
                     </div>
                     ${categoryBadge}
                     <h3 class="text-white fw-bold fs-5 mb-2">${escapeHtml(club.name)}</h3>
                     <p class="text-white-80 small mb-3">${escapeHtml(club.tagline || club.description || 'Official USC UIT student chapter.')}</p>
                 </div>
                 <div class="mt-auto pt-3 border-top border-white border-opacity-10">
-                    <a class="wing-chapter-link d-inline-flex align-items-center gap-2 text-warning font-semibold small" href="club-detail.html?id=${encodeURIComponent(club.id)}">
+                    <a class="wing-chapter-link d-inline-flex align-items-center gap-2 text-warning font-semibold small" href="${detailUrl}" onclick="event.stopPropagation();">
                         <span>Explore chapter</span> <i class="bi bi-arrow-up-right"></i>
                     </a>
                 </div>
