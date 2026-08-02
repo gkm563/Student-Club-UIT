@@ -4111,6 +4111,110 @@ html, body {
     box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16) !important;
 }
 
+/* ==========================================================================
+   📱 MOBILE & TABLET HEADER & FOOTER ALIGNMENT ENHANCEMENTS
+   ========================================================================== */
+
+.navbar-clubhub .navbar-toggler {
+    background-color: #0f172a !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    padding: 7px 12px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+.navbar-clubhub .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3) !important;
+}
+
+.navbar-clubhub .navbar-toggler-icon {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+@media (max-width: 991.98px) {
+    /* Mobile Navbar Drawer */
+    #navbarClubhub.show,
+    #navbarClubhub.collapsing {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 1.25rem;
+        margin-top: 0.85rem;
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.15);
+    }
+
+    #navbarClubhub .nav-link-clubhub {
+        padding: 10px 16px !important;
+        margin-bottom: 4px;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    #navbarClubhub .dropdown-menu {
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: none !important;
+        background: #f8fafc !important;
+        margin-bottom: 8px;
+    }
+
+    /* Action Buttons in Mobile Header */
+    .navbar-clubhub .d-flex.align-items-center.gap-2.flex-wrap {
+        width: 100%;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f1f5f9;
+        display: flex !important;
+        gap: 0.75rem !important;
+    }
+
+    .navbar-clubhub .btn-wing-dev,
+    .navbar-clubhub .btn-wing-cult {
+        flex: 1 1 calc(50% - 0.5rem);
+        justify-content: center;
+        padding: 10px 14px !important;
+        font-size: 0.88rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    /* Navbar Brand Mobile Sizing */
+    .navbar-brand {
+        gap: 0.65rem !important;
+    }
+    .brand-logo-img {
+        height: 38px !important;
+        width: 38px !important;
+    }
+    .brand-logo-text {
+        font-size: 1.1rem !important;
+    }
+
+    /* Footer Mobile Alignment */
+    .footer-clubhub {
+        padding: 45px 0 25px !important;
+    }
+    .footer-newsletter-card {
+        padding: 20px 16px !important;
+        border-radius: 18px !important;
+    }
+    .footer-title {
+        font-size: 0.98rem !important;
+        margin-bottom: 14px !important;
+    }
+    .footer-links li {
+        margin-bottom: 10px !important;
+    }
+    .social-icon-btn {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1rem !important;
+    }
+    .developer-credit-badge {
+        font-size: 0.82rem;
+    }
+}
+
 
 
 
