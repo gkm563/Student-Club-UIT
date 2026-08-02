@@ -441,7 +441,11 @@ try {
         ['gal_rota_1', 'clb_rotaract_uit_2026', 'https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=800&auto=format&fit=crop', 'Rotaract Club of UIT - Project Smile Social Welfare Drive'],
         ['gal_toast_1', 'clb_toastmasters_ugi_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'UGI Toastmasters Club - Public Speaking & Table Topics Session'],
         ['gal_ff_1', 'clb_flutterflow_uit_2026', 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop', 'FlutterFlow Student Chapter UIT - Mobile App UI/UX Hackathon'],
-        ['gal_tedx_1', 'clb_tedx_uit_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'TEDxUIT Flagship Stage & Inspiring Talks Session']
+        ['gal_tedx_1', 'clb_tedx_uit_2026', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=800&auto=format&fit=crop', 'TEDxUIT Flagship Stage & Inspiring Talks Session'],
+        ['gal_nritya_1', 'clb_nritya', 'https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=800&auto=format&fit=crop', 'Nritya Cultural Dance Club - Annual Fest Choreography Showcase'],
+        ['gal_music_1', 'clb_harmony_music', 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop', 'Harmony Music Club - Campus Band Night & Acoustic Jams'],
+        ['gal_rang_1', 'clb_rangmanch_drama', 'https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?q=80&w=800&auto=format&fit=crop', 'Rangmanch Drama Club - Nukkad Natak & Street Play Performance'],
+        ['gal_prism_1', 'clb_prism', 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop', 'Prism Fine Arts - Live Painting & Photo Exhibition']
     ];
 
     $gStmt = $db->prepare("INSERT INTO gallery_items (id, club_id, media_url, caption) VALUES (?, ?, ?, ?)");
