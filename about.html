@@ -14,88 +14,117 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .about-hero-pro {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e1b4b 100%);
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-hero-pro::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.25), transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(225, 29, 72, 0.18), transparent 50%);
+            pointer-events: none;
+        }
+        .pillar-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pillar-card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12) !important;
+        }
+    </style>
 </head>
 <body>
 
 <div id="header-placeholder"></div>
 
-<!-- About Hero Section -->
-<section class="about-hero-light position-relative overflow-hidden py-5">
-    <div class="about-hero-light-bg-accent"></div>
-
-    <div class="container position-relative z-2 py-3">
+<!-- Professional Institutional Hero Section -->
+<section class="about-hero-pro py-5">
+    <div class="container position-relative z-2 py-4">
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
-            <div class="clubs-top-pill-breadcrumb d-inline-flex align-items-center gap-2">
-                <i class="bi bi-house-door-fill text-primary"></i>
-                <a href="index.html" class="text-primary text-decoration-none fw-semibold">Home</a>
-                <span class="text-muted">/</span>
-                <span class="text-dark fw-bold">About USC UIT</span>
-            </div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 small">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white-80 text-decoration-none"><i class="bi bi-house-door-fill me-1"></i>Home</a></li>
+                    <li class="breadcrumb-item active text-warning fw-bold" aria-current="page">About USC UIT</li>
+                </ol>
+            </nav>
 
-            <div class="clubs-top-pill-badge d-inline-flex align-items-center gap-2">
-                <i class="bi bi-shield-check text-primary fs-6"></i>
-                <span>Official USC UIT Governance 2026</span>
-            </div>
+            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-20 rounded-pill px-3 py-1.5 small fw-bold">
+                <i class="bi bi-shield-check text-warning me-1"></i> Official Student Governance Council 2026
+            </span>
         </div>
 
         <div class="row align-items-center justify-content-between g-4 g-lg-5">
             <div class="col-lg-7">
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-pill mb-3" style="background:#eff6ff; border:1px solid #bfdbfe; color:#1d4ed8; font-size:0.8rem; font-weight:700;">
-                    <i class="bi bi-shield-fill-check text-primary"></i>
-                    <span>United Student Club (USC UIT) — UIT Prayagraj</span>
-                </div>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-3 fw-bold small text-uppercase" style="background: rgba(255,255,255,0.12) !important; color: #93c5fd !important; border-color: rgba(255,255,255,0.2) !important;">
+                    <i class="bi bi-bank2 me-1"></i> United Institute of Technology (UIT Prayagraj)
+                </span>
 
-                <h1 class="about-hero-title">
-                    Empowering Student Innovation &amp; <span class="about-hero-gradient">Leadership Excellence.</span>
+                <h1 class="display-4 fw-black text-white mb-3" style="font-weight: 900; letter-spacing: -1px; line-height: 1.1;">
+                    Empowering Student Innovation &amp; <span style="color: #38bdf8; background: linear-gradient(90deg, #38bdf8, #818cf8, #fb7185); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Leadership Excellence.</span>
                 </h1>
                 
-                <p class="about-hero-desc">
-                    <strong>USC UIT (United Student Club — UIT)</strong> is the central governing body for all student activities at United Institute of Technology. Every technical chapter, hackathon, cultural fest, debate forum, and campus leadership initiative operates under the single umbrella of USC UIT — organized across two primary parent wings.
+                <p class="lead text-white-80 mb-4" style="font-size: 1.05rem; line-height: 1.7;">
+                    <strong>USC UIT (United Student Club — UIT)</strong> is the central governing body for all co-curricular student affairs, technical guilds, performing arts societies, and campus events at United Institute of Technology. Under the institutional guidance of the Dean Student Welfare (DSW) and United Group of Institutions (UGI) leadership, USC UIT unites every student chapter into two primary parent councils: <strong>Developers Club UIT</strong> (Technical Wing) &amp; <strong>Cultural Club UIT</strong> (Cultural Wing).
                 </p>
 
                 <div class="row g-3 text-start mt-2">
-                    <div class="col-4">
-                        <div class="p-3 bg-white rounded-4 border border-light shadow-sm text-center">
-                            <h3 class="fw-black mb-1" style="font-size: 1.8rem; font-weight: 900; color: #1d4ed8;">11+</h3>
-                            <span class="d-block fw-extrabold text-dark" style="font-size: 0.8rem;">Active Chapters</span>
+                    <div class="col-6 col-sm-3">
+                        <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-10 text-center">
+                            <h3 class="fw-black text-warning mb-0" style="font-size: 1.8rem; font-weight: 900;">10+</h3>
+                            <span class="d-block text-white-80 small fw-bold">Official Chapters</span>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="p-3 bg-white rounded-4 border border-light shadow-sm text-center">
-                            <h3 class="fw-black mb-1" style="font-size: 1.8rem; font-weight: 900; color: #2563eb;">600+</h3>
-                            <span class="d-block fw-extrabold text-dark" style="font-size: 0.8rem;">Active Members</span>
+                    <div class="col-6 col-sm-3">
+                        <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-10 text-center">
+                            <h3 class="fw-black text-info mb-0" style="font-size: 1.8rem; font-weight: 900;">770+</h3>
+                            <span class="d-block text-white-80 small fw-bold">Active Members</span>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div class="p-3 bg-white rounded-4 border border-light shadow-sm text-center">
-                            <h3 class="fw-black mb-1" style="font-size: 1.8rem; font-weight: 900; color: #10b981;">2</h3>
-                            <span class="d-block fw-extrabold text-dark" style="font-size: 0.8rem;">Main Wings</span>
+                    <div class="col-6 col-sm-3">
+                        <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-10 text-center">
+                            <h3 class="fw-black text-success mb-0" style="font-size: 1.8rem; font-weight: 900;">35+</h3>
+                            <span class="d-block text-white-80 small fw-bold">Annual Events</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-3">
+                        <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-10 text-center">
+                            <h3 class="fw-black text-rose mb-0" style="font-size: 1.8rem; font-weight: 900; color:#fb7185;">2</h3>
+                            <span class="d-block text-white-80 small fw-bold">Parent Wings</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-5 col-xl-4">
-                <div class="clubs-hero-card-image text-center p-4 rounded-4 bg-white border shadow-sm">
-                    <div class="d-flex align-items-center justify-content-center gap-2.5 mb-3 pb-3 border-bottom" style="border-color: #f1f5f9 !important;">
-                        <div class="clubs-card-icon-box-image">
-                            <i class="bi bi-mortarboard-fill fs-5 text-primary"></i>
+                <div class="card border-0 rounded-4 bg-white text-dark p-4 shadow-2xl">
+                    <div class="d-flex align-items-center justify-content-between pb-3 mb-3 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="assets/img/usc-logo.png" alt="USC Logo" class="rounded-circle" style="width: 38px; height: 38px; object-fit: cover;" onerror="this.src='assets/United Logo.webp'">
+                            <div>
+                                <span class="fw-black text-dark fs-6 d-block" style="font-weight: 900; line-height: 1.1;">USC UIT</span>
+                                <span class="small text-muted fw-bold" style="font-size: 0.72rem;">UNITED STUDENT CLUB</span>
+                            </div>
                         </div>
-                        <span class="fw-black text-dark fs-6" style="font-weight: 900;">United Group of Institutions</span>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 small fw-bold">UGI Approved</span>
                     </div>
 
-                    <div class="my-3 text-start p-3 rounded-4" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                    <div class="p-3 rounded-3 mb-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
                         <i class="bi bi-quote fs-2 text-primary d-block mb-1"></i>
                         <p class="small text-dark fw-semibold mb-2" style="line-height: 1.55;">
-                            "Student activities are the heartbeat of campus life. USC UIT provides the platform where classroom knowledge transforms into leadership, innovation, and lifelong impact."
+                            "Student activities are the heartbeat of campus life. USC UIT provides the platform where classroom theory transforms into leadership, technical innovation, and lifelong impact."
                         </p>
-                        <span class="small text-primary fw-extrabold">— USC UIT Executive Advisory Council</span>
+                        <span class="small text-primary fw-extrabold">— USC UIT Executive Advisory Board</span>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-between pt-3 border-top text-muted small" style="border-color: #f1f5f9 !important;">
-                        <span class="fw-semibold text-dark"><i class="bi bi-check-circle-fill text-success me-1"></i> Official USC UIT 2026</span>
+                    <div class="d-flex align-items-center justify-content-between pt-2">
+                        <span class="small text-muted fw-bold"><i class="bi bi-check-circle-fill text-success me-1"></i> Official Portal</span>
                         <a href="clubs.html" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold">
-                            Explore Chapters →
+                            Explore Chapters <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>
                 </div>
@@ -104,46 +133,81 @@
     </div>
 </section>
 
-<!-- Mission & Vision Section -->
+<!-- Who We Are & Campus Impact Section -->
 <section class="py-5 bg-white">
     <div class="container py-3">
-        <div class="text-center mb-5 max-w-2xl mx-auto">
-            <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
-                Institutional Blueprint
-            </span>
-            <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Our Mission &amp; Vision</h2>
-            <p class="text-secondary small mb-0">Guiding principles driving student achievement and innovation across United Institute of Technology.</p>
-        </div>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
+                    Institutional Overview
+                </span>
+                <h2 class="fw-black text-dark mb-3" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">What is USC UIT?</h2>
+                <p class="text-secondary mb-3" style="line-height: 1.7; font-size: 0.98rem;">
+                    <strong>United Student Club (USC UIT)</strong> serves as the central administrative and governance framework for co-curricular excellence at United Institute of Technology. Founded with the mandate to nurture holistic student growth, USC UIT oversees club registrations, event proposals, budget allocations, lab resources, and institutional mentorship.
+                </p>
+                <p class="text-secondary mb-4" style="line-height: 1.7; font-size: 0.98rem;">
+                    Whether a student aims to solve national challenges in the Google Solution Challenge, compete in competitive coding contests, stage theatrical Nukkad Natak plays, or publish thought-provoking articles, USC UIT ensures structured support and equal opportunity across every B.Tech department.
+                </p>
 
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="about-card-elevated h-100 p-4 rounded-4 bg-white border shadow-sm" style="border-top: 4px solid #2563eb !important;">
-                    <div class="about-pillar-icon mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #eff6ff; color: #2563eb; width: 50px; height: 50px;">
-                        <i class="bi bi-bullseye fs-4"></i>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-4 bg-light border">
+                            <div class="d-flex align-items-center gap-2 mb-1 text-primary fw-bold">
+                                <i class="bi bi-diagram-3-fill fs-5"></i>
+                                <span>Structured Governance</span>
+                            </div>
+                            <p class="small text-secondary mb-0">Operates under DSW oversight with clear officer tenure and student election standards.</p>
+                        </div>
                     </div>
-                    <h4 class="fw-black text-dark mb-3" style="font-weight: 900;">Our Mission</h4>
-                    <p class="text-secondary mb-4" style="line-height: 1.65; font-size: 0.98rem;">
-                        To empower every student at United Institute of Technology by bridging academic theory with real-world execution. USC UIT achieves this through <strong>Developers Club UIT</strong> (technical wing) and <strong>Cultural Club UIT</strong> (cultural &amp; literary wing) — providing structured funding, grants, resources, and institutional mentorship across all campus chapters.
-                    </p>
-                    <div class="d-flex align-items-center gap-2 text-primary fw-extrabold small">
-                        <i class="bi bi-patch-check-fill text-primary"></i>
-                        <span>Experiential Learning • Skill Mastery • Mentorship</span>
+                    <div class="col-sm-6">
+                        <div class="p-3 rounded-4 bg-light border">
+                            <div class="d-flex align-items-center gap-2 mb-1 text-success fw-bold">
+                                <i class="bi bi-people-fill fs-5"></i>
+                                <span>100% Inclusivity</span>
+                            </div>
+                            <p class="small text-secondary mb-0">Open to students from all engineering streams, batches, and experience levels.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6">
-                <div class="about-card-elevated h-100 p-4 rounded-4 bg-white border shadow-sm" style="border-top: 4px solid #7c3aed !important;">
-                    <div class="about-pillar-icon mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #f5f3ff; color: #7c3aed; width: 50px; height: 50px;">
-                        <i class="bi bi-eye-fill fs-4"></i>
+            <div class="col-lg-6">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 pillar-card-hover" style="background:#eff6ff; border-top:4px solid #2563eb !important;">
+                            <div class="mx-auto mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center bg-white text-primary" style="width:54px; height:54px;">
+                                <i class="bi bi-code-square fs-4"></i>
+                            </div>
+                            <h5 class="fw-black text-dark mb-1" style="font-weight: 900;">Technical Mastery</h5>
+                            <p class="small text-secondary mb-0">Coding bootcamps, AI study jams, cloud workshops &amp; hackathons.</p>
+                        </div>
                     </div>
-                    <h4 class="fw-black text-dark mb-3" style="font-weight: 900;">Our Vision</h4>
-                    <p class="text-secondary mb-4" style="line-height: 1.65; font-size: 0.98rem;">
-                        To cultivate a world-class, inclusive, and self-governed student leadership ecosystem at UIT where innovation flourishes. We envision our campus as a breeding ground for competitive programmers, solution challenge finalists, startup founders, and articulate leaders recognized across national platforms.
-                    </p>
-                    <div class="d-flex align-items-center gap-2 fw-extrabold small" style="color: #7c3aed;">
-                        <i class="bi bi-stars"></i>
-                        <span>Global Excellence • Innovation • Leadership</span>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 pillar-card-hover" style="background:#fff1f2; border-top:4px solid #e11d48 !important;">
+                            <div class="mx-auto mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center bg-white text-danger" style="width:54px; height:54px;">
+                                <i class="bi bi-palette-fill fs-4"></i>
+                            </div>
+                            <h5 class="fw-black text-dark mb-1" style="font-weight: 900;">Cultural Arts</h5>
+                            <p class="small text-secondary mb-0">Music bands, choreography, stage plays, fine arts &amp; campus fests.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 pillar-card-hover" style="background:#f5f3ff; border-top:4px solid #7c3aed !important;">
+                            <div class="mx-auto mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center bg-white text-purple" style="width:54px; height:54px; color:#7c3aed;">
+                                <i class="bi bi-mic-fill fs-4"></i>
+                            </div>
+                            <h5 class="fw-black text-dark mb-1" style="font-weight: 900;">Public Speaking</h5>
+                            <p class="small text-secondary mb-0">Toastmasters circles, debates, TEDx talks &amp; speech coaching.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 pillar-card-hover" style="background:#fffbeb; border-top:4px solid #d97706 !important;">
+                            <div class="mx-auto mb-3 p-3 rounded-circle d-inline-flex align-items-center justify-content-center bg-white text-warning" style="width:54px; height:54px;">
+                                <i class="bi bi-lightbulb-fill fs-4"></i>
+                            </div>
+                            <h5 class="fw-black text-dark mb-1" style="font-weight: 900;">Innovation &amp; E-Cell</h5>
+                            <p class="small text-secondary mb-0">Startup pitchfests, business model canvas &amp; alumni mentorship.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -151,39 +215,127 @@
     </div>
 </section>
 
-<!-- The 2 Main Wings of USC UIT -->
+<!-- Mission, Vision & Core Values Section -->
 <section class="py-5" style="background: #f8fafc;">
     <div class="container py-3">
         <div class="text-center mb-5 max-w-2xl mx-auto">
             <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
-                Core Campus Architecture
+                Institutional Blueprint
+            </span>
+            <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Our Mission, Vision &amp; Core Values</h2>
+            <p class="text-secondary small mb-0">The core principles driving student achievement and leadership development across United Institute of Technology.</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 p-4 p-md-5 bg-white" style="border-top: 5px solid #2563eb !important;">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3" style="width: 56px; height: 56px;">
+                        <i class="bi bi-bullseye fs-3"></i>
+                    </div>
+                    <h3 class="fw-black text-dark mb-3" style="font-weight: 900;">Our Mission</h3>
+                    <p class="text-secondary mb-4" style="line-height: 1.7; font-size: 0.98rem;">
+                        To empower every student at United Institute of Technology by bridging academic theory with real-world execution. USC UIT achieves this through <strong>Developers Club UIT</strong> (technical council) and <strong>Cultural Club UIT</strong> (cultural council) — providing structured funding, equipment, lab resources, and institutional mentorship across all campus chapters.
+                    </p>
+                    <ul class="list-unstyled space-y-2 text-dark font-medium small mb-0">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Experiential learning through hands-on hackathons and fests</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i> Industry-aligned skill mastery &amp; competitive coding tracks</li>
+                        <li><i class="bi bi-check-circle-fill text-primary me-2"></i> Direct mentorship from faculty coordinators &amp; senior officers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4 h-100 p-4 p-md-5 bg-white" style="border-top: 5px solid #7c3aed !important;">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-purple-subtle text-purple rounded-circle mb-3" style="background:#f5f3ff; color:#7c3aed; width: 56px; height: 56px;">
+                        <i class="bi bi-eye-fill fs-3"></i>
+                    </div>
+                    <h3 class="fw-black text-dark mb-3" style="font-weight: 900;">Our Vision</h3>
+                    <p class="text-secondary mb-4" style="line-height: 1.7; font-size: 0.98rem;">
+                        To cultivate a world-class, inclusive, and self-governed student leadership ecosystem at UIT where innovation flourishes. We envision our campus as a breeding ground for competitive programmers, solution challenge finalists, startup founders, and articulate leaders recognized across national platforms.
+                    </p>
+                    <ul class="list-unstyled space-y-2 text-dark font-medium small mb-0">
+                        <li class="mb-2"><i class="bi bi-stars me-2" style="color:#7c3aed;"></i> National recognition for student projects &amp; research papers</li>
+                        <li class="mb-2"><i class="bi bi-stars me-2" style="color:#7c3aed;"></i> Fostering entrepreneurial mindsets through E-Cell incubation</li>
+                        <li><i class="bi bi-stars me-2" style="color:#7c3aed;"></i> Building a lifelong alumni network of student leaders</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 Core Pillars -->
+        <div class="row g-3 row-cols-2 row-cols-md-5 text-center">
+            <div class="col">
+                <div class="p-3 bg-white rounded-4 border shadow-sm h-100">
+                    <i class="bi bi-lightbulb-fill fs-3 text-warning mb-2 d-block"></i>
+                    <h6 class="fw-black text-dark mb-1">Innovation</h6>
+                    <span class="small text-secondary" style="font-size:0.78rem;">Build real solutions</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-white rounded-4 border shadow-sm h-100">
+                    <i class="bi bi-shield-check fs-3 text-primary mb-2 d-block"></i>
+                    <h6 class="fw-black text-dark mb-1">Integrity</h6>
+                    <span class="small text-secondary" style="font-size:0.78rem;">Transparent governance</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-white rounded-4 border shadow-sm h-100">
+                    <i class="bi bi-people-fill fs-3 text-success mb-2 d-block"></i>
+                    <h6 class="fw-black text-dark mb-1">Inclusivity</h6>
+                    <span class="small text-secondary" style="font-size:0.78rem;">Open to all branches</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-white rounded-4 border shadow-sm h-100">
+                    <i class="bi bi-palette-fill fs-3 text-danger mb-2 d-block"></i>
+                    <h6 class="fw-black text-dark mb-1">Expression</h6>
+                    <span class="small text-secondary" style="font-size:0.78rem;">Performing &amp; fine arts</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-3 bg-white rounded-4 border shadow-sm h-100">
+                    <i class="bi bi-award-fill fs-3 text-info mb-2 d-block"></i>
+                    <h6 class="fw-black text-dark mb-1">Excellence</h6>
+                    <span class="small text-secondary" style="font-size:0.78rem;">National benchmarks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- The 2 Main Wings Architecture -->
+<section class="py-5 bg-white">
+    <div class="container py-3">
+        <div class="text-center mb-5 max-w-2xl mx-auto">
+            <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
+                Parent Council Structure
             </span>
             <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">The 2 Main Wings of USC UIT</h2>
-            <p class="text-secondary small mb-0">Under the umbrella of United Student Club (USC UIT), all student activities, chapters, and events are organized into two primary parent clubs.</p>
+            <p class="text-secondary small mb-0">Under the central council of United Student Club (USC UIT), all student chapters are organized under two parent councils.</p>
         </div>
 
         <div class="row g-4">
             <!-- Developers Club UIT -->
             <div class="col-lg-6">
-                <div class="about-card-elevated h-100 p-4 rounded-4 bg-white border shadow-sm" style="border-top: 4px solid #2563eb !important;">
+                <div class="card border-0 shadow-sm rounded-4 h-100 p-4 p-md-5 bg-white" style="border-top: 5px solid #2563eb !important; border: 1px solid #e2e8f0;">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="about-pillar-icon mb-0 p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #eff6ff; color: #2563eb; width: 48px; height: 48px;">
+                        <div class="p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #eff6ff; color: #2563eb; width: 52px; height: 52px;">
                             <i class="bi bi-code-slash fs-4"></i>
                         </div>
                         <div>
+                            <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-0.5 small fw-bold mb-1">Technical Council</span>
                             <h4 class="fw-black text-dark mb-0" style="font-weight: 900;">Developers Club UIT</h4>
-                            <span class="small text-primary fw-bold">Official Technical Umbrella Council</span>
                         </div>
                     </div>
                     <p class="text-secondary mb-4" style="line-height: 1.65; font-size: 0.98rem;">
-                        The premier technical powerhouse governing all software development, coding competitions, AI study jams, hackathons, robotics, and cloud engineering projects across UIT.
+                        The premier technical powerhouse overseeing software engineering, competitive programming, AI study jams, hackathons, open source, and cloud development across UIT. Overseen by Faculty Coordinators <strong>Er. Gaurav Narain</strong> &amp; <strong>Er. Kushagra Dwivedi</strong>.
                     </p>
 
                     <!-- Chapter Badges with Image Logos -->
                     <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
                         <a href="club-detail.html?id=clb_gdgoc_uit_2026" class="badge rounded-pill bg-light text-dark border px-3 py-2 text-decoration-none d-inline-flex align-items-center gap-2 shadow-sm">
                             <img src="assets/img/chapters/gdg-logo.jpg" alt="GDG Logo" class="rounded-circle" style="width: 20px; height: 20px; object-fit: cover;">
-                            <span>GDG Cloud UIT</span>
+                            <span>GDG On Campus</span>
                         </a>
                         <a href="club-detail.html?id=clb_gfg_sc_uit_2026" class="badge rounded-pill bg-light text-dark border px-3 py-2 text-decoration-none d-inline-flex align-items-center gap-2 shadow-sm">
                             <img src="assets/img/chapters/gfg-logo.jpg" alt="GFG Logo" class="rounded-circle" style="width: 20px; height: 20px; object-fit: cover;">
@@ -193,40 +345,44 @@
                             <img src="assets/img/chapters/gemini-logo.jpg" alt="Gemini Logo" class="rounded-circle" style="width: 20px; height: 20px; object-fit: cover;">
                             <span>Gemini Builders</span>
                         </a>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-git me-1 text-warning"></i> FOSS UIT</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-phone me-1 text-info"></i> FlutterFlow</span>
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
                         <a href="developers-club.html" class="btn btn-primary rounded-pill px-4 py-2 fw-bold btn-sm">Explore Developers Club</a>
-                        <a href="tech-events.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold btn-sm">Tech Events</a>
+                        <a href="tech-events.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold btn-sm">Tech Events Calendar</a>
                     </div>
                 </div>
             </div>
 
             <!-- Cultural Club UIT -->
             <div class="col-lg-6">
-                <div class="about-card-elevated h-100 p-4 rounded-4 bg-white border shadow-sm" style="border-top: 4px solid #e11d48 !important;">
+                <div class="card border-0 shadow-sm rounded-4 h-100 p-4 p-md-5 bg-white" style="border-top: 5px solid #e11d48 !important; border: 1px solid #e2e8f0;">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="about-pillar-icon mb-0 p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #fef2f2; color: #e11d48; width: 48px; height: 48px;">
+                        <div class="p-3 rounded-circle d-inline-flex align-items-center justify-content-center" style="background: #fff1f2; color: #e11d48; width: 52px; height: 52px;">
                             <i class="bi bi-palette-fill fs-4"></i>
                         </div>
                         <div>
+                            <span class="badge bg-danger-subtle text-danger border rounded-pill px-2.5 py-0.5 small fw-bold mb-1">Cultural Council</span>
                             <h4 class="fw-black text-dark mb-0" style="font-weight: 900;">Cultural Club UIT</h4>
-                            <span class="small text-danger fw-bold">Official Cultural Umbrella Council</span>
                         </div>
                     </div>
                     <p class="text-secondary mb-4" style="line-height: 1.65; font-size: 0.98rem;">
-                        The vibrant heart of campus culture — public speaking, performing arts, musical bands, theatrical dramas, literary debates, and creative design at UIT.
+                        The vibrant heart of campus culture — public speaking, performing arts, musical bands, theatrical dramas, literary debates, and creative design at UIT. Overseen by Faculty Coordinator <strong>Dr. Ankit Gupta</strong>.
                     </p>
 
                     <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
-                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-mic-fill me-1 text-danger"></i> Toastmasters</span>
-                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-music-note-beamed me-1 text-warning"></i> Music Society</span>
-                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-mask me-1 text-purple" style="color:#7c3aed;"></i> Drama Club</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-person-arms-up me-1 text-danger"></i> Nritya Dance</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-music-note-beamed me-1 text-warning"></i> Harmony Music</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-masks me-1 text-purple" style="color:#7c3aed;"></i> Rangmanch Drama</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-palette me-1 text-info"></i> Prism Fine Arts</span>
+                        <span class="badge rounded-pill bg-light text-dark border px-3 py-2"><i class="bi bi-mic me-1 text-success"></i> Toastmasters</span>
                     </div>
 
-                    <div class="d-flex flex-wrap gap-2">
+                    <div class="d-flex flex-wrap gap-2 mt-auto">
                         <a href="cultural-club.html" class="btn btn-danger rounded-pill px-4 py-2 fw-bold btn-sm" style="background:#e11d48; border-color:#e11d48;">Explore Cultural Club</a>
-                        <a href="cultural-events.html" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold btn-sm">Cultural Events</a>
+                        <a href="cultural-events.html" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-bold btn-sm">Cultural Events Calendar</a>
                     </div>
                 </div>
             </div>
@@ -235,7 +391,7 @@
 </section>
 
 <!-- Executive Leadership Hierarchy Section -->
-<section class="py-5 bg-white">
+<section class="py-5" style="background: #f8fafc;">
     <div class="container py-3">
         <div class="text-center mb-5 max-w-2xl mx-auto">
             <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-1.5 rounded-pill mb-2" style="font-size: 0.78rem; letter-spacing: 1px;">
@@ -253,44 +409,44 @@
         </div>
         <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-4 mb-5">
             <div class="col">
-                <div class="committee-card-3d patron text-center p-3">
+                <div class="committee-card-3d patron text-center p-3 h-100 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #f59e0b;box-shadow:0 8px 20px rgba(245,158,11,0.25);">
-                        <img src="assets/img/committee/girdhar-gopal-gulati.webp" alt="Dr. G. G. Gulati" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/girdhar-gopal-gulati.webp" alt="Dr. G. G. Gulati" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge gold mb-2"><i class="bi bi-award-fill me-1"></i> Chairman</span>
+                    <span class="committee-role-badge gold mb-2 d-inline-block"><i class="bi bi-award-fill me-1"></i> Chairman</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Dr. G. G. Gulati</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Chairman, UGI</span>
                     <span class="badge bg-amber-subtle text-amber border rounded-pill px-3 py-1 small" style="background:#fffbeb;color:#d97706;border-color:rgba(217,119,6,0.3)!important;">United Group Advisory Board</span>
                 </div>
             </div>
             <div class="col">
-                <div class="committee-card-3d patron text-center p-3">
+                <div class="committee-card-3d patron text-center p-3 h-100 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #f59e0b;box-shadow:0 8px 20px rgba(245,158,11,0.25);">
-                        <img src="assets/img/committee/satpal-gulati.webp" alt="Er. Satpal Gulati" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/satpal-gulati.webp" alt="Er. Satpal Gulati" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge gold mb-2"><i class="bi bi-patch-check-fill me-1"></i> President</span>
+                    <span class="committee-role-badge gold mb-2 d-inline-block"><i class="bi bi-patch-check-fill me-1"></i> President</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Er. Satpal Gulati</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">President, UGI</span>
                     <span class="badge bg-amber-subtle text-amber border rounded-pill px-3 py-1 small" style="background:#fffbeb;color:#d97706;border-color:rgba(217,119,6,0.3)!important;">United Group Governance</span>
                 </div>
             </div>
             <div class="col">
-                <div class="committee-card-3d patron text-center p-3">
+                <div class="committee-card-3d patron text-center p-3 h-100 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #f59e0b;box-shadow:0 8px 20px rgba(245,158,11,0.25);">
-                        <img src="assets/img/committee/jagdish-gulati.webp" alt="Dr. Jagdish Gulati" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/jagdish-gulati.webp" alt="Dr. Jagdish Gulati" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge gold mb-2"><i class="bi bi-star-fill me-1"></i> Vice Chairman</span>
+                    <span class="committee-role-badge gold mb-2 d-inline-block"><i class="bi bi-star-fill me-1"></i> Vice Chairman</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Dr. Jagdish Gulati</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Vice Chairman, UGI</span>
                     <span class="badge bg-amber-subtle text-amber border rounded-pill px-3 py-1 small" style="background:#fffbeb;color:#d97706;border-color:rgba(217,119,6,0.3)!important;">United Group Leadership</span>
                 </div>
             </div>
             <div class="col">
-                <div class="committee-card-3d patron text-center p-3">
+                <div class="committee-card-3d patron text-center p-3 h-100 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #f59e0b;box-shadow:0 8px 20px rgba(245,158,11,0.25);">
-                        <img src="assets/img/committee/gaurav-gulati.webp" alt="Dr. Gaurav Gulati" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/gaurav-gulati.webp" alt="Dr. Gaurav Gulati" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge gold mb-2"><i class="bi bi-shield-fill-check me-1"></i> Sr. Vice President</span>
+                    <span class="committee-role-badge gold mb-2 d-inline-block"><i class="bi bi-shield-fill-check me-1"></i> Sr. Vice President</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Dr. Gaurav Gulati</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Senior Vice President</span>
                     <span class="badge bg-amber-subtle text-amber border rounded-pill px-3 py-1 small" style="background:#fffbeb;color:#d97706;border-color:rgba(217,119,6,0.3)!important;">United Group Governance</span>
@@ -306,33 +462,33 @@
         </div>
         <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 justify-content-center" id="managementCommitteeContainer">
             <div class="col-lg-4 col-md-6">
-                <div class="committee-card-3d text-center p-3">
+                <div class="committee-card-3d text-center p-3 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #2563eb;box-shadow:0 8px 20px rgba(37,99,235,0.25);">
-                        <img src="assets/img/committee/sanjay-srivastava.webp" alt="Prof. (Dr.) Sanjay Srivastava" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/sanjay-srivastava.webp" alt="Prof. (Dr.) Sanjay Srivastava" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge blue mb-2"><i class="bi bi-bank2 me-1"></i> Principal UIT</span>
+                    <span class="committee-role-badge blue mb-2 d-inline-block"><i class="bi bi-bank2 me-1"></i> Principal UIT</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Prof. (Dr.) Sanjay Srivastava</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Principal, UIT</span>
                     <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 small">UIT Institutional Head</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
-                <div class="committee-card-3d text-center p-3">
+                <div class="committee-card-3d text-center p-3 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #7c3aed;box-shadow:0 8px 20px rgba(124,58,237,0.25);">
-                        <img src="assets/img/committee/manas-pandey.jpg" alt="Dr. Manas Pandey" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/manas-pandey.jpg" alt="Dr. Manas Pandey" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge purple mb-2"><i class="bi bi-award-fill me-1"></i> Dean Student Welfare</span>
+                    <span class="committee-role-badge purple mb-2 d-inline-block"><i class="bi bi-award-fill me-1"></i> Dean Student Welfare</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Dr. Manas Pandey</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Dean Student Welfare (DSW)</span>
                     <span class="badge bg-purple-subtle text-purple border rounded-pill px-3 py-1 small" style="background:#f5f3ff;color:#7c3aed;border-color:rgba(124,58,237,0.3)!important;">Student Club Affairs Lead</span>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
-                <div class="committee-card-3d text-center p-3">
+                <div class="committee-card-3d text-center p-3 bg-white rounded-4 shadow-sm border">
                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid #10b981;box-shadow:0 8px 20px rgba(16,185,129,0.25);">
-                        <img src="assets/img/committee/arya-keshari.jpg" alt="Arya Keshari" class="w-100 h-100 object-fit-cover">
+                        <img src="assets/img/committee/arya-keshari.jpg" alt="Arya Keshari" class="w-100 h-100 object-fit-cover" onerror="this.src='assets/United Logo.webp'">
                     </div>
-                    <span class="committee-role-badge green mb-2" style="background:#ecfdf5;color:#059669;border-color:rgba(5,150,105,0.3)!important;"><i class="bi bi-person-badge-fill me-1"></i> Student President</span>
+                    <span class="committee-role-badge green mb-2 d-inline-block" style="background:#ecfdf5;color:#059669;border-color:rgba(5,150,105,0.3)!important;"><i class="bi bi-person-badge-fill me-1"></i> Student President</span>
                     <h5 class="fw-black fs-6 mb-1 text-dark">Arya Keshari</h5>
                     <span class="d-block text-secondary small fw-bold mb-2">Student Club President</span>
                     <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1 small fw-bold" style="background:#ecfdf5;color:#059669;border-color:rgba(5,150,105,0.3)!important;">USC UIT Council Lead</span>
@@ -342,10 +498,10 @@
     </div>
 </section>
 
-<!-- Executive Contact Office -->
-<section class="py-5" style="background: #f8fafc;">
+<!-- Executive Contact & Helpdesk Office -->
+<section class="py-5 bg-white">
     <div class="container py-3">
-        <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 bg-white text-center">
+        <div class="card border-0 rounded-4 shadow-sm p-4 p-md-5 bg-white text-center border">
             <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3 mx-auto" style="width: 60px; height: 60px;">
                 <i class="bi bi-building-check fs-3"></i>
             </div>
@@ -395,15 +551,7 @@
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
 
-            gsap.from(".about-hero-title", { opacity: 0, y: 30, duration: 1, ease: "power3.out" });
-            gsap.from(".about-card-elevated", {
-                scrollTrigger: { trigger: ".about-card-elevated", start: "top 85%" },
-                opacity: 0,
-                y: 40,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: "power2.out"
-            });
+            gsap.from(".about-hero-pro h1", { opacity: 0, y: 30, duration: 1, ease: "power3.out" });
             gsap.from(".committee-card-3d", {
                 scrollTrigger: { trigger: ".committee-card-3d", start: "top 85%" },
                 opacity: 0,
