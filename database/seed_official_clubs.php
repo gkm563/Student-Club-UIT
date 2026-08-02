@@ -262,6 +262,10 @@ try {
 
     // 2. Seed Official Leadership Roster
     $leaders = [
+        ['ldr_dev_gaurav', 'clb_developers_uit', 'Er. Gaurav Narain', 'Faculty Coordinator — Developers Club UIT', 'faculty_coordinator', '2025–2026', 'gaurav.narain@uit.edu', '+91 98765 99911', 'assets/img/committee/gaurav-narain.jpg', 1],
+        ['ldr_dev_kushagra', 'clb_developers_uit', 'Er. Kushagra Dwivedi', 'Faculty Coordinator — Developers Club UIT', 'faculty_coordinator', '2025–2026', 'kushagra.dwivedi@uit.edu', '+91 98765 99912', 'assets/img/committee/kushagra-dwivedi.jpg', 2],
+        ['ldr_dev_shivansh', 'clb_developers_uit', 'Shivansh Singh', 'Student President & Tech Council Lead', 'president', '2025–2026', 'shivansh@student.uit.edu', '+91 98765 00001', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 3],
+        ['ldr_dev_sarthak', 'clb_developers_uit', 'Sarthak Singh', 'Past President & Tech Advisory', 'president', '2024–2025', 'sarthak@student.uit.edu', '+91 98765 00002', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 4],
         ['ldr_cult_ankit', 'clb_cultural_uit', 'Dr. Ankit Gupta', 'Faculty Coordinator — Cultural Club UIT', 'faculty_coordinator', '2025–2026', 'ankit.gupta@uit.edu', '+91 98765 99901', 'assets/img/committee/ankit-gupta.jpg', 1],
         ['ldr_cult_arya', 'clb_cultural_uit', 'Arya Keshari', 'Student President & Cultural Lead', 'president', '2025–2026', 'arya.keshari@student.uit.edu', '+91 98765 99902', 'assets/img/committee/arya-keshari.jpg', 2],
         ['ldr_cult_riya', 'clb_cultural_uit', 'Riya Verma', 'Vice President — Cultural Affairs', 'vice_president', '2025–2026', 'riya.verma@student.uit.edu', '+91 98765 99903', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 3],
