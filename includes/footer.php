@@ -79,21 +79,30 @@ if (!isset($assetPrefix)) {
 
             <!-- Official Campus Contact -->
             <div class="col-lg-4">
-                <div class="footer-title">Campus Contact</div>
-                <ul class="list-unstyled space-y-3 text-white-80 small mb-0">
-                    <li class="d-flex align-items-start gap-2 mb-2 justify-content-center justify-content-lg-start">
-                        <i class="bi bi-geo-alt-fill text-danger mt-1"></i>
-                        <span>United Institute of Technology Naini, UPSIDC Industrial Area, Naini, Prayagraj, UP 211010</span>
-                    </li>
-                    <li class="d-flex align-items-center gap-2 mb-2 justify-content-center justify-content-lg-start">
-                        <i class="bi bi-envelope-fill text-primary"></i>
-                        <span>dsw@uit.edu / info@uit.edu</span>
-                    </li>
-                    <li class="d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
-                        <i class="bi bi-telephone-fill text-success"></i>
-                        <span>+91 98765 43210 (USC UIT Office)</span>
-                    </li>
-                </ul>
+                <div class="footer-title text-uppercase fw-bold text-white mb-3">Official Contact &amp; Addresses</div>
+                <div class="mb-3">
+                    <span class="d-block text-warning fw-bold small text-uppercase mb-1"><i class="bi bi-building me-1"></i> Corporate Office</span>
+                    <p class="small text-white-80 mb-1" style="font-size:0.82rem; line-height:1.4;">
+                        United Tower 53, Leader Road, Allahabad, U.P. India.
+                    </p>
+                    <div class="small text-white-80" style="font-size:0.8rem;">
+                        <span><i class="bi bi-telephone-fill text-success me-1"></i> 0532-2402951-55</span> | 
+                        <span><i class="bi bi-headset text-warning me-1"></i> Toll Free: 1800 3131 808</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="d-block text-primary fw-bold small text-uppercase mb-1"><i class="bi bi-geo-alt-fill me-1"></i> Campus Address</span>
+                    <p class="small text-white-80 mb-1" style="font-size:0.82rem; line-height:1.4;">
+                        D3, UPSIDC Industrial Area, Naini, Allahabad, U.P., 211010
+                    </p>
+                    <div class="small text-white-80 mb-1" style="font-size:0.8rem;">
+                        <span><i class="bi bi-phone-fill text-success me-1"></i> +91-9999707942</span> | 
+                        <span><i class="bi bi-headset text-warning me-1"></i> Toll Free: 1800 3131 808</span>
+                    </div>
+                    <div class="small text-white-80" style="font-size:0.8rem;">
+                        <i class="bi bi-envelope-fill text-info me-1"></i> <a href="mailto:info@united.ac.in" class="text-white text-decoration-underline">info@united.ac.in</a>
+                    </div>
+                </div>
             </div>
         </div>
 
