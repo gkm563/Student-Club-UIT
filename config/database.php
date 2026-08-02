@@ -2,6 +2,7 @@
 /**
  * Database Connection Config for CCMS V1.0
  * Supports PDO MySQL and fallback to SQLite
+ * Auto-creates missing tables if database schema is missing.
  */
 
 class Database {
@@ -48,7 +49,28 @@ class Database {
                     self::$instance->exec("PRAGMA foreign_keys = ON;");
                 }
             }
+
+            // Ensure schema integrity
+            self::ensureTablesExist(self::$instance);
         }
         return self::$instance;
+    }
+
+    private static function ensureTablesExist(PDO $pdo): void {
+        try {
+            $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+            if ($driver === 'mysql') {
+                $tableCheck = $pdo->query("SHOW TABLES LIKE 'club_proposals'")->fetch();
+                if (!$tableCheck) {
+                    $schemaFile = __DIR__ . '/../database/schema.sql';
+                    if (file_exists($schemaFile)) {
+                        $sql = file_get_contents($schemaFile);
+                        $pdo->exec($sql);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            // Silently handle schema check
+        }
     }
 }
