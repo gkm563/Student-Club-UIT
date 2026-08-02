@@ -10,45 +10,94 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/wing-pages.css">
+    <style>
+        .wing-hero--cultural {
+            background: linear-gradient(135deg, #0f172a 0%, #4c1d95 40%, #831843 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+        .wing-hero--cultural::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.25), transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.25), transparent 50%);
+            pointer-events: none;
+        }
+        .cultural-badge-pill {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
 <div id="header-placeholder"></div>
 
 <main class="wing-page wing-page--cultural" data-wing="cultural">
-    <section class="wing-hero">
-        <div class="container">
-            <nav class="wing-breadcrumb" aria-label="Breadcrumb">
-                <a href="index.html">Home</a><i class="bi bi-chevron-right"></i><a href="clubs.html">USC UIT clubs</a><i class="bi bi-chevron-right"></i><span>Cultural Club UIT</span>
+    <!-- Vibrant Cultural Hero Section -->
+    <section class="wing-hero wing-hero--cultural py-5">
+        <div class="container position-relative py-3">
+            <nav class="wing-breadcrumb mb-3" aria-label="Breadcrumb">
+                <a href="index.html" class="text-white-80">Home</a>
+                <i class="bi bi-chevron-right text-white-50"></i>
+                <a href="clubs.html" class="text-white-80">USC UIT Clubs</a>
+                <i class="bi bi-chevron-right text-white-50"></i>
+                <span class="text-warning fw-bold">Cultural Club UIT</span>
             </nav>
             <div class="row align-items-center g-5">
                 <div class="col-lg-7">
-                    <span class="wing-kicker"><i class="bi bi-palette2"></i> Official Cultural Umbrella Council</span>
-                    <h1>Feel it.<br><span>Express it.</span> Own it.</h1>
-                    <p class="wing-hero-copy">Cultural Club UIT is the creative heart of USC UIT. It gives every student a welcoming place to perform, speak, create, collaborate, and be part of the campus moments everyone remembers.</p>
-                    <div class="d-flex flex-column flex-sm-row gap-3">
-                        <a class="wing-action wing-action--primary" href="cultural-events.html">Explore cultural events <i class="bi bi-arrow-right"></i></a>
-                        <a class="wing-action wing-action--ghost" href="clubs.html?wing=cultural">Meet our communities <i class="bi bi-people"></i></a>
+                    <span class="wing-kicker cultural-badge-pill px-3 py-1.5 rounded-pill mb-3 d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-palette2 text-warning fs-5"></i> Official Cultural Umbrella Council of UIT
+                    </span>
+                    <h1 class="fw-black text-white display-4 mb-3" style="font-weight: 900; letter-spacing: -1px; line-height: 1.1;">
+                        Feel it.<br><span style="color: #fb7185; background: linear-gradient(90deg, #fb7185, #f43f5e, #e11d48); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Express it.</span> Own it.
+                    </h1>
+                    <p class="wing-hero-copy text-white-80 lead fs-6 mb-4 max-w-xl">
+                        Cultural Club UIT is the creative heart of United Institute of Technology. Overseen by Faculty Coordinator <strong>Dr. Ankit Gupta</strong> and student leadership, it brings together Music, Dance, Drama, Fine Arts, Public Speaking, and Campus Fests into a vibrant performing arts community.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+                        <a class="btn btn-danger rounded-pill px-4 py-3 fw-bold text-white shadow-lg d-inline-flex align-items-center justify-content-center gap-2" href="cultural-events.html" style="background: #e11d48; border: none;">
+                            Explore Cultural Events <i class="bi bi-arrow-right"></i>
+                        </a>
+                        <a class="btn btn-outline-light rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center gap-2" href="#culturalLeadership">
+                            Meet Faculty &amp; Leadership <i class="bi bi-people-fill"></i>
+                        </a>
                     </div>
-                    <ul class="wing-trust-list">
-                        <li><i class="bi bi-check-circle-fill"></i> Open to every branch</li>
-                        <li><i class="bi bi-check-circle-fill"></i> No experience needed</li>
-                        <li><i class="bi bi-check-circle-fill"></i> Your voice belongs here</li>
+                    <ul class="d-flex flex-wrap align-items-center gap-4 text-white-80 small list-unstyled mb-0">
+                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> Open to every branch &amp; year</li>
+                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> No prior experience needed</li>
+                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> Annual College Fests &amp; Showcases</li>
                     </ul>
                 </div>
                 <div class="col-lg-5">
-                    <aside class="wing-hero-panel">
-                        <div class="wing-hero-panel__label"><span><span class="wing-hero-panel__dot"></span> Your cultural path</span><span>01–03</span></div>
-                        <div class="wing-start-card">
-                            <div class="wing-start-card__icon"><i class="bi bi-mic"></i></div>
-                            <div><h2>Find your voice</h2><p>Try a speaking circle, debate, music session, or a welcoming first rehearsal.</p></div>
+                    <aside class="wing-hero-panel bg-white bg-opacity-10 border border-white border-opacity-20 rounded-4 p-4 text-white shadow-2xl backdrop-blur-md">
+                        <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-white border-opacity-10">
+                            <span class="fw-bold small text-warning"><i class="bi bi-stars me-1"></i> CREATIVE PILLARS</span>
+                            <span class="small text-white-50">01–03</span>
                         </div>
-                        <div class="wing-start-card">
-                            <div class="wing-start-card__icon"><i class="bi bi-stars"></i></div>
-                            <div><h2>Make something memorable</h2><p>Create with artists, performers, writers, and organisers who share your energy.</p></div>
+                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
+                            <div class="wing-start-card__icon mb-2 fs-3 text-warning"><i class="bi bi-mic-fill"></i></div>
+                            <div>
+                                <h5 class="fw-bold fs-6 mb-1 text-white">Find Your Voice</h5>
+                                <p class="small text-white-80 mb-0">Join vocal jams, band rehearsals, public speaking circles, and stage debates.</p>
+                            </div>
                         </div>
-                        <div class="wing-start-card">
-                            <div class="wing-start-card__icon"><i class="bi bi-people"></i></div>
-                            <div><h2>Take the stage</h2><p>Step into showcases, fests, exhibitions, and campus moments you help bring alive.</p></div>
+                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
+                            <div class="wing-start-card__icon mb-2 fs-3 text-rose" style="color: #fb7185;"><i class="bi bi-palette-fill"></i></div>
+                            <div>
+                                <h5 class="fw-bold fs-6 mb-1 text-white">Artistry &amp; Drama</h5>
+                                <p class="small text-white-80 mb-0">Nukkad Natak street plays, fine arts canvas exhibitions, photography &amp; stage craft.</p>
+                            </div>
+                        </div>
+                        <div class="wing-start-card p-3 rounded-3 bg-white bg-opacity-10">
+                            <div class="wing-start-card__icon mb-2 fs-3 text-info"><i class="bi bi-trophy-fill"></i></div>
+                            <div>
+                                <h5 class="fw-bold fs-6 mb-1 text-white">Take The Big Stage</h5>
+                                <p class="small text-white-80 mb-0">Perform in inter-college fests, annual cultural nights, and official celebrations.</p>
+                            </div>
                         </div>
                     </aside>
                 </div>
@@ -56,61 +105,146 @@
         </div>
     </section>
 
-    <section class="wing-section">
-        <div class="container">
-            <div class="wing-section-heading"><span class="wing-eyebrow"><i class="bi bi-heart"></i> Start here</span><h2>Campus life feels fuller when you create together.</h2><p>Cultural Club UIT is not only for experienced performers. It is a space to try something new, build confidence, and find people who make participation feel easy.</p></div>
-            <div class="row g-4">
-                <div class="col-md-4"><article class="wing-intro-card"><div class="wing-intro-card__icon"><i class="bi bi-person-heart"></i></div><h3>Confidence beyond class</h3><p>Discover how speaking, performing, and collaborating can help you feel more at home on campus.</p></article></div>
-                <div class="col-md-4"><article class="wing-intro-card"><div class="wing-intro-card__icon"><i class="bi bi-brush"></i></div><h3>Creativity with a community</h3><p>Turn your ideas into performances, art, stories, experiences, and shared campus traditions.</p></article></div>
-                <div class="col-md-4"><article class="wing-intro-card"><div class="wing-intro-card__icon"><i class="bi bi-balloon-heart"></i></div><h3>Moments worth remembering</h3><p>Be part of cultural nights, fests, showcases, and celebrations that bring the whole campus together.</p></article></div>
+    <!-- NEW Faculty & Leadership Roster Section -->
+    <section id="culturalLeadership" class="py-5 bg-white">
+        <div class="container py-3">
+            <div class="text-center mb-5 max-w-2xl mx-auto">
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1.5 rounded-pill mb-2 fw-bold text-uppercase" style="letter-spacing: 1px; background:#fffbeb; color:#d97706;">
+                    <i class="bi bi-award-fill me-1"></i> Mentorship &amp; Governance Roster
+                </span>
+                <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Faculty Coordinator &amp; Leadership Board</h2>
+                <p class="text-secondary small mb-0">Official institutional faculty leadership and annual student executive roster for Cultural Club UIT. Leadership details and tenure are managed dynamically from the Admin Portal.</p>
+            </div>
+
+            <!-- Dynamic Leadership Cards Container -->
+            <div class="row g-4 justify-content-center mb-4" id="culturalLeadershipContainer">
+                <div class="col-12 text-center py-4">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="small text-secondary mt-2">Loading Cultural Leadership Roster...</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <span class="badge bg-light text-secondary border rounded-pill px-4 py-2.5 small fw-normal">
+                    <i class="bi bi-gear-fill me-1 text-primary"></i> Faculty Coordinators &amp; Leadership roles can be updated, added, or changed with tenure from the <a href="admin/dean-login.php" class="fw-bold text-primary text-decoration-underline">Admin Portal</a>.
+                </span>
             </div>
         </div>
     </section>
 
-    <section class="wing-section wing-section--soft">
-        <div class="container">
-            <div class="wing-section-heading wing-section-heading--center"><span class="wing-eyebrow"><i class="bi bi-grid-1x2"></i> What we do</span><h2>Choose the way you want to express yourself.</h2><p>There is room for the loud, the quiet, the curious, the confident, and everyone still figuring out where they belong.</p></div>
+    <!-- Cultural Categories & Activities -->
+    <section class="wing-section wing-section--soft py-5" style="background: #f8fafc;">
+        <div class="container py-3">
+            <div class="wing-section-heading wing-section-heading--center text-center mb-5">
+                <span class="wing-eyebrow badge bg-primary-subtle text-primary rounded-pill px-3 py-1 mb-2 fw-bold"><i class="bi bi-grid-1x2 me-1"></i> WHAT WE DO</span>
+                <h2 class="fw-black text-dark mb-2" style="font-weight: 900;">Choose How You Want To Express Yourself</h2>
+                <p class="text-secondary small mb-0">Room for music lovers, dancers, actors, public speakers, fine artists, and stage crew.</p>
+            </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">01 / PERFORM</div><div class="wing-activity-card__icon"><i class="bi bi-music-note-beamed"></i></div><h3>Music &amp; band</h3><p>Jam, rehearse, perform, and connect through vocals, instruments, and campus music experiences.</p></article></div>
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">02 / MOVE</div><div class="wing-activity-card__icon"><i class="bi bi-person-arms-up"></i></div><h3>Dance &amp; stage</h3><p>Bring energy to group performances, dance showcases, and the big stage moments of campus fests.</p></article></div>
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">03 / SPEAK</div><div class="wing-activity-card__icon"><i class="bi bi-mic-fill"></i></div><h3>Public speaking</h3><p>Build your voice through speech sessions, debates, storytelling, hosting, and thoughtful feedback.</p></article></div>
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">04 / ACT</div><div class="wing-activity-card__icon"><i class="bi bi-masks"></i></div><h3>Theatre &amp; drama</h3><p>Explore characters, scripts, direction, and the joy of bringing a story alive with a team.</p></article></div>
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">05 / CREATE</div><div class="wing-activity-card__icon"><i class="bi bi-palette"></i></div><h3>Fine arts &amp; design</h3><p>Paint, illustrate, design, exhibit, and help shape the visual identity of cultural experiences.</p></article></div>
-                <div class="col-md-6 col-lg-4"><article class="wing-activity-card"><div class="wing-activity-card__number">06 / SHARE</div><div class="wing-activity-card__icon"><i class="bi bi-journal-richtext"></i></div><h3>Literary &amp; ideas</h3><p>Write, discuss, debate, host, and share stories that spark fresh conversations across campus.</p></article></div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-primary fw-bold mb-2">01 / PERFORM</div>
+                        <div class="wing-activity-card__icon fs-2 text-danger mb-2"><i class="bi bi-music-note-beamed"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">Music &amp; Campus Band</h4>
+                        <p class="text-secondary small mb-0">Jam, rehearse, perform vocals, guitar, keyboards, and connect through campus music nights.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-danger fw-bold mb-2">02 / DANCE</div>
+                        <div class="wing-activity-card__icon fs-2 text-warning mb-2"><i class="bi bi-person-arms-up"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">Nritya Dance Chapter</h4>
+                        <p class="text-secondary small mb-0">Bring energy to group choreography, classical, hip-hop, and big stage festival performances.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-purple fw-bold mb-2">03 / SPEAK</div>
+                        <div class="wing-activity-card__icon fs-2 text-purple mb-2" style="color:#7c3aed;"><i class="bi bi-mic-fill"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">Public Speaking &amp; Debates</h4>
+                        <p class="text-secondary small mb-0">Build vocal confidence through Toastmasters speech drills, debates, and stage hosting.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-success fw-bold mb-2">04 / ACT</div>
+                        <div class="wing-activity-card__icon fs-2 text-success mb-2"><i class="bi bi-masks"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">Rangmanch Theatre &amp; Drama</h4>
+                        <p class="text-secondary small mb-0">Explore characters, Nukkad Natak street plays, scriptwriting, and stage direction.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-info fw-bold mb-2">05 / FINE ARTS</div>
+                        <div class="wing-activity-card__icon fs-2 text-info mb-2"><i class="bi bi-palette"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">Prism Fine Arts &amp; Media</h4>
+                        <p class="text-secondary small mb-0">Paint, illustrate, design, exhibit art, and capture photography for campus events.</p>
+                    </article>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
+                        <div class="wing-activity-card__number small text-warning fw-bold mb-2">06 / IDEAS</div>
+                        <div class="wing-activity-card__icon fs-2 text-danger mb-2"><i class="bi bi-journal-richtext"></i></div>
+                        <h4 class="fw-bold text-dark fs-5 mb-2">TEDx &amp; Literary Society</h4>
+                        <p class="text-secondary small mb-0">Curate talks, write essays, host poetry slams, and share ideas worth spreading across campus.</p>
+                    </article>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="wing-section wing-section--dark">
-        <div class="container">
-            <div class="wing-section-heading"><span class="wing-eyebrow"><i class="bi bi-diagram-3"></i> Cultural communities</span><h2>Find your people, your practice, or your stage.</h2><p>Cultural Club UIT brings together communities that make it easier to discover where your interests can grow.</p></div>
+    <!-- All Sub-Chapters under Cultural Wing Grid -->
+    <section class="wing-section wing-section--dark py-5" style="background: #0f172a;">
+        <div class="container py-3">
+            <div class="wing-section-heading mb-4 text-center text-lg-start">
+                <span class="wing-eyebrow text-warning small fw-bold text-uppercase"><i class="bi bi-diagram-3 me-1"></i> Cultural Chapters</span>
+                <h2 class="text-white fw-black mb-2" style="font-size: 2.2rem; font-weight: 900;">All Sub-Clubs &amp; Communities Under Cultural Wing</h2>
+                <p class="text-white-80 small mb-0">Discover performing arts, music, dance, theatre, fine arts, and public speaking societies at UIT.</p>
+            </div>
             <div class="row g-4" id="wingClubs">
-                <div class="col-12 text-center py-3"><div class="spinner-border spinner-border-sm text-light opacity-75" role="status"></div></div>
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border spinner-border-sm text-light opacity-75" role="status"></div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="wing-section">
-        <div class="container">
-            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-4"><div class="wing-section-heading mb-0"><span class="wing-eyebrow"><i class="bi bi-calendar-event"></i> Event board</span><h2>See the moments you can be part of.</h2><p>Browse cultural sessions, fests, stage events, and creative experiences organized by our communities.</p></div><a class="wing-action wing-action--primary" href="cultural-events.html">See every cultural event <i class="bi bi-arrow-right"></i></a></div>
+    <!-- Cultural Events Showcase -->
+    <section class="wing-section py-5 bg-white">
+        <div class="container py-3">
+            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-4">
+                <div class="wing-section-heading mb-0">
+                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill mb-2 fw-bold small"><i class="bi bi-calendar-event me-1"></i> EVENT BOARD</span>
+                    <h2 class="fw-black text-dark mb-1" style="font-weight: 900;">Upcoming &amp; Past Cultural Events</h2>
+                    <p class="text-secondary small mb-0">Browse live band nights, drama performances, public speaking masterclasses, and fests.</p>
+                </div>
+                <a class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm flex-shrink-0" href="cultural-events.html">
+                    See Every Cultural Event <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
             <div class="small fw-bold text-secondary mb-3" id="wingEventCount">Loading events</div>
             <div class="row g-4" id="wingEvents" aria-live="polite"></div>
         </div>
     </section>
 
-    <section class="wing-section wing-section--soft">
+    <!-- Crossroad Navigation -->
+    <section class="wing-section py-4" style="background: #f8fafc;">
         <div class="container">
-            <div class="wing-section-heading wing-section-heading--center"><span class="wing-eyebrow"><i class="bi bi-signpost-split"></i> Join in three steps</span><h2>Show up once. See what opens up.</h2><p>You can participate without having a perfect plan. Start with one event, meet the group, and discover how you want to contribute.</p></div>
-            <div class="row g-4">
-                <div class="col-md-4"><article class="wing-path-card"><div class="wing-path-card__number">01</div><h3>Choose an experience</h3><p>Pick a cultural session, performance, creative workshop, or event you would enjoy watching or joining.</p></article></div>
-                <div class="col-md-4"><article class="wing-path-card"><div class="wing-path-card__number">02</div><h3>Come as you are</h3><p>Register, attend, meet the people there, and ask where beginners can get involved.</p></article></div>
-                <div class="col-md-4"><article class="wing-path-card"><div class="wing-path-card__number">03</div><h3>Find your role</h3><p>Perform, create, organise, host, volunteer, or simply return for the next event with your new community.</p></article></div>
+            <div class="card border-0 rounded-4 p-4 p-md-5 text-white shadow-sm" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8 text-center text-lg-start">
+                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 mb-2 fw-bold small">OTHER MAIN WING</span>
+                        <h3 class="fw-black text-white mb-2" style="font-weight: 900;">Looking For Coding, Hackathons &amp; Tech Bootcamps?</h3>
+                        <p class="text-white-80 small mb-0">Developers Club UIT is the technical umbrella council of USC UIT. Home to GDG On Campus, GFG Student Chapter, HackerRank, FOSS, and FlutterFlow.</p>
+                    </div>
+                    <div class="col-lg-4 text-center text-lg-end">
+                        <a class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-sm" href="developers-club.html">
+                            Visit Developers Club UIT <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-
-    <section class="wing-section pt-0">
-        <div class="container"><div class="wing-crossroad"><div class="row align-items-center g-4"><div class="col-lg-8"><h2>Looking for coding, hackathons, or technical workshops?</h2><p>Developers Club UIT is the other main wing of USC UIT. It is the place for student builders, problem solvers, technical communities, and innovation.</p></div><div class="col-lg-4 text-lg-end"><a class="wing-action wing-action--primary" href="developers-club.html">Visit Developers Club UIT <i class="bi bi-arrow-right"></i></a></div></div></div></div>
     </section>
 </main>
 

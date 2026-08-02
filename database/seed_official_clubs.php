@@ -30,6 +30,7 @@ try {
     }
 
     $techCatId = $cats['technical'] ?? 1;
+    $cultCatId = $cats['cultural'] ?? 2;
     $ecellCatId = $cats['entrepreneurship'] ?? 5;
     $socialCatId = $cats['social'] ?? 4;
     $academicCatId = $cats['academic'] ?? 7;
@@ -212,6 +213,36 @@ try {
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=400&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1200&auto=format&fit=crop',
             2024, 'active', 1, '/contact.html', 'tedx@uit.edu', '+91 98765 88881', 'Main Auditorium & USC UIT Office, UIT, Prayagraj 211010', 'https://www.ted.com/tedx'
+        ],
+        [
+            'clb_cultural_uit',
+            'Cultural Club UIT',
+            'Cultural Club',
+            'cultural-club-uit',
+            $cultCatId,
+            'Feel it. Express it. Own it. — Official Cultural Umbrella Council of UIT',
+            'Cultural Club UIT is the official cultural umbrella council of United Institute of Technology (UIT). It brings together music, dance, theatre, fine arts, public speaking, literary societies, and campus fests into a vibrant co-curricular performing arts community.',
+            'To nurture creative talent, stage presence, artistic expression, and cultural governance across every branch and batch at UIT.',
+            'To establish the most vibrant and inclusive college cultural eco-system in the region.',
+            '• Annual College Fest & Cultural Nights\n• Music, Vocal & Live Band Competitions\n• Street Play & Nukkad Natak Workshops\n• Fine Arts & Live Canvas Exhibitions',
+            'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop',
+            2023, 'active', 1, '/contact.html', 'dsw@uit.edu', '+91 9999707942', 'USC UIT Executive Office, Ground Floor, UIT Prayagraj', '/contact.html'
+        ],
+        [
+            'clb_developers_uit',
+            'Developers Club UIT',
+            'Developers Club',
+            'developers-club-uit',
+            $techCatId,
+            'Build, Code & Innovate — Official Technical Umbrella Council of UIT',
+            'Developers Club UIT is the official technical umbrella council overseeing student developer chapters, competitive coding guilds, open-source societies, and hackathons at United Institute of Technology.',
+            'To foster technical excellence, software engineering skills, and problem-solving through workshops, hackathons, and industry mentorship.',
+            'To lead technological innovation and produce top-tier software engineers and innovators.',
+            '• Annual Hackathons & CodeSprints\n• AI/ML & Cloud Computing Bootcamps\n• Open Source Contributions & Project Expos\n• Competitive Programming Mentorship',
+            'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=400&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
+            2023, 'active', 1, '/contact.html', 'dsw@uit.edu', '+91 9999707942', 'USC UIT Executive Office, Ground Floor, UIT Prayagraj', '/contact.html'
         ]
     ];
 
@@ -231,34 +262,38 @@ try {
 
     // 2. Seed Official Leadership Roster
     $leaders = [
-        ['ldr_1', 'clb_gdgoc_uit_2026', 'Shivansh Singh', 'GDG Lead & President', 'president', 'shivansh@uit.edu', '+91 98765 00001', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_2', 'clb_gdgoc_uit_2026', 'Sarthak Singh', 'GDG Lead & Past President', 'president', 'sarthak@uit.edu', '+91 98765 00002', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_gfg_ansh', 'clb_gfg_sc_uit_2026', 'Ansh Kumar Gupta', 'Campus Mantri & Chapter Lead', 'president', 'ansh.gfg@uit.edu', '+91 98765 11111', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_gfg_vice', 'clb_gfg_sc_uit_2026', 'Harsh Vardhan', 'Tech Lead & DSA Head', 'vice_president', 'harsh.gfg@uit.edu', '+91 98765 11112', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_hr_lead', 'clb_hackerrank_uit_2026', 'Utkarsh Srivastava', 'HackerRank Campus Lead', 'president', 'utkarsh.hr@uit.edu', '+91 98765 22221', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_hr_vice', 'clb_hackerrank_uit_2026', 'Aditi Mishra', 'Competitive Coding Lead', 'vice_president', 'aditi.hr@uit.edu', '+91 98765 22222', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_ecell_riya', 'clb_ecell_uit_2026', 'Riya Sharma', 'E-Cell Convener & President', 'president', 'riya@uit.edu', '+91 98765 12349', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_wiki_lead', 'clb_wikiclub_uit_2026', 'Divyansh Sharma', 'WikiClub Lead & Convener', 'president', 'divyansh.wiki@uit.edu', '+91 98765 33331', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_wiki_vice', 'clb_wikiclub_uit_2026', 'Priya Singh', 'Content & Tech Editor', 'vice_president', 'priya.wiki@uit.edu', '+91 98765 33332', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_foss_lead', 'clb_foss_uit_2026', 'Yash Vardhan', 'FOSS Campus Lead', 'president', 'yash.foss@uit.edu', '+91 98765 44441', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_foss_vice', 'clb_foss_uit_2026', 'Alok Kumar', 'Linux & Kernel Lead', 'vice_president', 'alok.foss@uit.edu', '+91 98765 44442', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_rota_ananya', 'clb_rotaract_uit_2026', 'Ananya Verma', 'Rotaract President & Social Lead', 'president', 'ananya.rotaract@uit.edu', '+91 98765 55551', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_rota_saurabh', 'clb_rotaract_uit_2026', 'Saurabh Mishra', 'Community Outreach Lead', 'vice_president', 'saurabh.rotaract@uit.edu', '+91 98765 55552', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_toast_neha', 'clb_toastmasters_ugi_2026', 'Neha Verma', 'Toastmasters President', 'president', 'neha.toast@uit.edu', '+91 98765 66661', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_toast_tanmay', 'clb_toastmasters_ugi_2026', 'Tanmay Kapoor', 'VP Education & Speech Lead', 'vice_president', 'tanmay.toast@uit.edu', '+91 98765 66662', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_ff_rishabh', 'clb_flutterflow_uit_2026', 'Rishabh Pandey', 'FlutterFlow Chapter Lead', 'president', 'rishabh.ff@uit.edu', '+91 98765 77771', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_ff_kriti', 'clb_flutterflow_uit_2026', 'Kriti Saxena', 'App Design & UI/UX Lead', 'vice_president', 'kriti.ff@uit.edu', '+91 98765 77772', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop', 2],
-        ['ldr_tedx_siddharth', 'clb_tedx_uit_2026', 'Siddharth Tripathy', 'TEDx Licensee & Organizer', 'president', 'siddharth.tedx@uit.edu', '+91 98765 88881', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
-        ['ldr_tedx_mehak', 'clb_tedx_uit_2026', 'Mehak Srivastava', 'Executive Producer & Lead Curator', 'vice_president', 'mehak.tedx@uit.edu', '+91 98765 88882', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2]
+        ['ldr_cult_ankit', 'clb_cultural_uit', 'Dr. Ankit Gupta', 'Faculty Coordinator — Cultural Club UIT', 'faculty_coordinator', '2025–2026', 'ankit.gupta@uit.edu', '+91 98765 99901', 'assets/img/committee/ankit-gupta.jpg', 1],
+        ['ldr_cult_arya', 'clb_cultural_uit', 'Arya Keshari', 'Student President & Cultural Lead', 'president', '2025–2026', 'arya.keshari@student.uit.edu', '+91 98765 99902', 'assets/img/committee/arya-keshari.jpg', 2],
+        ['ldr_cult_riya', 'clb_cultural_uit', 'Riya Verma', 'Vice President — Cultural Affairs', 'vice_president', '2025–2026', 'riya.verma@student.uit.edu', '+91 98765 99903', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 3],
+        ['ldr_1', 'clb_gdgoc_uit_2026', 'Shivansh Singh', 'GDG Lead & President', 'president', '2025–2026', 'shivansh@uit.edu', '+91 98765 00001', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_2', 'clb_gdgoc_uit_2026', 'Sarthak Singh', 'GDG Lead & Past President', 'president', '2024–2025', 'sarthak@uit.edu', '+91 98765 00002', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_gfg_ansh', 'clb_gfg_sc_uit_2026', 'Ansh Kumar Gupta', 'Campus Mantri & Chapter Lead', 'president', '2025–2026', 'ansh.gfg@uit.edu', '+91 98765 11111', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_gfg_vice', 'clb_gfg_sc_uit_2026', 'Harsh Vardhan', 'Tech Lead & DSA Head', 'vice_president', '2025–2026', 'harsh.gfg@uit.edu', '+91 98765 11112', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_hr_lead', 'clb_hackerrank_uit_2026', 'Utkarsh Srivastava', 'HackerRank Campus Lead', 'president', '2025–2026', 'utkarsh.hr@uit.edu', '+91 98765 22221', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_hr_vice', 'clb_hackerrank_uit_2026', 'Aditi Mishra', 'Competitive Coding Lead', 'vice_president', '2025–2026', 'aditi.hr@uit.edu', '+91 98765 22222', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_ecell_riya', 'clb_ecell_uit_2026', 'Riya Sharma', 'E-Cell Convener & President', 'president', '2025–2026', 'riya@uit.edu', '+91 98765 12349', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_wiki_lead', 'clb_wikiclub_uit_2026', 'Divyansh Sharma', 'WikiClub Lead & Convener', 'president', '2025–2026', 'divyansh.wiki@uit.edu', '+91 98765 33331', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_wiki_vice', 'clb_wikiclub_uit_2026', 'Priya Singh', 'Content & Tech Editor', 'vice_president', '2025–2026', 'priya.wiki@uit.edu', '+91 98765 33332', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_foss_lead', 'clb_foss_uit_2026', 'Yash Vardhan', 'FOSS Campus Lead', 'president', '2025–2026', 'yash.foss@uit.edu', '+91 98765 44441', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_foss_vice', 'clb_foss_uit_2026', 'Alok Kumar', 'Linux & Kernel Lead', 'vice_president', '2025–2026', 'alok.foss@uit.edu', '+91 98765 44442', 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_rota_ananya', 'clb_rotaract_uit_2026', 'Ananya Verma', 'Rotaract President & Social Lead', 'president', '2025–2026', 'ananya.rotaract@uit.edu', '+91 98765 55551', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_rota_saurabh', 'clb_rotaract_uit_2026', 'Saurabh Mishra', 'Community Outreach Lead', 'vice_president', '2025–2026', 'saurabh.rotaract@uit.edu', '+91 98765 55552', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_toast_neha', 'clb_toastmasters_ugi_2026', 'Neha Verma', 'Toastmasters President', 'president', '2025–2026', 'neha.toast@uit.edu', '+91 98765 66661', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_toast_tanmay', 'clb_toastmasters_ugi_2026', 'Tanmay Kapoor', 'VP Education & Speech Lead', 'vice_president', '2025–2026', 'tanmay.toast@uit.edu', '+91 98765 66662', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_ff_rishabh', 'clb_flutterflow_uit_2026', 'Rishabh Pandey', 'FlutterFlow Chapter Lead', 'president', '2025–2026', 'rishabh.ff@uit.edu', '+91 98765 77771', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_ff_kriti', 'clb_flutterflow_uit_2026', 'Kriti Saxena', 'App Design & UI/UX Lead', 'vice_president', '2025–2026', 'kriti.ff@uit.edu', '+91 98765 77772', 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop', 2],
+        ['ldr_tedx_siddharth', 'clb_tedx_uit_2026', 'Siddharth Tripathy', 'TEDx Licensee & Organizer', 'president', '2025–2026', 'siddharth.tedx@uit.edu', '+91 98765 88881', 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop', 1],
+        ['ldr_tedx_mehak', 'clb_tedx_uit_2026', 'Mehak Srivastava', 'Executive Producer & Lead Curator', 'vice_president', '2025–2026', 'mehak.tedx@uit.edu', '+91 98765 88882', 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop', 2]
     ];
 
     $lStmt = $db->prepare("
-        INSERT INTO leadership (id, club_id, name, role_title, category, email, phone, avatar, order_index)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO leadership (id, club_id, name, role_title, category, term_year, email, phone, avatar, order_index)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
     foreach ($leaders as $ldr) {
         $lStmt->execute($ldr);
     }
+    echo "[+] Seeded " . count($leaders) . " Official Leadership Members.\n";
     echo "[+] Seeded " . count($leaders) . " Official Leadership Members.\n";
 
     // 3. Seed Official Events
