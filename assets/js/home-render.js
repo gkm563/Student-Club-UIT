@@ -67,29 +67,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     featuredGrid.innerHTML = featured.map((club, idx) => {
                         const style = categoryStyles[idx % categoryStyles.length];
                         const bannerImg = esc(club.cover_image || club.banner || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop');
-                        const logoImg = esc(club.logo || 'assets/United Logo.webp');
+                        const logoImg = esc(club.logo || 'assets/img/usc-logo.png');
                         const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(club.id)}`);
                         const eventCount = parseInt(club.event_count || 0);
 
                         return `
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="featured-club-card-3d" onclick="window.location.href='${detailLink}'" style="cursor: pointer;">
-                                    <div class="featured-club-banner" style="background-image: url('${bannerImg}');">
+                                    <div class="featured-club-banner position-relative overflow-hidden" style="height: 140px;">
+                                        <img src="${bannerImg}" alt="${esc(club.name)}" class="featured-club-banner-img w-100 h-100 object-fit-cover transition-all" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop'">
+                                        <div class="featured-club-overlay"></div>
                                         <div class="featured-club-status-badge">
                                             <span class="pulse-dot-green"></span> MOST ACTIVE CHAPTER
                                         </div>
-                                        <img src="${logoImg}" alt="${esc(club.name)}" class="featured-club-logo-float" onerror="this.src='assets/United Logo.webp'">
+                                        <div class="featured-club-logo-float">
+                                            <img src="${logoImg}" alt="${esc(club.name)}" class="featured-club-logo-img w-100 h-100 object-fit-cover rounded-circle shadow-sm" onerror="this.src='assets/img/usc-logo.png'">
+                                        </div>
                                     </div>
-                                    <div class="featured-club-content">
-                                        <span class="featured-category-pill" style="background:${style.tagBg}; color:${style.tagText};">
-                                            ${esc(club.category_name || 'Official Campus Club')}
-                                        </span>
-                                        <h5 class="featured-club-name" title="${esc(club.name)}">${esc(club.name)}</h5>
-                                        <p class="featured-club-desc">${esc(club.tagline || club.description || 'Official student organization at United Institute of Technology.')}</p>
+                                    <div class="featured-club-content p-4 pt-4 mt-1 flex-grow-1 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <span class="featured-category-pill mb-2 d-inline-block" style="background:${style.tagBg}; color:${style.tagText}; font-size: 0.75rem; font-weight: 700;">
+                                                ${esc(club.category_name || 'Official Campus Club')}
+                                            </span>
+                                            <h5 class="featured-club-name fw-black text-dark fs-6 mb-2" title="${esc(club.name)}">${esc(club.name)}</h5>
+                                            <p class="featured-club-desc text-secondary small line-clamp-2 mb-3">${esc(club.tagline || club.description || 'Official student organization at United Institute of Technology.')}</p>
+                                        </div>
                                         
-                                        <div class="featured-club-footer">
+                                        <div class="featured-club-footer d-flex align-items-center justify-content-between pt-3 border-top border-light">
                                             <div class="small fw-bold text-dark">
-                                                <i class="bi bi-calendar-event-fill me-1 text-primary"></i><span class="badge bg-primary-subtle text-primary border rounded-pill px-2 py-0.5">${eventCount} Recent Event${eventCount === 1 ? '' : 's'}</span>
+                                                <i class="bi bi-calendar-event-fill me-1 text-primary"></i><span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1" style="font-size: 0.72rem;">${eventCount} Recent Event${eventCount === 1 ? '' : 's'}</span>
                                             </div>
                                             <a href="${detailLink}" class="featured-club-action-btn" style="background:${style.btnGrad};" onclick="event.stopPropagation();">
                                                 Explore <i class="bi bi-arrow-right-short fs-5"></i>

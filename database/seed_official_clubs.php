@@ -75,7 +75,7 @@ try {
             'To cultivate developer skills through workshops, Study Jams, and Solution Challenges.',
             'To build the most vibrant student developer ecosystem at UIT.',
             '• Google Solution Challenge\n• Cloud Study Jams & Gen AI Workshops\n• Hackathons & Technical Bootcamps\n• Open Source Contributions',
-            'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=400&auto=format&fit=crop',
+            'assets/img/chapters/gdg-logo.jpg',
             'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop',
             2023, 'active', 1, 'https://gdg.community.dev/', 'gdgoc@uit.edu', '+91 98765 12345', 'UIT, UPSIDC Industrial Area, Naini, Prayagraj 211010', 'https://gdg.community.dev/'
         ],
@@ -90,7 +90,7 @@ try {
             'To create a strong ecosystem where students can enhance their skills in Data Structures & Algorithms (DSA), Competitive Programming, Web Development, Core Computer Science subjects, and emerging technologies.',
             'We believe in "Learn, Practice, Build, and Grow" — empowering students to become industry-ready engineers and problem solvers.',
             '• Technical workshops\n• Coding contests & hackathons\n• Interview preparation sessions\n• Industry expert talks\n• Peer-to-peer learning programs',
-            'https://media.geeksforgeeks.org/wp-content/uploads/gfg_200X200.png',
+            'assets/img/chapters/gfg-logo.jpg',
             'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop',
             2024, 'active', 1, '/contact.html', 'gfgsc@uit.edu', '+91 98765 11111', 'United Institute of Technology Naini, UPSIDC Industrial Area, Naini, Prayagraj, Uttar Pradesh IN', 'https://www.geeksforgeeks.org'
         ],
