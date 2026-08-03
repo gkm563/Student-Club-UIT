@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     return `
-                        <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="col">
                             <div class="committee-card-3d text-center p-3 h-100 d-flex flex-column justify-content-between">
                                 <div>
                                     <div class="committee-avatar-ring mx-auto mb-3" style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:3px solid ${borderColor};box-shadow:0 8px 20px rgba(0,0,0,0.12);">
