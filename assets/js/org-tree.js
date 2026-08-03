@@ -1,6 +1,6 @@
 /**
  * USC UIT — Redesigned Interactive Institutional Governance Matrix & Tree
- * Light Executive Theme with Level Indicators, Perfect Spacing & 100% Mobile Responsiveness.
+ * Light Executive Theme with Level Indicators, Direct Page Navigation & No Modal System.
  */
 
 class UscOrgTree {
@@ -46,12 +46,7 @@ class UscOrgTree {
                             category: 'GeeksforGeeks Chapter',
                             icon: 'bi-lightning-charge-fill',
                             url: 'clubs.html?search=GeeksforGeeks',
-                            badge: '120+ Coders',
-                            faculty: 'Er. Gaurav Narain',
-                            leads: 'Chapter Leads & Mentors',
-                            schedule: 'Wednesdays @ 4:00 PM',
-                            location: 'Lab 3, UIT Tech Block',
-                            desc: 'Official GeeksforGeeks student chapter focusing on Data Structures, Algorithms, Coding Contests, and Interview Prep.'
+                            badge: '120+ Coders'
                         },
                         { 
                             id: 'gdg',
@@ -59,12 +54,7 @@ class UscOrgTree {
                             category: 'Google Developer Group',
                             icon: 'bi-cloud-fill',
                             url: 'clubs.html?search=GDG',
-                            badge: '150+ Members',
-                            faculty: 'Er. Kushagra Dwivedi',
-                            leads: 'Cloud Leads & Evangelists',
-                            schedule: 'Fridays @ 3:30 PM',
-                            location: 'Seminar Hall B',
-                            desc: 'Official Google Developer Student Community for GCP, DevOps, Android, Web Development, and GenAI.'
+                            badge: '150+ Members'
                         },
                         { 
                             id: 'gemini',
@@ -72,12 +62,7 @@ class UscOrgTree {
                             category: 'AI & Hackathon Guild',
                             icon: 'bi-stars',
                             url: 'clubs.html?search=Gemini',
-                            badge: '80+ Innovators',
-                            faculty: 'Er. Gaurav Narain',
-                            leads: 'AI Hackathon Mentors',
-                            schedule: 'Saturdays @ 2:00 PM',
-                            location: 'Innovation Lab',
-                            desc: 'Specialized guild for Generative AI builders, LLM application engineering, and national hackathon teams.'
+                            badge: '80+ Innovators'
                         },
                         { 
                             id: 'dsa',
@@ -85,12 +70,7 @@ class UscOrgTree {
                             category: 'Coding & Contests',
                             icon: 'bi-cpu-fill',
                             url: 'clubs.html?category=technical',
-                            badge: '100+ Coders',
-                            faculty: 'Er. Kushagra Dwivedi',
-                            leads: 'Competitive Coding Captains',
-                            schedule: 'Tuesdays @ 5:00 PM',
-                            location: 'Coding Lab 1',
-                            desc: 'Intensive problem-solving sessions on LeetCode, Codeforces, and ICPC algorithmic contest preparation.'
+                            badge: '100+ Coders'
                         },
                         { 
                             id: 'cyber',
@@ -98,12 +78,7 @@ class UscOrgTree {
                             category: 'Open Source & Security',
                             icon: 'bi-terminal-fill',
                             url: 'clubs.html?category=technical',
-                            badge: '60+ Devs',
-                            faculty: 'Er. Gaurav Narain',
-                            leads: 'CTF & Linux Leads',
-                            schedule: 'Thursdays @ 4:30 PM',
-                            location: 'Cyber Sec Wing',
-                            desc: 'Ethical hacking, Capture-The-Flag (CTF) challenges, Linux system administration, and open-source contributions.'
+                            badge: '60+ Devs'
                         }
                     ]
                 },
@@ -129,12 +104,7 @@ class UscOrgTree {
                             category: 'Oratory & Public Speaking',
                             icon: 'bi-mic-fill',
                             url: 'clubs.html?search=Toastmasters',
-                            badge: '75+ Speakers',
-                            faculty: 'Dr. Ankit Gupta',
-                            leads: 'Toastmasters VP & Speakers',
-                            schedule: 'Mondays @ 4:00 PM',
-                            location: 'Main Auditorium',
-                            desc: 'Public speaking, impromptu speeches, leadership development, and international Toastmasters certifications.'
+                            badge: '75+ Speakers'
                         },
                         { 
                             id: 'music',
@@ -142,12 +112,7 @@ class UscOrgTree {
                             category: 'Vocal & Instruments',
                             icon: 'bi-music-note-beamed',
                             url: 'clubs.html?category=cultural',
-                            badge: '90+ Musicians',
-                            faculty: 'Dr. Ankit Gupta',
-                            leads: 'Band Captains & Vocalists',
-                            schedule: 'Wednesdays @ 5:00 PM',
-                            location: 'Music Studio',
-                            desc: 'Vocal melodies, instrumentals, acoustic jams, college rock bands, and grand fest stage performances.'
+                            badge: '90+ Musicians'
                         },
                         { 
                             id: 'dramatics',
@@ -155,12 +120,7 @@ class UscOrgTree {
                             category: 'Theatre & Stage Arts',
                             icon: 'bi-masks',
                             url: 'clubs.html?category=cultural',
-                            badge: '50+ Actors',
-                            faculty: 'Dr. Ankit Gupta',
-                            leads: 'Stage Directors & Writers',
-                            schedule: 'Thursdays @ 4:00 PM',
-                            location: 'Amphitheatre',
-                            desc: 'Street plays (Nukkad Natak), stage plays, mime, scriptwriting, and national level theatre competitions.'
+                            badge: '50+ Actors'
                         },
                         { 
                             id: 'finearts',
@@ -168,12 +128,7 @@ class UscOrgTree {
                             category: 'Creative & Photography',
                             icon: 'bi-camera-fill',
                             url: 'clubs.html?category=creative',
-                            badge: '65+ Artists',
-                            faculty: 'Dr. Ankit Gupta',
-                            leads: 'Creative Leads & Designers',
-                            schedule: 'Fridays @ 3:00 PM',
-                            location: 'Arts Studio',
-                            desc: 'Digital illustration, canvas painting, photojournalism, short filmmaking, and fest decor design.'
+                            badge: '65+ Artists'
                         },
                         { 
                             id: 'literary',
@@ -181,12 +136,7 @@ class UscOrgTree {
                             category: 'Debate & Writing',
                             icon: 'bi-book-half',
                             url: 'clubs.html?category=academic',
-                            badge: '40+ Writers',
-                            faculty: 'Dr. Ankit Gupta',
-                            leads: 'Editorial Board & Debaters',
-                            schedule: 'Tuesdays @ 4:00 PM',
-                            location: 'Central Library Hall',
-                            desc: 'Parliamentary debates, poetry slams, creative writing contests, and annual college magazine editorial.'
+                            badge: '40+ Writers'
                         }
                     ]
                 }
@@ -228,7 +178,7 @@ class UscOrgTree {
                                 <i class="bi bi-diagram-3-fill me-1 text-warning"></i> INSTITUTIONAL GOVERNANCE MATRIX
                             </span>
                             <span class="org-tree-badge-pulse" style="background: #ecfdf5 !important; color: #047857 !important; border: 1px solid #a7f3d0 !important; padding: 5px 14px !important; border-radius: 50px !important; font-weight: 700 !important; font-size: 0.72rem !important;">
-                                <span class="pulse-dot-green"></span> Interactive Live Flow
+                                <span class="pulse-dot-green"></span> Live Flow
                             </span>
                         </div>
                         
@@ -237,7 +187,7 @@ class UscOrgTree {
                         </h3>
                         
                         <p class="org-tree-lead mx-auto mb-3" style="color: #475569 !important; max-width: 600px; font-size: 0.9rem !important; font-weight: 500; line-height: 1.5;">
-                            Click any node to inspect governance profile • Search or filter by wing
+                            Search or filter by wing to explore campus architecture
                         </p>
 
                         <!-- Quick Metrics Bar -->
@@ -283,9 +233,9 @@ class UscOrgTree {
                         </div>
                     </div>
 
-                    <!-- Level 01: Apex Governing Council Card -->
+                    <!-- Level 01: Apex Governing Council Card (Static Information Card) -->
                     <div class="org-tree-root-container my-3 ${this.shouldShowWing('apex') ? '' : 'd-none-filter'}" style="display: flex; justify-content: center; z-index: 5; position: relative;">
-                        <div class="org-node org-node-root shadow-sm d-flex flex-column flex-sm-row align-items-center text-center text-sm-start" data-node-type="root" data-node-id="${root.id}" style="background: #ffffff !important; border: 2px solid #f59e0b !important; border-radius: 20px !important; padding: 20px !important; color: #0f172a !important; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12) !important; width: 100%; max-width: 680px; gap: 16px; cursor: pointer;">
+                        <div class="org-node org-node-root shadow-sm d-flex flex-column flex-sm-row align-items-center text-center text-sm-start" data-node-type="root" data-node-id="${root.id}" style="background: #ffffff !important; border: 2px solid #f59e0b !important; border-radius: 20px !important; padding: 20px !important; color: #0f172a !important; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.12) !important; width: 100%; max-width: 680px; gap: 16px; cursor: default;">
                             
                             <div class="org-node-icon org-node-icon-gold" style="background: linear-gradient(135deg, #f59e0b, #d97706) !important; width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.5rem; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3); flex-shrink: 0;">
                                 <i class="bi ${root.icon}"></i>
@@ -352,20 +302,17 @@ class UscOrgTree {
                                         </span>
                                     </div>
 
-                                    <!-- Wing Card Header Node -->
+                                    <!-- Wing Card Header Node (Static Non-Clickable Card) -->
                                     <div class="org-node org-node-wing ${wing.slug === 'cultural' ? 'org-node-wing-cultural' : 'org-node-wing-tech'}"
-                                         data-node-type="wing" 
-                                         data-wing-id="${wing.id}"
-                                         style="${wing.slug === 'cultural' ? 'background: linear-gradient(135deg, #be123c 0%, #e11d48 100%) !important; box-shadow: 0 6px 18px rgba(225, 29, 72, 0.2) !important;' : 'background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2) !important;'} border-radius: 16px !important; padding: 16px !important; cursor: pointer; display: flex; align-items: center; gap: 14px;">
+                                         style="${wing.slug === 'cultural' ? 'background: linear-gradient(135deg, #be123c 0%, #e11d48 100%) !important; box-shadow: 0 6px 18px rgba(225, 29, 72, 0.2) !important;' : 'background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important; box-shadow: 0 6px 18px rgba(37, 99, 235, 0.2) !important;'} border-radius: 16px !important; padding: 16px !important; cursor: default; display: flex; align-items: center; gap: 14px;">
                                         
                                         <div class="org-node-icon" style="background:#ffffff; color:${wing.accentColor}; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
                                             <i class="bi ${wing.icon}"></i>
                                         </div>
                                         
                                         <div class="org-node-content flex-grow-1">
-                                            <div class="org-node-title text-white d-flex align-items-center justify-content-between" style="color: #ffffff !important; font-size: 1.2rem; font-weight: 900;">
+                                            <div class="org-node-title text-white" style="color: #ffffff !important; font-size: 1.2rem; font-weight: 900;">
                                                 <span>${wing.name}</span>
-                                                <i class="bi bi-chevron-right fs-6 text-white opacity-75"></i>
                                             </div>
                                             <div class="org-node-faculty mt-0.5" style="color: rgba(255,255,255,0.9) !important; font-size: 0.8rem; font-weight: 500;">
                                                 <i class="bi bi-person-badge me-1"></i> ${wing.faculty}
@@ -392,11 +339,8 @@ class UscOrgTree {
                                             ${wing.chapters.map(chap => {
                                                 const isMatching = this.matchesSearch(chap);
                                                 return `
-                                                <div class="org-node-chip ${isMatching ? 'chip-matched' : 'chip-dimmed'}" 
-                                                     data-node-type="chapter"
-                                                     data-wing-id="${wing.id}"
-                                                     data-chapter-id="${chap.id}"
-                                                     style="background: #ffffff !important; border: 1.5px solid #e2e8f0 !important; border-radius: 12px !important; padding: 10px 12px !important; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
+                                                <a href="${chap.url}" class="org-node-chip text-decoration-none ${isMatching ? 'chip-matched' : 'chip-dimmed'}" 
+                                                   style="background: #ffffff !important; border: 1.5px solid #e2e8f0 !important; border-radius: 12px !important; padding: 10px 12px !important; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
                                                     
                                                     <div class="org-chip-icon" style="color:${wing.accentColor}; font-size: 1.2rem; flex-shrink: 0;">
                                                         <i class="bi ${chap.icon}"></i>
@@ -405,14 +349,13 @@ class UscOrgTree {
                                                     <div class="org-chip-info flex-grow-1 min-w-0">
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <span class="org-chip-name text-truncate" style="color: #0f172a !important; font-weight: 700; font-size: 0.82rem;">${chap.name}</span>
-                                                            <i class="bi bi-info-circle-fill chip-info-icon" style="color: #cbd5e1; font-size: 0.85rem;" title="View Details"></i>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-between mt-1">
                                                             <span class="org-chip-category text-truncate" style="color: #64748b !important; font-size: 0.68rem;">${chap.category}</span>
                                                             <span class="org-chip-badge" style="background:${wing.glowColor}; color:${wing.badgeTextColor} !important; font-size: 0.64rem; font-weight: 800; padding: 2px 6px; border-radius: 8px; white-space: nowrap;">${chap.badge}</span>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             `;
                                             }).join('')}
                                         </div>
@@ -428,16 +371,6 @@ class UscOrgTree {
                             </div>
                         `;
                         }).join('')}
-                    </div>
-                </div>
-
-                <!-- Interactive Detail Drawer / Modal Backdrop -->
-                <div class="org-modal-backdrop d-none" id="orgTreeModalBackdrop" style="position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 100050; display: flex; align-items: center; justify-content: center; padding: 16px;">
-                    <div class="org-modal-card" style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 24px; width: 100%; max-width: 580px; padding: 28px; box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18); position: relative; color: #0f172a;">
-                        <button type="button" class="btn-close org-modal-close" id="orgTreeModalClose" style="position: absolute; top: 18px; right: 18px; opacity: 0.8;"></button>
-                        <div id="orgTreeModalContent">
-                            <!-- Dynamic Content Injected Here -->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -456,20 +389,14 @@ class UscOrgTree {
         return (
             chapter.name.toLowerCase().includes(q) ||
             chapter.category.toLowerCase().includes(q) ||
-            chapter.desc.toLowerCase().includes(q) ||
             (chapter.badge && chapter.badge.toLowerCase().includes(q))
         );
     }
 
     bindEvents() {
-        const rootNode = this.container.querySelector('.org-node-root');
         const searchInput = this.container.querySelector('#orgTreeSearchInput');
         const clearBtn = this.container.querySelector('#orgTreeSearchClear');
         const filterBtns = this.container.querySelectorAll('.org-filter-btn');
-        const nodeChips = this.container.querySelectorAll('.org-node-chip');
-        const wingCards = this.container.querySelectorAll('.org-node-wing');
-        const modalBackdrop = this.container.querySelector('#orgTreeModalBackdrop');
-        const modalClose = this.container.querySelector('#orgTreeModalClose');
 
         // Filter tab click
         filterBtns.forEach(btn => {
@@ -503,53 +430,6 @@ class UscOrgTree {
                 this.updateSearchResults();
             });
         }
-
-        // Apex Root Click & Inspect
-        if (rootNode) {
-            rootNode.addEventListener('click', () => {
-                this.showNodeModal('root', this.config.root);
-            });
-        }
-
-        // Wing Node Click
-        wingCards.forEach(wing => {
-            wing.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const wingId = wing.getAttribute('data-wing-id');
-                const wingObj = this.config.wings.find(w => w.id === wingId);
-                if (wingObj) {
-                    this.showNodeModal('wing', wingObj);
-                }
-            });
-        });
-
-        // Subchapter Chip Click
-        nodeChips.forEach(chip => {
-            chip.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const wingId = chip.getAttribute('data-wing-id');
-                const chapId = chip.getAttribute('data-chapter-id');
-                const wingObj = this.config.wings.find(w => w.id === wingId);
-                if (wingObj) {
-                    const chapObj = wingObj.chapters.find(c => c.id === chapId);
-                    if (chapObj) {
-                        this.showNodeModal('chapter', chapObj, wingObj);
-                    }
-                }
-            });
-        });
-
-        // Modal Close
-        if (modalClose) {
-            modalClose.addEventListener('click', () => this.hideNodeModal());
-        }
-        if (modalBackdrop) {
-            modalBackdrop.addEventListener('click', (e) => {
-                if (e.target === modalBackdrop) {
-                    this.hideNodeModal();
-                }
-            });
-        }
     }
 
     updateSearchResults() {
@@ -574,145 +454,6 @@ class UscOrgTree {
                 }
             }
         });
-    }
-
-    showNodeModal(type, data, parentWing = null) {
-        const backdrop = this.container.querySelector('#orgTreeModalBackdrop');
-        const modalContent = this.container.querySelector('#orgTreeModalContent');
-        if (!backdrop || !modalContent) return;
-
-        let contentHtml = '';
-        const accentColor = data.accentColor || (parentWing ? parentWing.accentColor : '#f59e0b');
-
-        if (type === 'root') {
-            contentHtml = `
-                <div class="org-modal-header text-center mb-3">
-                    <div class="modal-icon-badge mx-auto mb-3" style="background:${data.accentColor}; width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(245,158,11,0.25);">
-                        <i class="bi ${data.icon} text-white fs-3"></i>
-                    </div>
-                    <span class="badge" style="background: #fffbeb !important; color: #b45309 !important; border: 1px solid #fde68a !important; font-weight: 800; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; font-size: 0.74rem;">
-                        ${data.badge} • ${data.session}
-                    </span>
-                    <h4 class="text-dark fw-bold mb-1 mt-2" style="color: #0f172a !important; font-size: 1.45rem;">${data.name}</h4>
-                    <p class="text-secondary small mb-0" style="color: #64748b !important;">${data.subtitle}</p>
-                </div>
-                <div class="org-modal-body mb-3">
-                    <p class="small mb-3" style="color: #334155 !important; line-height: 1.6;">${data.desc}</p>
-                    
-                    <div class="row g-2">
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #b45309 !important; font-size: 0.68rem;"><i class="bi bi-person-badge me-1"></i> Patron & Lead Faculty</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.faculty}</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #0284c7 !important; font-size: 0.68rem;"><i class="bi bi-buildings me-1"></i> Institutional Oversight</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.dean}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="org-modal-footer d-flex align-items-center justify-content-end gap-2">
-                    <a href="${data.url}" class="btn btn-sm fw-bold px-4 text-white" style="background: #d97706 !important; border-radius: 50px; font-weight: 800;">
-                        Go to Main Portal <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
-                </div>
-            `;
-        } else if (type === 'wing') {
-            contentHtml = `
-                <div class="org-modal-header mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="modal-icon-badge" style="background:${data.accentColor}; width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink:0; color:#fff;">
-                            <i class="bi ${data.icon} fs-3"></i>
-                        </div>
-                        <div>
-                            <span class="badge mb-1" style="background: #f1f5f9 !important; color: #2563eb !important; border-radius: 50px; padding: 3px 10px; font-size: 0.7rem; text-transform: uppercase;">
-                                ${data.tagline}
-                            </span>
-                            <h4 class="text-dark fw-bold m-0" style="color: #0f172a !important; font-size: 1.4rem;">${data.name}</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="org-modal-body mb-3">
-                    <p class="small mb-3" style="color: #334155 !important; line-height: 1.6;">${data.desc}</p>
-                    
-                    <div class="row g-2">
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #2563eb !important; font-size: 0.68rem;"><i class="bi bi-person-badge me-1"></i> Faculty In-charge</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.faculty}</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #16a34a !important; font-size: 0.68rem;"><i class="bi bi-people me-1"></i> Wing Strength</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.members} (${data.chapters.length} Chapters)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="org-modal-footer d-flex align-items-center justify-content-end gap-2">
-                    <a href="${data.url}" class="btn btn-sm text-white fw-bold px-4" style="background:${data.accentColor} !important; border-radius: 50px;">
-                        Visit Wing Page <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
-                </div>
-            `;
-        } else if (type === 'chapter') {
-            contentHtml = `
-                <div class="org-modal-header mb-3">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="modal-icon-badge" style="background:${accentColor}; width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink:0; color:#fff;">
-                            <i class="bi ${data.icon} fs-3"></i>
-                        </div>
-                        <div>
-                            <div class="d-flex align-items-center gap-2 mb-1">
-                                <span class="badge" style="background: #f1f5f9 !important; color: #475569 !important; border-radius: 50px; padding: 2px 8px; font-size: 0.68rem;">${parentWing ? parentWing.name : 'Wing Chapter'}</span>
-                                <span class="badge" style="background:${accentColor} !important; color: #ffffff !important; border-radius: 50px; padding: 2px 8px; font-size: 0.68rem;">${data.badge}</span>
-                            </div>
-                            <h4 class="text-dark fw-bold m-0" style="color: #0f172a !important; font-size: 1.35rem;">${data.name}</h4>
-                            <div style="color: #64748b !important; font-size: 0.78rem;">${data.category}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="org-modal-body mb-3">
-                    <p class="small mb-3" style="color: #334155 !important; line-height: 1.6;">${data.desc}</p>
-                    
-                    <div class="row g-2">
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #2563eb !important; font-size: 0.68rem;"><i class="bi bi-person-badge me-1"></i> Faculty Mentor</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.faculty || 'Faculty Incharge'}</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="p-2.5 rounded-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                                <div class="fw-bold text-uppercase mb-0.5" style="color: #b45309 !important; font-size: 0.68rem;"><i class="bi bi-clock-history me-1"></i> Meet Schedule</div>
-                                <div class="text-dark fw-semibold small" style="color: #0f172a !important;">${data.schedule || 'Weekly Sessions'}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="org-modal-footer d-flex align-items-center justify-content-end gap-2">
-                    <a href="${data.url}" class="btn btn-sm text-white fw-bold px-4" style="background:${accentColor} !important; border-radius: 50px;">
-                        Explore Chapter <i class="bi bi-box-arrow-up-right ms-1"></i>
-                    </a>
-                </div>
-            `;
-        }
-
-        modalContent.innerHTML = contentHtml;
-        backdrop.classList.remove('d-none');
-        document.body.style.overflow = 'hidden';
-    }
-
-    hideNodeModal() {
-        const backdrop = this.container.querySelector('#orgTreeModalBackdrop');
-        if (backdrop) {
-            backdrop.classList.add('d-none');
-        }
-        document.body.style.overflow = '';
     }
 }
 
