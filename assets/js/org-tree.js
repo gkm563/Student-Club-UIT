@@ -313,12 +313,6 @@ class UscOrgTree {
                                     </span>
                                 </div>
                             </div>
-                            
-                            <div class="org-node-action d-none d-sm-flex align-items-center">
-                                <span class="badge rounded-pill text-amber border" style="background: #fffbeb; color: #b45309; border-color: #fde68a; font-size: 0.75rem; padding: 6px 12px;">
-                                    Inspect <i class="bi bi-chevron-right ms-1"></i>
-                                </span>
-                            </div>
                         </div>
                     </div>
 
