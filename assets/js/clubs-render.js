@@ -197,26 +197,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const wingActive = (wing) => currentWing === wing && currentCategory === 'all';
 
             let pillsHtml = `
-                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' && !currentWing ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="all" data-wing="" style="font-size: 0.85rem;">
+                <button class="btn btn-sm text-start category-pill-btn d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' && !currentWing ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="all" data-wing="">
                     <span><i class="bi ${categoryIcons['all']} me-2 text-warning"></i> All Chapters</span>
                     <span class="badge ${currentCategory === 'all' && !currentWing ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-extrabold">${totalClubs}</span>
                 </button>
-                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${wingActive('technical') ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="technical" style="font-size: 0.85rem; border-left: 3px solid #2563eb !important;">
+                <button class="btn btn-sm text-start category-pill-btn category-pill-wing-tech d-flex justify-content-between align-items-center transition-all ${wingActive('technical') ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="technical">
                     <span><i class="bi bi-code-slash me-2 text-primary"></i> Developers Club UIT</span>
                     <span class="badge ${wingActive('technical') ? 'bg-white text-primary' : 'bg-primary-subtle text-primary'} rounded-pill ms-2 fw-bold">Tech</span>
                 </button>
-                <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-bold d-flex justify-content-between align-items-center transition-all ${wingActive('cultural') ? 'active btn-danger text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="cultural" style="font-size: 0.85rem; border-left: 3px solid #e11d48 !important;">
+                <button class="btn btn-sm text-start category-pill-btn category-pill-wing-cultural d-flex justify-content-between align-items-center transition-all ${wingActive('cultural') ? 'active btn-danger text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-wing="cultural">
                     <span><i class="bi bi-palette-fill me-2 text-danger"></i> Cultural Club UIT</span>
                     <span class="badge ${wingActive('cultural') ? 'bg-white text-danger' : 'bg-danger-subtle text-danger'} rounded-pill ms-2 fw-bold">Cultural</span>
                 </button>
-                <div class="small text-muted fw-bold text-uppercase px-2 pt-2 pb-1" style="font-size:0.68rem;letter-spacing:0.06em;">More domains</div>
+                <div class="category-divider-label">
+                    <i class="bi bi-layers-fill me-1.5 text-primary"></i> More domains
+                </div>
             `;
 
             categories.forEach(cat => {
                 const isActive = (currentCategory === cat.slug);
                 const icon = categoryIcons[cat.slug] || cat.icon || 'bi-bookmark-star-fill';
                 pillsHtml += `
-                    <button class="btn btn-sm text-start rounded-pill px-3 py-2 fw-semibold d-flex justify-content-between align-items-center transition-all ${isActive ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="${escapeHtml(cat.slug)}" style="font-size: 0.85rem;">
+                    <button class="btn btn-sm text-start category-pill-btn d-flex justify-content-between align-items-center transition-all ${isActive ? 'active btn-primary text-white shadow-sm' : 'btn-light text-secondary border-0'}" data-category="${escapeHtml(cat.slug)}">
                         <span class="text-truncate me-1"><i class="bi ${icon} me-2 ${isActive ? 'text-white' : 'text-primary'}"></i> ${escapeHtml(cat.name)}</span>
                         <span class="badge ${isActive ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-bold">${cat.club_count || 0}</span>
                     </button>

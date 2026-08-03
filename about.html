@@ -40,7 +40,80 @@
 </head>
 <body>
 
-<div id="header-placeholder"></div>
+<div id="header-placeholder">
+<!-- Vibrant Universal Top Navbar (USC UIT - United Student Club) -->
+<nav class="navbar navbar-expand-lg navbar-clubhub sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-3" href="index.html">
+            <img src="assets/img/usc-logo.png" alt="United Student Club Logo" class="brand-logo-img" style="height: 44px; width: 44px; object-fit: contain;">
+            <div class="d-flex flex-column">
+                <span class="brand-logo-text" style="font-size: 1.25rem; font-weight: 900; line-height: 1.1; color: #0f172a;">USC UIT</span>
+                <span class="fw-extrabold text-danger" style="font-size: 0.68rem; letter-spacing: 0.5px; color: #c8102e !important;">UNITED STUDENT CLUB</span>
+            </div>
+        </a>
+
+        <button class="navbar-toggler border-0 text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarClubhub" aria-controls="navbarClubhub" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarClubhub">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="index.html" id="nav-home">Home</a></li>
+
+                <!-- Clubs Dropdown — 2 Main Wings -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-clubhub dropdown-toggle" href="clubs.html" id="nav-clubs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Clubs &amp; Wings
+                    </a>
+                    <ul class="dropdown-menu border-0 shadow-lg rounded-4 p-2 mt-2" aria-labelledby="nav-clubs">
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="clubs.html">
+                                <i class="bi bi-grid-fill text-primary"></i> All USC UIT Clubs
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider my-1"></li>
+                        <li class="dropdown-header small text-uppercase fw-bold text-muted px-3 py-1">The 2 Main Wings</li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2.5 px-3 fw-bold text-primary d-flex align-items-center gap-2.5" href="developers-club.html">
+                                <i class="bi bi-code-slash fs-5 text-primary"></i>
+                                <div>
+                                    <span>Developers Club UIT</span>
+                                    <small class="text-muted fw-semibold d-block" style="font-size:0.72rem;">Official Technical Umbrella Council</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item rounded-3 py-2.5 px-3 fw-bold text-danger d-flex align-items-center gap-2.5" href="cultural-club.html">
+                                <i class="bi bi-palette-fill fs-5 text-danger"></i>
+                                <div>
+                                    <span>Cultural Club UIT</span>
+                                    <small class="text-muted fw-semibold d-block" style="font-size:0.72rem;">Official Cultural Umbrella Council</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="events.html" id="nav-events">Events</a></li>
+
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="gallery.html" id="nav-gallery">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub active" href="about.html" id="nav-about">About Us</a></li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="contact.html" id="nav-contact">Contact</a></li>
+            </ul>
+
+            <!-- 2 Main Wings Action Buttons (Always Visible & Responsive) -->
+            <div class="d-flex align-items-center gap-2 flex-wrap mt-3 mt-lg-0">
+                <a href="developers-club.html" class="btn btn-sm btn-wing-dev rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1.5 shadow-sm" title="Developers Club UIT — Official Technical Council">
+                    <i class="bi bi-code-slash fs-6 text-primary"></i> <span>Developers</span>
+                </a>
+                <a href="cultural-club.html" class="btn btn-sm btn-wing-cult rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1.5 shadow-sm" title="Cultural Club UIT — Official Cultural Council">
+                    <i class="bi bi-palette-fill fs-6 text-danger"></i> <span>Cultural</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+</div>
 
 <!-- Professional Institutional Hero Section -->
 <section class="about-hero-pro py-5">
@@ -212,6 +285,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- Interactive Organization Tree Component (IIT Style) -->
+<section class="py-4" style="background: #ffffff;">
+    <div class="container">
+        <div id="uscOrgTreeContainer"></div>
     </div>
 </section>
 
@@ -544,6 +624,7 @@
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/committee-render.js"></script>
+<script src="assets/js/org-tree.js"></script>
 
 <!-- Custom GSAP Scroll Animations -->
 <script>

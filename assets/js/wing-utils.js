@@ -23,7 +23,7 @@ function getWingMeta(wing) {
             wing: 'technical',
             label: 'Developers Club UIT',
             pageUrl: 'developers-club.html',
-            eventsUrl: 'tech-events.html',
+            eventsUrl: 'events.html?wing=technical',
             accentClass: 'text-primary',
             icon: 'bi-code-slash'
         };
@@ -33,7 +33,7 @@ function getWingMeta(wing) {
             wing: 'cultural',
             label: 'Cultural Club UIT',
             pageUrl: 'cultural-club.html',
-            eventsUrl: 'cultural-events.html',
+            eventsUrl: 'events.html?wing=cultural',
             accentClass: 'text-danger',
             icon: 'bi-palette-fill'
         };

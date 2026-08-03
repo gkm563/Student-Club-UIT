@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!page) return;
 
     const wing = page.dataset.wing;
-    const eventPage = wing === 'technical' ? 'tech-events.html' : 'cultural-events.html';
+    const eventPage = wing === 'technical' ? 'events.html?wing=technical' : 'events.html?wing=cultural';
     const wingLabel = wing === 'technical' ? 'technical' : 'cultural';
     const wingCategories = wing === 'technical'
         ? ['technical', 'technical-software-development']

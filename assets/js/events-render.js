@@ -125,8 +125,22 @@ function initializeEventsRenderer() {
         if (clearBtn) clearBtn.addEventListener('click', () => setWingFilter('all'));
     }
 
-    function setWingFilter(wing) {
+    function updateWingUrlParam(wing) {
+        const url = new URL(window.location);
+        if (wing && wing !== 'all') {
+            url.searchParams.set('wing', wing);
+        } else {
+            url.searchParams.delete('wing');
+        }
+        window.history.pushState(null, '', url.toString());
+    }
+
+    function setWingFilter(wing, updateUrl = true) {
         currentWingFilter = wing || 'all';
+        if (updateUrl) {
+            updateWingUrlParam(currentWingFilter === 'all' ? null : currentWingFilter);
+        }
+
         document.querySelectorAll('.event-wing-tab').forEach(tab => {
             tab.classList.toggle('active', (tab.dataset.eventsWing || 'all') === currentWingFilter);
         });
@@ -136,6 +150,17 @@ function initializeEventsRenderer() {
         const directory = document.getElementById('eventsDirectorySection');
         if (directory && wing !== 'all') {
             directory.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // Read URL Parameter on load
+    const initialUrlParams = new URLSearchParams(window.location.search);
+    const initialWingParam = initialUrlParams.get('wing') || initialUrlParams.get('category');
+    if (initialWingParam) {
+        if (initialWingParam === 'technical' || initialWingParam === 'developers') {
+            currentWingFilter = 'technical';
+        } else if (initialWingParam === 'cultural') {
+            currentWingFilter = 'cultural';
         }
     }
 
@@ -529,6 +554,13 @@ function initializeEventsRenderer() {
 
     document.querySelectorAll('[data-events-wing-filter]').forEach(btn => {
         btn.addEventListener('click', () => setWingFilter(btn.getAttribute('data-events-wing-filter')));
+    });
+
+    // Browser Back / Forward Button Handling
+    window.addEventListener('popstate', () => {
+        const params = new URLSearchParams(window.location.search);
+        const wing = params.get('wing') || 'all';
+        setWingFilter(wing, false);
     });
 
     // Status Tabs Listeners

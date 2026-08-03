@@ -4212,8 +4212,738 @@ html, body {
     }
     .developer-credit-badge {
         font-size: 0.82rem;
+}
+
+/* ==========================================================================
+   Parent Wings & Domains Sidebar Filter Styling (Clubs Directory)
+   ========================================================================== */
+.category-filter-section {
+    margin-bottom: 1.75rem !important;
+    padding-bottom: 0.5rem;
+}
+
+.category-filter-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-weight: 800 !important;
+    font-size: 0.74rem !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    color: #475569 !important;
+    margin-bottom: 12px !important;
+    padding-left: 2px;
+}
+
+#categoryFilterList {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.category-pill-btn {
+    padding: 10px 16px !important;
+    border-radius: 12px !important;
+    font-size: 0.86rem !important;
+    font-weight: 600 !important;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    margin-bottom: 2px !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+}
+
+.category-pill-btn:hover {
+    transform: translateX(4px) !important;
+    background-color: #f1f5f9 !important;
+    color: #1d4ed8 !important;
+}
+
+.category-pill-btn.active {
+    transform: translateX(4px) !important;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+}
+
+.category-pill-wing-tech {
+    border-left: 4px solid #2563eb !important;
+    background-color: #f8fafc !important;
+}
+.category-pill-wing-tech:hover {
+    background-color: #eff6ff !important;
+}
+
+.category-pill-wing-cultural {
+    border-left: 4px solid #e11d48 !important;
+    background-color: #f8fafc !important;
+}
+.category-pill-wing-cultural:hover {
+    background-color: #fff1f2 !important;
+}
+
+
+/* ==========================================================================
+   ⭐ INTERACTIVE USC UIT ORGANIZATION TREE (LIGHT EXECUTIVE THEME)
+   ========================================================================== */
+#uscOrgTreeContainer {
+    width: 100% !important;
+    position: relative !important;
+    display: block !important;
+    clear: both !important;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Light Executive Container Card */
+#uscOrgTreeContainer .org-tree-card-bg {
+    background: #ffffff !important;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%) !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 28px !important;
+    padding: 44px 30px !important;
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    color: #0f172a !important;
+}
+
+#uscOrgTreeContainer .org-tree-card-bg::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px) !important;
+    background-size: 28px 28px !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+/* Header Section */
+#uscOrgTreeContainer .org-tree-header {
+    position: relative !important;
+    z-index: 5 !important;
+    text-align: center !important;
+}
+
+#uscOrgTreeContainer .org-tree-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: #fffbeb !important;
+    color: #b45309 !important;
+    border: 1.5px solid #fde68a !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    padding: 8px 22px !important;
+    border-radius: 50px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 2px 10px rgba(245, 158, 11, 0.1) !important;
+}
+
+#uscOrgTreeContainer .org-tree-badge-pulse {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: #ecfdf5 !important;
+    color: #047857 !important;
+    border: 1px solid #a7f3d0 !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    padding: 7px 18px !important;
+    border-radius: 50px !important;
+}
+
+#uscOrgTreeContainer .pulse-dot-green {
+    width: 9px !important;
+    height: 9px !important;
+    background-color: #10b981 !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0.7) !important;
+    animation: pulseDotGreen 2s infinite !important;
+}
+
+@keyframes pulseDotGreen {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+#uscOrgTreeContainer .org-tree-title {
+    font-size: 2.35rem !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+    letter-spacing: -0.5px !important;
+    line-height: 1.25 !important;
+    margin-top: 14px !important;
+    margin-bottom: 10px !important;
+}
+
+#uscOrgTreeContainer .org-tree-title-gradient {
+    background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #db2777 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block !important;
+}
+
+#uscOrgTreeContainer .org-tree-lead {
+    max-width: 650px !important;
+    font-size: 0.95rem !important;
+    color: #475569 !important;
+    line-height: 1.5 !important;
+    margin: 0 auto !important;
+}
+
+/* Quick Metrics Bar */
+#uscOrgTreeContainer .org-tree-metrics-bar {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+#uscOrgTreeContainer .metric-pill {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 50rem !important;
+    padding: 7px 18px !important;
+    font-size: 0.82rem !important;
+    color: #334155 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.25s ease !important;
+}
+
+#uscOrgTreeContainer .metric-pill:hover {
+    border-color: #cbd5e1 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Controls Bar (Search + Filter Tabs) */
+#uscOrgTreeContainer .org-tree-controls-bar {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+#uscOrgTreeContainer .org-search-box {
+    max-width: 520px !important;
+}
+
+#uscOrgTreeContainer .org-search-box .search-icon {
+    position: absolute !important;
+    left: 18px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: #64748b !important;
+    font-size: 1.1rem !important;
+    z-index: 10 !important;
+}
+
+#uscOrgTreeContainer .org-search-input {
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 50rem !important;
+    padding: 12px 45px 12px 48px !important;
+    color: #0f172a !important;
+    font-size: 0.88rem !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+}
+
+#uscOrgTreeContainer .org-search-input:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.25) !important;
+    outline: none !important;
+}
+
+#uscOrgTreeContainer .org-search-input::placeholder {
+    color: #94a3b8 !important;
+}
+
+#uscOrgTreeContainer .btn-clear-search {
+    position: absolute !important;
+    right: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: none !important;
+    border: none !important;
+    color: #64748b !important;
+}
+
+#uscOrgTreeContainer .org-filter-tabs {
+    background: #f1f5f9 !important;
+    border: 1.5px solid #e2e8f0 !important;
+    padding: 4px !important;
+    border-radius: 50rem !important;
+    display: inline-flex !important;
+}
+
+#uscOrgTreeContainer .org-filter-btn {
+    border: none !important;
+    color: #475569 !important;
+    background: transparent !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    padding: 8px 18px !important;
+    border-radius: 50rem !important;
+    transition: all 0.25s ease !important;
+    cursor: pointer !important;
+}
+
+#uscOrgTreeContainer .org-filter-btn:hover {
+    color: #0f172a !important;
+    background: #e2e8f0 !important;
+}
+
+#uscOrgTreeContainer .org-filter-btn.active {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Apex Root Node */
+#uscOrgTreeContainer .org-tree-root-container {
+    display: flex !important;
+    justify-content: center !important;
+    position: relative !important;
+    z-index: 5 !important;
+    margin: 28px 0 !important;
+}
+
+#uscOrgTreeContainer .org-node-root {
+    background: #ffffff !important;
+    border: 2.5px solid #f59e0b !important;
+    border-radius: 24px !important;
+    padding: 22px 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 22px !important;
+    cursor: pointer !important;
+    box-shadow: 0 12px 35px rgba(245, 158, 11, 0.15) !important;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 720px !important;
+}
+
+#uscOrgTreeContainer .org-node-root:hover {
+    transform: translateY(-4px) scale(1.02) !important;
+    box-shadow: 0 18px 45px rgba(245, 158, 11, 0.25) !important;
+    border-color: #d97706 !important;
+}
+
+#uscOrgTreeContainer .org-node-icon-gold {
+    width: 56px !important;
+    height: 56px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.7rem !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.3) !important;
+}
+
+#uscOrgTreeContainer .org-node-tag {
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    color: #b45309 !important;
+}
+
+#uscOrgTreeContainer .org-node-title {
+    font-size: 1.35rem !important;
+    font-weight: 900 !important;
+    color: #0f172a !important;
+    line-height: 1.25 !important;
+}
+
+#uscOrgTreeContainer .org-node-desc {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+    font-weight: 500 !important;
+    margin-top: 2px !important;
+}
+
+#uscOrgTreeContainer .org-node-meta .meta-item {
+    font-size: 0.76rem !important;
+    color: #334155 !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 4px 12px !important;
+    border-radius: 50rem !important;
+}
+
+/* Visual Connector Tree System */
+#uscOrgTreeContainer .org-tree-connector-system {
+    position: relative !important;
+    width: 100% !important;
+    margin: 10px 0 25px 0 !important;
+}
+
+#uscOrgTreeContainer .org-tree-stem-top {
+    width: 4px !important;
+    height: 28px !important;
+    background: linear-gradient(180deg, #f59e0b 0%, #2563eb 100%) !important;
+    margin: 0 auto !important;
+    border-radius: 2px !important;
+}
+
+#uscOrgTreeContainer .org-tree-crossbar {
+    width: 50% !important;
+    height: 4px !important;
+    background: linear-gradient(90deg, #2563eb 0%, #0284c7 50%, #e11d48 100%) !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    border-radius: 2px !important;
+}
+
+#uscOrgTreeContainer .org-tree-drop {
+    position: absolute !important;
+    top: 0 !important;
+    width: 4px !important;
+    height: 26px !important;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+    border-radius: 2px !important;
+}
+
+#uscOrgTreeContainer .org-tree-drop-left {
+    left: 0 !important;
+    background: #2563eb !important;
+}
+
+#uscOrgTreeContainer .org-tree-drop-right {
+    right: 0 !important;
+    background: #e11d48 !important;
+}
+
+#uscOrgTreeContainer .org-drop-arrow {
+    position: absolute !important;
+    bottom: -13px !important;
+    font-size: 1.1rem !important;
+    font-weight: 900 !important;
+}
+
+#uscOrgTreeContainer .org-tree-stem-mobile {
+    width: 4px !important;
+    height: 28px !important;
+    background: linear-gradient(180deg, #f59e0b 0%, #2563eb 100%) !important;
+    margin: 0 auto 20px auto !important;
+    border-radius: 2px !important;
+}
+
+/* Wing Branch Cards */
+#uscOrgTreeContainer .org-wing-branch-card {
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 24px !important;
+    padding: 22px !important;
+    transition: all 0.35s ease !important;
+    height: 100% !important;
+    position: relative !important;
+    z-index: 4 !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05) !important;
+}
+
+#uscOrgTreeContainer .org-wing-branch-card:hover {
+    border-color: #cbd5e1 !important;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.09) !important;
+}
+
+#uscOrgTreeContainer .org-node-wing {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 18px !important;
+    border-radius: 18px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+#uscOrgTreeContainer .org-node-wing-tech {
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25) !important;
+}
+
+#uscOrgTreeContainer .org-node-wing-cultural {
+    background: linear-gradient(135deg, #be123c 0%, #e11d48 100%) !important;
+    box-shadow: 0 8px 20px rgba(225, 29, 72, 0.25) !important;
+}
+
+#uscOrgTreeContainer .org-node-wing:hover {
+    transform: translateY(-2px) !important;
+    filter: brightness(1.08) !important;
+}
+
+#uscOrgTreeContainer .org-node-icon {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.5rem !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+#uscOrgTreeContainer .org-wing-stem-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 12px 0 !important;
+}
+
+#uscOrgTreeContainer .org-wing-stem-line {
+    width: 2px !important;
+    height: 18px !important;
+    opacity: 0.85 !important;
+}
+
+#uscOrgTreeContainer .org-wing-arrow {
+    font-size: 1rem !important;
+    font-weight: 900 !important;
+    margin-top: -4px !important;
+}
+
+/* Sub-chapters Container & Grid */
+#uscOrgTreeContainer .org-subchapters-container {
+    background: #f8fafc !important;
+    border-radius: 18px !important;
+    padding: 18px !important;
+    border: 1.5px solid #e2e8f0 !important;
+}
+
+#uscOrgTreeContainer .org-subchapters-header {
+    font-size: 0.74rem !important;
+    font-weight: 800 !important;
+    color: #64748b !important;
+    letter-spacing: 0.8px !important;
+}
+
+#uscOrgTreeContainer .org-subchapters-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 12px !important;
+}
+
+#uscOrgTreeContainer .org-node-chip {
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 14px !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+#uscOrgTreeContainer .org-node-chip:hover {
+    background: #ffffff !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15) !important;
+}
+
+#uscOrgTreeContainer .chip-info-icon {
+    font-size: 0.9rem !important;
+    color: #94a3b8 !important;
+    transition: color 0.2s ease !important;
+}
+
+#uscOrgTreeContainer .org-node-chip:hover .chip-info-icon {
+    color: #2563eb !important;
+}
+
+#uscOrgTreeContainer .org-chip-icon {
+    font-size: 1.3rem !important;
+    flex-shrink: 0 !important;
+}
+
+#uscOrgTreeContainer .org-chip-name {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+}
+
+#uscOrgTreeContainer .org-chip-category {
+    font-size: 0.7rem !important;
+    color: #64748b !important;
+}
+
+#uscOrgTreeContainer .org-chip-badge {
+    font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    padding: 3px 8px !important;
+    border-radius: 10px !important;
+    white-space: nowrap !important;
+}
+
+/* Filter & Search Helper Classes */
+#uscOrgTreeContainer .chip-matched {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 14px rgba(37, 99, 235, 0.3) !important;
+}
+
+#uscOrgTreeContainer .chip-dimmed {
+    opacity: 0.3 !important;
+    filter: grayscale(0.4) !important;
+}
+
+#uscOrgTreeContainer .d-none-filter {
+    display: none !important;
+}
+
+#uscOrgTreeContainer .wing-explore-link {
+    font-size: 0.82rem !important;
+    color: #2563eb !important;
+    transition: all 0.2s ease !important;
+}
+
+#uscOrgTreeContainer .wing-explore-link:hover {
+    color: #1d4ed8 !important;
+    text-decoration: underline !important;
+}
+
+/* Interactive Detail Drawer / Modal Backdrop */
+#uscOrgTreeContainer .org-modal-backdrop {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    backdrop-filter: blur(10px) !important;
+    z-index: 100050 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 16px !important;
+}
+
+#uscOrgTreeContainer .org-modal-card {
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 24px !important;
+    width: 100% !important;
+    max-width: 580px !important;
+    padding: 28px !important;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18) !important;
+    position: relative !important;
+    color: #0f172a !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+#uscOrgTreeContainer .org-modal-close {
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease !important;
+}
+
+#uscOrgTreeContainer .org-modal-close:hover {
+    opacity: 1 !important;
+}
+
+/* ==========================================================================
+   📱 MOBILE & TABLET RESPONSIVE REFINEMENTS FOR ORG TREE
+   ========================================================================== */
+@media (max-width: 768px) {
+    #uscOrgTreeContainer .org-tree-card-bg {
+        padding: 22px 14px !important;
+        border-radius: 20px !important;
+    }
+
+    #uscOrgTreeContainer .org-tree-title {
+        font-size: 1.55rem !important;
+    }
+
+    #uscOrgTreeContainer .org-tree-lead {
+        font-size: 0.84rem !important;
+    }
+
+    #uscOrgTreeContainer .metric-pill {
+        padding: 5px 12px !important;
+        font-size: 0.74rem !important;
+    }
+
+    #uscOrgTreeContainer .org-search-input {
+        font-size: 0.82rem !important;
+        padding: 10px 38px 10px 40px !important;
+    }
+
+    #uscOrgTreeContainer .org-node-root {
+        padding: 16px !important;
+        gap: 14px !important;
+        border-radius: 18px !important;
+    }
+
+    #uscOrgTreeContainer .org-node-icon-gold {
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 1.3rem !important;
+    }
+
+    #uscOrgTreeContainer .org-node-title {
+        font-size: 1.15rem !important;
+    }
+
+    #uscOrgTreeContainer .org-wing-branch-card {
+        padding: 14px !important;
+        border-radius: 18px !important;
+    }
+
+    #uscOrgTreeContainer .org-subchapters-container {
+        padding: 12px !important;
+    }
+
+    #uscOrgTreeContainer .org-subchapters-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    #uscOrgTreeContainer .org-node-chip {
+        padding: 10px 12px !important;
+        min-height: 44px !important;
+    }
+
+    #uscOrgTreeContainer .org-modal-card {
+        padding: 20px !important;
+        border-radius: 20px !important;
     }
 }
+
+#uscOrgTreeContainer .modal-icon-badge {
+    width: 64px !important;
+    height: 64px !important;
+    border-radius: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+@media (max-width: 991px) {
+    #uscOrgTreeContainer .org-subchapters-grid {
+        grid-template-columns: 1fr !important;
+    }
+    #uscOrgTreeContainer .org-tree-title {
+        font-size: 1.85rem !important;
+    }
+    #uscOrgTreeContainer .org-node-root {
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    #uscOrgTreeContainer .org-node-meta {
+        justify-content: center !important;
+    }
+}
+
 
 
 

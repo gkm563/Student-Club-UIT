@@ -248,6 +248,9 @@
                 </article>
             </div>
         </div>
+
+        <!-- Interactive Organization Tree Component -->
+        <div id="uscOrgTreeContainer" class="mt-5"></div>
     </div>
 </section>
 
@@ -275,9 +278,12 @@
                     </div>
 
                     <!-- Categories List -->
-                    <div class="mb-4">
-                        <label class="form-label fw-bold small text-uppercase text-secondary mb-2" style="letter-spacing: 0.8px; font-size: 0.72rem;">Parent Wings &amp; Domains</label>
-                        <div class="d-flex flex-column gap-1.5" id="categoryFilterList">
+                    <div class="category-filter-section mb-4">
+                        <label class="form-label category-filter-label">
+                            <i class="bi bi-diagram-3-fill text-primary"></i>
+                            Parent Wings &amp; Domains
+                        </label>
+                        <div class="d-flex flex-column gap-2" id="categoryFilterList">
                             <!-- Dynamic Category Pills Rendered by JS -->
                         </div>
                     </div>
@@ -324,6 +330,7 @@
 <script src="assets/js/wing-utils.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/clubs-render.js"></script>
+<script src="assets/js/org-tree.js"></script>
 
 <!-- Automatic Hero Background Cross-Fader Script -->
 <script>

@@ -635,10 +635,10 @@
                         <a href="#eventsWingsSection" class="btn btn-sm btn-dark rounded-pill px-3 py-1.5 fw-bold shadow-sm">
                             <i class="bi bi-diagram-3"></i> See Both Wings
                         </a>
-                        <a href="tech-events.html" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold shadow-sm">
+                        <a href="events.html?wing=technical" class="btn btn-sm btn-primary rounded-pill px-3 py-1.5 fw-bold shadow-sm">
                             <i class="bi bi-code-slash"></i> Tech Events
                         </a>
-                        <a href="cultural-events.html" class="btn btn-sm btn-danger rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="background:#e11d48;border-color:#e11d48;">
+                        <a href="events.html?wing=cultural" class="btn btn-sm btn-danger rounded-pill px-3 py-1.5 fw-bold shadow-sm" style="background:#e11d48;border-color:#e11d48;">
                             <i class="bi bi-palette-fill"></i> Cultural Events
                         </a>
                     </div>
@@ -758,7 +758,7 @@
                         <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading tech events…</div>
                     </div>
                     <div class="clubs-wing-panel__actions">
-                        <a href="tech-events.html" class="btn btn-primary rounded-pill px-4 fw-bold"><i class="bi bi-code-slash me-1"></i> All Tech Events</a>
+                        <a href="events.html?wing=technical" class="btn btn-primary rounded-pill px-4 fw-bold"><i class="bi bi-code-slash me-1"></i> All Tech Events</a>
                         <button type="button" class="btn btn-outline-primary rounded-pill px-4 fw-bold" data-events-wing-filter="technical"><i class="bi bi-funnel me-1"></i> Filter tech only</button>
                     </div>
                 </article>
@@ -786,12 +786,15 @@
                         <div class="text-muted small py-2"><span class="spinner-border spinner-border-sm me-2"></span>Loading cultural events…</div>
                     </div>
                     <div class="clubs-wing-panel__actions">
-                        <a href="cultural-events.html" class="btn btn-danger rounded-pill px-4 fw-bold" style="background:#e11d48;border-color:#e11d48;"><i class="bi bi-palette-fill me-1"></i> All Cultural Events</a>
+                        <a href="events.html?wing=cultural" class="btn btn-danger rounded-pill px-4 fw-bold" style="background:#e11d48;border-color:#e11d48;"><i class="bi bi-palette-fill me-1"></i> All Cultural Events</a>
                         <button type="button" class="btn btn-outline-danger rounded-pill px-4 fw-bold" style="color:#e11d48;border-color:#e11d48;" data-events-wing-filter="cultural"><i class="bi bi-funnel me-1"></i> Filter cultural only</button>
                     </div>
                 </article>
             </div>
         </div>
+
+        <!-- Interactive Institutional Governance Tree -->
+        <div id="uscOrgTreeContainer" class="mt-5"></div>
     </div>
 </section>
 
@@ -889,6 +892,7 @@
 <script src="assets/js/wing-utils.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/events-render.js"></script>
+<script src="assets/js/org-tree.js"></script>
 
 <!-- Automatic Hero Background Cross-Fader Script -->
 <script>
