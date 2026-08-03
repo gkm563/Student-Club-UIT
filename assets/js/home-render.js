@@ -191,18 +191,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             return `
                                 <a href="${detailLink}" class="activity-card-3d">
                                     <img src="${img}" class="activity-thumb-3d" alt="${esc(evt.title)}" loading="lazy">
-                                    <div class="flex-grow-1 overflow-hidden">
+                                    <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
                                         <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
-                                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                                            <span class="activity-club-tag">
+                                        <div class="d-flex align-items-center gap-1 flex-wrap">
+                                            <span class="activity-club-tag text-truncate" style="max-width: 140px;">
                                                 <i class="bi bi-shield-check"></i> ${esc(evt.club_name || 'Campus Club')}
                                             </span>
-                                            <span class="small text-muted" style="font-size: 0.72rem;">
+                                            <span class="small text-muted" style="font-size: 0.72rem; white-space: nowrap;">
                                                 <i class="bi bi-check-circle-fill text-success me-1"></i>Completed
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="text-end flex-shrink-0">
+                                    <div class="text-end flex-shrink-0 ms-1">
                                         <span class="badge rounded-pill bg-light text-primary border border-primary-subtle fw-semibold px-2 py-1" style="font-size: 0.7rem;">
                                             ${timeAgo}
                                         </span>
@@ -255,16 +255,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <span class="event-date-num-3d">${day}</span>
                                     <span class="event-date-month-3d">${month}</span>
                                 </div>
-                                <div class="flex-grow-1 overflow-hidden">
+                                <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
                                     <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
                                     <div class="small text-muted text-truncate" style="font-size: 0.76rem;">
                                         <i class="bi bi-geo-alt-fill text-danger me-1"></i>${esc(evt.venue)}
                                     </div>
-                                    <div class="small text-primary fw-semibold mt-1" style="font-size: 0.72rem;">
+                                    <div class="small text-primary fw-semibold mt-1 text-truncate" style="font-size: 0.72rem;">
                                         <i class="bi bi-patch-check-fill text-primary me-1"></i>${esc(evt.club_name)}
                                     </div>
                                 </div>
-                                <div class="event-time-pill">
+                                <div class="event-time-pill ms-1">
                                     <i class="bi bi-clock-fill"></i> ${time}
                                 </div>
                             </a>`;

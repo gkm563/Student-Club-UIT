@@ -2186,35 +2186,48 @@ body {
     }
 
     /* Activity & Event Mobile Adjustments */
+    .home-panel {
+        padding: 1.15rem 0.85rem !important;
+        border-radius: 18px !important;
+    }
+
     .activity-card-3d, .event-card-3d {
-        padding: 12px;
-        gap: 12px;
-        border-radius: 14px;
+        padding: 10px 10px !important;
+        gap: 10px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .activity-card-3d:hover, .event-card-3d:hover {
+        transform: translateY(-2px) !important;
     }
 
     .activity-thumb-3d {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
+        width: 44px !important;
+        height: 44px !important;
+        border-radius: 10px !important;
     }
 
     .event-date-badge-3d {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
+        width: 44px !important;
+        height: 46px !important;
+        border-radius: 10px !important;
     }
 
     .event-date-num-3d {
-        font-size: 1.1rem;
+        font-size: 1rem !important;
     }
 
     .event-date-month-3d {
-        font-size: 0.6rem;
+        font-size: 0.58rem !important;
     }
 
     .event-time-pill {
-        font-size: 0.65rem;
-        padding: 2px 8px;
+        font-size: 0.62rem !important;
+        padding: 3px 6px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
     }
 
     /* Featured Clubs Mobile Adjustments */
@@ -4942,7 +4955,29 @@ html, body {
     #uscOrgTreeContainer .org-node-meta {
         justify-content: center !important;
     }
+@media (max-width: 575.98px) {
+    .committee-card-3d {
+        padding: 0.85rem 0.4rem !important;
+    }
+    .committee-card-3d .committee-avatar-ring {
+        width: 85px !important;
+        height: 85px !important;
+    }
+    .committee-card-3d h4,
+    .committee-card-3d h5 {
+        font-size: 0.95rem !important;
+    }
+    .committee-card-3d .committee-role-badge {
+        font-size: 0.72rem !important;
+        padding: 4px 10px !important;
+    }
+    .committee-card-3d .badge {
+        font-size: 0.65rem !important;
+        padding: 4px 8px !important;
+        white-space: normal !important;
+    }
 }
+
 
 
 
