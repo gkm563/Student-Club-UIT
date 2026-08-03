@@ -5,9 +5,7 @@
 (function () {
     function normalizePathname(pathname) {
         if (!pathname) return '/';
-        const leading = pathname.startsWith('/') ? '/' : '';
-        const parts = pathname.split('/').filter(Boolean);
-        return leading + parts.join('/');
+        return pathname.replace(/\/+/g, '/');
     }
 
     function normalizeCurrentUrl() {
