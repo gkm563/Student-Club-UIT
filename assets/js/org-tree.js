@@ -187,11 +187,11 @@ class UscOrgTree {
                         </h3>
                         
                         <p class="org-tree-lead mx-auto mb-3" style="color: #475569 !important; max-width: 600px; font-size: 0.9rem !important; font-weight: 500; line-height: 1.5;">
-                            Search or filter by wing to explore campus architecture
+                            Explore the institutional governance structure of United Institute of Technology
                         </p>
 
                         <!-- Quick Metrics Bar -->
-                        <div class="org-tree-metrics-bar d-flex flex-wrap align-items-center justify-content-center gap-2 mb-4">
+                        <div class="org-tree-metrics-bar d-flex flex-wrap align-items-center justify-content-center gap-2 mb-2">
                             <div class="metric-pill" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 50px !important; padding: 6px 14px !important; color: #334155 !important; font-size: 0.78rem !important; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
                                 <i class="bi bi-diagram-2 text-primary me-1"></i> <strong>2</strong> Wings
                             </div>
@@ -203,19 +203,6 @@ class UscOrgTree {
                             </div>
                             <div class="metric-pill" style="background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 50px !important; padding: 6px 14px !important; color: #334155 !important; font-size: 0.78rem !important; font-weight: 600; box-shadow: 0 2px 6px rgba(0,0,0,0.02);">
                                 <i class="bi bi-person-workspace text-warning me-1"></i> <strong>3</strong> Advisors
-                            </div>
-                        </div>
-
-                        <!-- Controls Bar: Live Search -->
-                        <div class="org-tree-controls-bar d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 my-2 px-md-3">
-                            
-                            <!-- Search Bar -->
-                            <div class="org-search-box position-relative w-100" style="max-width: 480px;">
-                                <i class="bi bi-search search-icon" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 1rem; z-index: 10;"></i>
-                                <input type="text" class="form-control org-search-input" id="orgTreeSearchInput" placeholder="Search chapters, leads, or keywords..." value="${this.searchQuery}" style="background: #ffffff !important; color: #0f172a !important; border: 1.5px solid #cbd5e1 !important; border-radius: 50px !important; padding: 10px 40px 10px 44px !important; font-size: 0.85rem !important; box-shadow: 0 2px 10px rgba(0,0,0,0.03) !important;">
-                                <button type="button" class="btn btn-sm text-secondary btn-clear-search ${this.searchQuery ? '' : 'd-none'}" id="orgTreeSearchClear" title="Clear Search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none;">
-                                    <i class="bi bi-x-circle-fill"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
