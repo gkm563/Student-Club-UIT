@@ -206,7 +206,7 @@ class UscOrgTree {
                             </div>
                         </div>
 
-                        <!-- Controls Bar: Live Search & View Filter Tabs -->
+                        <!-- Controls Bar: Live Search -->
                         <div class="org-tree-controls-bar d-flex flex-column flex-md-row align-items-center justify-content-center gap-3 my-2 px-md-3">
                             
                             <!-- Search Bar -->
@@ -215,19 +215,6 @@ class UscOrgTree {
                                 <input type="text" class="form-control org-search-input" id="orgTreeSearchInput" placeholder="Search chapters, leads, or keywords..." value="${this.searchQuery}" style="background: #ffffff !important; color: #0f172a !important; border: 1.5px solid #cbd5e1 !important; border-radius: 50px !important; padding: 10px 40px 10px 44px !important; font-size: 0.85rem !important; box-shadow: 0 2px 10px rgba(0,0,0,0.03) !important;">
                                 <button type="button" class="btn btn-sm text-secondary btn-clear-search ${this.searchQuery ? '' : 'd-none'}" id="orgTreeSearchClear" title="Clear Search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none;">
                                     <i class="bi bi-x-circle-fill"></i>
-                                </button>
-                            </div>
-
-                            <!-- Filter Tabs -->
-                            <div class="org-filter-tabs flex-wrap justify-content-center" style="background: #f1f5f9 !important; border: 1.5px solid #e2e8f0 !important; padding: 4px !important; border-radius: 50px !important; display: inline-flex; gap: 2px;">
-                                <button type="button" class="btn org-filter-btn ${this.activeFilter === 'all' ? 'active' : ''}" data-filter="all" style="${this.activeFilter === 'all' ? 'background: #2563eb !important; color: #ffffff !important; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25) !important;' : 'background: transparent !important; color: #475569 !important;'} border-radius: 50px !important; padding: 6px 14px !important; font-weight: 700 !important; border: none !important; font-size: 0.78rem !important;">
-                                    All Wings
-                                </button>
-                                <button type="button" class="btn org-filter-btn ${this.activeFilter === 'technical' ? 'active' : ''}" data-filter="technical" style="${this.activeFilter === 'technical' ? 'background: #2563eb !important; color: #ffffff !important; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25) !important;' : 'background: transparent !important; color: #475569 !important;'} border-radius: 50px !important; padding: 6px 14px !important; font-weight: 700 !important; border: none !important; font-size: 0.78rem !important;">
-                                    Technical
-                                </button>
-                                <button type="button" class="btn org-filter-btn ${this.activeFilter === 'cultural' ? 'active' : ''}" data-filter="cultural" style="${this.activeFilter === 'cultural' ? 'background: #e11d48 !important; color: #ffffff !important; box-shadow: 0 4px 10px rgba(225, 29, 72, 0.25) !important;' : 'background: transparent !important; color: #475569 !important;'} border-radius: 50px !important; padding: 6px 14px !important; font-weight: 700 !important; border: none !important; font-size: 0.78rem !important;">
-                                    Cultural
                                 </button>
                             </div>
                         </div>
