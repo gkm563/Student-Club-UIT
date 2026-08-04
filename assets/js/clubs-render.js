@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Render Dynamic Category Pills with Real Counts
                     if (categoryFilterList && response.categories) {
-                        renderCategoryPills(response.categories, response.total);
+                        renderCategoryPills(response.categories, response.total, response.tech_count, response.cultural_count, response.total_all);
                     }
 
                     // Render Active Filter Badge
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Render Dynamic Category Pills
-        function renderCategoryPills(categories, totalClubs) {
+        function renderCategoryPills(categories, totalClubs, techCount, culturalCount, totalAll) {
             const categoryIcons = {
                 'all': 'bi-grid-fill',
                 'technical': 'bi-code-slash',
@@ -214,18 +214,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const wingActive = (wing) => currentWing === wing && currentCategory === 'all';
 
+            const displayTotal = totalAll !== undefined ? totalAll : totalClubs;
+            const displayTech = techCount !== undefined ? techCount : 6;
+            const displayCultural = culturalCount !== undefined ? culturalCount : 5;
+
             let pillsHtml = `
                 <button class="btn text-start category-pill-btn d-flex justify-content-between align-items-center transition-all ${currentCategory === 'all' && !currentWing ? 'active btn-primary text-white shadow-sm' : 'btn-light text-dark border-0'}" data-category="all" data-wing="" style="font-weight: 800; font-size: 0.86rem; border-radius: 12px; padding: 10px 14px;">
                     <span class="fw-black"><i class="bi ${categoryIcons['all']} me-2 text-warning fs-6"></i> All Chapters</span>
-                    <span class="badge ${currentCategory === 'all' && !currentWing ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem;">${totalClubs}</span>
+                    <span class="badge ${currentCategory === 'all' && !currentWing ? 'bg-white text-primary' : 'bg-secondary-subtle text-dark'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem;">${displayTotal}</span>
                 </button>
                 <button class="btn text-start category-pill-btn category-pill-wing-tech d-flex justify-content-between align-items-center transition-all ${wingActive('technical') ? 'active btn-primary text-white shadow-sm' : 'btn-light text-dark border-0'}" data-wing="technical" style="font-weight: 800; font-size: 0.86rem; border-radius: 12px; padding: 10px 14px;">
                     <span class="fw-black"><i class="bi bi-code-slash me-2 text-primary fs-6"></i> Developers Club UIT</span>
-                    <span class="badge ${wingActive('technical') ? 'bg-white text-primary' : 'bg-primary text-white'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem;">Tech</span>
+                    <span class="badge ${wingActive('technical') ? 'bg-white text-primary' : 'bg-primary text-white'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem;">${displayTech}</span>
                 </button>
                 <button class="btn text-start category-pill-btn category-pill-wing-cultural d-flex justify-content-between align-items-center transition-all ${wingActive('cultural') ? 'active btn-danger text-white shadow-sm' : 'btn-light text-dark border-0'}" data-wing="cultural" style="font-weight: 800; font-size: 0.86rem; border-radius: 12px; padding: 10px 14px;">
                     <span class="fw-black"><i class="bi bi-palette-fill me-2 text-danger fs-6"></i> Cultural Club UIT</span>
-                    <span class="badge ${wingActive('cultural') ? 'bg-white text-danger' : 'bg-danger text-white'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem; background:#e11d48 !important;">Cultural</span>
+                    <span class="badge ${wingActive('cultural') ? 'bg-white text-danger' : 'bg-danger text-white'} rounded-pill ms-2 fw-black" style="font-size: 0.72rem; background:#e11d48 !important;">${displayCultural}</span>
                 </button>
                 <div class="category-divider-label my-2 py-1 px-2.5 rounded-2 bg-slate-100 text-slate-600 fw-black text-uppercase" style="font-size:0.72rem; letter-spacing:0.8px; background: #f1f5f9;">
                     <i class="bi bi-layers-fill me-1 text-primary"></i> Specific Domains

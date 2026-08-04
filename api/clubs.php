@@ -127,9 +127,40 @@ try {
     ");
     $categories = $catStmt->fetchAll();
 
+    // Count Tech Wing sub-chapters (excluding umbrella parent ID clb_developers_uit)
+    $techCountStmt = $db->query("
+        SELECT COUNT(*) FROM clubs c 
+        JOIN categories cat ON c.category_id = cat.id 
+        WHERE c.status = 'active' 
+          AND cat.slug IN ('technical', 'technical-software-development')
+          AND c.id != 'clb_developers_uit'
+    ");
+    $techCount = (int) $techCountStmt->fetchColumn();
+
+    // Count Cultural Wing sub-chapters (excluding umbrella parent ID clb_cultural_uit)
+    $culturalCountStmt = $db->query("
+        SELECT COUNT(*) FROM clubs c 
+        JOIN categories cat ON c.category_id = cat.id 
+        WHERE c.status = 'active' 
+          AND cat.slug IN ('cultural', 'academic', 'creative', 'sports', 'social', 'literary', 'media')
+          AND c.id != 'clb_cultural_uit'
+    ");
+    $culturalCount = (int) $culturalCountStmt->fetchColumn();
+
+    // Count Total active sub-chapters (excluding parent umbrella IDs)
+    $totalAllStmt = $db->query("
+        SELECT COUNT(*) FROM clubs 
+        WHERE status = 'active' 
+          AND id NOT IN ('clb_developers_uit', 'clb_cultural_uit')
+    ");
+    $totalAll = (int) $totalAllStmt->fetchColumn();
+
     echo json_encode([
         'status' => 'success',
         'total' => count($clubs),
+        'total_all' => $totalAll,
+        'tech_count' => $techCount,
+        'cultural_count' => $culturalCount,
         'categories' => $categories,
         'data' => $clubs
     ]);
