@@ -1,12 +1,17 @@
 <?php
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/functions.php';
 
-$query = trim($_GET['q'] ?? '');
+// Sanitize & limit max query string length to 80 characters to prevent memory/ReDoS attacks
+$query = substr(trim($_GET['q'] ?? ''), 0, 80);
 
 if (strlen($query) < 2) {
-    echo json_encode(['results' => []]);
+    echo json_encode(['results' => [], 'status' => 'success']);
     exit;
 }
 
@@ -14,7 +19,7 @@ try {
     $db = Database::getConnection();
     $searchTerm = "%$query%";
 
-    // 1. Search Clubs (up to 5)
+    // 1. Search Clubs (up to 5) — Prepared Statement with Parameter Binding (SQLi Safe)
     $stmtClubs = $db->prepare("
         SELECT 
             c.id, 
@@ -37,7 +42,7 @@ try {
     $stmtClubs->execute([$searchTerm, $searchTerm, $searchTerm, $searchTerm, $searchTerm]);
     $clubs = $stmtClubs->fetchAll(PDO::FETCH_ASSOC);
 
-    // 2. Search Events (up to 5)
+    // 2. Search Events (up to 5) — Prepared Statement with Parameter Binding (SQLi Safe)
     $stmtEvents = $db->prepare("
         SELECT 
             e.id, 
@@ -64,5 +69,6 @@ try {
     echo json_encode(['results' => $results, 'status' => 'success']);
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['error' => $e->getMessage(), 'results' => []]);
+    // Hide raw DB exception trace to prevent information disclosure vulnerabilities
+    echo json_encode(['error' => 'Search service temporarily unavailable.', 'results' => [], 'status' => 'error']);
 }
