@@ -50,29 +50,43 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function highlightActiveNav() {
-    const path = window.location.pathname.toLowerCase().replace(/\/+/g, '/');
+    const path = window.location.pathname.toLowerCase();
     const navLinks = document.querySelectorAll('.nav-link-clubhub');
+    if (!navLinks.length) return;
     
     navLinks.forEach(link => link.classList.remove('active'));
 
+    let activeEl = null;
+
     if (path.includes('clubs.html') || path.includes('club-detail')) {
-        const el = document.getElementById('nav-clubs');
-        if (el) el.classList.add('active');
+        activeEl = document.getElementById('nav-clubs');
     } else if (path.includes('events.html') || path.includes('event-detail')) {
-        const el = document.getElementById('nav-events');
-        if (el) el.classList.add('active');
+        activeEl = document.getElementById('nav-events');
     } else if (path.includes('gallery.html')) {
-        const el = document.getElementById('nav-gallery');
-        if (el) el.classList.add('active');
+        activeEl = document.getElementById('nav-gallery');
     } else if (path.includes('about.html')) {
-        const el = document.getElementById('nav-about');
-        if (el) el.classList.add('active');
+        activeEl = document.getElementById('nav-about');
     } else if (path.includes('contact.html')) {
-        const el = document.getElementById('nav-contact');
-        if (el) el.classList.add('active');
+        activeEl = document.getElementById('nav-contact');
+    } else if (path.endsWith('/') || path.includes('index.html') || path.endsWith('/uit')) {
+        activeEl = document.getElementById('nav-home');
+    }
+
+    if (!activeEl) {
+        const file = path.split('/').pop() || 'index.html';
+        navLinks.forEach(link => {
+            const href = (link.getAttribute('href') || '').toLowerCase();
+            if (href && (href === file || href.includes(file))) {
+                activeEl = link;
+            }
+        });
+    }
+
+    if (activeEl) {
+        activeEl.classList.add('active');
     } else {
-        const el = document.getElementById('nav-home');
-        if (el) el.classList.add('active');
+        const homeEl = document.getElementById('nav-home');
+        if (homeEl) homeEl.classList.add('active');
     }
 }
 

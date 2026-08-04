@@ -172,25 +172,27 @@ body {
 }
 
 .nav-link-clubhub {
-    color: #334155 !important;
+    color: #475569 !important;
     font-weight: 600;
     font-size: 0.95rem;
     padding: 8px 18px !important;
-    border-radius: 30px;
-    transition: all 0.25s ease;
+    border-radius: 999px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
 }
 
 .nav-link-clubhub:hover {
     color: #1d4ed8 !important;
-    background: #f1f5f9;
+    background: #eff6ff;
     transform: translateY(-1px);
 }
 
 .nav-link-clubhub.active {
     color: #ffffff !important;
-    background: #1d4ed8;
-    border: none;
-    box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.38);
+    transform: translateY(-1px);
 }
 
 /* Official Clean White Hero Section */
