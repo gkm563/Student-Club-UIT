@@ -39,12 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Real-time In-Page Card Filter Function (Prevents items from disappearing permanently)
+        // Real-time In-Page Card Filter Function
         const filterHomePageItems = (query) => {
             const q = (query || '').toLowerCase().trim();
 
             // 1. Featured Clubs Grid items
-            const clubCols = document.querySelectorAll('#featuredClubsGrid > .col-lg-4, #featuredClubsGrid > div');
+            const clubCols = document.querySelectorAll('#featuredClubsGrid > div');
             clubCols.forEach(col => {
                 if (!q) {
                     col.style.display = '';
@@ -55,24 +55,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // 2. Recent Activities items
-            const activityCards = document.querySelectorAll('#homeActivityList .activity-card-3d');
+            const activityCards = document.querySelectorAll('#homeActivityList > div');
             activityCards.forEach(card => {
                 if (!q) {
                     card.style.display = '';
                 } else {
                     const text = (card.textContent || '').toLowerCase();
-                    card.style.display = text.includes(q) ? 'flex' : 'none';
+                    card.style.display = text.includes(q) ? '' : 'none';
                 }
             });
 
             // 3. Upcoming Events items
-            const eventCards = document.querySelectorAll('#homeUpcomingList .event-card-3d');
+            const eventCards = document.querySelectorAll('#homeUpcomingList > div');
             eventCards.forEach(card => {
                 if (!q) {
                     card.style.display = '';
                 } else {
                     const text = (card.textContent || '').toLowerCase();
-                    card.style.display = text.includes(q) ? 'flex' : 'none';
+                    card.style.display = text.includes(q) ? '' : 'none';
                 }
             });
         };
@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         heroSearchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
 
-            // Perform instant in-page live filtering so home page items update as user types
             filterHomePageItems(query);
 
             clearTimeout(debounceTimer);
@@ -101,17 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (data.results && Array.isArray(data.results) && data.results.length > 0) {
                             let html = '';
                             data.results.forEach(item => {
-                                const itemUrl = `club-detail.html?id=${encodeURIComponent(item.id || item.slug)}`;
+                                const isEvent = item.item_type === 'event';
+                                const itemUrl = item.url || (isEvent ? `event-detail.html?id=${encodeURIComponent(item.id)}` : `club-detail.html?id=${encodeURIComponent(item.id)}`);
+                                const iconHtml = isEvent 
+                                    ? `<i class="bi bi-calendar-event-fill text-danger fs-5 flex-shrink-0"></i>`
+                                    : `<i class="bi bi-shield-check text-primary fs-5 flex-shrink-0"></i>`;
+                                const badgeHtml = isEvent
+                                    ? `<span class="badge bg-danger-subtle text-danger border rounded-pill px-2.5 py-1 small ms-2 flex-shrink-0">Event</span>`
+                                    : `<span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small ms-2 flex-shrink-0">${escapeHtml(item.category_name || 'Club')}</span>`;
+
                                 html += `
                                     <a href="${itemUrl}" class="search-result-item">
-                                        <div class="d-flex align-items-center gap-2 flex-grow-1 min-w-0">
-                                            <i class="bi bi-shield-check text-primary fs-5 flex-shrink-0"></i>
-                                            <div class="overflow-hidden">
+                                        <div class="d-flex align-items-center gap-2.5 flex-grow-1 min-w-0">
+                                            ${iconHtml}
+                                            <div class="overflow-hidden min-w-0">
                                                 <strong class="d-block text-dark text-truncate" style="font-size:0.9rem;">${escapeHtml(item.name)}</strong>
-                                                <small class="text-secondary text-truncate d-block" style="font-size:0.78rem;">${escapeHtml(item.tagline || item.description || '')}</small>
+                                                <small class="text-secondary text-truncate d-block" style="font-size:0.78rem;">${escapeHtml(item.tagline || '')}</small>
                                             </div>
                                         </div>
-                                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-2.5 py-1 small ms-2 flex-shrink-0">${escapeHtml(item.category_name || 'Club')}</span>
+                                        ${badgeHtml}
                                     </a>
                                 `;
                             });
