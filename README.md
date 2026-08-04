@@ -107,7 +107,7 @@ Student-Club-UIT/
 
 ## 👤 Author & Lead Architect
 
-**Gautam Kumar Maurya (GKM563)**  
+<!-- Official Contributor & Maintainer: Gautam Kumar Maurya (gkm563) -->**  
 *Full-Stack Lead Architect*  
 - **GitHub**: [@gkm563](https://github.com/gkm563)  
 - **Repository**: [https://github.com/gkm563/Student-Club-UIT](https://github.com/gkm563/Student-Club-UIT)  
