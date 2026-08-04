@@ -249,26 +249,31 @@
             <div class="col-lg-3">
                 <div class="card p-4 border-0 shadow-sm rounded-4 sticky-top bg-white" style="top: 80px; z-index: 1050; border: 1px solid #e2e8f0 !important;">
                     <!-- Filter Top Bar -->
-                    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
-                        <h6 class="fw-bold mb-0 text-dark d-flex align-items-center gap-2">
-                            <i class="bi bi-funnel-fill text-primary"></i> Filter Directory
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom border-light-subtle">
+                        <h6 class="fw-black mb-0 text-dark d-flex align-items-center gap-2" style="font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 900;">
+                            <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-3 shadow-xs" style="width:28px; height:28px;">
+                                <i class="bi bi-funnel-fill fs-6"></i>
+                            </span>
+                            <span>Filter Directory</span>
                         </h6>
-                        <button id="clearFiltersBtn" class="btn btn-link text-decoration-none p-0 small text-primary fw-bold">Reset</button>
+                        <button id="clearFiltersBtn" class="btn btn-sm bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 fw-extrabold hover-scale" style="font-size: 0.78rem;">
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+                        </button>
                     </div>
 
                     <!-- Search Input -->
                     <div class="mb-4">
-                        <div class="input-group">
-                            <input type="text" id="clubSearchInput" class="form-control form-control-sm bg-light border-end-0 rounded-start-pill ps-3" placeholder="Search GFG, GDG, AI...">
-                            <span class="input-group-text bg-light border-start-0 text-muted rounded-end-pill pe-3"><i class="bi bi-search"></i></span>
+                        <div class="input-group shadow-xs rounded-pill overflow-hidden border" style="border-color: #cbd5e1 !important;">
+                            <span class="input-group-text bg-white border-0 text-primary ps-3 pe-2"><i class="bi bi-search fw-bold fs-6"></i></span>
+                            <input type="text" id="clubSearchInput" class="form-control bg-white border-0 text-dark fw-bold py-2" placeholder="Search GFG, GDG, AI..." style="font-size: 0.88rem; outline: none; box-shadow: none;">
                         </div>
                     </div>
 
                     <!-- Categories List -->
-                    <div class="category-filter-section mb-4">
-                        <label class="form-label category-filter-label">
-                            <i class="bi bi-diagram-3-fill text-primary"></i>
-                            Parent Wings &amp; Domains
+                    <div class="category-filter-section mb-3">
+                        <label class="form-label category-filter-label d-flex align-items-center gap-2 mb-2.5">
+                            <i class="bi bi-diagram-3-fill text-primary fs-6"></i>
+                            <span class="fw-black text-dark text-uppercase" style="font-size: 0.78rem; letter-spacing: 0.9px;">Parent Wings &amp; Domains</span>
                         </label>
                         <div class="d-flex flex-column gap-2" id="categoryFilterList">
                             <!-- Dynamic Category Pills Rendered by JS -->

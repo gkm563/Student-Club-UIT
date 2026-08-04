@@ -4267,54 +4267,63 @@ html, body {
     gap: 8px !important;
     font-weight: 800 !important;
     font-size: 0.74rem !important;
-    letter-spacing: 0.8px !important;
+    letter-spacing: 0.9px !important;
     text-transform: uppercase !important;
-    color: #475569 !important;
-    margin-bottom: 12px !important;
-    padding-left: 2px;
+    color: #1e293b !important;
+    margin-bottom: 10px !important;
+    font-weight: 900 !important;
 }
 
 #categoryFilterList {
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 7px !important;
 }
 
 .category-pill-btn {
-    padding: 10px 16px !important;
-    border-radius: 12px !important;
-    font-size: 0.86rem !important;
-    font-weight: 600 !important;
+    padding: 11px 16px !important;
+    border-radius: 14px !important;
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    margin-bottom: 2px !important;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+    border: 1px solid #e2e8f0 !important;
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04) !important;
 }
 
 .category-pill-btn:hover {
-    transform: translateX(4px) !important;
-    background-color: #f1f5f9 !important;
+    transform: translateX(5px) !important;
+    background-color: #eff6ff !important;
+    border-color: #93c5fd !important;
     color: #1d4ed8 !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12) !important;
 }
 
 .category-pill-btn.active {
-    transform: translateX(4px) !important;
-    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
+    transform: translateX(5px) !important;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35) !important;
 }
 
 .category-pill-wing-tech {
-    border-left: 4px solid #2563eb !important;
-    background-color: #f8fafc !important;
+    border-left: 5px solid #2563eb !important;
+    background-color: #eff6ff !important;
 }
 .category-pill-wing-tech:hover {
-    background-color: #eff6ff !important;
+    background-color: #dbeafe !important;
+    border-color: #2563eb !important;
 }
 
 .category-pill-wing-cultural {
-    border-left: 4px solid #e11d48 !important;
-    background-color: #f8fafc !important;
+    border-left: 5px solid #e11d48 !important;
+    background-color: #fff1f2 !important;
 }
 .category-pill-wing-cultural:hover {
-    background-color: #fff1f2 !important;
+    background-color: #ffe4e6 !important;
+    border-color: #e11d48 !important;
 }
 
 
