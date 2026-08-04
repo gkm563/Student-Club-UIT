@@ -1176,32 +1176,73 @@ body {
 }
 
 .footer-links li {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 9px;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.35;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2px 0;
+}
+
+.footer-links a i {
+    font-size: 0.95rem;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    transition: all 0.25s ease;
 }
 
 .footer-links a:hover {
     color: #ffffff;
-    transform: translateX(5px);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transform: translateX(4px);
 }
 
-.footer-links a i.bi-chevron-right {
-    font-size: 0.7rem;
-    color: #3b82f6;
-    transition: transform 0.25s ease;
+.footer-links a:hover i {
+    transform: scale(1.15);
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.footer-links a:hover i.bi-chevron-right {
-    transform: translateX(3px);
+/* Back to Top Floating Button - Guaranteed Perfect Circle */
+#backToTopBtn {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    border: none !important;
+    background: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#backToTopBtn i {
+    font-size: 1.15rem !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}
+
+#backToTopBtn:hover {
+    transform: translateY(-4px) scale(1.08) !important;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35) !important;
+    background: #ffffff !important;
 }
 
 .social-icon-btn {
@@ -3505,34 +3546,6 @@ html, body {
     overflow-x: hidden !important;
 }
 
-.footer-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-links li {
-    margin-bottom: 12px;
-}
-
-.footer-links a {
-    color: rgba(255, 255, 255, 0.78);
-    text-decoration: none;
-    transition: all 0.25s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    line-height: 1.45;
-    word-wrap: break-word;
-    word-break: break-word;
-}
-
-.footer-links a:hover {
-    color: #ffffff;
-    transform: translateX(4px);
-}
-
 @media (max-width: 576px) {
     .footer-clubhub {
         padding: 45px 0 25px;
@@ -3545,21 +3558,27 @@ html, body {
     }
 
     .footer-title {
-        font-size: 0.95rem;
-        margin-bottom: 14px;
+        font-size: 0.88rem !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.5px !important;
     }
 
     .footer-links li {
-        margin-bottom: 10px;
+        margin-bottom: 8px !important;
     }
 
     .footer-links a {
-        font-size: 0.8rem;
-        gap: 4px;
+        font-size: 0.82rem !important;
+        gap: 8px !important;
+        padding: 2px 0 !important;
     }
 
-    .footer-links a i.bi-chevron-right {
-        font-size: 0.62rem;
+    .footer-links a i {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 0.85rem !important;
+        flex-shrink: 0 !important;
+        border-radius: 6px !important;
     }
 }
 
