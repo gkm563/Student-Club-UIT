@@ -95,8 +95,9 @@ try {
     }
 
     if (!empty($search)) {
-        $sql .= " AND (c.name LIKE ? OR c.short_name LIKE ? OR c.tagline LIKE ? OR c.description LIKE ?)";
+        $sql .= " AND (c.name LIKE ? OR c.short_name LIKE ? OR c.tagline LIKE ? OR c.description LIKE ? OR cat.name LIKE ?)";
         $searchTerm = "%$search%";
+        $params[] = $searchTerm;
         $params[] = $searchTerm;
         $params[] = $searchTerm;
         $params[] = $searchTerm;

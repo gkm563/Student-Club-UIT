@@ -367,18 +367,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Search Input Listener
+        // Instant In-Page DOM Card Filter Function for Clubs Directory
+        const filterDirectoryGridInPage = (query) => {
+            const q = (query || '').toLowerCase().trim();
+            const clubCards = document.querySelectorAll('#clubsDirectoryGrid > div');
+            clubCards.forEach(col => {
+                if (!q) {
+                    col.style.display = '';
+                } else {
+                    const text = (col.textContent || '').toLowerCase();
+                    col.style.display = text.includes(q) ? '' : 'none';
+                }
+            });
+        };
+
+        // Search Input Listener (Filter Bar)
         if (clubSearchInput) {
             let debounceTimer;
             clubSearchInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                const heroInput = document.getElementById('heroDirectorySearchInput');
+                if (heroInput) heroInput.value = val;
+                
+                // Instant client-side DOM filter
+                filterDirectoryGridInPage(val);
+
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
-                    currentSearch = e.target.value.trim();
-                    const heroInput = document.getElementById('heroDirectorySearchInput');
-                    if (heroInput) heroInput.value = currentSearch;
+                    currentSearch = val.trim();
                     updateUrlParam('search', currentSearch || null);
                     loadClubs();
-                }, 300);
+                }, 250);
             });
         }
 
@@ -389,13 +408,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (heroDirectorySearchInput) {
             let heroDebounce;
             heroDirectorySearchInput.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if (clubSearchInput) clubSearchInput.value = val;
+
+                // Instant client-side DOM filter
+                filterDirectoryGridInPage(val);
+
                 clearTimeout(heroDebounce);
                 heroDebounce = setTimeout(() => {
-                    currentSearch = e.target.value.trim();
-                    if (clubSearchInput) clubSearchInput.value = currentSearch;
+                    currentSearch = val.trim();
                     updateUrlParam('search', currentSearch || null);
                     loadClubs();
-                }, 300);
+                }, 250);
             });
 
             heroDirectorySearchInput.addEventListener('keydown', (e) => {
