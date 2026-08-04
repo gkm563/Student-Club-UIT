@@ -5063,15 +5063,70 @@ html, body {
         border-radius: 16px !important;
     }
 
-    .clubs-top-pill-breadcrumb, .clubs-top-pill-badge {
-        font-size: 0.75rem !important;
-        padding: 4px 10px !important;
-        max-width: 100% !important;
+    /* Events & Gallery Page Mobile Responsiveness */
+    #clubFilterPills, #galleryFilterList, .event-segmented-container {
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
         white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+        max-width: 100% !important;
+    }
+    #clubFilterPills::-webkit-scrollbar, #galleryFilterList::-webkit-scrollbar, .event-segmented-container::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .events-hero-header-banner {
+        padding: 2rem 0 2.5rem !important;
+    }
+    .events-hero-left-glass {
+        padding: 1.15rem !important;
+        border-radius: 18px !important;
+    }
+
+    .event-segmented-container {
+        padding: 4px !important;
+        gap: 2px !important;
+    }
+    .event-status-tab {
+        padding: 4px 10px !important;
+        font-size: 0.72rem !important;
+    }
+
+    .google-meta-card {
+        border-radius: 16px !important;
+    }
+    .google-meta-card .position-absolute.top-0.end-0.m-3 {
+        margin: 0.5rem !important;
+    }
+    .google-meta-card .position-absolute.top-0.start-0.m-3 {
+        margin: 0.5rem !important;
+    }
+    .google-meta-card .club-card-wing-tag {
+        font-size: 0.65rem !important;
+        padding: 3px 8px !important;
+    }
+    .google-meta-card .badge {
+        font-size: 0.65rem !important;
+        padding: 3px 8px !important;
+    }
+    .google-date-badge {
+        min-width: 46px !important;
+        padding: 4px 6px !important;
+        border-radius: 10px !important;
+    }
+
+    .gallery-lightbox img {
+        max-width: 95vw !important;
+        max-height: 80vh !important;
+    }
+    .gallery-lightbox-close {
+        top: 0.75rem !important;
+        right: 0.75rem !important;
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 1.1rem !important;
     }
 }
+
 
 
 
