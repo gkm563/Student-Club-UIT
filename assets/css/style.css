@@ -4684,6 +4684,38 @@ html, body {
     border-color: #e11d48 !important;
 }
 
+/* Mobile Responsive Horizontal Filter Scroll */
+@media (max-width: 991.98px) {
+    #clubsDirectorySection .sticky-top {
+        position: static !important;
+        margin-bottom: 1.25rem !important;
+    }
+    #categoryFilterList {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 8px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .category-pill-btn {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+        scroll-snap-align: start;
+        transform: none !important;
+        padding: 8px 14px !important;
+        font-size: 0.82rem !important;
+    }
+    .category-pill-btn:hover,
+    .category-pill-btn.active {
+        transform: none !important;
+    }
+    .category-divider-label {
+        display: none !important;
+    }
+}
+
 
 /* ==========================================================================
    ⭐ INTERACTIVE USC UIT ORGANIZATION TREE (LIGHT EXECUTIVE THEME)
