@@ -353,14 +353,16 @@ body {
     position: absolute;
     top: calc(100% + 10px);
     left: 0;
-    right: 0;
-    min-width: 320px;
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
     background: #ffffff !important;
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(0,0,0,0.12);
     border: 1px solid #e2e8f0;
     z-index: 99999 !important;
     overflow-y: auto;
+    overflow-x: hidden !important;
     max-height: 400px;
     display: none;
 }
