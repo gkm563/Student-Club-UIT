@@ -102,6 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
             ? (countDisplay > 0 ? `${countDisplay} Students Attended` : 'Session Completed')
             : (countDisplay > 0 ? `${countDisplay}+ Students RSVP'd` : 'Be the first to RSVP!');
         setEl('detailRsvpCount', rsvpText);
+        setEl('mobileBarTitle', event.title);
+
+        if (eventDate > new Date() && event.status !== 'completed') {
+            startEventCountdown(eventDate);
+        }
 
         // ── Cover Banner ───────────────────────────────────────────
         const bannerUrl = event.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1200&auto=format&fit=crop';
@@ -512,6 +517,84 @@ function renderEventGallery(photos) {
         </div>
     `).join('');
 }
+
+// ── Live Countdown Clock ───────────────────────────────────────────
+let countdownInterval = null;
+function startEventCountdown(targetDate) {
+    const container = document.getElementById('eventCountdownContainer');
+    if (!container) return;
+
+    const daysEl = document.getElementById('cdDays');
+    const hoursEl = document.getElementById('cdHours');
+    const minsEl = document.getElementById('cdMins');
+    const secsEl = document.getElementById('cdSecs');
+
+    if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
+
+    if (countdownInterval) clearInterval(countdownInterval);
+
+    function updateClock() {
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        if (distance < 0) {
+            container.classList.add('d-none');
+            if (countdownInterval) clearInterval(countdownInterval);
+            return;
+        }
+
+        container.classList.remove('d-none');
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = String(days).padStart(2, '0');
+        hoursEl.textContent = String(hours).padStart(2, '0');
+        minsEl.textContent = String(minutes).padStart(2, '0');
+        secsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateClock();
+    countdownInterval = setInterval(updateClock, 1000);
+}
+
+// ── Share Event & Mobile Bar Initializer ────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileShareBtn = document.getElementById('mobileShareBtn');
+    const shareWhatsappBtn = document.getElementById('shareWhatsappBtn');
+    const copyLinkBtn = document.getElementById('copyLinkBtn');
+    const copySuccessAlert = document.getElementById('copySuccessAlert');
+
+    if (mobileShareBtn) {
+        mobileShareBtn.addEventListener('click', () => {
+            const shareModalEl = document.getElementById('shareEventModal');
+            if (shareModalEl && window.bootstrap) {
+                let inst = bootstrap.Modal.getInstance(shareModalEl);
+                if (!inst) inst = new bootstrap.Modal(shareModalEl);
+                inst.show();
+            }
+        });
+    }
+
+    if (shareWhatsappBtn) {
+        const pageUrl = window.location.href;
+        const pageTitle = document.title;
+        shareWhatsappBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Check out this official USC UIT event: ${pageTitle}\n${pageUrl}`)}`;
+    }
+
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                if (copySuccessAlert) {
+                    copySuccessAlert.classList.remove('d-none');
+                    setTimeout(() => copySuccessAlert.classList.add('d-none'), 3000);
+                }
+            });
+        });
+    }
+});
 
 // ── Lightbox Functions ─────────────────────────────────────────────
 function openGalleryLightbox(index) {

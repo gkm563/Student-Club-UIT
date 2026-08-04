@@ -34,14 +34,14 @@
         /* 📱 Dedicated Mobile & Tablet Responsive Engine for Event Detail Page */
         @media (max-width: 991.98px) {
             .event-detail-hero-light {
-                padding: 35px 0 25px !important;
+                padding: 25px 0 20px !important;
             }
 
             .event-detail-hero-title {
-                font-size: 1.95rem !important;
-                line-height: 1.35 !important;
-                margin-top: 10px !important;
-                margin-bottom: 15px !important;
+                font-size: 1.75rem !important;
+                line-height: 1.3 !important;
+                margin-top: 8px !important;
+                margin-bottom: 12px !important;
             }
 
             #rsvpFormSection {
@@ -51,55 +51,44 @@
         }
 
         @media (max-width: 767.98px) {
-            .event-detail-hero-light .d-flex.flex-wrap.align-items-center.gap-3 {
-                flex-direction: column;
-                align-items: stretch !important;
-                gap: 8px !important;
-            }
-
-            .event-detail-hero-light .d-flex.align-items-center.gap-2.bg-white {
-                width: 100%;
-                justify-content: flex-start;
-                padding: 10px 14px !important;
+            .spec-pill-item {
+                font-size: 0.78rem !important;
+                padding: 8px 12px !important;
+                max-width: 100% !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                white-space: nowrap !important;
             }
 
             .event-spec-card {
-                padding: 1.25rem !important;
-                gap: 0.85rem !important;
+                padding: 1.1rem !important;
+                gap: 0.75rem !important;
+                border-radius: 16px !important;
             }
 
             .about-card-elevated {
-                padding: 1.25rem !important;
+                padding: 1.15rem !important;
+                border-radius: 16px !important;
             }
 
             #detailBannerImg {
-                height: 220px !important;
-            }
-
-            .google-date-badge {
-                padding: 5px 10px !important;
-                min-width: 54px !important;
+                height: 210px !important;
             }
 
             .gain-card-item {
-                padding: 1.15rem !important;
-                gap: 0.85rem !important;
+                padding: 1rem !important;
+                gap: 0.75rem !important;
+                border-radius: 16px !important;
             }
         }
 
         @media (max-width: 575.98px) {
             .event-detail-hero-title {
-                font-size: 1.65rem !important;
+                font-size: 1.55rem !important;
             }
 
             #detailBannerImg {
-                height: 190px !important;
-            }
-
-            .lightbox-nav-btn {
-                width: 44px !important;
-                height: 44px !important;
-                padding: 0 !important;
+                height: 185px !important;
             }
         }
 
@@ -119,7 +108,7 @@
             box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.18) !important;
         }
 
-        /* Mini Stat Cards: Events Held, Members, USC UIT Governed */
+        /* Mini Stat Cards */
         .mini-stat-card {
             padding: 14px 10px !important;
             border-radius: 16px !important;
@@ -237,8 +226,42 @@
                             <span class="pulse-dot-green"></span>
                             <span id="detailRsvpCount" class="fw-extrabold text-success" style="font-size: 0.86rem;">45+ Coders RSVP'd</span>
                         </div>
+                <!-- Live Interactive Event Countdown Banner (Toggled dynamically for upcoming events) -->
+                <div id="eventCountdownContainer" class="mt-4 p-3 rounded-4 bg-primary bg-opacity-10 border border-primary border-opacity-25 d-none">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-2.5">
+                            <div class="p-2 rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:38px;height:38px;">
+                                <i class="bi bi-alarm-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <span class="d-block fw-extrabold text-dark small" style="font-size:0.88rem;">Event Starts In</span>
+                                <small class="text-secondary" style="font-size:0.75rem;">Don't miss out on campus swags & seats!</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 text-center" id="countdownClock">
+                            <div class="bg-white rounded-3 px-2.5 py-1 shadow-xs border">
+                                <span class="fw-black text-primary d-block" id="cdDays" style="font-size:1.15rem;line-height:1;">00</span>
+                                <span class="text-muted fw-bold text-uppercase d-block mt-0.5" style="font-size:0.58rem;">Days</span>
+                            </div>
+                            <span class="fw-bold text-primary">:</span>
+                            <div class="bg-white rounded-3 px-2.5 py-1 shadow-xs border">
+                                <span class="fw-black text-primary d-block" id="cdHours" style="font-size:1.15rem;line-height:1;">00</span>
+                                <span class="text-muted fw-bold text-uppercase d-block mt-0.5" style="font-size:0.58rem;">Hours</span>
+                            </div>
+                            <span class="fw-bold text-primary">:</span>
+                            <div class="bg-white rounded-3 px-2.5 py-1 shadow-xs border">
+                                <span class="fw-black text-primary d-block" id="cdMins" style="font-size:1.15rem;line-height:1;">00</span>
+                                <span class="text-muted fw-bold text-uppercase d-block mt-0.5" style="font-size:0.58rem;">Mins</span>
+                            </div>
+                            <span class="fw-bold text-primary">:</span>
+                            <div class="bg-white rounded-3 px-2.5 py-1 shadow-xs border">
+                                <span class="fw-black text-danger d-block" id="cdSecs" style="font-size:1.15rem;line-height:1;">00</span>
+                                <span class="text-muted fw-bold text-uppercase d-block mt-0.5" style="font-size:0.58rem;">Secs</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <!-- Quick Jump Button -->
@@ -658,6 +681,52 @@
                 </button>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<!-- Floating Mobile Quick Action Bar (Visible on mobile screens) -->
+<div id="mobileFloatingBar" class="d-md-none position-fixed bottom-0 start-0 end-0 p-3 border-top shadow-lg z-3 transition-all" style="backdrop-filter: blur(16px); background: rgba(255,255,255,0.95) !important;">
+    <div class="d-flex align-items-center justify-content-between gap-2">
+        <div class="min-w-0">
+            <span class="d-block fw-extrabold text-dark text-truncate" id="mobileBarTitle" style="font-size:0.88rem;">Event Details</span>
+            <span class="d-block text-success fw-bold small" id="mobileBarRsvp" style="font-size:0.75rem;"><i class="bi bi-patch-check-fill me-1"></i>Free Registration</span>
+        </div>
+        <div class="d-flex align-items-center gap-2 flex-shrink-0">
+            <button type="button" class="btn btn-outline-primary rounded-circle p-2 d-flex align-items-center justify-content-center" id="mobileShareBtn" style="width:40px;height:40px;" title="Share Event">
+                <i class="bi bi-share-fill"></i>
+            </button>
+            <a href="#rsvpFormSection" class="btn btn-primary rounded-pill px-3.5 py-2 fw-bold text-white shadow-sm small d-inline-flex align-items-center gap-1">
+                <span>RSVP</span>
+                <i class="bi bi-arrow-right-short fs-5"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 🔗 Share Event Modal -->
+<div class="modal fade" id="shareEventModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-bottom pb-3">
+                <h5 class="modal-title fw-black text-dark"><i class="bi bi-share-fill text-primary me-2"></i>Share Event</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <p class="small text-secondary mb-4">Invite your college batchmates to participate in this official USC UIT campus session!</p>
+                
+                <div class="d-flex align-items-center justify-content-center gap-3 mb-4 flex-wrap">
+                    <a href="#" id="shareWhatsappBtn" target="_blank" class="btn btn-success rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-whatsapp fs-5"></i> WhatsApp
+                    </a>
+                    <button type="button" id="copyLinkBtn" class="btn btn-outline-primary rounded-pill px-4 py-2.5 fw-bold d-inline-flex align-items-center gap-2">
+                        <i class="bi bi-link-45deg fs-5"></i> Copy Link
+                    </button>
+                </div>
+                <div id="copySuccessAlert" class="alert alert-success small rounded-3 d-none mb-0">
+                    <i class="bi bi-check-circle-fill me-1"></i> Link copied to clipboard!
+                </div>
+            </div>
         </div>
     </div>
 </div>
