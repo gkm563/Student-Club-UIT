@@ -53,7 +53,7 @@ if (!isset($pageTitle)) {
                 <!-- Clubs Dropdown — 2 Main Wings -->
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link-clubhub dropdown-toggle" href="<?= $assetPrefix ?>clubs.html" id="nav-clubs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Clubs &amp; Wings
+                        Clubs
                     </a>
                     <ul class="dropdown-menu border-0 shadow-lg rounded-4 p-2 mt-2" aria-labelledby="nav-clubs">
                         <li>
@@ -61,24 +61,14 @@ if (!isset($pageTitle)) {
                                 <i class="bi bi-grid-fill text-primary"></i> All USC UIT Clubs
                             </a>
                         </li>
-                        <li><hr class="dropdown-divider my-1"></li>
-                        <li class="dropdown-header small text-uppercase fw-bold text-muted px-3 py-1">The 2 Main Wings</li>
                         <li>
-                            <a class="dropdown-item rounded-3 py-2.5 px-3 fw-bold text-primary d-flex align-items-center gap-2.5" href="<?= $assetPrefix ?>developers-club.html">
-                                <i class="bi bi-code-slash fs-5 text-primary"></i>
-                                <div>
-                                    <span>Developers Club UIT</span>
-                                    <small class="text-muted fw-semibold d-block" style="font-size:0.72rem;">Official Technical Umbrella Council</small>
-                                </div>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>clubs.html?wing=technical">
+                                <i class="bi bi-code-slash text-primary"></i> Technical Wing Clubs
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item rounded-3 py-2.5 px-3 fw-bold text-danger d-flex align-items-center gap-2.5" href="<?= $assetPrefix ?>cultural-club.html">
-                                <i class="bi bi-palette-fill fs-5 text-danger"></i>
-                                <div>
-                                    <span>Cultural Club UIT</span>
-                                    <small class="text-muted fw-semibold d-block" style="font-size:0.72rem;">Official Cultural Umbrella Council</small>
-                                </div>
+                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>clubs.html?wing=cultural">
+                                <i class="bi bi-palette-fill text-danger"></i> Cultural Wing Clubs
                             </a>
                         </li>
                     </ul>
@@ -91,13 +81,9 @@ if (!isset($pageTitle)) {
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>contact.html" id="nav-contact">Contact</a></li>
             </ul>
 
-            <!-- 2 Main Wings Action Buttons (Always Visible & Responsive) -->
             <div class="d-flex align-items-center gap-2 flex-wrap mt-3 mt-lg-0">
-                <a href="<?= $assetPrefix ?>developers-club.html" class="btn btn-sm btn-wing-dev rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1.5 shadow-sm" title="Developers Club UIT — Official Technical Council">
-                    <i class="bi bi-code-slash fs-6 text-primary"></i> <span>Developers</span>
-                </a>
-                <a href="<?= $assetPrefix ?>cultural-club.html" class="btn btn-sm btn-wing-cult rounded-pill px-3 py-2 d-inline-flex align-items-center gap-1.5 shadow-sm" title="Cultural Club UIT — Official Cultural Council">
-                    <i class="bi bi-palette-fill fs-6 text-danger"></i> <span>Cultural</span>
+                <a href="<?= $assetPrefix ?>clubs.html" class="btn btn-sm btn-primary rounded-pill px-3 py-2 fw-bold shadow-sm">
+                    <i class="bi bi-grid-fill me-1"></i> All Clubs
                 </a>
             </div>
         </div>

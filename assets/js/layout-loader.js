@@ -55,10 +55,10 @@ function highlightActiveNav() {
     
     navLinks.forEach(link => link.classList.remove('active'));
 
-    if (path.includes('clubs.html') || path.includes('club-detail') || path.includes('developers-club') || path.includes('cultural-club')) {
+    if (path.includes('clubs.html') || path.includes('club-detail')) {
         const el = document.getElementById('nav-clubs');
         if (el) el.classList.add('active');
-    } else if (path.includes('events.html') || path.includes('event-detail') || path.includes('tech-events') || path.includes('cultural-events')) {
+    } else if (path.includes('events.html') || path.includes('event-detail')) {
         const el = document.getElementById('nav-events');
         if (el) el.classList.add('active');
     } else if (path.includes('gallery.html')) {

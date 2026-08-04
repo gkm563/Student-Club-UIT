@@ -1,5 +1,5 @@
-/**
- * USC UIT — Wing helpers for Developers Club UIT & Cultural Club UIT
+﻿/**
+ * USC UIT â€” Wing helpers for Developers Club UIT & Cultural Club UIT
  */
 const WING_TECH_CATEGORIES = ['technical', 'technical-software-development'];
 const WING_CULTURAL_CATEGORIES = ['cultural', 'academic', 'creative'];
@@ -22,7 +22,7 @@ function getWingMeta(wing) {
         return {
             wing: 'technical',
             label: 'Developers Club UIT',
-            pageUrl: 'developers-club.html',
+            pageUrl: 'clubs.html?wing=technical',
             eventsUrl: 'events.html?wing=technical',
             accentClass: 'text-primary',
             icon: 'bi-code-slash'
@@ -32,7 +32,7 @@ function getWingMeta(wing) {
         return {
             wing: 'cultural',
             label: 'Cultural Club UIT',
-            pageUrl: 'cultural-club.html',
+            pageUrl: 'clubs.html?wing=cultural',
             eventsUrl: 'events.html?wing=cultural',
             accentClass: 'text-danger',
             icon: 'bi-palette-fill'
@@ -100,3 +100,4 @@ function escapeWingHtml(value) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
 }
+
