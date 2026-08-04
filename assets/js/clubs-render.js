@@ -468,6 +468,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Clear / Reset All Filters Button Listener
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => {
+                currentSearch = '';
+                currentCategory = 'all';
+                currentWing = '';
+                currentSort = 'popularity';
+
+                if (clubSearchInput) clubSearchInput.value = '';
+                if (heroDirectorySearchInput) heroDirectorySearchInput.value = '';
+                if (sortSelect) sortSelect.value = 'popularity';
+
+                updateUrlParam('search', null);
+                updateUrlParam('category', null);
+                updateUrlParam('wing', null);
+
+                applyWingDirectoryUi('');
+                filterDirectoryGridInPage('');
+                loadClubs();
+            });
+        }
+
         // Sort Dropdown Listener
         if (sortSelect) {
             sortSelect.addEventListener('change', (e) => {
