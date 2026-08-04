@@ -37,7 +37,7 @@ class UscOrgTree {
                     accentColor: '#2563eb',
                     glowColor: '#eff6ff',
                     badgeTextColor: '#1d4ed8',
-                    url: 'developers-club.html',
+                    url: 'clubs.html?wing=technical',
                     desc: 'Drives technical excellence, open-source initiatives, hackathons, cloud computing, and algorithmic coding culture.',
                     chapters: [
                         { 
@@ -95,7 +95,7 @@ class UscOrgTree {
                     accentColor: '#e11d48',
                     glowColor: '#fff1f2',
                     badgeTextColor: '#be123c',
-                    url: 'cultural-club.html',
+                    url: 'clubs.html?wing=cultural',
                     desc: 'Celebrates artistic expression, music, stage performance, literature, and public speaking across campus and inter-college fests.',
                     chapters: [
                         { 
@@ -431,8 +431,14 @@ class UscOrgTree {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function initOrgTree() {
     if (document.getElementById('uscOrgTreeContainer')) {
         UscOrgTree.init('uscOrgTreeContainer');
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initOrgTree);
+} else {
+    initOrgTree();
+}
