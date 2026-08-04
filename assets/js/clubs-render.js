@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const activeFilterBadge = document.getElementById('activeFilterBadge');
 
     if (clubsGrid) {
+        if (window.UITSkeletonLoader) {
+            clubsGrid.innerHTML = window.UITSkeletonLoader.getClubCardSkeleton(6);
+        }
         // Read URL parameter on load
         const urlParams = new URLSearchParams(window.location.search);
         let currentCategory = urlParams.get('category') || 'all';
@@ -24,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (clubSearchInput && currentSearch) {
             clubSearchInput.value = currentSearch;
+        }
+        // Also sync the hero directory search input with URL param on load
+        const heroSearchInitSync = document.getElementById('heroDirectorySearchInput');
+        if (heroSearchInitSync && currentSearch) {
+            heroSearchInitSync.value = currentSearch;
         }
 
         const getApiUrl = (endpoint) => `api/${endpoint}`;
@@ -370,7 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Instant In-Page DOM Card Filter Function for Clubs Directory
         const filterDirectoryGridInPage = (query) => {
             const q = (query || '').toLowerCase().trim();
-            const clubCards = document.querySelectorAll('#clubsDirectoryGrid > div');
+            // Use the correct ID from clubs.html
+            const clubCards = document.querySelectorAll('#clubsGrid > div');
             clubCards.forEach(col => {
                 if (!q) {
                     col.style.display = '';
@@ -504,6 +513,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const getApiUrl = (endpoint) => `api/${endpoint}`;
+
+        if (window.UITSkeletonLoader) {
+            detailContainer.innerHTML = `
+                <div class="container py-4 skeleton-fade-in">
+                    <div class="skeleton skeleton-hero-banner mb-4" style="height: 220px; border-radius: 24px;"></div>
+                    <div class="row align-items-center mb-4">
+                        <div class="col-auto">
+                            <div class="skeleton skeleton-avatar-lg" style="width: 100px; height: 100px;"></div>
+                        </div>
+                        <div class="col">
+                            <div class="skeleton skeleton-title mb-2" style="width: 50%; height: 2rem;"></div>
+                            <div class="skeleton skeleton-badge mb-2"></div>
+                            <div class="skeleton skeleton-text" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-8">
+                            <div class="skeleton-card mb-4">
+                                <div class="skeleton skeleton-title mb-3" style="width: 40%;"></div>
+                                <div class="skeleton skeleton-text mb-2"></div>
+                                <div class="skeleton skeleton-text mb-2"></div>
+                                <div class="skeleton skeleton-text mb-2" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="skeleton-card">
+                                <div class="skeleton skeleton-title mb-3" style="width: 60%;"></div>
+                                <div class="skeleton skeleton-text mb-2"></div>
+                                <div class="skeleton skeleton-text mb-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
         fetch(getApiUrl(`clubs.php?id=${encodeURIComponent(clubId)}`))
             .then(res => res.json())

@@ -11,7 +11,8 @@
     padding: 5rem 0 7rem;
     background: linear-gradient(145deg, #060d1f 0%, #0f172a 35%, #1e3a8a 70%, #1d4ed8 100%);
     color: #fff;
-    overflow: hidden;
+    /* overflow:hidden removed — was clipping the search dropdown */
+    isolation: isolate;
 }
 
 .home-hero__mesh {
@@ -44,7 +45,7 @@
     pointer-events: none;
 }
 
-.home-hero__orb--1 { width: 320px; height: 320px; background: #3b82f6; top: -80px; right: 10%; animation-delay: 0s; }
+.home-hero__orb--1 { width: 320px; height: 320px; background: #3b82f6; top: -80px; right: 10%; animation-delay: 0s; clip-path: inset(-200px); }
 .home-hero__orb--2 { width: 240px; height: 240px; background: #7c3aed; bottom: 10%; left: -60px; animation-delay: -3s; }
 .home-hero__orb--3 { width: 180px; height: 180px; background: #06b6d4; top: 40%; right: -40px; animation-delay: -5s; }
 
@@ -53,7 +54,7 @@
     50% { transform: translate(20px, -20px) scale(1.08); }
 }
 
-.home-hero__content { position: relative; z-index: 2; }
+.home-hero__content { position: relative; z-index: 10; }
 
 .home-badge {
     display: inline-flex;
@@ -175,6 +176,7 @@
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: visible;
 }
 
 .home-hero .hero-search-bar:hover,
@@ -1201,6 +1203,28 @@
     border-radius: 24px;
     padding: 1.75rem;
     box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+}
+
+.home-panel #homeActivityList,
+.home-panel #homeUpcomingList {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 360px;
+    scrollbar-width: thin;
+    scrollbar-color: #e2e8f0 transparent;
+    padding-right: 2px;
+}
+
+.home-panel #homeActivityList::-webkit-scrollbar,
+.home-panel #homeUpcomingList::-webkit-scrollbar {
+    width: 4px;
+}
+.home-panel #homeActivityList::-webkit-scrollbar-thumb,
+.home-panel #homeUpcomingList::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 99px;
 }
 
 .home-panel__header {

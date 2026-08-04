@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const committeeContainer = document.getElementById('managementCommitteeContainer');
     if (!committeeContainer) return;
 
+    if (window.UITSkeletonLoader) {
+        committeeContainer.innerHTML = window.UITSkeletonLoader.getMemberCardSkeleton(4);
+    }
+
     fetch('api/committee.php')
         .then(res => res.json())
         .then(response => {

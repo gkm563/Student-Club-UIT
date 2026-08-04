@@ -9,10 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Load Universal Header
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
+        if (window.UITSkeletonLoader && !headerPlaceholder.innerHTML.trim()) {
+            headerPlaceholder.innerHTML = window.UITSkeletonLoader.getHeaderSkeleton();
+        }
         fetch(`${assetBase}includes/header.html`)
             .then(res => res.text())
             .then(html => {
-                headerPlaceholder.innerHTML = html;
+                if (window.UITSkeletonLoader) {
+                    window.UITSkeletonLoader.replaceWithContent(headerPlaceholder, html);
+                } else {
+                    headerPlaceholder.innerHTML = html;
+                }
                 if (window.UITSitePath) window.UITSitePath.fixRootRelativeLinks(headerPlaceholder);
                 highlightActiveNav();
             })
@@ -24,10 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Load Universal Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
+        if (window.UITSkeletonLoader && !footerPlaceholder.innerHTML.trim()) {
+            footerPlaceholder.innerHTML = window.UITSkeletonLoader.getFooterSkeleton();
+        }
         fetch(`${assetBase}includes/footer.html`)
             .then(res => res.text())
             .then(html => {
-                footerPlaceholder.innerHTML = html;
+                if (window.UITSkeletonLoader) {
+                    window.UITSkeletonLoader.replaceWithContent(footerPlaceholder, html);
+                } else {
+                    footerPlaceholder.innerHTML = html;
+                }
                 if (window.UITSitePath) window.UITSitePath.fixRootRelativeLinks(footerPlaceholder);
                 initFooterEvents();
             })

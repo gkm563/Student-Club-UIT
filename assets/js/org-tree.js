@@ -248,11 +248,11 @@ class UscOrgTree {
                         <div class="org-tree-crossbar" style="width: 50%; height: 3px; background: linear-gradient(90deg, #2563eb 0%, #0284c7 50%, #e11d48 100%); margin: 0 auto; position: relative; border-radius: 2px;">
                             <!-- Drop Left -->
                             <div class="org-tree-drop org-tree-drop-left" style="position: absolute; left: 0; top: 0; width: 3px; height: 20px; background: #2563eb;">
-                                <i class="bi bi-chevron-down org-drop-arrow" style="color: #2563eb; position: absolute; bottom: -12px; font-size: 1rem; font-weight: 900;"></i>
+                                <i class="bi bi-chevron-down org-drop-arrow" style="color: #2563eb; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-size: 1.05rem; font-weight: 900; line-height: 1;"></i>
                             </div>
                             <!-- Drop Right -->
                             <div class="org-tree-drop org-tree-drop-right" style="position: absolute; right: 0; top: 0; width: 3px; height: 20px; background: #e11d48;">
-                                <i class="bi bi-chevron-down org-drop-arrow" style="color: #e11d48; position: absolute; bottom: -12px; font-size: 1rem; font-weight: 900;"></i>
+                                <i class="bi bi-chevron-down org-drop-arrow" style="color: #e11d48; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%); font-size: 1.05rem; font-weight: 900; line-height: 1;"></i>
                             </div>
                         </div>
                     </div>

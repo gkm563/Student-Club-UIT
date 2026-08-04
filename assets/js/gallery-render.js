@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!galleryGrid) return;
 
+    if (window.UITSkeletonLoader) {
+        galleryGrid.innerHTML = window.UITSkeletonLoader.getGallerySkeleton(6);
+    }
+
     let allGalleryItems = [];
 
     // Fetch photos from API

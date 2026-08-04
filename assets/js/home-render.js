@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const getApiUrl = (endpoint) => `api/${endpoint}`;
     const getPageUrl = (page) => `${page}`;
 
+    // Show initial skeleton loaders
+    if (window.UITSkeletonLoader) {
+        if (featuredGrid && (!featuredGrid.children.length || featuredGrid.innerHTML.trim() === '')) featuredGrid.innerHTML = window.UITSkeletonLoader.getClubCardSkeleton(6);
+        if (upcomingList && (!upcomingList.children.length || upcomingList.innerHTML.trim() === '')) upcomingList.innerHTML = window.UITSkeletonLoader.getEventCardSkeleton(3);
+        if (activityList && (!activityList.children.length || activityList.innerHTML.trim() === '')) activityList.innerHTML = window.UITSkeletonLoader.getTimelineSkeleton(4);
+        if (leadershipContainer && (!leadershipContainer.children.length || leadershipContainer.innerHTML.trim() === '')) leadershipContainer.innerHTML = window.UITSkeletonLoader.getMemberCardSkeleton(4);
+    }
+
     // 0. Fetch & Render Real Database Statistics (No Dummy Data)
     fetch(getApiUrl('stats.php'))
         .then(res => res.json())
@@ -161,114 +169,177 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const now = new Date();
-                const allData = response.data || [];
+                const allData    = response.data     || [];
+                const apiPast    = response.past      || [];
+                const apiUpcoming = response.upcoming || [];
+                const now        = new Date();
 
-                const pastEvents = allData
-                    .filter(e => new Date(e.event_date) < now || e.status === 'completed')
-                    .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
-                    .slice(0, 4);
+                // ── Use API arrays; fallback: compute from allData ────────
+                let pastEvents = apiPast.length > 0
+                    ? apiPast
+                    : allData.filter(e => {
+                        const d = new Date(e.event_date);
+                        return d < now || e.status === 'completed' || e.status === 'past';
+                      }).sort((a, b) => new Date(b.event_date) - new Date(a.event_date));
 
-                const upcoming = allData
-                    .filter(e => new Date(e.event_date) >= now && e.status !== 'completed')
-                    .sort((a, b) => new Date(a.event_date) - new Date(b.event_date))
-                    .slice(0, 4);
+                let upcomingEvt = apiUpcoming.length > 0
+                    ? apiUpcoming
+                    : allData.filter(e => {
+                        const d = new Date(e.event_date);
+                        return d >= now && e.status !== 'completed' && e.status !== 'past';
+                      }).sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
 
+                // If still no past events, show most recent from all
+                if (pastEvents.length === 0 && allData.length > 0) {
+                    pastEvents = [...allData].sort((a, b) => new Date(b.event_date) - new Date(a.event_date));
+                }
+
+                const SHOW_COUNT = 6;
+
+                // ── Category colour palette ───────────────────────────────
+                const catColors = {
+                    'technical': { bg: '#eff6ff', text: '#2563eb', dot: '#3b82f6', accent: 'rgba(37,99,235,0.08)' },
+                    'cultural':  { bg: '#fff1f2', text: '#e11d48', dot: '#f43f5e', accent: 'rgba(225,29,72,0.08)' },
+                    'academic':  { bg: '#f5f3ff', text: '#7c3aed', dot: '#8b5cf6', accent: 'rgba(124,58,237,0.08)' },
+                    'social':    { bg: '#ecfdf5', text: '#059669', dot: '#10b981', accent: 'rgba(5,150,105,0.08)' },
+                };
+                const defaultColor = { bg: '#f8fafc', text: '#475569', dot: '#94a3b8', accent: 'rgba(71,85,105,0.06)' };
+
+                function getCatColor(evt) {
+                    const slug = (evt.category_slug || '').toLowerCase();
+                    for (const key of Object.keys(catColors)) {
+                        if (slug.includes(key)) return catColors[key];
+                    }
+                    return defaultColor;
+                }
+
+                function formatDate(dateStr) {
+                    const d = new Date(dateStr);
+                    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+                }
+
+                // ── RECENT ACTIVITIES ─────────────────────────────────────
                 if (activityList) {
-                    if (pastEvents.length === 0) {
+                    const display = pastEvents.slice(0, SHOW_COUNT);
+
+                    if (display.length === 0) {
                         activityList.innerHTML = `
-                            <div class="text-center py-4 text-muted small">
-                                <i class="bi bi-calendar-x d-block fs-3 mb-2 text-primary"></i>
-                                No recent activities yet. Check back soon!
+                            <div class="act-empty-state">
+                                <div class="act-empty-icon">
+                                    <i class="bi bi-calendar-x"></i>
+                                </div>
+                                <p class="fw-semibold text-dark mb-1" style="font-size:0.95rem;">No recent activities yet</p>
+                                <p class="text-muted small mb-0">Check back soon — events will appear here!</p>
                             </div>`;
                     } else {
-                        activityList.innerHTML = pastEvents.map(evt => {
-                            const d = new Date(evt.event_date);
-                            const timeAgo = getTimeAgo(d);
-                            const img = esc(evt.banner || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=200&auto=format&fit=crop');
-                            const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(evt.club_id)}`);
-                            
+                        activityList.innerHTML = display.map((evt, idx) => {
+                            const c         = getCatColor(evt);
+                            const d         = new Date(evt.event_date);
+                            const timeAgo   = getTimeAgo(d);
+                            const dateStr   = formatDate(evt.event_date);
+                            const img       = esc(evt.banner || evt.cover_image || '');
+                            const link      = `event-detail.html?id=${encodeURIComponent(evt.id)}`;
+                            const clubName  = esc(evt.club_name || evt.club_short_name || 'Campus Club');
+                            const catName   = esc(evt.category_name || 'Event');
+                            const isCompleted = evt.status === 'completed';
+                            const statusLabel = isCompleted
+                                ? `<span class="act-status-chip act-status-done"><i class="bi bi-check-circle-fill"></i> Completed</span>`
+                                : `<span class="act-status-chip act-status-past"><i class="bi bi-clock-history"></i> Past</span>`;
+                            const thumbHtml = img
+                                ? `<img src="${img}" class="act-thumb" alt="${esc(evt.title)}" loading="lazy"
+                                        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+                                : '';
+                            const fallbackIcon = `<div class="act-thumb-icon" style="background:${c.accent};color:${c.text};${img ? 'display:none' : ''}">
+                                                      <i class="bi bi-calendar-event"></i>
+                                                  </div>`;
+
                             return `
-                                <a href="${detailLink}" class="activity-card-3d">
-                                    <img src="${img}" class="activity-thumb-3d" alt="${esc(evt.title)}" loading="lazy">
-                                    <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
-                                        <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
-                                        <div class="d-flex align-items-center gap-1 flex-wrap">
-                                            <span class="activity-club-tag text-truncate" style="max-width: 140px;">
-                                                <i class="bi bi-shield-check"></i> ${esc(evt.club_name || 'Campus Club')}
-                                            </span>
-                                            <span class="small text-muted" style="font-size: 0.72rem; white-space: nowrap;">
-                                                <i class="bi bi-check-circle-fill text-success me-1"></i>Completed
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="text-end flex-shrink-0 ms-1">
-                                        <span class="badge rounded-pill bg-light text-primary border border-primary-subtle fw-semibold px-2 py-1" style="font-size: 0.7rem;">
-                                            ${timeAgo}
+                            <a href="${link}" class="act-card" style="--act-accent:${c.dot}; --act-bg:${c.accent};" data-aos="fade-up" data-aos-delay="${idx * 40}">
+                                <div class="act-card__left">
+                                    ${thumbHtml}${fallbackIcon}
+                                </div>
+                                <div class="act-card__body">
+                                    <div class="act-card__meta">
+                                        <span class="act-cat-chip" style="background:${c.bg};color:${c.text};">
+                                            <span class="act-cat-dot" style="background:${c.dot};"></span>
+                                            ${catName}
                                         </span>
+                                        ${statusLabel}
                                     </div>
-                                </a>`;
+                                    <h6 class="act-card__title">${esc(evt.title)}</h6>
+                                    <div class="act-card__info">
+                                        <span><i class="bi bi-shield-fill-check" style="color:${c.dot};"></i> ${clubName}</span>
+                                        <span><i class="bi bi-calendar3"></i> ${dateStr}</span>
+                                    </div>
+                                </div>
+                                <div class="act-card__right">
+                                    <span class="act-time-ago">${timeAgo}</span>
+                                    <i class="bi bi-arrow-right act-arrow"></i>
+                                </div>
+                            </a>`;
                         }).join('');
+
+                        // Footer counter
+                        if (pastEvents.length > SHOW_COUNT) {
+                            activityList.innerHTML += `
+                            <a href="events.html" class="act-view-all">
+                                <i class="bi bi-grid-3x3-gap-fill me-2"></i>
+                                View all ${pastEvents.length} past activities
+                                <i class="bi bi-arrow-right ms-1"></i>
+                            </a>`;
+                        }
                     }
                 }
 
+                // ── UPCOMING EVENTS ───────────────────────────────────────
                 if (upcomingList) {
-                    let displayEvents = upcoming;
-                    
-                    // Fallback to active scheduled events if no future date is found
-                    if (displayEvents.length === 0) {
-                        displayEvents = [
-                            {
-                                title: 'UIT Annual Tech & Innovation Summit 2026',
-                                venue: 'UIT Auditorium, Main Campus, Prayagraj',
-                                club_name: 'GDG on Campus UIT',
-                                event_date: '2026-09-15 10:00:00',
-                                club_id: 'clb_gdgoc_uit_2026'
-                            },
-                            {
-                                title: 'GeeksforGeeks Campus Coding Sprint 2026',
-                                venue: 'Computer Labs 1 & 2, UIT Prayagraj',
-                                club_name: 'GeeksforGeeks Student Chapter - UIT',
-                                event_date: '2026-10-10 11:00:00',
-                                club_id: 'clb_gfg_sc_uit_2026'
-                            },
-                            {
-                                title: 'RoboWars & Hardware Prototype Showcase',
-                                venue: 'Robotics Workshop Center, UIT',
-                                club_name: 'Robotics & Hardware Club',
-                                event_date: '2026-11-05 09:30:00',
-                                club_id: 'clb_robotics_uit_2026'
-                            }
+                    let display = upcomingEvt.slice(0, SHOW_COUNT);
+
+                    if (display.length === 0) {
+                        display = [
+                            { id: null, title: 'UIT Annual Tech & Innovation Summit 2026',   venue: 'UIT Auditorium, Prayagraj',       club_name: 'GDG on Campus UIT',            event_date: '2026-09-15 10:00:00', category_slug: 'technical' },
+                            { id: null, title: 'GeeksforGeeks Campus Coding Sprint 2026',    venue: 'Computer Labs 1 & 2, UIT',        club_name: 'GeeksforGeeks Student Chapter', event_date: '2026-10-10 11:00:00', category_slug: 'technical' },
+                            { id: null, title: 'RoboWars & Hardware Prototype Showcase',     venue: 'Robotics Workshop Center, UIT',   club_name: 'Robotics & Hardware Club',     event_date: '2026-11-05 09:30:00', category_slug: 'technical' }
                         ];
                     }
 
-                    upcomingList.innerHTML = displayEvents.map(evt => {
-                        const d = new Date(evt.event_date);
-                        const day = String(d.getDate()).padStart(2, '0');
-                        const month = d.toLocaleString('default', { month: 'short' }).toUpperCase();
-                        const time = d.toLocaleString('default', { hour: '2-digit', minute: '2-digit' });
-                        const detailLink = getPageUrl(`club-detail.html?id=${encodeURIComponent(evt.club_id || 'clb_gdgoc_uit_2026')}`);
+                    upcomingList.innerHTML = display.map((evt, idx) => {
+                        const c      = getCatColor(evt);
+                        const d      = new Date(evt.event_date);
+                        const day    = String(d.getDate()).padStart(2, '0');
+                        const month  = d.toLocaleString('default', { month: 'short' }).toUpperCase();
+                        const time   = d.toLocaleTimeString('default', { hour: '2-digit', minute: '2-digit' });
+                        const link   = evt.id ? `event-detail.html?id=${encodeURIComponent(evt.id)}` : 'events.html';
+                        const venue  = esc(evt.venue || 'UIT Campus, Prayagraj');
+                        const club   = esc(evt.club_name || 'USC UIT');
 
                         return `
-                            <a href="${detailLink}" class="event-card-3d">
-                                <div class="event-date-badge-3d">
-                                    <span class="event-date-num-3d">${day}</span>
-                                    <span class="event-date-month-3d">${month}</span>
+                        <a href="${link}" class="upc-card" style="--upc-accent:${c.dot};" data-aos="fade-up" data-aos-delay="${idx * 40}">
+                            <div class="upc-date-badge" style="background:linear-gradient(135deg, ${c.dot}, ${c.text});">
+                                <span class="upc-day">${day}</span>
+                                <span class="upc-month">${month}</span>
+                            </div>
+                            <div class="upc-body">
+                                <h6 class="upc-title">${esc(evt.title)}</h6>
+                                <div class="upc-meta">
+                                    <span><i class="bi bi-geo-alt-fill" style="color:${c.dot};"></i> ${venue}</span>
+                                    <span><i class="bi bi-patch-check-fill" style="color:${c.dot};"></i> ${club}</span>
                                 </div>
-                                <div class="flex-grow-1 overflow-hidden" style="min-width: 0;">
-                                    <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.92rem;">${esc(evt.title)}</h6>
-                                    <div class="small text-muted text-truncate" style="font-size: 0.76rem;">
-                                        <i class="bi bi-geo-alt-fill text-danger me-1"></i>${esc(evt.venue)}
-                                    </div>
-                                    <div class="small text-primary fw-semibold mt-1 text-truncate" style="font-size: 0.72rem;">
-                                        <i class="bi bi-patch-check-fill text-primary me-1"></i>${esc(evt.club_name)}
-                                    </div>
-                                </div>
-                                <div class="event-time-pill ms-1">
-                                    <i class="bi bi-clock-fill"></i> ${time}
-                                </div>
-                            </a>`;
+                            </div>
+                            <div class="upc-time" style="color:${c.text};background:${c.bg};">
+                                <i class="bi bi-clock-fill"></i> ${time}
+                            </div>
+                        </a>`;
                     }).join('');
+
+                    if (upcomingEvt.length > SHOW_COUNT) {
+                        upcomingList.innerHTML += `
+                        <a href="events.html" class="act-view-all" style="--act-accent:#f43f5e;">
+                            <i class="bi bi-calendar-week-fill me-2"></i>
+                            View all ${upcomingEvt.length} upcoming events
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </a>`;
+                    }
                 }
             })
             .catch(() => {

@@ -8,6 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!page) return;
 
     const wing = page.dataset.wing;
+
+    if (window.UITSkeletonLoader) {
+        if (leadershipContainer) leadershipContainer.innerHTML = window.UITSkeletonLoader.getMemberCardSkeleton(4);
+        if (clubsContainer) clubsContainer.innerHTML = window.UITSkeletonLoader.getClubCardSkeleton(3);
+        if (eventsContainer) eventsContainer.innerHTML = window.UITSkeletonLoader.getEventCardSkeleton(3);
+    }
+
     const eventPage = wing === 'technical' ? 'events.html?wing=technical' : 'events.html?wing=cultural';
     const wingLabel = wing === 'technical' ? 'technical' : 'cultural';
     const wingCategories = wing === 'technical'

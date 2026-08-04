@@ -18,6 +18,12 @@ function initializeEventsRenderer() {
     let currentWingFilter = 'all';
 
     const eventWing = document.body.dataset.eventWing;
+
+    if (window.UITSkeletonLoader) {
+        if (upcomingContainer) upcomingContainer.innerHTML = window.UITSkeletonLoader.getEventCardSkeleton(3);
+        if (pastContainer) pastContainer.innerHTML = window.UITSkeletonLoader.getEventCardSkeleton(3);
+    }
+
     const pageWingCategories = eventWing === 'technical'
         ? ['technical', 'technical-software-development']
         : eventWing === 'cultural'

@@ -423,13 +423,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Skeleton Loaders ───────────────────────────────────────────
     function showSkeletonLoaders() {
         const detailTitle = document.getElementById('detailTitle');
+        const detailBanner = document.getElementById('detailBanner');
+        const detailOverview = document.getElementById('detailOverview');
+        const detailTimeline = document.getElementById('detailTimeline');
+
         if (detailTitle) {
-            detailTitle.style.background = 'linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%)';
-            detailTitle.style.backgroundSize = '200% 100%';
-            detailTitle.style.animation = 'shimmer 1.4s infinite';
-            detailTitle.style.borderRadius = '8px';
+            detailTitle.classList.add('skeleton', 'skeleton-title');
             detailTitle.style.color = 'transparent';
-            detailTitle.style.minHeight = '44px';
+        }
+        if (detailBanner && !detailBanner.src) {
+            detailBanner.classList.add('skeleton', 'skeleton-hero-banner');
+        }
+        if (detailOverview && !detailOverview.textContent.trim()) {
+            detailOverview.innerHTML = `
+                <div class="skeleton skeleton-text mb-2"></div>
+                <div class="skeleton skeleton-text mb-2"></div>
+                <div class="skeleton skeleton-text skeleton-text-sm mb-2" style="width:75%;"></div>
+            `;
+        }
+        if (detailTimeline && (!detailTimeline.children.length || detailTimeline.innerHTML.trim() === '')) {
+            if (window.UITSkeletonLoader) {
+                detailTimeline.innerHTML = window.UITSkeletonLoader.getTimelineSkeleton(3);
+            }
         }
     }
 
