@@ -50,29 +50,7 @@ if (!isset($pageTitle)) {
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 align-items-lg-center">
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>index.html" id="nav-home">Home</a></li>
 
-                <!-- Clubs Dropdown — 2 Main Wings -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-clubhub dropdown-toggle" href="<?= $assetPrefix ?>clubs.html" id="nav-clubs" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Clubs
-                    </a>
-                    <ul class="dropdown-menu border-0 shadow-lg rounded-4 p-2 mt-2" aria-labelledby="nav-clubs">
-                        <li>
-                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>clubs.html">
-                                <i class="bi bi-grid-fill text-primary"></i> All USC UIT Clubs
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>clubs.html?wing=technical">
-                                <i class="bi bi-code-slash text-primary"></i> Technical Wing Clubs
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item rounded-3 py-2 px-3 fw-bold d-flex align-items-center gap-2" href="<?= $assetPrefix ?>clubs.html?wing=cultural">
-                                <i class="bi bi-palette-fill text-danger"></i> Cultural Wing Clubs
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>clubs.html" id="nav-clubs">Clubs</a></li>
 
                 <li class="nav-item"><a class="nav-link nav-link-clubhub" href="<?= $assetPrefix ?>events.html" id="nav-events">Events</a></li>
 
