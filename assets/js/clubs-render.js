@@ -100,13 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function renderWingClubChip(club, wing) {
-            const chipClass = wing === 'cultural' ? 'clubs-wing-club-chip--cultural' : 'clubs-wing-club-chip--tech';
+            const isCultural = wing === 'cultural';
+            const chipClass = isCultural ? 'clubs-wing-club-chip--cultural' : 'clubs-wing-club-chip--tech';
+            const fullName = escapeHtml(club.name || '');
             const shortName = escapeHtml(club.short_name || club.name);
-            const logo = club.logo
-                ? `<img src="${escapeHtml(club.logo)}" class="clubs-wing-club-chip__logo" alt="" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';"><span class="clubs-wing-club-chip__logo-fallback" style="display:none;"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')}"></i></span>`
-                : `<span class="clubs-wing-club-chip__logo-fallback"><i class="bi ${escapeHtml(club.category_icon || 'bi-shield-check')}"></i></span>`;
+            const logoSrc = club.logo ? escapeHtml(club.logo) : 'assets/img/usc-logo.png';
+            const fallbackIcon = isCultural ? 'bi-palette-fill' : 'bi-code-slash';
 
-            return `<a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="clubs-wing-club-chip ${chipClass}" title="${escapeHtml(club.name)}">${logo}<span class="clubs-wing-club-chip__text">${shortName}</span></a>`;
+            return `
+                <a href="club-detail.html?id=${encodeURIComponent(club.id)}" class="clubs-wing-club-chip ${chipClass}" title="${fullName}">
+                    <img src="${logoSrc}" class="clubs-wing-club-chip__logo" alt="${shortName}" onerror="this.onerror=null; this.src='assets/img/usc-logo.png';">
+                    <span class="clubs-wing-club-chip__text">${shortName}</span>
+                </a>
+            `;
         }
 
         function loadWingShowcase() {
@@ -123,8 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch(getApiUrl('clubs.php?wing=cultural')).then(res => res.json())
             ])
                 .then(([techRes, culturalRes]) => {
-                    const techClubs = techRes.status === 'success' ? (techRes.data || []) : [];
-                    const culturalClubs = culturalRes.status === 'success' ? (culturalRes.data || []) : [];
+                    const allTech = techRes.status === 'success' ? (techRes.data || []) : [];
+                    const allCultural = culturalRes.status === 'success' ? (culturalRes.data || []) : [];
+
+                    // Filter out umbrella parent councils so only actual sub-chapters are listed
+                    const techClubs = allTech.filter(c => c.id !== 'clb_developers_uit' && c.slug !== 'developers-club-uit');
+                    const culturalClubs = allCultural.filter(c => c.id !== 'clb_cultural_uit' && c.slug !== 'cultural-club-uit');
 
                     if (techCountEl) techCountEl.textContent = techClubs.length;
                     if (culturalCountEl) culturalCountEl.textContent = culturalClubs.length;
