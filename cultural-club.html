@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,65 +7,243 @@
     <script src="assets/js/skeleton-loader.js"></script>
     <title>Cultural Club UIT | Official Cultural Umbrella Council</title>
     <meta name="description" content="Cultural Club UIT is the official cultural umbrella council of USC UIT for music, theatre, arts, public speaking, literary activities, and campus fests.">
-    <meta name="keywords" content="Cultural Club UIT, Cultural Council UIT, Toastmasters UGI, Nritya Dance UIT, Harmony Music UIT, Rangmanch Drama, Prism Fine Arts, Campus Fests Prayagraj, Performing Arts UIT">
-    <meta name="author" content="Cultural Club UIT — Cultural Council">
+    <meta name="keywords" content="Cultural Club UIT, Cultural Council UIT, Toastmasters UGI, Nritya Dance UIT, Harmony Music UIT, Rangmanch Drama, Prism Fine Arts, Campus Fests Prayagraj">
+    <meta name="author" content="Cultural Club UIT Cultural Council">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="http://localhost/UIT/cultural-club.html">
-
-    <!-- Open Graph -->
-    <meta property="og:site_name" content="USC UIT — Cultural Club">
     <meta property="og:title" content="Cultural Club UIT | Official Cultural Umbrella Council">
-    <meta property="og:description" content="Official cultural wing of USC UIT overseeing performing arts, dance, music bands, theatre drama, Toastmasters, and annual campus festivals at UIT.">
+    <meta property="og:description" content="Official cultural wing of USC UIT overseeing performing arts, dance, music, theatre, Toastmasters, and annual campus festivals at UIT.">
     <meta property="og:image" content="assets/img/committee/ankit-gupta.jpg">
     <meta property="og:url" content="http://localhost/UIT/cultural-club.html">
     <meta property="og:type" content="website">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Cultural Club UIT | Official Cultural Umbrella Council">
-    <meta name="twitter:description" content="Cultural umbrella council for music, dance, theatre, fine arts, and literary activities at United Institute of Technology.">
-    <meta name="twitter:image" content="assets/img/committee/ankit-gupta.jpg">
-
-    <!-- Structured Data Schema.org (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Cultural Club UIT",
-      "alternateName": "Cultural Council UIT",
-      "url": "http://localhost/UIT/cultural-club.html",
-      "logo": "http://localhost/UIT/assets/img/usc-logo.png",
-      "description": "Official cultural umbrella council overseeing music, dance, drama, public speaking, and performing arts societies at United Institute of Technology.",
-      "parentOrganization": {
-        "@type": "EducationalOrganization",
-        "name": "United Student Club (USC UIT)"
-      }
-    }
-    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/wing-pages.css">
     <style>
-        .wing-hero--cultural {
-            background: linear-gradient(135deg, #0f172a 0%, #4c1d95 40%, #831843 100%) !important;
+        body { font-family: "Inter", sans-serif; }
+
+        /* HERO */
+        .cc-hero {
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, #4c1d95 0%, #be185d 55%, #f43f5e 100%);
+            padding: clamp(4rem,8vw,7rem) 0 clamp(3rem,6vw,5.5rem);
+            isolation: isolate;
         }
-        .wing-hero--cultural::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 80% 20%, rgba(244, 63, 94, 0.25), transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.25), transparent 50%);
-            pointer-events: none;
+        .cc-hero::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 80% 15%, rgba(251,113,133,.4) 0%, transparent 45%),
+                        radial-gradient(circle at 10% 85%, rgba(196,181,253,.3) 0%, transparent 40%);
+            pointer-events: none; z-index: 0;
         }
-        .cultural-badge-pill {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            font-weight: 700;
+        .cc-hero::after {
+            content: "";
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px);
+            background-size: 36px 36px;
+            pointer-events: none; z-index: 0;
+        }
+        .cc-hero .container { position: relative; z-index: 1; }
+
+        .cc-breadcrumb {
+            display: inline-flex; align-items: center; flex-wrap: wrap; gap: .4rem;
+            padding: .4rem .85rem; border: 1px solid rgba(255,255,255,.22);
+            border-radius: 999px; background: rgba(255,255,255,.12);
+            font-size: .76rem; font-weight: 700; color: rgba(255,255,255,.8);
+            margin-bottom: 1.8rem; backdrop-filter: blur(8px);
+        }
+        .cc-breadcrumb a { color: #fff; text-decoration: none; }
+        .cc-breadcrumb a:hover { color: #fda4af; }
+
+        .cc-kicker {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .45rem 1rem; border-radius: 999px;
+            background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.28);
+            color: #fecdd3; font-size: .74rem; font-weight: 800;
+            letter-spacing: .07em; text-transform: uppercase; margin-bottom: 1.4rem;
+        }
+
+        .cc-hero-title {
+            font-size: clamp(2.4rem,6vw,4.2rem); font-weight: 900;
+            line-height: 1.05; letter-spacing: -.04em; color: #fff; margin-bottom: 1.25rem;
+        }
+        .cc-hero-title .grad {
+            background: linear-gradient(90deg, #fda4af, #fb7185, #fbbf24);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .cc-hero-sub {
+            color: rgba(255,255,255,.78); font-size: 1.05rem; line-height: 1.7;
+            max-width: 580px; margin-bottom: 2rem;
+        }
+        .cc-hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 2rem; }
+
+        .cc-btn-primary {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px; background: #fff;
+            color: #be185d; font-weight: 800; font-size: .9rem;
+            text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,.2);
+            transition: transform .2s ease, box-shadow .2s ease; border: none;
+        }
+        .cc-btn-primary:hover { color: #9d174d; transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,0,0,.28); }
+
+        .cc-btn-ghost {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px;
+            background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.28);
+            color: #fff; font-weight: 800; font-size: .9rem;
+            text-decoration: none; transition: all .2s ease;
+        }
+        .cc-btn-ghost:hover { background: rgba(255,255,255,.18); color: #fff; transform: translateY(-2px); }
+
+        .cc-trust-list {
+            display: flex; flex-wrap: wrap; gap: .75rem 1.5rem;
+            list-style: none; padding: 0; margin: 0;
+            color: rgba(255,255,255,.72); font-size: .82rem; font-weight: 600;
+        }
+        .cc-trust-list li { display: flex; align-items: center; gap: .4rem; }
+        .cc-trust-list i { color: #fde68a; font-size: .9rem; }
+
+        /* Hero Panel */
+        .cc-hero-panel {
+            background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+            border-radius: 1.5rem; padding: 1.5rem;
+            backdrop-filter: blur(18px); box-shadow: 0 20px 50px rgba(0,0,0,.22);
+        }
+        .cc-hero-panel-top {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-bottom: .85rem; margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+        .cc-hero-panel-top span { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #fda4af; }
+        .cc-live-dot {
+            width: .5rem; height: .5rem; border-radius: 50%;
+            background: #fbbf24; box-shadow: 0 0 0 .3rem rgba(251,191,36,.2);
+            animation: ccPulse 2s infinite;
+        }
+        @keyframes ccPulse {
+            0%,100% { box-shadow: 0 0 0 .3rem rgba(251,191,36,.2); }
+            50%      { box-shadow: 0 0 0 .5rem rgba(251,191,36,.08); }
+        }
+        .cc-pathway-item {
+            display: flex; align-items: flex-start; gap: .9rem;
+            padding: .85rem 0; border-top: 1px solid rgba(255,255,255,.1);
+        }
+        .cc-pathway-item:first-of-type { border-top: none; padding-top: 0; }
+        .cc-pathway-icon {
+            width: 2.4rem; height: 2.4rem; border-radius: .75rem;
+            background: rgba(255,255,255,.15); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;
+        }
+        .cc-pathway-item h6 { color: #fff; font-size: .88rem; font-weight: 800; margin-bottom: .2rem; }
+        .cc-pathway-item p { color: rgba(255,255,255,.65); font-size: .75rem; margin: 0; line-height: 1.45; }
+
+        /* STATS STRIP */
+        .cc-stats-strip {
+            background: #fff; border-radius: 1.4rem;
+            box-shadow: 0 10px 40px rgba(190,24,93,.1); padding: 1.5rem 2rem;
+            margin-top: -2.5rem; position: relative; z-index: 10; border: 1px solid #fce7f3;
+        }
+        .cc-stat-num {
+            font-size: 1.9rem; font-weight: 900; letter-spacing: -.04em; line-height: 1;
+            background: linear-gradient(135deg, #be185d, #7c3aed);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .cc-stat-label { font-size: .72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .04em; margin-top: .25rem; }
+        .cc-stats-div { width: 1px; background: #fce7f3; align-self: stretch; }
+
+        /* LEADERSHIP */
+        .cc-lead-section { background: linear-gradient(180deg, #fff5f7 0%, #fff 100%); padding: clamp(3.5rem,7vw,5.5rem) 0; }
+
+        /* SECTION LABEL / TITLE */
+        .cc-sec-label {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .4rem 1rem; border-radius: 999px; background: #fff1f2;
+            border: 1px solid #fecdd3; color: #be185d;
+            font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1rem;
+        }
+        .cc-sec-title { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 900; letter-spacing: -.04em; color: #4c1d95; margin-bottom: .6rem; line-height: 1.1; }
+        .cc-sec-sub { color: #64748b; font-size: .95rem; line-height: 1.65; max-width: 600px; margin: 0 auto; }
+
+        /* ACTIVITY CARDS */
+        .cc-activities-section { background: #fff; padding: clamp(3.5rem,7vw,5.5rem) 0; }
+        .cc-act-card {
+            background: #fff; border: 1.5px solid #fce7f3;
+            border-radius: 1.25rem; padding: 1.6rem; height: 100%;
+            transition: all .28s cubic-bezier(.34,1.56,.64,1);
+            position: relative; overflow: hidden;
+        }
+        .cc-act-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--cacc, linear-gradient(90deg,#be185d,#7c3aed));
+            transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+        }
+        .cc-act-card:hover { transform: translateY(-5px); border-color: #fbcfe8; box-shadow: 0 16px 40px rgba(190,24,93,.1); }
+        .cc-act-card:hover::before { transform: scaleX(1); }
+        .cc-act-num { font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .85rem; }
+        .cc-act-icon {
+            width: 3rem; height: 3rem; border-radius: .9rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 1rem; transition: transform .25s ease;
+        }
+        .cc-act-card:hover .cc-act-icon { transform: scale(1.1) rotate(-4deg); }
+        .cc-act-card h4 { font-size: 1rem; font-weight: 800; color: #4c1d95; margin-bottom: .5rem; }
+        .cc-act-card p { color: #64748b; font-size: .83rem; line-height: 1.6; margin: 0; }
+
+        /* CHAPTERS */
+        .cc-chapters-section {
+            background: linear-gradient(135deg, #4c1d95 0%, #be185d 60%, #f43f5e 100%);
+            padding: clamp(3.5rem,7vw,5.5rem) 0; position: relative; overflow: hidden;
+        }
+        .cc-chapters-section::before {
+            content: ""; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+            background-size: 32px 32px; pointer-events: none;
+        }
+        .cc-chapters-section .container { position: relative; z-index: 1; }
+
+        /* EVENTS */
+        .cc-events-section { background: #fff5f7; padding: clamp(3.5rem,7vw,5.5rem) 0; }
+
+        /* DEVELOPERS CTA */
+        .cc-crossroad {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border: 1.5px solid #bfdbfe; border-radius: 1.6rem;
+            padding: clamp(2rem,4vw,3rem); position: relative; overflow: hidden;
+        }
+        .cc-crossroad::after {
+            content: ""; position: absolute; top: -3rem; right: -3rem;
+            width: 12rem; height: 12rem; border: 1.5px solid rgba(37,99,235,.15);
+            border-radius: 50%; pointer-events: none;
+        }
+        .cc-crossroad h3 { font-size: clamp(1.35rem,2.5vw,1.85rem); font-weight: 900; color: #1e3a8a; letter-spacing: -.03em; margin-bottom: .5rem; }
+        .cc-crossroad p { color: #1e40af; font-size: .9rem; line-height: 1.65; margin: 0; }
+        .cc-btn-dev {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px;
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: #fff; font-weight: 800; font-size: .9rem;
+            text-decoration: none; box-shadow: 0 8px 20px rgba(29,78,216,.3);
+            transition: all .2s ease; white-space: nowrap;
+        }
+        .cc-btn-dev:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(29,78,216,.4); }
+
+        /* RESPONSIVE */
+        @media (max-width: 991.98px) {
+            .cc-hero-panel { max-width: 540px; margin: 0 auto; }
+            .cc-stats-strip { margin-top: 1.5rem; border-radius: 1rem; padding: 1.25rem; }
+        }
+        @media (max-width: 575.98px) {
+            .cc-hero-title { font-size: 2.1rem; }
+            .cc-hero-sub { font-size: .95rem; }
+            .cc-btn-primary, .cc-btn-ghost { width: 100%; justify-content: center; }
+            .cc-stats-strip { padding: 1rem; }
+            .cc-stat-num { font-size: 1.5rem; }
+            .cc-stats-div { display: none; }
+            .cc-sec-title { font-size: 1.6rem; }
+            .cc-crossroad { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -73,224 +251,268 @@
 <div id="header-placeholder"></div>
 
 <main class="wing-page wing-page--cultural" data-wing="cultural">
-    <!-- Vibrant Cultural Hero Section -->
-    <section class="wing-hero wing-hero--cultural py-5">
-        <div class="container position-relative py-3">
-            <nav class="wing-breadcrumb mb-3" aria-label="Breadcrumb">
-                <a href="index.html" class="text-white-80">Home</a>
-                <i class="bi bi-chevron-right text-white-50"></i>
-                <a href="clubs.html" class="text-white-80">USC UIT Clubs</a>
-                <i class="bi bi-chevron-right text-white-50"></i>
-                <span class="text-warning fw-bold">Cultural Club UIT</span>
+
+    <!-- HERO -->
+    <section class="cc-hero">
+        <div class="container">
+            <nav class="cc-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="bi bi-chevron-right" style="font-size:.6rem;opacity:.5;"></i>
+                <a href="clubs.html">USC UIT Clubs</a>
+                <i class="bi bi-chevron-right" style="font-size:.6rem;opacity:.5;"></i>
+                <span style="color:#fda4af;font-weight:900;">Cultural Club UIT</span>
             </nav>
+
             <div class="row align-items-center g-5">
-                <div class="col-lg-7">
-                    <span class="wing-kicker cultural-badge-pill px-3 py-1.5 rounded-pill mb-3 d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-palette2 text-warning fs-5"></i> Official Cultural Umbrella Council of UIT
+                <div class="col-lg-6">
+                    <span class="cc-kicker">
+                        <i class="bi bi-palette2"></i>
+                        Official Cultural Umbrella Council &middot; UIT
                     </span>
-                    <h1 class="fw-black text-white display-4 mb-3" style="font-weight: 900; letter-spacing: -1px; line-height: 1.1;">
-                        Feel it.<br><span style="color: #fb7185; background: linear-gradient(90deg, #fb7185, #f43f5e, #e11d48); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Express it.</span> Own it.
+                    <h1 class="cc-hero-title">
+                        Feel it.<br>
+                        <span class="grad">Express it.</span> Own it.
                     </h1>
-                    <p class="wing-hero-copy text-white-80 lead fs-6 mb-4 max-w-xl">
-                        Cultural Club UIT is the creative heart of United Institute of Technology. Overseen by Faculty Coordinator <strong>Dr. Ankit Gupta</strong> and student leadership, it brings together Music, Dance, Drama, Fine Arts, Public Speaking, and Campus Fests into a vibrant performing arts community.
+                    <p class="cc-hero-sub">
+                        Cultural Club UIT is the creative heart of United Institute of Technology &mdash; bringing together Music, Dance, Drama, Fine Arts, Public Speaking, and Campus Fests into a vibrant performing arts community.
                     </p>
-                    <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
-                        <a class="btn btn-danger rounded-pill px-4 py-3 fw-bold text-white shadow-lg d-inline-flex align-items-center justify-content-center gap-2" href="cultural-events.html" style="background: #e11d48; border: none;">
-                            Explore Cultural Events <i class="bi bi-arrow-right"></i>
+                    <div class="cc-hero-btns">
+                        <a href="events.html?wing=cultural" class="cc-btn-primary">
+                            <i class="bi bi-stars"></i> Explore Cultural Events
                         </a>
-                        <a class="btn btn-outline-light rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center gap-2" href="#culturalLeadership">
-                            Meet Faculty &amp; Leadership <i class="bi bi-people-fill"></i>
+                        <a href="#culturalLeadership" class="cc-btn-ghost">
+                            <i class="bi bi-people-fill"></i> Meet Leadership
                         </a>
                     </div>
-                    <ul class="d-flex flex-wrap align-items-center gap-4 text-white-80 small list-unstyled mb-0">
-                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> Open to every branch &amp; year</li>
-                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> No prior experience needed</li>
-                        <li><i class="bi bi-check-circle-fill text-warning me-1.5"></i> Annual College Fests &amp; Showcases</li>
+                    <ul class="cc-trust-list">
+                        <li><i class="bi bi-check-circle-fill"></i> Open to every branch &amp; year</li>
+                        <li><i class="bi bi-check-circle-fill"></i> No prior experience needed</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Annual College Fests &amp; Showcases</li>
                     </ul>
                 </div>
-                <div class="col-lg-5">
-                    <aside class="wing-hero-panel bg-white bg-opacity-10 border border-white border-opacity-20 rounded-4 p-4 text-white shadow-2xl backdrop-blur-md">
-                        <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-white border-opacity-10">
-                            <span class="fw-bold small text-warning"><i class="bi bi-stars me-1"></i> CREATIVE PILLARS</span>
-                            <span class="small text-white-50">01–03</span>
-                        </div>
-                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-warning"><i class="bi bi-mic-fill"></i></div>
-                            <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Find Your Voice</h5>
-                                <p class="small text-white-80 mb-0">Join vocal jams, band rehearsals, public speaking circles, and stage debates.</p>
+
+                <div class="col-lg-6">
+                    <div class="cc-hero-panel">
+                        <div class="cc-hero-panel-top">
+                            <span><i class="bi bi-stars me-1"></i>Creative Pillars</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="cc-live-dot"></div>
+                                <span style="font-size:.65rem;color:rgba(255,255,255,.5);font-weight:700;">ACTIVE</span>
                             </div>
                         </div>
-                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-rose" style="color: #fb7185;"><i class="bi bi-palette-fill"></i></div>
+                        <div class="cc-pathway-item">
+                            <div class="cc-pathway-icon" style="color:#fbbf24;"><i class="bi bi-mic-fill"></i></div>
                             <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Artistry &amp; Drama</h5>
-                                <p class="small text-white-80 mb-0">Nukkad Natak street plays, fine arts canvas exhibitions, photography &amp; stage craft.</p>
+                                <h6>Find Your Voice</h6>
+                                <p>Join vocal jams, band rehearsals, public speaking circles, and stage debates.</p>
                             </div>
                         </div>
-                        <div class="wing-start-card p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-info"><i class="bi bi-trophy-fill"></i></div>
+                        <div class="cc-pathway-item">
+                            <div class="cc-pathway-icon" style="color:#fb7185;"><i class="bi bi-palette-fill"></i></div>
                             <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Take The Big Stage</h5>
-                                <p class="small text-white-80 mb-0">Perform in inter-college fests, annual cultural nights, and official celebrations.</p>
+                                <h6>Artistry &amp; Drama</h6>
+                                <p>Nukkad Natak street plays, fine arts canvas exhibitions, photography &amp; stage craft.</p>
                             </div>
                         </div>
-                    </aside>
+                        <div class="cc-pathway-item">
+                            <div class="cc-pathway-icon" style="color:#a5f3fc;"><i class="bi bi-trophy-fill"></i></div>
+                            <div>
+                                <h6>Take The Big Stage</h6>
+                                <p>Perform in inter-college fests, annual cultural nights, and official celebrations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Strip -->
+            <div class="cc-stats-strip mt-5">
+                <div class="row g-3 align-items-center justify-content-center text-center">
+                    <div class="col-6 col-md-3">
+                        <div class="cc-stat-num">5+</div>
+                        <div class="cc-stat-label">Sub-Chapters</div>
+                    </div>
+                    <div class="col-auto cc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="cc-stat-num">350+</div>
+                        <div class="cc-stat-label">Active Members</div>
+                    </div>
+                    <div class="col-auto cc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="cc-stat-num">8+</div>
+                        <div class="cc-stat-label">Events / Year</div>
+                    </div>
+                    <div class="col-auto cc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="cc-stat-num">2</div>
+                        <div class="cc-stat-label">Faculty Mentors</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW Faculty & Leadership Roster Section -->
-    <section id="culturalLeadership" class="py-5 bg-white">
-        <div class="container py-3">
-            <div class="text-center mb-5 max-w-2xl mx-auto">
-                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1.5 rounded-pill mb-2 fw-bold text-uppercase" style="letter-spacing: 1px; background:#fffbeb; color:#d97706;">
-                    <i class="bi bi-award-fill me-1"></i> Mentorship &amp; Governance Roster
-                </span>
-                <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Faculty Coordinator &amp; Leadership Board</h2>
-                <p class="text-secondary small mb-0">Official institutional faculty leadership and annual student executive roster for Cultural Club UIT. Leadership details and tenure are managed dynamically from the Admin Portal.</p>
+    <!-- LEADERSHIP -->
+    <section id="culturalLeadership" class="cc-lead-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="cc-sec-label"><i class="bi bi-award-fill"></i> Mentorship &amp; Governance Roster</span>
+                <h2 class="cc-sec-title">Faculty Coordinator &amp; Leadership Board</h2>
+                <p class="cc-sec-sub">Official faculty mentors and annual student executive roster for Cultural Club UIT.</p>
             </div>
-
-            <!-- Dynamic Leadership Cards Container -->
-            <div class="row g-4 justify-content-center mb-4" id="culturalLeadershipContainer">
-                <div class="col-12 text-center py-4">
-                    <div class="spinner-border text-primary" role="status"></div>
-                    <p class="small text-secondary mt-2">Loading Cultural Leadership Roster...</p>
+            <div class="row g-4 justify-content-center" id="culturalLeadershipContainer">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-danger" role="status"></div>
+                    <p class="small text-secondary mt-2">Loading Cultural Leadership Roster&hellip;</p>
                 </div>
-            </div>
-
-            <div class="text-center">
-                <span class="badge bg-light text-secondary border rounded-pill px-4 py-2.5 small fw-normal">
-                    <i class="bi bi-gear-fill me-1 text-primary"></i> Faculty Coordinators &amp; Leadership roles can be updated, added, or changed with tenure from the <a href="admin/dean-login.php" class="fw-bold text-primary text-decoration-underline">Admin Portal</a>.
-                </span>
             </div>
         </div>
     </section>
 
-    <!-- Cultural Categories & Activities -->
-    <section class="wing-section wing-section--soft py-5" style="background: #f8fafc;">
-        <div class="container py-3">
-            <div class="wing-section-heading wing-section-heading--center text-center mb-5">
-                <span class="wing-eyebrow badge bg-primary-subtle text-primary rounded-pill px-3 py-1 mb-2 fw-bold"><i class="bi bi-grid-1x2 me-1"></i> WHAT WE DO</span>
-                <h2 class="fw-black text-dark mb-2" style="font-weight: 900;">Choose How You Want To Express Yourself</h2>
-                <p class="text-secondary small mb-0">Room for music lovers, dancers, actors, public speakers, fine artists, and stage crew.</p>
+    <!-- ACTIVITIES -->
+    <section class="cc-activities-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="cc-sec-label" style="background:#f5f3ff;border-color:#ddd6fe;color:#7c3aed;">
+                    <i class="bi bi-grid-1x2-fill"></i> What We Do
+                </span>
+                <h2 class="cc-sec-title">Choose How You Want To Express Yourself</h2>
+                <p class="cc-sec-sub">Room for music lovers, dancers, actors, public speakers, fine artists, and stage crew.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-primary fw-bold mb-2">01 / PERFORM</div>
-                        <div class="wing-activity-card__icon fs-2 text-danger mb-2"><i class="bi bi-music-note-beamed"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Music &amp; Campus Band</h4>
-                        <p class="text-secondary small mb-0">Jam, rehearse, perform vocals, guitar, keyboards, and connect through campus music nights.</p>
+                <!-- 01 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#e11d48,#f43f5e);">
+                        <div class="cc-act-num" style="color:#e11d48;">01 / PERFORM</div>
+                        <div class="cc-act-icon" style="background:#fff1f2;color:#e11d48;"><i class="bi bi-music-note-beamed"></i></div>
+                        <h4>Music &amp; Campus Band</h4>
+                        <p>Jam, rehearse, perform vocals, guitar, keyboards, and connect through campus music nights.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-danger fw-bold mb-2">02 / DANCE</div>
-                        <div class="wing-activity-card__icon fs-2 text-warning mb-2"><i class="bi bi-person-arms-up"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Nritya Dance Chapter</h4>
-                        <p class="text-secondary small mb-0">Bring energy to group choreography, classical, hip-hop, and big stage festival performances.</p>
+                <!-- 02 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#d97706,#f59e0b);">
+                        <div class="cc-act-num" style="color:#d97706;">02 / DANCE</div>
+                        <div class="cc-act-icon" style="background:#fffbeb;color:#d97706;"><i class="bi bi-person-arms-up"></i></div>
+                        <h4>Nritya Dance Chapter</h4>
+                        <p>Bring energy to group choreography, classical, hip-hop, and big stage festival performances.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-purple fw-bold mb-2">03 / SPEAK</div>
-                        <div class="wing-activity-card__icon fs-2 text-purple mb-2" style="color:#7c3aed;"><i class="bi bi-mic-fill"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Public Speaking &amp; Debates</h4>
-                        <p class="text-secondary small mb-0">Build vocal confidence through Toastmasters speech drills, debates, and stage hosting.</p>
+                <!-- 03 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#7c3aed,#a855f7);">
+                        <div class="cc-act-num" style="color:#7c3aed;">03 / SPEAK</div>
+                        <div class="cc-act-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-mic-fill"></i></div>
+                        <h4>Public Speaking &amp; Debates</h4>
+                        <p>Build vocal confidence through Toastmasters speech drills, debates, and stage hosting.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-success fw-bold mb-2">04 / ACT</div>
-                        <div class="wing-activity-card__icon fs-2 text-success mb-2"><i class="bi bi-masks"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Rangmanch Theatre &amp; Drama</h4>
-                        <p class="text-secondary small mb-0">Explore characters, Nukkad Natak street plays, scriptwriting, and stage direction.</p>
+                <!-- 04 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#059669,#10b981);">
+                        <div class="cc-act-num" style="color:#059669;">04 / ACT</div>
+                        <div class="cc-act-icon" style="background:#ecfdf5;color:#059669;"><i class="bi bi-masks"></i></div>
+                        <h4>Rangmanch Theatre &amp; Drama</h4>
+                        <p>Explore characters, Nukkad Natak street plays, scriptwriting, and stage direction.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-info fw-bold mb-2">05 / FINE ARTS</div>
-                        <div class="wing-activity-card__icon fs-2 text-info mb-2"><i class="bi bi-palette"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Prism Fine Arts &amp; Media</h4>
-                        <p class="text-secondary small mb-0">Paint, illustrate, design, exhibit art, and capture photography for campus events.</p>
+                <!-- 05 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#0284c7,#38bdf8);">
+                        <div class="cc-act-num" style="color:#0284c7;">05 / FINE ARTS</div>
+                        <div class="cc-act-icon" style="background:#f0f9ff;color:#0284c7;"><i class="bi bi-palette"></i></div>
+                        <h4>Prism Fine Arts &amp; Media</h4>
+                        <p>Paint, illustrate, design, exhibit art, and capture photography for campus events.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-warning fw-bold mb-2">06 / IDEAS</div>
-                        <div class="wing-activity-card__icon fs-2 text-danger mb-2"><i class="bi bi-journal-richtext"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">TEDx &amp; Literary Society</h4>
-                        <p class="text-secondary small mb-0">Curate talks, write essays, host poetry slams, and share ideas worth spreading across campus.</p>
+                <!-- 06 -->
+                <div class="col-sm-6 col-lg-4">
+                    <article class="cc-act-card" style="--cacc:linear-gradient(90deg,#be185d,#f43f5e);">
+                        <div class="cc-act-num" style="color:#be185d;">06 / IDEAS</div>
+                        <div class="cc-act-icon" style="background:#fff1f2;color:#be185d;"><i class="bi bi-journal-richtext"></i></div>
+                        <h4>TEDx &amp; Literary Society</h4>
+                        <p>Curate talks, write essays, host poetry slams, and share ideas worth spreading across campus.</p>
                     </article>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- All Sub-Chapters under Cultural Wing Grid -->
-    <section class="wing-section wing-section--dark py-5" style="background: #0f172a;">
-        <div class="container py-3">
-            <div class="wing-section-heading mb-4 text-center text-lg-start">
-                <span class="wing-eyebrow text-warning small fw-bold text-uppercase"><i class="bi bi-diagram-3 me-1"></i> Cultural Chapters</span>
-                <h2 class="text-white fw-black mb-2" style="font-size: 2.2rem; font-weight: 900;">All Sub-Clubs &amp; Communities Under Cultural Wing</h2>
-                <p class="text-white-80 small mb-0">Discover performing arts, music, dance, theatre, fine arts, and public speaking societies at UIT.</p>
+    <!-- SUB-CHAPTERS -->
+    <section class="cc-chapters-section">
+        <div class="container">
+            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-5">
+                <div>
+                    <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-2 fw-bold"
+                          style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fda4af;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;">
+                        <i class="bi bi-diagram-3-fill"></i> Cultural Chapters
+                    </span>
+                    <h2 class="fw-black text-white mb-1" style="font-size:clamp(1.8rem,3.5vw,2.5rem);letter-spacing:-.04em;">
+                        All Sub-Clubs &amp; Communities
+                    </h2>
+                    <p style="color:rgba(255,255,255,.68);font-size:.92rem;margin:0;">
+                        Discover performing arts, music, dance, theatre, fine arts, and public speaking societies at UIT.
+                    </p>
+                </div>
+                <a href="clubs.html?wing=cultural" class="cc-btn-ghost flex-shrink-0">
+                    View All Chapters <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
             <div class="row g-4" id="wingClubs">
                 <div class="col-12 text-center py-5">
                     <div class="spinner-border spinner-border-sm text-light opacity-75" role="status"></div>
+                    <p class="small mt-2" style="color:rgba(255,255,255,.5);">Loading chapters&hellip;</p>
                 </div>
             </div>
-
-            <!-- Interactive Institutional Governance Tree -->
-            <div id="uscOrgTreeContainer" class="mt-5"></div>
         </div>
     </section>
 
-    <!-- Cultural Events Showcase -->
-    <section class="wing-section py-5 bg-white">
-        <div class="container py-3">
+    <!-- EVENTS -->
+    <section class="cc-events-section">
+        <div class="container">
             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-4">
-                <div class="wing-section-heading mb-0">
-                    <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-1 rounded-pill mb-2 fw-bold small"><i class="bi bi-calendar-event me-1"></i> EVENT BOARD</span>
-                    <h2 class="fw-black text-dark mb-1" style="font-weight: 900;">Upcoming &amp; Past Cultural Events</h2>
-                    <p class="text-secondary small mb-0">Browse live band nights, drama performances, public speaking masterclasses, and fests.</p>
+                <div>
+                    <span class="cc-sec-label"><i class="bi bi-calendar-event-fill"></i> Event Board</span>
+                    <h2 class="cc-sec-title mb-1">Upcoming &amp; Past Cultural Events</h2>
+                    <p class="cc-sec-sub mb-0" style="font-size:.88rem;">Browse live band nights, drama performances, public speaking masterclasses, and fests.</p>
                 </div>
-                <a class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm flex-shrink-0" href="cultural-events.html">
-                    See Every Cultural Event <i class="bi bi-arrow-right ms-1"></i>
+                <a href="events.html?wing=cultural" class="cc-btn-primary flex-shrink-0">
+                    See All Cultural Events <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
-            <div class="small fw-bold text-secondary mb-3" id="wingEventCount">Loading events</div>
+            <div class="small fw-bold mb-3" style="color:#64748b;" id="wingEventCount">Loading events&hellip;</div>
             <div class="row g-4" id="wingEvents" aria-live="polite"></div>
         </div>
     </section>
 
-    <!-- Crossroad Navigation -->
-    <section class="wing-section py-4" style="background: #f8fafc;">
+    <!-- DEVELOPERS CTA -->
+    <section class="py-5" style="background:#fff;">
         <div class="container">
-            <div class="card border-0 rounded-4 p-4 p-md-5 text-white shadow-sm" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+            <div class="cc-crossroad">
                 <div class="row align-items-center g-4">
-                    <div class="col-lg-8 text-center text-lg-start">
-                        <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-1 mb-2 fw-bold small">OTHER MAIN WING</span>
-                        <h3 class="fw-black text-white mb-2" style="font-weight: 900;">Looking For Coding, Hackathons &amp; Tech Bootcamps?</h3>
-                        <p class="text-white-80 small mb-0">Developers Club UIT is the technical umbrella council of USC UIT. Home to GDG On Campus, GFG Student Chapter, HackerRank, FOSS, and FlutterFlow.</p>
+                    <div class="col-lg-8">
+                        <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 fw-bold"
+                              style="background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);color:#1d4ed8;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;">
+                            <i class="bi bi-cpu-fill"></i> Other Main Wing
+                        </span>
+                        <h3>Looking For Coding, Hackathons &amp; Tech Bootcamps?</h3>
+                        <p>Developers Club UIT is the technical umbrella council of USC UIT &mdash; home to GDG On Campus, GFG Student Chapter, HackerRank, FOSS, and FlutterFlow.</p>
                     </div>
-                    <div class="col-lg-4 text-center text-lg-end">
-                        <a class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-sm" href="developers-club.html">
-                            Visit Developers Club UIT <i class="bi bi-arrow-right ms-1"></i>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="developers-club.html" class="cc-btn-dev">
+                            Visit Developers Club UIT <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 </main>
 
 <div id="footer-placeholder"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/wing-page.js"></script>
-<script src="assets/js/org-tree.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,65 +7,242 @@
     <script src="assets/js/skeleton-loader.js"></script>
     <title>Developers Club UIT | Official Technical Umbrella Council</title>
     <meta name="description" content="Developers Club UIT is the official technical umbrella council of USC UIT for coding, hackathons, workshops, AI, open source, and student projects.">
-    <meta name="keywords" content="Developers Club UIT, Technical Council UIT, GDG On Campus UIT, GFG Student Chapter UIT, HackerRank UIT, FOSS UIT, FlutterFlow UIT, Gemini Builders, Hackathons Prayagraj, Coding Bootcamps UIT">
-    <meta name="author" content="Developers Club UIT — Technical Council">
+    <meta name="keywords" content="Developers Club UIT, Technical Council UIT, GDG On Campus UIT, GFG Student Chapter UIT, HackerRank UIT, FOSS UIT, Hackathons Prayagraj">
+    <meta name="author" content="Developers Club UIT Technical Council">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="http://localhost/UIT/developers-club.html">
-
-    <!-- Open Graph -->
-    <meta property="og:site_name" content="USC UIT — Developers Club">
     <meta property="og:title" content="Developers Club UIT | Official Technical Umbrella Council">
-    <meta property="og:description" content="Official technical wing of USC UIT overseeing Google Developer Groups (GDG), GeeksforGeeks SC, HackerRank, FOSS, FlutterFlow, and AI Builders at UIT.">
+    <meta property="og:description" content="Official technical wing of USC UIT overseeing GDG, GFG, HackerRank, FOSS, FlutterFlow, and AI Builders at UIT.">
     <meta property="og:image" content="assets/img/chapters/gdg-logo.jpg">
     <meta property="og:url" content="http://localhost/UIT/developers-club.html">
     <meta property="og:type" content="website">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Developers Club UIT | Official Technical Umbrella Council">
-    <meta name="twitter:description" content="Technical umbrella council for coding, hackathons, open source, and AI at United Institute of Technology.">
-    <meta name="twitter:image" content="assets/img/chapters/gdg-logo.jpg">
-
-    <!-- Structured Data Schema.org (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Developers Club UIT",
-      "alternateName": "Technical Council UIT",
-      "url": "http://localhost/UIT/developers-club.html",
-      "logo": "http://localhost/UIT/assets/img/chapters/gdg-logo.jpg",
-      "description": "Official technical umbrella council overseeing student developer chapters, hackathons, open-source societies, and AI workshops at United Institute of Technology.",
-      "parentOrganization": {
-        "@type": "EducationalOrganization",
-        "name": "United Student Club (USC UIT)"
-      }
-    }
-    </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/wing-pages.css">
     <style>
-        .wing-hero--developers {
-            background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e1b4b 100%) !important;
+        body { font-family: "Inter", sans-serif; }
+
+        /* HERO */
+        .dc-hero {
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, #1e1b4b 0%, #1d4ed8 55%, #0ea5e9 100%);
+            padding: clamp(4rem,8vw,7rem) 0 clamp(3rem,6vw,5.5rem);
+            isolation: isolate;
         }
-        .wing-hero--developers::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.2), transparent 50%),
-                        radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2), transparent 50%);
-            pointer-events: none;
+        .dc-hero::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 80% 15%, rgba(56,189,248,.35) 0%, transparent 45%),
+                        radial-gradient(circle at 10% 85%, rgba(129,140,248,.3) 0%, transparent 40%);
+            pointer-events: none; z-index: 0;
         }
-        .tech-badge-pill {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #38bdf8;
-            font-weight: 700;
+        .dc-hero::after {
+            content: "";
+            position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px);
+            background-size: 36px 36px;
+            pointer-events: none; z-index: 0;
+        }
+        .dc-hero .container { position: relative; z-index: 1; }
+
+        .dc-breadcrumb {
+            display: inline-flex; align-items: center; flex-wrap: wrap; gap: .4rem;
+            padding: .4rem .85rem; border: 1px solid rgba(255,255,255,.2);
+            border-radius: 999px; background: rgba(255,255,255,.1);
+            font-size: .76rem; font-weight: 700; color: rgba(255,255,255,.8);
+            margin-bottom: 1.8rem; backdrop-filter: blur(8px);
+        }
+        .dc-breadcrumb a { color: #fff; text-decoration: none; }
+        .dc-breadcrumb a:hover { color: #bae6fd; }
+
+        .dc-kicker {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .45rem 1rem; border-radius: 999px;
+            background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+            color: #bae6fd; font-size: .74rem; font-weight: 800;
+            letter-spacing: .07em; text-transform: uppercase; margin-bottom: 1.4rem;
+        }
+
+        .dc-hero-title {
+            font-size: clamp(2.4rem,6vw,4.2rem); font-weight: 900;
+            line-height: 1.05; letter-spacing: -.04em; color: #fff; margin-bottom: 1.25rem;
+        }
+        .dc-hero-title .grad {
+            background: linear-gradient(90deg, #7dd3fc, #818cf8, #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .dc-hero-sub {
+            color: rgba(255,255,255,.78); font-size: 1.05rem; line-height: 1.7;
+            max-width: 580px; margin-bottom: 2rem;
+        }
+        .dc-hero-btns { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 2rem; }
+
+        .dc-btn-primary {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px; background: #fff;
+            color: #1d4ed8; font-weight: 800; font-size: .9rem;
+            text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,.2);
+            transition: transform .2s ease, box-shadow .2s ease; border: none;
+        }
+        .dc-btn-primary:hover { color: #1e40af; transform: translateY(-2px); box-shadow: 0 14px 32px rgba(0,0,0,.28); }
+
+        .dc-btn-ghost {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px;
+            background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.28);
+            color: #fff; font-weight: 800; font-size: .9rem;
+            text-decoration: none; transition: all .2s ease;
+        }
+        .dc-btn-ghost:hover { background: rgba(255,255,255,.18); color: #fff; transform: translateY(-2px); }
+
+        .dc-trust-list {
+            display: flex; flex-wrap: wrap; gap: .75rem 1.5rem;
+            list-style: none; padding: 0; margin: 0;
+            color: rgba(255,255,255,.7); font-size: .82rem; font-weight: 600;
+        }
+        .dc-trust-list li { display: flex; align-items: center; gap: .4rem; }
+        .dc-trust-list i { color: #86efac; font-size: .9rem; }
+
+        .dc-hero-panel {
+            background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+            border-radius: 1.5rem; padding: 1.5rem;
+            backdrop-filter: blur(18px); box-shadow: 0 20px 50px rgba(0,0,0,.22);
+        }
+        .dc-hero-panel-top {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-bottom: .85rem; margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+        .dc-hero-panel-top span { font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #7dd3fc; }
+        .dc-live-dot {
+            width: .5rem; height: .5rem; border-radius: 50%;
+            background: #4ade80; box-shadow: 0 0 0 .3rem rgba(74,222,128,.2);
+            animation: dcPulse 2s infinite;
+        }
+        @keyframes dcPulse {
+            0%,100% { box-shadow: 0 0 0 .3rem rgba(74,222,128,.2); }
+            50%      { box-shadow: 0 0 0 .5rem rgba(74,222,128,.08); }
+        }
+        .dc-pathway-item {
+            display: flex; align-items: flex-start; gap: .9rem;
+            padding: .85rem 0; border-top: 1px solid rgba(255,255,255,.1);
+        }
+        .dc-pathway-item:first-of-type { border-top: none; padding-top: 0; }
+        .dc-pathway-icon {
+            width: 2.4rem; height: 2.4rem; border-radius: .75rem;
+            background: rgba(255,255,255,.15); display: flex;
+            align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;
+        }
+        .dc-pathway-item h6 { color: #fff; font-size: .88rem; font-weight: 800; margin-bottom: .2rem; }
+        .dc-pathway-item p { color: rgba(255,255,255,.65); font-size: .75rem; margin: 0; line-height: 1.45; }
+
+        /* STATS STRIP */
+        .dc-stats-strip {
+            background: #fff; border-radius: 1.4rem;
+            box-shadow: 0 10px 40px rgba(29,78,216,.1); padding: 1.5rem 2rem;
+            margin-top: -2.5rem; position: relative; z-index: 10; border: 1px solid #e0e7ff;
+        }
+        .dc-stat-num {
+            font-size: 1.9rem; font-weight: 900; letter-spacing: -.04em; line-height: 1;
+            background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .dc-stat-label { font-size: .72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .04em; margin-top: .25rem; }
+        .dc-stats-div { width: 1px; background: #e2e8f0; align-self: stretch; }
+
+        /* LEADERSHIP */
+        .dc-lead-section { background: linear-gradient(180deg, #f8faff 0%, #fff 100%); padding: clamp(3.5rem,7vw,5.5rem) 0; }
+
+        /* SECTION LABEL / TITLE */
+        .dc-sec-label {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .4rem 1rem; border-radius: 999px; background: #eff6ff;
+            border: 1px solid #bfdbfe; color: #1d4ed8;
+            font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 1rem;
+        }
+        .dc-sec-title { font-size: clamp(1.8rem,3.5vw,2.6rem); font-weight: 900; letter-spacing: -.04em; color: #1e1b4b; margin-bottom: .6rem; line-height: 1.1; }
+        .dc-sec-sub { color: #64748b; font-size: .95rem; line-height: 1.65; max-width: 600px; margin: 0 auto; }
+
+        /* TRACKS */
+        .dc-tracks-section { background: #fff; padding: clamp(3.5rem,7vw,5.5rem) 0; }
+        .dc-track-card {
+            background: #fff; border: 1.5px solid #e0e7ff;
+            border-radius: 1.25rem; padding: 1.6rem; height: 100%;
+            transition: all .28s cubic-bezier(.34,1.56,.64,1);
+            position: relative; overflow: hidden;
+        }
+        .dc-track-card::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--tacc, linear-gradient(90deg,#1d4ed8,#7c3aed));
+            transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+        }
+        .dc-track-card:hover { transform: translateY(-5px); border-color: #c7d2fe; box-shadow: 0 16px 40px rgba(29,78,216,.1); }
+        .dc-track-card:hover::before { transform: scaleX(1); }
+        .dc-track-num { font-size: .68rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .85rem; }
+        .dc-track-icon {
+            width: 3rem; height: 3rem; border-radius: .9rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem; margin-bottom: 1rem; transition: transform .25s ease;
+        }
+        .dc-track-card:hover .dc-track-icon { transform: scale(1.1) rotate(-4deg); }
+        .dc-track-card h4 { font-size: 1rem; font-weight: 800; color: #1e1b4b; margin-bottom: .5rem; }
+        .dc-track-card p { color: #64748b; font-size: .83rem; line-height: 1.6; margin: 0; }
+
+        /* CHAPTERS SECTION */
+        .dc-chapters-section {
+            background: linear-gradient(135deg, #1e1b4b 0%, #1d4ed8 60%, #0284c7 100%);
+            padding: clamp(3.5rem,7vw,5.5rem) 0; position: relative; overflow: hidden;
+        }
+        .dc-chapters-section::before {
+            content: ""; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px);
+            background-size: 32px 32px; pointer-events: none;
+        }
+        .dc-chapters-section .container { position: relative; z-index: 1; }
+
+        /* EVENTS */
+        .dc-events-section { background: #f8faff; padding: clamp(3.5rem,7vw,5.5rem) 0; }
+
+        /* CTA */
+        .dc-crossroad {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1.5px solid #fde68a; border-radius: 1.6rem;
+            padding: clamp(2rem,4vw,3rem); position: relative; overflow: hidden;
+        }
+        .dc-crossroad::after {
+            content: ""; position: absolute; top: -3rem; right: -3rem;
+            width: 12rem; height: 12rem; border: 1.5px solid rgba(245,158,11,.2);
+            border-radius: 50%; pointer-events: none;
+        }
+        .dc-crossroad h3 { font-size: clamp(1.35rem,2.5vw,1.85rem); font-weight: 900; color: #78350f; letter-spacing: -.03em; margin-bottom: .5rem; }
+        .dc-crossroad p { color: #92400e; font-size: .9rem; line-height: 1.65; margin: 0; }
+        .dc-btn-cultural {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .8rem 1.6rem; border-radius: 999px;
+            background: linear-gradient(135deg, #e11d48, #f43f5e);
+            color: #fff; font-weight: 800; font-size: .9rem;
+            text-decoration: none; box-shadow: 0 8px 20px rgba(225,29,72,.3);
+            transition: all .2s ease; white-space: nowrap;
+        }
+        .dc-btn-cultural:hover { color: #fff; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(225,29,72,.4); }
+
+        /* RESPONSIVE */
+        @media (max-width: 991.98px) {
+            .dc-hero-panel { max-width: 540px; margin: 0 auto; }
+            .dc-stats-strip { margin-top: 1.5rem; border-radius: 1rem; padding: 1.25rem; }
+        }
+        @media (max-width: 575.98px) {
+            .dc-hero-title { font-size: 2.1rem; }
+            .dc-hero-sub { font-size: .95rem; }
+            .dc-btn-primary, .dc-btn-ghost { width: 100%; justify-content: center; }
+            .dc-stats-strip { padding: 1rem; }
+            .dc-stat-num { font-size: 1.5rem; }
+            .dc-stats-div { display: none; }
+            .dc-sec-title { font-size: 1.6rem; }
+            .dc-crossroad { padding: 1.5rem; }
         }
     </style>
 </head>
@@ -73,224 +250,262 @@
 <div id="header-placeholder"></div>
 
 <main class="wing-page wing-page--developers" data-wing="technical">
-    <!-- High-Tech Developer Hero Section -->
-    <section class="wing-hero wing-hero--developers py-5">
-        <div class="container position-relative py-3">
-            <nav class="wing-breadcrumb mb-3" aria-label="Breadcrumb">
-                <a href="index.html" class="text-white-80">Home</a>
-                <i class="bi bi-chevron-right text-white-50"></i>
-                <a href="clubs.html" class="text-white-80">USC UIT Clubs</a>
-                <i class="bi bi-chevron-right text-white-50"></i>
-                <span class="text-info fw-bold">Developers Club UIT</span>
+
+    <!-- HERO -->
+    <section class="dc-hero">
+        <div class="container">
+            <nav class="dc-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <i class="bi bi-chevron-right" style="font-size:.6rem;opacity:.5;"></i>
+                <a href="clubs.html">USC UIT Clubs</a>
+                <i class="bi bi-chevron-right" style="font-size:.6rem;opacity:.5;"></i>
+                <span style="color:#7dd3fc;font-weight:900;">Developers Club UIT</span>
             </nav>
+
             <div class="row align-items-center g-5">
-                <div class="col-lg-7">
-                    <span class="wing-kicker tech-badge-pill px-3 py-1.5 rounded-pill mb-3 d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-cpu-fill text-info fs-5"></i> Official Technical Umbrella Council of UIT
+                <div class="col-lg-6">
+                    <span class="dc-kicker">
+                        <i class="bi bi-cpu-fill"></i>
+                        Official Technical Umbrella Council &middot; UIT
                     </span>
-                    <h1 class="fw-black text-white display-4 mb-3" style="font-weight: 900; letter-spacing: -1px; line-height: 1.1;">
-                        Learn it.<br><span style="color: #38bdf8; background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Build it.</span> Share it.
+                    <h1 class="dc-hero-title">
+                        Learn it.<br>
+                        <span class="grad">Build it.</span> Share it.
                     </h1>
-                    <p class="wing-hero-copy text-white-80 lead fs-6 mb-4 max-w-xl">
-                        Developers Club UIT is the technical home of USC UIT. Overseen by Faculty Coordinators <strong>Er. Gaurav Narain</strong> and <strong>Er. Kushagra Dwivedi</strong>, it brings together Google Developer Groups (GDG), GeeksforGeeks, HackerRank, FOSS, FlutterFlow, and AI Builders into a premier engineering council.
+                    <p class="dc-hero-sub">
+                        Developers Club UIT is the technical home of USC UIT &mdash; bringing together GDG, GeeksforGeeks, HackerRank, FOSS, FlutterFlow, and AI Builders into a premier engineering council overseen by expert faculty.
                     </p>
-                    <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
-                        <a class="btn btn-primary rounded-pill px-4 py-3 fw-bold text-white shadow-lg d-inline-flex align-items-center justify-content-center gap-2" href="tech-events.html" style="background: #2563eb; border: none;">
-                            Explore Hackathons &amp; Events <i class="bi bi-arrow-right"></i>
+                    <div class="dc-hero-btns">
+                        <a href="events.html?wing=technical" class="dc-btn-primary">
+                            <i class="bi bi-lightning-charge-fill"></i> Explore Tech Events
                         </a>
-                        <a class="btn btn-outline-light rounded-pill px-4 py-3 fw-bold d-inline-flex align-items-center justify-content-center gap-2" href="#developersLeadership">
-                            Meet Faculty &amp; Leadership <i class="bi bi-people-fill"></i>
+                        <a href="#developersLeadership" class="dc-btn-ghost">
+                            <i class="bi bi-people-fill"></i> Meet Leadership
                         </a>
                     </div>
-                    <ul class="d-flex flex-wrap align-items-center gap-4 text-white-80 small list-unstyled mb-0">
-                        <li><i class="bi bi-check-circle-fill text-info me-1.5"></i> Open to all B.Tech branches &amp; years</li>
-                        <li><i class="bi bi-check-circle-fill text-info me-1.5"></i> Beginner friendly Study Jams</li>
-                        <li><i class="bi bi-check-circle-fill text-info me-1.5"></i> Hackathons, DSA &amp; Open Source</li>
+                    <ul class="dc-trust-list">
+                        <li><i class="bi bi-check-circle-fill"></i> Open to all B.Tech branches &amp; years</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Beginner-friendly Study Jams</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Hackathons, DSA &amp; Open Source</li>
                     </ul>
                 </div>
-                <div class="col-lg-5">
-                    <aside class="wing-hero-panel bg-white bg-opacity-10 border border-white border-opacity-20 rounded-4 p-4 text-white shadow-2xl backdrop-blur-md">
-                        <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-white border-opacity-10">
-                            <span class="fw-bold small text-info"><i class="bi bi-terminal-fill me-1"></i> TECHNICAL PATHWAY</span>
-                            <span class="small text-white-50">01–03</span>
-                        </div>
-                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-info"><i class="bi bi-code-slash"></i></div>
-                            <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Learn Together</h5>
-                                <p class="small text-white-80 mb-0">Join Cloud Study Jams, GenAI workshops, and DSA coding bootcamps.</p>
+
+                <div class="col-lg-6">
+                    <div class="dc-hero-panel">
+                        <div class="dc-hero-panel-top">
+                            <span><i class="bi bi-terminal-fill me-1"></i>Technical Pathway</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="dc-live-dot"></div>
+                                <span style="font-size:.65rem;color:rgba(255,255,255,.5);font-weight:700;">ACTIVE</span>
                             </div>
                         </div>
-                        <div class="wing-start-card mb-3 p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-warning"><i class="bi bi-laptop-fill"></i></div>
+                        <div class="dc-pathway-item">
+                            <div class="dc-pathway-icon" style="color:#38bdf8;"><i class="bi bi-code-slash"></i></div>
                             <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Practice For Real</h5>
-                                <p class="small text-white-80 mb-0">HackerRank CodeSprints, GFG contests, and open-source Git repositories.</p>
+                                <h6>Learn Together</h6>
+                                <p>Join Cloud Study Jams, GenAI workshops, and DSA coding bootcamps.</p>
                             </div>
                         </div>
-                        <div class="wing-start-card p-3 rounded-3 bg-white bg-opacity-10">
-                            <div class="wing-start-card__icon mb-2 fs-3 text-success"><i class="bi bi-rocket-takeoff-fill"></i></div>
+                        <div class="dc-pathway-item">
+                            <div class="dc-pathway-icon" style="color:#fbbf24;"><i class="bi bi-laptop-fill"></i></div>
                             <div>
-                                <h5 class="fw-bold fs-6 mb-1 text-white">Ship Production Apps</h5>
-                                <p class="small text-white-80 mb-0">Form teams, build full-stack web/mobile apps, and win national hackathons.</p>
+                                <h6>Practice For Real</h6>
+                                <p>HackerRank CodeSprints, GFG contests, and open-source Git repositories.</p>
                             </div>
                         </div>
-                    </aside>
+                        <div class="dc-pathway-item">
+                            <div class="dc-pathway-icon" style="color:#4ade80;"><i class="bi bi-rocket-takeoff-fill"></i></div>
+                            <div>
+                                <h6>Ship Production Apps</h6>
+                                <p>Form teams, build full-stack web/mobile apps, and win national hackathons.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Strip -->
+            <div class="dc-stats-strip mt-5">
+                <div class="row g-3 align-items-center justify-content-center text-center">
+                    <div class="col-6 col-md-3">
+                        <div class="dc-stat-num">6+</div>
+                        <div class="dc-stat-label">Sub-Chapters</div>
+                    </div>
+                    <div class="col-auto dc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="dc-stat-num">500+</div>
+                        <div class="dc-stat-label">Active Members</div>
+                    </div>
+                    <div class="col-auto dc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="dc-stat-num">12+</div>
+                        <div class="dc-stat-label">Events / Year</div>
+                    </div>
+                    <div class="col-auto dc-stats-div d-none d-md-block"></div>
+                    <div class="col-6 col-md-3">
+                        <div class="dc-stat-num">3</div>
+                        <div class="dc-stat-label">Faculty Mentors</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- NEW Faculty & Leadership Roster Section -->
-    <section id="developersLeadership" class="py-5 bg-white">
-        <div class="container py-3">
-            <div class="text-center mb-5 max-w-2xl mx-auto">
-                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1.5 rounded-pill mb-2 fw-bold text-uppercase" style="letter-spacing: 1px;">
-                    <i class="bi bi-cpu-fill me-1"></i> Technical Governance Roster
-                </span>
-                <h2 class="fw-black text-dark mb-2" style="font-size: 2.2rem; font-weight: 900; letter-spacing: -0.5px;">Faculty Coordinators &amp; Leadership Board</h2>
-                <p class="text-secondary small mb-0">Official faculty mentors and annual student executive council for Developers Club UIT. Roster members and tenure are updated dynamically from the Admin Portal.</p>
+    <!-- LEADERSHIP -->
+    <section id="developersLeadership" class="dc-lead-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="dc-sec-label"><i class="bi bi-cpu-fill"></i> Technical Governance Roster</span>
+                <h2 class="dc-sec-title">Faculty Coordinators &amp; Leadership Board</h2>
+                <p class="dc-sec-sub">Official faculty mentors and annual student executive council for Developers Club UIT.</p>
             </div>
-
-            <!-- Dynamic Leadership Cards Container -->
-            <div class="row g-4 justify-content-center mb-4" id="culturalLeadershipContainer">
-                <div class="col-12 text-center py-4">
+            <div class="row g-4 justify-content-center" id="culturalLeadershipContainer">
+                <div class="col-12 text-center py-5">
                     <div class="spinner-border text-primary" role="status"></div>
-                    <p class="small text-secondary mt-2">Loading Technical Leadership Roster...</p>
+                    <p class="small text-secondary mt-2">Loading Technical Leadership Roster&hellip;</p>
                 </div>
-            </div>
-
-            <div class="text-center">
-                <span class="badge bg-light text-secondary border rounded-pill px-4 py-2.5 small fw-normal">
-                    <i class="bi bi-gear-fill me-1 text-primary"></i> Faculty Coordinators &amp; Technical Leadership roles can be updated, added, or changed with tenure from the <a href="admin/dean-login.php" class="fw-bold text-primary text-decoration-underline">Admin Portal</a>.
-                </span>
             </div>
         </div>
     </section>
 
-    <!-- Tech Pillars & Activities -->
-    <section class="wing-section wing-section--soft py-5" style="background: #f8fafc;">
-        <div class="container py-3">
-            <div class="wing-section-heading wing-section-heading--center text-center mb-5">
-                <span class="wing-eyebrow badge bg-info-subtle text-info border border-info-subtle rounded-pill px-3 py-1 mb-2 fw-bold"><i class="bi bi-grid-1x2 me-1"></i> TECHNICAL TRACKS</span>
-                <h2 class="fw-black text-dark mb-2" style="font-weight: 900;">Choose The Kind Of Tech Experience You Want</h2>
-                <p class="text-secondary small mb-0">Hands-on experience in modern tools, languages, cloud frameworks, and product design.</p>
+    <!-- TECH TRACKS -->
+    <section class="dc-tracks-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="dc-sec-label" style="background:#f0fdf4;border-color:#bbf7d0;color:#16a34a;">
+                    <i class="bi bi-grid-1x2-fill"></i> Technical Tracks
+                </span>
+                <h2 class="dc-sec-title">Choose Your Tech Experience</h2>
+                <p class="dc-sec-sub">Hands-on experience in modern tools, languages, cloud frameworks, and product design.</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-primary fw-bold mb-2">01 / BUILD</div>
-                        <div class="wing-activity-card__icon fs-2 text-primary mb-2"><i class="bi bi-braces"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">24-Hour Hackathons</h4>
-                        <p class="text-secondary small mb-0">Work in teams, build prototypes, use APIs &amp; cloud services, and pitch before jury panels.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#1d4ed8,#7c3aed);">
+                        <div class="dc-track-num" style="color:#1d4ed8;">01 / BUILD</div>
+                        <div class="dc-track-icon" style="background:#eff6ff;color:#1d4ed8;"><i class="bi bi-braces"></i></div>
+                        <h4>24-Hour Hackathons</h4>
+                        <p>Work in teams, build prototypes, use APIs &amp; cloud services, and pitch before jury panels.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-success fw-bold mb-2">02 / PRACTICE</div>
-                        <div class="wing-activity-card__icon fs-2 text-success mb-2"><i class="bi bi-code-slash"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Coding &amp; DSA Drills</h4>
-                        <p class="text-secondary small mb-0">GeeksforGeeks &amp; HackerRank contest tracks to master Data Structures, Algorithms &amp; interview prep.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#059669,#10b981);">
+                        <div class="dc-track-num" style="color:#059669;">02 / PRACTICE</div>
+                        <div class="dc-track-icon" style="background:#ecfdf5;color:#059669;"><i class="bi bi-code-slash"></i></div>
+                        <h4>Coding &amp; DSA Drills</h4>
+                        <p>GeeksforGeeks &amp; HackerRank contest tracks to master Data Structures, Algorithms &amp; interview prep.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-info fw-bold mb-2">03 / AI &amp; CLOUD</div>
-                        <div class="wing-activity-card__icon fs-2 text-info mb-2"><i class="bi bi-cpu"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">AI, Gemini &amp; Google Cloud</h4>
-                        <p class="text-secondary small mb-0">Build with Gemini API, Vertex AI, Google Cloud Platform, and automated AI agents.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#0284c7,#38bdf8);">
+                        <div class="dc-track-num" style="color:#0284c7;">03 / AI &amp; CLOUD</div>
+                        <div class="dc-track-icon" style="background:#f0f9ff;color:#0284c7;"><i class="bi bi-cpu"></i></div>
+                        <h4>AI, Gemini &amp; Google Cloud</h4>
+                        <p>Build with Gemini API, Vertex AI, Google Cloud Platform, and automated AI agents.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-danger fw-bold mb-2">04 / APPS</div>
-                        <div class="wing-activity-card__icon fs-2 text-danger mb-2"><i class="bi bi-phone"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">Web &amp; Mobile App Dev</h4>
-                        <p class="text-secondary small mb-0">Full-stack web development, FlutterFlow low-code UI, and cross-platform Android/iOS apps.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#dc2626,#f43f5e);">
+                        <div class="dc-track-num" style="color:#dc2626;">04 / APPS</div>
+                        <div class="dc-track-icon" style="background:#fff1f2;color:#dc2626;"><i class="bi bi-phone"></i></div>
+                        <h4>Web &amp; Mobile App Dev</h4>
+                        <p>Full-stack web development, FlutterFlow low-code UI, and cross-platform Android/iOS apps.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-warning fw-bold mb-2">05 / OPEN SOURCE</div>
-                        <div class="wing-activity-card__icon fs-2 text-warning mb-2"><i class="bi bi-git"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">FOSS &amp; Git Collaboration</h4>
-                        <p class="text-secondary small mb-0">Master Linux, Git version control, pull requests, and contribute to global open-source projects.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#d97706,#f59e0b);">
+                        <div class="dc-track-num" style="color:#d97706;">05 / OPEN SOURCE</div>
+                        <div class="dc-track-icon" style="background:#fffbeb;color:#d97706;"><i class="bi bi-git"></i></div>
+                        <h4>FOSS &amp; Git Collaboration</h4>
+                        <p>Master Linux, Git version control, pull requests, and contribute to global open-source projects.</p>
                     </article>
                 </div>
-                <div class="col-md-6 col-lg-4">
-                    <article class="wing-activity-card p-4 rounded-4 bg-white border shadow-sm h-100">
-                        <div class="wing-activity-card__number small text-purple fw-bold mb-2">06 / STARTUPS</div>
-                        <div class="wing-activity-card__icon fs-2 text-purple mb-2" style="color:#7c3aed;"><i class="bi bi-lightbulb"></i></div>
-                        <h4 class="fw-bold text-dark fs-5 mb-2">E-Cell &amp; Tech Startups</h4>
-                        <p class="text-secondary small mb-0">PitchFest, startup incubation, business model canvas, and alumni founder mentorship.</p>
+                <div class="col-sm-6 col-lg-4">
+                    <article class="dc-track-card" style="--tacc:linear-gradient(90deg,#7c3aed,#a855f7);">
+                        <div class="dc-track-num" style="color:#7c3aed;">06 / STARTUPS</div>
+                        <div class="dc-track-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="bi bi-lightbulb-fill"></i></div>
+                        <h4>E-Cell &amp; Tech Startups</h4>
+                        <p>PitchFest, startup incubation, business model canvas, and alumni founder mentorship.</p>
                     </article>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- All Sub-Chapters under Technical Wing Grid -->
-    <section class="wing-section wing-section--dark py-5" style="background: #020617;">
-        <div class="container py-3">
-            <div class="wing-section-heading mb-4 text-center text-lg-start">
-                <span class="wing-eyebrow text-info small fw-bold text-uppercase"><i class="bi bi-diagram-3 me-1"></i> Developer Communities</span>
-                <h2 class="text-white fw-black mb-2" style="font-size: 2.2rem; font-weight: 900;">All Student Chapters &amp; Guilds Under Technical Wing</h2>
-                <p class="text-white-80 small mb-0">Discover GDG On Campus, GFG, HackerRank, FOSS, FlutterFlow, WikiClub, E-Cell, and Gemini Builders.</p>
+    <!-- SUB-CHAPTERS -->
+    <section class="dc-chapters-section">
+        <div class="container">
+            <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-5">
+                <div>
+                    <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-2 fw-bold"
+                          style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#7dd3fc;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;">
+                        <i class="bi bi-diagram-3-fill"></i> Developer Communities
+                    </span>
+                    <h2 class="fw-black text-white mb-1" style="font-size:clamp(1.8rem,3.5vw,2.5rem);letter-spacing:-.04em;">
+                        All Student Chapters &amp; Guilds
+                    </h2>
+                    <p style="color:rgba(255,255,255,.68);font-size:.92rem;margin:0;">
+                        Discover GDG On Campus, GFG, HackerRank, FOSS, FlutterFlow, WikiClub, E-Cell, and Gemini Builders.
+                    </p>
+                </div>
+                <a href="clubs.html?wing=technical" class="dc-btn-ghost flex-shrink-0">
+                    View All Chapters <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
             <div class="row g-4" id="wingClubs">
                 <div class="col-12 text-center py-5">
                     <div class="spinner-border spinner-border-sm text-light opacity-75" role="status"></div>
+                    <p class="small mt-2" style="color:rgba(255,255,255,.5);">Loading chapters&hellip;</p>
                 </div>
             </div>
-
-            <!-- Interactive Institutional Governance Tree -->
-            <div id="uscOrgTreeContainer" class="mt-5"></div>
         </div>
     </section>
 
-    <!-- Technical Events Showcase -->
-    <section class="wing-section py-5 bg-white">
-        <div class="container py-3">
+    <!-- EVENTS -->
+    <section class="dc-events-section">
+        <div class="container">
             <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-lg-between gap-3 mb-4">
-                <div class="wing-section-heading mb-0">
-                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2 fw-bold small"><i class="bi bi-calendar-event me-1"></i> TECH CALENDAR</span>
-                    <h2 class="fw-black text-dark mb-1" style="font-weight: 900;">Upcoming &amp; Past Technical Events</h2>
-                    <p class="text-secondary small mb-0">Browse hackathons, Cloud Study Jams, DSA contests, and tech summits.</p>
+                <div>
+                    <span class="dc-sec-label"><i class="bi bi-calendar-event-fill"></i> Tech Calendar</span>
+                    <h2 class="dc-sec-title mb-1">Upcoming &amp; Past Technical Events</h2>
+                    <p class="dc-sec-sub mb-0" style="font-size:.88rem;">Browse hackathons, Cloud Study Jams, DSA contests, and tech summits.</p>
                 </div>
-                <a class="btn btn-primary rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm flex-shrink-0" href="tech-events.html">
-                    See Every Tech Event <i class="bi bi-arrow-right ms-1"></i>
+                <a href="events.html?wing=technical" class="dc-btn-primary flex-shrink-0">
+                    See All Tech Events <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
-            <div class="small fw-bold text-secondary mb-3" id="wingEventCount">Loading events</div>
+            <div class="small fw-bold mb-3" style="color:#64748b;" id="wingEventCount">Loading events&hellip;</div>
             <div class="row g-4" id="wingEvents" aria-live="polite"></div>
         </div>
     </section>
 
-    <!-- Crossroad Navigation -->
-    <section class="wing-section py-4" style="background: #f8fafc;">
+    <!-- CULTURAL CTA -->
+    <section class="py-5" style="background:#fff;">
         <div class="container">
-            <div class="card border-0 rounded-4 p-4 p-md-5 text-white shadow-sm" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+            <div class="dc-crossroad">
                 <div class="row align-items-center g-4">
-                    <div class="col-lg-8 text-center text-lg-start">
-                        <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-1 mb-2 fw-bold small">OTHER MAIN WING</span>
-                        <h3 class="fw-black text-white mb-2" style="font-weight: 900;">Looking For Performing Arts, Music, Dance &amp; Fests?</h3>
-                        <p class="text-white-80 small mb-0">Cultural Club UIT is the other main wing of USC UIT. Home to Nritya Dance, Harmony Music, Rangmanch Drama, Prism Fine Arts, and Toastmasters.</p>
+                    <div class="col-lg-8">
+                        <span class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 fw-bold"
+                              style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:#b45309;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;">
+                            <i class="bi bi-stars"></i> Other Main Wing
+                        </span>
+                        <h3>Looking For Performing Arts, Music, Dance &amp; Fests?</h3>
+                        <p>Cultural Club UIT is the other main wing of USC UIT &mdash; home to Nritya Dance, Harmony Music, Rangmanch Drama, Prism Fine Arts, and Toastmasters Debate Society.</p>
                     </div>
-                    <div class="col-lg-4 text-center text-lg-end">
-                        <a class="btn btn-danger rounded-pill px-4 py-2.5 fw-bold text-white shadow-sm" href="cultural-club.html">
-                            Visit Cultural Club UIT <i class="bi bi-arrow-right ms-1"></i>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="cultural-club.html" class="dc-btn-cultural">
+                            Visit Cultural Club UIT <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 </main>
 
 <div id="footer-placeholder"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/layout-loader.js"></script>
 <script src="assets/js/wing-page.js"></script>
-<script src="assets/js/org-tree.js"></script>
 </body>
 </html>
