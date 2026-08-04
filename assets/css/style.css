@@ -355,12 +355,13 @@ body {
     left: 0;
     right: 0;
     min-width: 320px;
-    background: #ffffff;
+    background: #ffffff !important;
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22), 0 4px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(0,0,0,0.12);
     border: 1px solid #e2e8f0;
-    z-index: 9999;
-    overflow: hidden;
+    z-index: 99999 !important;
+    overflow-y: auto;
+    max-height: 400px;
     display: none;
 }
 

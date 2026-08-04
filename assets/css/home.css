@@ -159,9 +159,9 @@
     transform: translateY(-2px);
 }
 
-/* Hero search (Enhanced glassmorphism search bar) */
 .home-hero .hero-search-bar {
     position: relative;
+    z-index: 1000 !important;
     max-width: 520px;
     width: 100%;
     margin-bottom: 2rem;
@@ -291,6 +291,8 @@
 
 /* Hero stats row */
 .home-stats {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.75rem;
