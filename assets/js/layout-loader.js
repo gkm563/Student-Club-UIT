@@ -50,30 +50,33 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function highlightActiveNav() {
-    const path = window.location.pathname.toLowerCase();
+    const rawPath = window.location.pathname.toLowerCase();
     const navLinks = document.querySelectorAll('.nav-link-clubhub');
     if (!navLinks.length) return;
     
-    navLinks.forEach(link => link.classList.remove('active'));
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+    });
 
     let activeEl = null;
 
-    if (path.includes('clubs.html') || path.includes('club-detail')) {
+    if (rawPath.includes('clubs.html') || rawPath.includes('club-detail')) {
         activeEl = document.getElementById('nav-clubs');
-    } else if (path.includes('events.html') || path.includes('event-detail')) {
+    } else if (rawPath.includes('events.html') || rawPath.includes('event-detail')) {
         activeEl = document.getElementById('nav-events');
-    } else if (path.includes('gallery.html')) {
+    } else if (rawPath.includes('gallery.html')) {
         activeEl = document.getElementById('nav-gallery');
-    } else if (path.includes('about.html')) {
+    } else if (rawPath.includes('about.html')) {
         activeEl = document.getElementById('nav-about');
-    } else if (path.includes('contact.html')) {
+    } else if (rawPath.includes('contact.html')) {
         activeEl = document.getElementById('nav-contact');
-    } else if (path.endsWith('/') || path.includes('index.html') || path.endsWith('/uit')) {
+    } else if (rawPath.endsWith('/') || rawPath.includes('index.html') || rawPath.endsWith('/uit') || rawPath.endsWith('/uit/')) {
         activeEl = document.getElementById('nav-home');
     }
 
     if (!activeEl) {
-        const file = path.split('/').pop() || 'index.html';
+        const file = rawPath.split('/').filter(Boolean).pop() || 'index.html';
         navLinks.forEach(link => {
             const href = (link.getAttribute('href') || '').toLowerCase();
             if (href && (href === file || href.includes(file))) {
@@ -84,11 +87,23 @@ function highlightActiveNav() {
 
     if (activeEl) {
         activeEl.classList.add('active');
+        activeEl.setAttribute('aria-current', 'page');
     } else {
         const homeEl = document.getElementById('nav-home');
-        if (homeEl) homeEl.classList.add('active');
+        if (homeEl) {
+            homeEl.classList.add('active');
+            homeEl.setAttribute('aria-current', 'page');
+        }
     }
 }
+
+// Retries to ensure dynamic header insertion never misses highlighting
+document.addEventListener('DOMContentLoaded', () => {
+    highlightActiveNav();
+    setTimeout(highlightActiveNav, 150);
+    setTimeout(highlightActiveNav, 500);
+});
+window.addEventListener('load', highlightActiveNav);
 
 function initFooterEvents() {
     const backToTopBtn = document.getElementById('backToTopBtn');
