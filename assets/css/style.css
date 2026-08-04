@@ -4955,28 +4955,124 @@ html, body {
     #uscOrgTreeContainer .org-node-meta {
         justify-content: center !important;
     }
+    .about-card-elevated {
+        padding: 1.25rem !important;
+    }
+}
+
 @media (max-width: 575.98px) {
+    html, body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+
+    /* General Layout & Card Adjustments */
+    .container {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+    .home-panel {
+        padding: 1.1rem 0.75rem !important;
+        border-radius: 18px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+    }
+
+    #homeActivityList, #homeUpcomingList {
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .activity-card-3d, .event-card-3d {
+        padding: 10px 8px !important;
+        gap: 8px !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .activity-card-3d:hover, .event-card-3d:hover {
+        transform: translateY(-2px) !important;
+    }
+
+    .activity-thumb-3d, .event-date-badge-3d {
+        width: 42px !important;
+        height: 44px !important;
+        border-radius: 10px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .event-date-num-3d {
+        font-size: 0.95rem !important;
+    }
+
+    .event-date-month-3d {
+        font-size: 0.55rem !important;
+    }
+
+    .event-time-pill {
+        font-size: 0.6rem !important;
+        padding: 2px 6px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+        max-width: 75px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
     .committee-card-3d {
-        padding: 0.85rem 0.4rem !important;
+        padding: 0.85rem 0.35rem !important;
     }
     .committee-card-3d .committee-avatar-ring {
-        width: 85px !important;
-        height: 85px !important;
+        width: 80px !important;
+        height: 80px !important;
     }
     .committee-card-3d h4,
     .committee-card-3d h5 {
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
     }
     .committee-card-3d .committee-role-badge {
-        font-size: 0.72rem !important;
-        padding: 4px 10px !important;
+        font-size: 0.7rem !important;
+        padding: 3px 8px !important;
     }
     .committee-card-3d .badge {
-        font-size: 0.65rem !important;
-        padding: 4px 8px !important;
+        font-size: 0.62rem !important;
+        padding: 3px 6px !important;
         white-space: normal !important;
     }
+
+    /* About & Contact Page Mobile Responsive Fixes */
+    .about-hero-pro, .contact-hero-light {
+        padding: 2.5rem 0 !important;
+    }
+
+    .contact-hero-title {
+        font-size: 1.75rem !important;
+        line-height: 1.25 !important;
+    }
+
+    .about-hero-desc, .contact-hero-desc {
+        font-size: 0.9rem !important;
+    }
+
+    .about-card-elevated {
+        padding: 1rem !important;
+        border-radius: 16px !important;
+    }
+
+    .clubs-top-pill-breadcrumb, .clubs-top-pill-badge {
+        font-size: 0.75rem !important;
+        padding: 4px 10px !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
 }
+
 
 
 

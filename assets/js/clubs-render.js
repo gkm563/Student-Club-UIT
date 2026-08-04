@@ -768,10 +768,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                                                     <div class="position-relative" style="height: 160px; overflow: hidden;">
                                                                         <img src="${escapeHtml(ev.banner)}" class="w-100 h-100 object-fit-cover" alt="${escapeHtml(ev.title)}" onerror="this.src='https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop'">
                                                                         <div class="position-absolute inset-0" style="background: linear-gradient(180deg, rgba(15,23,42,0.1) 0%, rgba(15,23,42,0.65) 100%);"></div>
-                                                                        <div class="position-absolute top-0 start-0 m-3 z-2">
+                                                                        <div class="position-absolute top-0 start-0 end-0 p-2.5 z-2 d-flex justify-content-between align-items-center flex-wrap gap-1">
                                                                             ${statusBadge}
-                                                                        </div>
-                                                                        <div class="position-absolute top-0 end-0 m-3 z-2">
                                                                             ${eventFormatPill}
                                                                         </div>
                                                                         <div class="position-absolute bottom-0 start-0 m-3 z-2 text-white">
