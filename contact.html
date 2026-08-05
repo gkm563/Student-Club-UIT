@@ -213,6 +213,16 @@
                                 <label class="form-label fw-bold small text-dark">Message Details *</label>
                                 <textarea name="message" class="form-control rounded-3 border py-2.5" rows="4" placeholder="Write your query, suggestion, or feedback here..." style="border-color:#e2e8f0;" required></textarea>
                             </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold small text-dark">Security Verification Code (CAPTCHA) *</label>
+                                <div class="d-flex align-items-center gap-2 mb-2">
+                                    <img id="contactCaptchaImg" src="api/captcha.php" alt="Security Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('contactCaptchaImg').src='api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                                        <i class="bi bi-arrow-clockwise fs-6"></i>
+                                    </button>
+                                </div>
+                                <input type="text" name="captcha_code" class="form-control rounded-3 border py-2.5 text-uppercase font-monospace fw-bold" placeholder="ENTER CODE SHOWN ABOVE" maxlength="6" autocomplete="off" required>
+                            </div>
                             <div class="col-12 pt-2">
                                 <button type="submit" class="btn btn-primary rounded-pill px-5 py-2.5 fw-bold text-white shadow-sm w-100">
                                     Send Message <i class="bi bi-send ms-1"></i>
@@ -365,6 +375,16 @@
                     <div class="col-12">
                         <label class="form-label fw-bold small text-dark">Objectives, Vision & Expected Beneficiaries *</label>
                         <textarea id="propObjective" name="objective" class="form-control rounded-3 border py-2.5" rows="4" placeholder="Detail the objectives, planned activities, target audience, and how this initiative benefits UIT students..." style="border-color:#e2e8f0;" required></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-dark">Security Verification Code (CAPTCHA) *</label>
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <img id="proposalCaptchaImg" src="api/captcha.php" alt="Security Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('proposalCaptchaImg').src='api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
+                                <i class="bi bi-arrow-clockwise fs-6"></i>
+                            </button>
+                        </div>
+                        <input type="text" name="captcha_code" class="form-control rounded-3 border py-2.5 text-uppercase font-monospace fw-bold" placeholder="ENTER CODE SHOWN ABOVE" maxlength="6" autocomplete="off" required>
                     </div>
                     <div class="col-12 pt-2">
                         <button type="submit" class="btn btn-dark rounded-pill px-5 py-2.5 fw-bold shadow-sm" style="background:#0f172a;">

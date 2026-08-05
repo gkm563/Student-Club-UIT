@@ -44,6 +44,16 @@ try {
             $input = $_POST;
         }
 
+        // Verify CAPTCHA Code
+        $captchaInput = $input['captcha_code'] ?? '';
+        if (!verify_captcha_code($captchaInput)) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Incorrect verification code (CAPTCHA). Please check the image and try again.'
+            ]);
+            exit;
+        }
+
         $name    = substr(trim(strip_tags($input['name'] ?? '')), 0, 100);
         $email   = filter_var(trim($input['email'] ?? ''), FILTER_SANITIZE_EMAIL);
         $subject = substr(trim(strip_tags($input['subject'] ?? '')), 0, 150);
