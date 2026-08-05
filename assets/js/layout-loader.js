@@ -106,18 +106,35 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', highlightActiveNav);
 
 function initFooterEvents() {
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
+    const handleScroll = () => {
+        const btn = document.getElementById('backToTopBtn');
+        if (!btn) return;
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (scrollY > 200) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    };
 
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+}
+
+// Global delegated event listener for #backToTopBtn so clicking works instantly on all pages
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#backToTopBtn');
+    if (btn) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (document.documentElement) {
+            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
+});
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFooterEvents);
+} else {
+    initFooterEvents();
 }

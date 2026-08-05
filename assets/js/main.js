@@ -3,21 +3,19 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Back to Top FAB Button
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('visible');
-            } else {
-                backToTopBtn.classList.remove('visible');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    // Back to Top FAB Button Handler
+    const updateBackToTopState = () => {
+        const btn = document.getElementById('backToTopBtn');
+        if (!btn) return;
+        const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+        if (scrollY > 200) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    };
+    window.addEventListener('scroll', updateBackToTopState, { passive: true });
+    updateBackToTopState();
 
     // Official Proposal Form Submission & Student Verification Toggle Handler
     const proposalForm = document.getElementById('proposalForm');

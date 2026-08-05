@@ -1591,12 +1591,15 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Back to Top Floating Button - Guaranteed Perfect Circle */
+/* Floating Back to Top FAB Button */
 #backToTopBtn {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
+    position: fixed !important;
+    bottom: 28px !important;
+    right: 28px !important;
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
     border-radius: 50% !important;
     padding: 0 !important;
     display: inline-flex !important;
@@ -1604,21 +1607,41 @@ body {
     justify-content: center !important;
     flex-shrink: 0 !important;
     border: none !important;
-    background: #ffffff !important;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45) !important;
+    z-index: 99999 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(16px) scale(0.9) !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+    cursor: pointer !important;
 }
 
 #backToTopBtn i {
-    font-size: 1.15rem !important;
+    font-size: 1.25rem !important;
+    color: #ffffff !important;
     line-height: 1 !important;
     margin: 0 !important;
+    transition: transform 0.25s ease !important;
+}
+
+#backToTopBtn.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
 }
 
 #backToTopBtn:hover {
-    transform: translateY(-4px) scale(1.08) !important;
-    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35) !important;
-    background: #ffffff !important;
+    transform: translateY(-4px) scale(1.1) !important;
+    box-shadow: 0 14px 35px rgba(37, 99, 235, 0.6) !important;
+    background: linear-gradient(135deg, #1d4ed8, #1e40af) !important;
+}
+
+#backToTopBtn:hover i {
+    transform: translateY(-2px) !important;
 }
 
 .social-icon-btn {
