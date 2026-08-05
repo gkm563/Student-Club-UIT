@@ -40,7 +40,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
             $error = "Please enter your email address and password.";
         } else {
             $db = Database::getConnection();
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin'");
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role IN ('super_admin', 'dean', 'college_authority')");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 

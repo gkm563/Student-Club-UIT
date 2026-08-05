@@ -3,8 +3,8 @@ session_start();
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
-// Auth Check for Super Admin (Dean Sir)
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'super_admin') {
+// Auth Check for Super Admin & College Authorities (Dean Sir)
+if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'dean', 'college_authority'])) {
     header('Location: ../dean-login.php');
     exit;
 }

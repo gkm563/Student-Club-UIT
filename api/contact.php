@@ -14,6 +14,29 @@ try {
     $db = Database::getConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Anti-Spam Rate Limiting (Max 5 contact messages per IP per 10 mins)
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        $rateKey = 'contact_rate_' . md5($ip);
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $attempts = $_SESSION[$rateKey]['count'] ?? 0;
+        $firstTime = $_SESSION[$rateKey]['time'] ?? time();
+
+        if (time() - $firstTime > 600) {
+            $attempts = 0;
+            $firstTime = time();
+        }
+
+        if ($attempts >= 5) {
+            http_response_code(429);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Rate Limit Exceeded: Too many messages sent from your IP. Please try again in 10 minutes.'
+            ]);
+            exit;
+        }
+
+        $_SESSION[$rateKey] = ['count' => $attempts + 1, 'time' => $firstTime];
+
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         if (str_contains($contentType, 'application/json')) {
             $input = json_decode(file_get_contents('php://input'), true) ?? [];
@@ -21,10 +44,10 @@ try {
             $input = $_POST;
         }
 
-        $name    = trim($input['name'] ?? '');
-        $email   = trim($input['email'] ?? '');
-        $subject = trim($input['subject'] ?? '');
-        $message = trim($input['message'] ?? '');
+        $name    = substr(trim(strip_tags($input['name'] ?? '')), 0, 100);
+        $email   = filter_var(trim($input['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+        $subject = substr(trim(strip_tags($input['subject'] ?? '')), 0, 150);
+        $message = substr(trim(strip_tags($input['message'] ?? '')), 0, 2000);
 
         if (empty($name) || empty($email) || empty($subject) || empty($message)) {
             echo json_encode([
@@ -62,5 +85,6 @@ try {
 
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'An error occurred while submitting your message. Please try again.']);
 }

@@ -14,6 +14,29 @@ try {
     $db = Database::getConnection();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Anti-Bot Rate Limiting (Max 3 proposal submissions per IP per 10 mins)
+        $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+        $rateKey = 'proposal_rate_' . md5($ip);
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $attempts = $_SESSION[$rateKey]['count'] ?? 0;
+        $firstTime = $_SESSION[$rateKey]['time'] ?? time();
+
+        if (time() - $firstTime > 600) {
+            $attempts = 0;
+            $firstTime = time();
+        }
+
+        if ($attempts >= 3) {
+            http_response_code(429);
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Security Rate Limit Exceeded: Too many proposal submissions from your IP. Please try again in 10 minutes.'
+            ]);
+            exit;
+        }
+
+        $_SESSION[$rateKey] = ['count' => $attempts + 1, 'time' => $firstTime];
+
         // Read either JSON body or POST form data
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         if (str_contains($contentType, 'application/json')) {
@@ -22,27 +45,36 @@ try {
             $input = $_POST;
         }
 
-        $type            = trim($input['proposal_type'] ?? 'new_club');
-        $applicantName   = trim($input['applicant_name'] ?? '');
-        $applicantEmail  = trim($input['applicant_email'] ?? '');
-        $applicantPhone  = trim($input['applicant_phone'] ?? '');
-        $proposedTitle   = trim($input['proposed_title'] ?? '');
-        $objective       = trim($input['objective'] ?? '');
-        $facultyMentor   = trim($input['faculty_mentor'] ?? '');
+        // Verify CAPTCHA or CSRF if passed
+        if (isset($input['captcha_code']) && !verify_captcha_code($input['captcha_code'])) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Incorrect verification code (CAPTCHA). Please try again.'
+            ]);
+            exit;
+        }
+
+        $type            = substr(trim(strip_tags($input['proposal_type'] ?? 'new_club')), 0, 50);
+        $applicantName   = substr(trim(strip_tags($input['applicant_name'] ?? '')), 0, 100);
+        $applicantEmail  = filter_var(trim($input['applicant_email'] ?? ''), FILTER_SANITIZE_EMAIL);
+        $applicantPhone  = substr(trim(strip_tags($input['applicant_phone'] ?? '')), 0, 20);
+        $proposedTitle   = substr(trim(strip_tags($input['proposed_title'] ?? '')), 0, 150);
+        $objective       = substr(trim(strip_tags($input['objective'] ?? '')), 0, 2000);
+        $facultyMentor   = substr(trim(strip_tags($input['faculty_mentor'] ?? '')), 0, 100);
 
         // UIT College Student Verification Fields
         $isUitStudent    = isset($input['is_uit_student']) && ($input['is_uit_student'] == '1' || $input['is_uit_student'] == 'true') ? 1 : 0;
-        $studentIdNumber = trim($input['student_id_number'] ?? '');
-        $departmentBranch= trim($input['department_branch'] ?? '');
-        $academicYear    = trim($input['academic_year'] ?? '');
-        $currentSemester = trim($input['current_semester'] ?? '');
+        $studentIdNumber = substr(trim(strip_tags($input['student_id_number'] ?? '')), 0, 50);
+        $departmentBranch= substr(trim(strip_tags($input['department_branch'] ?? '')), 0, 100);
+        $academicYear    = substr(trim(strip_tags($input['academic_year'] ?? '')), 0, 50);
+        $currentSemester = substr(trim(strip_tags($input['current_semester'] ?? '')), 0, 20);
 
         // Handle Upload for Student ID Photo
         $studentIdPhoto = '';
         if ($isUitStudent && isset($_FILES['student_id_photo']) && $_FILES['student_id_photo']['error'] === UPLOAD_ERR_OK) {
             $studentIdPhoto = upload_image_file($_FILES['student_id_photo'], 'proposals');
         } elseif (isset($input['student_id_photo_url'])) {
-            $studentIdPhoto = trim($input['student_id_photo_url']);
+            $studentIdPhoto = substr(trim(strip_tags($input['student_id_photo_url'])), 0, 255);
         }
 
         // Handle Upload for Proposal PDF Document
@@ -73,6 +105,14 @@ try {
             exit;
         }
 
+        if (!filter_var($applicantEmail, FILTER_VALIDATE_EMAIL)) {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'Please enter a valid email address.'
+            ]);
+            exit;
+        }
+
         // Student validation if toggle is ON
         if ($isUitStudent) {
             if (empty($studentIdNumber) || empty($departmentBranch) || empty($academicYear) || empty($currentSemester)) {
@@ -96,6 +136,8 @@ try {
             $isUitStudent, $studentIdNumber, $studentIdPhoto, $departmentBranch, $academicYear, $currentSemester, $proposalPdf
         ]);
 
+        log_audit($db, '0', $applicantName, 'PROPOSAL_SUBMITTED', 'proposal', $id, "New proposal '$proposedTitle' submitted by $applicantName ($applicantEmail)");
+
         echo json_encode([
             'status' => 'success',
             'message' => 'Official proposal submitted successfully! The Dean of Student Welfare & Advisory Committee will review your application.'
@@ -103,7 +145,16 @@ try {
         exit;
     }
 
-    // GET Request - List Proposals for Admin
+    // GET Request - Strictly require Super Admin or College Authority Authentication
+    if (!is_logged_in() || !in_array(get_current_user_role(), ['super_admin', 'dean', 'college_authority'])) {
+        http_response_code(403);
+        echo json_encode([
+            'status' => 'error',
+            'message' => '403 Forbidden: Security Violation. Executive Admin or Dean Sir authentication required to view applicant proposals.'
+        ]);
+        exit;
+    }
+
     $stmt = $db->query("SELECT * FROM club_proposals ORDER BY created_at DESC");
     $proposals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -112,8 +163,9 @@ try {
         'data' => $proposals
     ]);
 } catch (Exception $e) {
+    http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => $e->getMessage()
+        'message' => 'System error processing request.'
     ]);
 }

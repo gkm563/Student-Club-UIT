@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $db = Database::getConnection();
             // Strict Prepared Statement preventing SQL Injection
-            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role = 'super_admin' AND status = 'active'");
+            $stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND role IN ('super_admin', 'dean', 'college_authority') AND status = 'active'");
             $stmt->execute([$email]);
             $user = $stmt->fetch();
 
