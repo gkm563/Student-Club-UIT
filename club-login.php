@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = "Club Leadership Login | ClubHub UIT";
+$pageTitle = "Student Club Executive Portal | USC UIT";
 $assetPrefix = '';
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -89,9 +89,9 @@ require_once __DIR__ . '/includes/header.php';
                     <i class="bi bi-person-workspace fs-1"></i>
                 </div>
                 
-                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1-5 fw-bold mb-2 small">CLUB LEADERSHIP</span>
+                <span class="badge bg-success-subtle text-success border rounded-pill px-3 py-1-5 fw-bold mb-2 small">EXECUTIVE CLUB LEADERSHIP</span>
                 <h4 class="fw-bold mb-1 text-dark">Club Lead Portal</h4>
-                <p class="text-secondary small mb-4">President & Core Team Secure Login</p>
+                <p class="text-secondary small mb-4">Chapter Presidents & Core Team Executive Suite</p>
 
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-danger rounded-3 small mb-3 text-start"><i class="bi bi-exclamation-circle-fill me-1"></i> <?= e($error) ?></div>
@@ -101,7 +101,7 @@ require_once __DIR__ . '/includes/header.php';
                     <input type="hidden" name="csrf_token" value="<?= e(get_csrf_token()) ?>">
 
                     <div class="mb-3">
-                        <label class="form-label small fw-semibold">Club Lead Email</label>
+                        <label class="form-label small fw-semibold">Official Club Lead Email</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-secondary"></i></span>
                             <input type="email" name="email" class="form-control border-start-0" placeholder="gdgoc@uit.edu" required autofocus>
@@ -118,7 +118,7 @@ require_once __DIR__ . '/includes/header.php';
 
                     <!-- Security Verification Code (CAPTCHA) -->
                     <div class="mb-4">
-                        <label class="form-label small fw-semibold">Verification Code (CAPTCHA)</label>
+                        <label class="form-label small fw-semibold">Security Verification (CAPTCHA)</label>
                         <div class="d-flex align-items-center gap-2 mb-2">
                             <img id="captchaImg" src="<?= $assetPrefix ?>api/captcha.php" alt="Verification Code" class="rounded border shadow-sm" style="height: 44px; width: 150px; object-fit: cover;">
                             <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-2" onclick="document.getElementById('captchaImg').src='<?= $assetPrefix ?>api/captcha.php?action=refresh&t=' + new Date().getTime();" title="Refresh CAPTCHA">
@@ -129,7 +129,7 @@ require_once __DIR__ . '/includes/header.php';
                     </div>
 
                     <button type="submit" class="btn btn-success rounded-pill w-100 fw-bold py-2-5 shadow-sm text-white mb-0">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Log In as Club Lead
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Log In to Chapter Executive Suite
                     </button>
                 </form>
             </div>
