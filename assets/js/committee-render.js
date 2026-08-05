@@ -9,8 +9,8 @@ function renderCommittee() {
 
     const defaultMembers = [
         { name: 'Prof. (Dr.) Sanjay Srivastava', designation: 'PRINCIPAL', role_title: 'United Institute of Technology', photo: 'assets/img/committee/sanjay-srivastava.webp', bio: 'UIT Institutional Head' },
-        { name: 'Dr. Manas Pandey', designation: 'DEAN STUDENT WELFARE (DSW)', role_title: 'Student Club Affairs, UIT', photo: 'assets/img/committee/manas-pandey.jpg', bio: 'Student Club Lead' },
-        { name: 'Dr. Ankit Gupta', designation: 'FACULTY COORDINATOR', role_title: 'Faculty Lead, Cultural Club', photo: 'assets/img/committee/ankit-gupta.jpg', bio: 'UIT Faculty Lead' },
+        { name: 'Dr. Manas Pandey', designation: 'DEAN STUDENT WELFARE (DSW)', role_title: 'Student Club Affairs, UIT', photo: 'assets/img/committee/manas-pandey.jpg', bio: 'Student Club Affairs Lead' },
+        { name: 'Dr. Ankit Gupta', designation: 'FACULTY COORDINATOR', role_title: 'Faculty Coordinator, Cultural Club', photo: 'assets/img/committee/ankit-gupta.jpg', bio: 'UIT Cultural Faculty Lead' },
         { name: 'Arya Keshari', designation: 'STUDENT PRESIDENT', role_title: 'Student Club President', photo: 'assets/img/committee/arya-keshari.jpg', bio: 'USC UIT Council Lead' }
     ];
 
@@ -19,7 +19,14 @@ function renderCommittee() {
         .then(response => {
             let members = defaultMembers;
             if (response.status === 'success' && Array.isArray(response.data) && response.data.length > 0) {
-                members = response.data;
+                // Filter out UGI Patrons (Chairman, President, Vice Chairman, Sr. Vice President) as they are displayed in Tier 1
+                const leadershipOnly = response.data.filter(m => {
+                    const d = (m.designation || '').toUpperCase();
+                    return !d.includes('CHAIRMAN') && !d.includes('PRESIDENT') && !d.includes('VICE');
+                });
+                if (leadershipOnly.length > 0) {
+                    members = leadershipOnly;
+                }
             }
             populateCommitteeUI(committeeContainer, members);
         })

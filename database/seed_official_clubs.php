@@ -49,12 +49,12 @@ try {
     ");
 
     $committeeMembers = [
-        ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/girdhar-gopal-gulati.webp', 'Visionary leader driving educational excellence across United Group of Institutions.', 1],
-        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/satpal-gulati.webp', 'Guiding institutional growth, technical education innovation, and student welfare.', 2],
-        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/jagdish-gulati.webp', 'Pioneering student activity frameworks and campus infrastructure development.', 3],
-        ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'assets/img/committee/gaurav-gulati.webp', 'Fostering industry-academia collaboration and student co-curricular affairs.', 4],
-        ['Prof. (Dr.) Sanjay Srivastava', 'PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Overseeing official student clubs, co-curricular governance, and campus events.', 5],
-        ['Dr. Manas Pandey', 'DEAN STUDENT WELFARE (DSW)', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Coordinating official club registrations, event approvals, and student leadership.', 6]
+        ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/girdhar-gopal-gulati.webp', 'Visionary Chairman & Educational Founder', 1],
+        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/satpal-gulati.webp', 'President & UGI Institutional Governance Lead', 2],
+        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/jagdish-gulati.webp', 'Vice Chairman & Campus Infrastructure Director', 3],
+        ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'assets/img/committee/gaurav-gulati.webp', 'Sr. Vice President & Co-Curricular Lead', 4],
+        ['Prof. (Dr.) Sanjay Srivastava', 'PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Principal & UIT Institutional Head', 5],
+        ['Dr. Manas Pandey', 'DEAN STUDENT WELFARE (DSW)', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Dean Student Welfare & Club Affairs Lead', 6]
     ];
 
     foreach ($committeeMembers as $cm) {
