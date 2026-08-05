@@ -4,4 +4,20 @@
     # Redirect paths with double slashes, e.g. /UIT//index.html -> /UIT/index.html
     RewriteCond %{REQUEST_URI} ^(.*)/{2,}(.*)$
     RewriteRule ^ %1/%2 [R=301,L]
+
+    # Block access to hidden dotfiles (.git, .env, .htaccess, etc.)
+    RewriteRule "(^|/)\." - [F]
 </IfModule>
+
+# Disable Directory Indexing across the site
+Options -Indexes
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "DENY"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set X-Permitted-Cross-Domain-Policies "none"
+</IfModule>
+
