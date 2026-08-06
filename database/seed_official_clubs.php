@@ -50,8 +50,8 @@ try {
 
     $committeeMembers = [
         ['Dr. G. G. Gulati', 'CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/girdhar-gopal-gulati.webp', 'Visionary Chairman & Educational Founder', 1],
-        ['Er. Satpal Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/satpal-gulati.webp', 'President & UGI Institutional Governance Lead', 2],
-        ['Dr. Jagdish Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/jagdish-gulati.webp', 'Vice Chairman & Campus Infrastructure Director', 3],
+        ['Dr. Jagdish Gulati', 'PRESIDENT', 'United Group of Institutions', 'assets/img/committee/jagdish-gulati.webp', 'President & UGI Institutional Governance Lead', 2],
+        ['Er. Satpal Gulati', 'VICE CHAIRMAN', 'Management Committee, UGI', 'assets/img/committee/satpal-gulati.webp', 'Vice Chairman & Campus Infrastructure Director', 3],
         ['Dr. Gaurav Gulati', 'SENIOR VICE PRESIDENT', 'Management Committee, UGI', 'assets/img/committee/gaurav-gulati.webp', 'Sr. Vice President & Co-Curricular Lead', 4],
         ['Prof. (Dr.) Sanjay Srivastava', 'PRINCIPAL', 'United Institute of Technology', 'assets/img/committee/sanjay-srivastava.webp', 'Principal & UIT Institutional Head', 5],
         ['Dr. Manas Pandey', 'DEAN STUDENT WELFARE (DSW)', 'Student Club Affairs, UIT', 'assets/img/committee/manas-pandey.jpg', 'Dean Student Welfare & Club Affairs Lead', 6]
