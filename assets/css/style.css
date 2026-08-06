@@ -3515,12 +3515,20 @@ body {
 }
 
 .icon-float-air,
-.footer-links li a i,
 .social-icon-btn i,
 .developer-link i,
 .events-photo-badge-pill i,
 .clubs-top-pill-breadcrumb i {
     display: inline-block !important;
+    animation: iconFloatAir 3.2s ease-in-out infinite !important;
+}
+
+.footer-links li a i {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin-right: 0 !important;
     animation: iconFloatAir 3.2s ease-in-out infinite !important;
 }
 
